@@ -114,12 +114,7 @@
 
         <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">404 Error</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item active text-white">404</li>
-            </ol>
+            <h1 class="text-center text-white display-6">회원가입</h1>
         </div>
         <!-- Single Page Header End -->
         
@@ -130,17 +125,24 @@
 		            alert('아이디를 입력해주세요!');
 		            joinForm.MID.focus(); //focus() : 해당 위치로 커서 이동
 		            return false;
-		         }
+				 }
+		         // id 영어, 숫자만
+		         // 자리수 5~15 이하
 		         if(!joinForm.MNAME.value){ //값이 없다면
 		            alert('이름을 입력해주세요!');
 		            joinForm.MNAME.focus();
 		            return false;
-		         }
+
+				 }
+				 // 한글만
+		         // 자리수 2~20글자
 		         if(!joinForm.MPW.value){ //값이 없다면
 		            alert('비밀번호를 입력해주세요!');
 		            joinForm.MPW.focus();
 		            return false;
 		         }
+		         // 자리수 8~15
+		         // 알파벳 대1, 소1, 숫자
 		         if(!joinForm.MPWcheck.value){ //값이 없다면
 		            alert('비밀번호 확인해주세요!');
 		            joinForm.MPWcheck.focus();
@@ -151,34 +153,51 @@
 		            joinForm.MPWcheck.focus();
 		            return false;
 				 }
+				 
+				 var today = new Date();
+				 var fourteen = new Date();
+
+				 fourteen.setFullYear(today.getFullYear() - 14);
 		         if(!joinForm.YOB.value){ //값이 없다면
 		            alert('생년월일을 입력해주세요!');
 		            joinForm.YOB.focus();
 		            return false;
 		         }
+		         
+				 var userEnteredYear = parseInt(joinForm.YOB.value, 10);
+				var userEnteredDate = new Date(userEnteredYear, 0, 1); // Assuming the user only enters the year
+		         if (userEnteredDate.getFullYear() > fourteen.getFullYear()) {
+                    alert('만 14세 이상만 가입 가능합니다');
+		            joinForm.YOB.focus();
+		            return false;
+				 }
+		         // 만 14세 ~ 120세
 		         if(!joinForm.gender.value){ //값이 없다면
 		            alert('성별을 입력해주세요!');
 		            joinForm.gender.focus();
 		            return false;
 		         }
-		         if(!joinForm.NATIONALITY.value){ //값이 없다면
-		            alert('국적을 입력해주세요!');
-		            joinForm.NATIONALITY.focus();
-		            return false;
-		         }
-		         if(!joinForm.PHONENUMBER.value){ //값이 없다면
+		         if(!joinForm.phonenum1.value){ //값이 없다면
 		            alert('핸드폰 번호를 입력해주세요!');
-		            joinForm.PHONENUMBER.focus();
+		            joinForm.phonenum1.focus();
 		            return false;
-		         }
+		         } else if (isNaN(joinForm.phonenum1.value)) {
+	      	        alert('핸드폰 번호에 숫자를 입력해주세요!');
+		            joinForm.phonenum1.focus();
+		            return false;
+				 }
+		         if(!joinForm.phonenum2.value){ //값이 없다면
+		            alert('핸드폰 번호를 입력해주세요!');
+		            joinForm.phonenum2.focus();
+		            return false;
+		         } else if (isNaN(joinForm.phonenum2.value)) {
+	      	        alert('핸드폰 번호에 숫자를 입력해주세요!');
+		            joinForm.phonenum2.focus();
+		            return false;
+				 }
 		         if(!joinForm.ADDRESS.value){ //값이 없다면
 		            alert('주소를 입력해주세요!');
 		            joinForm.ADDRESS.focus();
-		            return false;
-		         }
-		         if(!joinForm.HEALTH.value){ //값이 없다면
-		            alert('건강상태를 입력해주세요!');
-		            joinForm.HEALTH.focus();
 		            return false;
 		         }
 		      };
@@ -193,19 +212,19 @@
                 <div class="row justify-content-center">
                     <div class="form-item w-100">
                         <label class="form-label my-3">회원 ID 입력<sup>*</sup></label>
-                        <input type="text" class="form-control" name="MID">
+                        <input type="text" class="form-control" name="MID" minlength="5" maxlength="15" title="영어 소문자와 숫자만 포함해야 합니다" placeholder="글자 수 제한 5~15" pattern="[a-z0-9]+">
                     </div>
                     <div class="form-item w-100">
                         <label class="form-label my-3">이름 입력<sup>*</sup></label>
-                        <input type="text" class="form-control" name="MNAME">
+                        <input type="text" class="form-control" name="MNAME" minlength="2" maxlength="20" placeholder="글자 수 제한 2~20" pattern="[가-힣]+">
                     </div>
                     <div class="form-item w-100">
                         <label class="form-label my-3">비밀번호 입력<sup>*</sup></label>
-                        <input type="password" class="form-control" name="MPW">
+                        <input type="password" class="form-control" name="MPW" minlength="8" maxlength="15" title="영어 대소문자와 숫자를 포함해야 합니다" placeholder="영어 대소문자와 숫자를 포함해야 합니다" pattern="^[a-zA-Z0-9!@#$%^&*()-_+=<>?]+$">
                     </div>
                     <div class="form-item w-100">
                         <label class="form-label my-3">비밀번호 확인<sup>*</sup></label>
-                        <input type="password" class="form-control" name="MPWcheck">
+                        <input type="password" class="form-control" name="MPWcheck" minlength="8" maxlength="15">
                     </div>
                     <div class="form-item w-100">
                         <label class="form-label my-3">생년월일 입력<sup>*</sup></label>
@@ -218,20 +237,35 @@
                         <h6>여</h6>
                     </div>
                     <div class="form-item w-100">
-                        <label class="form-label my-3">국적 입력<sup>*</sup></label>
-                        <input type="text" class="form-control" name="NATIONALITY">
-                    </div>
-                    <div class="form-item w-100">
-                        <label class="form-label my-3">전화번호 입력<sup>*</sup></label>
-                        <input type="text" class="form-control" name="PHONENUMBER">
+                        <label class="form-label my-3">전화번호 입력<sup>*</sup><br>ex) 010-1234-5678</label><br>
+						<tr>
+							<td>								
+	                        	<select>
+									<option value>010</option>
+									<option value>011</option>
+	                        	</select>
+							</td>
+							-
+							<td>								
+			          	      <input type="text" name="phonenum1" minlength="4" maxlength="4">
+			          	    </td>
+			          	    -
+							<td>								
+	                        	<input type="text" name="phonenum2" minlength="4" maxlength="4">
+	                        </td>
+						</tr>
                     </div>
                     <div class="form-item w-100">
                         <label class="form-label my-3">주소 입력<sup>*</sup></label>
                         <input type="text" class="form-control" name="ADDRESS">
                     </div>
                     <div class="form-item w-100">
-                        <label class="form-label my-3">건강상태 입력<sup>*</sup></label>
-                        <input type="text" class="form-control" name="HEALTH">
+                        <label class="form-label my-3">건강상태 입력</label><br>
+                        <input type="checkbox" name="HEALTH" value="눈"> 눈 &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" name="HEALTH" value="간"> 간 &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" name="HEALTH" value="피부"> 피부 &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" name="HEALTH" value="위"> 위 &nbsp;&nbsp;&nbsp;&nbsp;
+
                     </div>
                     <div class="row g-4 text-center align-items-center justify-content-center pt-4">
                         <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place Order</button>
