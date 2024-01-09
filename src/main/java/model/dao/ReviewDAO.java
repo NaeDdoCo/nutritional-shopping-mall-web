@@ -12,6 +12,14 @@ public class ReviewDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
+	/* 기능
+	 *  1) 해당제품 리뷰 출력, 마이페이지 내가 쓴 리뷰 출력
+	 *  2) ?리뷰 선택?
+	 *  3) 리뷰 작성
+	 *  4) ?리뷰 변경?
+	 *  5) 리뷰 삭제
+	 */ 
+	
 	private static final String SELECTALL="";
 	
 	private static final String SELECTONE="";
