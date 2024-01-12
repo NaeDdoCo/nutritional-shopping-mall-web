@@ -1,73 +1,77 @@
 --회원 테이블
 CREATE TABLE MEMBER(
 	-- 회원아이디(영문, 숫자 15자 제한), 기본키 
-	MID VARCHAR2(15) PRIMARY KEY,
+	M_ID VARCHAR2(15) PRIMARY KEY,
 	-- 회원이름(박 하늘별님구름햇님보다사랑스러우리) // 한글 3byte
-	MNAME VARCHAR2(60) NOT NULL,
+	M_NAME VARCHAR2(60) NOT NULL,
 	-- 회원비밀번호(영문, 숫자 15자 제한)
-	MPASSWORD VARCHAR2(15) NOT NULL,
+	M_PASSWORD VARCHAR2(15) NOT NULL,
 	-- 출생년도
 	-- 사용자가 '0001-01-01'과 같은 형식으로 입력해야함
-	YOB DATE NOT NULL,
+	DOB DATE NOT NULL,
 	--성별 // (남 or 여)
 	GENDER VARCHAR2(3) NOT NULL,
-	--국적 // (korea == 5byte)
-	NATIONALITY VARCHAR2(50) NOT NULL,
 	--연락처(숫자 11 + -2개)
 	--하이픈 입력을 강제해야함
-	PHONENUMBER VARCHAR2(13) NOT NULL,
+	PHONE_NUMBER VARCHAR2(13) NOT NULL,
+	--이메일
+	EMAIL VARCHAR2(254) NOT NULL,
 	--주소(공백입력 제한)
 	ADDRESS VARCHAR2(150) NOT NULL,
 	--회원등급(admin == 5byte)
-	GRADE VARCHAR2(5) DEFAULT 'USER',
+	GRADE VARCHAR2(5) NOT NULL,
 	--건강상태(뷰에서 선택지 형식으로 1. 눈 건강 이상, 2. 간 건강 이상 ....)
 	HEALTH VARCHAR2(45) NOT NULL
 );
 
---제품 테이블
+--상품 테이블
 CREATE TABLE PRODUCT(
-	-- 제품번호(기본키)
-	PID INT PRIMARY KEY,
-	-- 제품이름(20자 제한)
-	PNAME VARCHAR2(60) NOT NULL,
-	-- 제품 원가
-	COSTPRICE INT NOT NULL,
-	-- 제품 정가
-	REGULARPRICE INT NOT NULL,
-	-- 제품 판매가
-	SELLINGPRICE INT NOT NULL,
-	-- 제품재고
-	CNT INT NOT NULL,
-	-- 제품성분(제품 성분 100자 제한)
+	-- 상품번호(기본키)
+	P_ID INT PRIMARY KEY,
+	-- 상품이름(20자 제한)
+	P_NAME VARCHAR2(60) NOT NULL,
+	-- 상품 원가
+	COST_PRICE INT NOT NULL,
+	-- 상품 정가
+	REGULAR_PRICE INT NOT NULL,
+	-- 상품 판매가
+	SELLING_PRICE INT NOT NULL,
+	-- 상품재고
+	P_QTY INT NOT NULL,
+	-- 상품성분(상품 성분 100자 제한)
 	INGREDIENT VARCHAR2(300) NOT NULL,
-	-- 제품용법(25자 제한) //  1일 2회, 1회 2정 섭취(공백포함 21byte)
+	-- 상품용법(25자 제한) //  1일 2회, 1회 2정 섭취(공백포함 21byte)
 	USAGE VARCHAR2(75) DEFAULT '1일 2회, 1회 2정 섭취',
 	-- 유통기한
 	EXP VARCHAR2(75) DEFAULT '제조일로부터 24개월',
 	-- 카테고리
-	CATEGORY VARCHAR2(75) NOT NULL
+	CATEGORY VARCHAR2(75) NOT NULL,
+	-- 등록일
+	REG_DATE TIMESTAMP NOT NULL,
+	-- 판매상태
+	SELLING_STATE VARCHAR2(15)
 );
 
 --장바구니 테이블
 CREATE TABLE CART (
 	-- 장바구니 번호
-    CID INT PRIMARY KEY,      
+    C_ID INT PRIMARY KEY,      
     -- 회원 아이디 (MEMBER 테이블의 MID를 참조)
-    MID VARCHAR2(15) NOT NULL,         
-    -- 제품 번호 (PRODUCT 테이블의 PID를 참조)
-    PID INT NOT NULL,      
-    -- 장바구니에 담은 제품 수량
-    CNT INT NOT NULL
+    M_ID VARCHAR2(15) NOT NULL,         
+    -- 상품 번호 (PRODUCT 테이블의 PID를 참조)
+    P_ID INT NOT NULL,      
+    -- 장바구니에 담은 상품 수량
+    C_QTY INT NOT NULL
 );
 
 --쿠폰 테이블
 CREATE TABLE COUPON (
 	-- 쿠폰 번호 (영문과 숫자가 혼합된 문자열 10자)
-    CPID VARCHAR2(10) PRIMARY KEY,
+    CP_ID VARCHAR2(10) PRIMARY KEY,
     -- 회원 아이디 (MEMBER 테이블의 MID를 참조)
-    MID VARCHAR2(15) NOT NULL,
+    M_ID VARCHAR2(15) NOT NULL,
     -- 쿠폰 이름
-    CPNAME VARCHAR2(75) NOT NULL, 
+    CP_NAME VARCHAR2(75) NOT NULL, 
     -- 사용기간 (발급일로부터 30초)
     -- DATETIME 사용불가
     -- TIMESTAMP 사용가능
@@ -85,36 +89,50 @@ CREATE TABLE COUPON (
 --구매내역 테이블
 CREATE TABLE BUYINFO (
 	-- 구매번호
-    BID INT PRIMARY KEY,   
+    B_ID INT PRIMARY KEY,   
     -- 회원 아이디 (MEMBER 테이블의 MID를 참조)
-    MID VARCHAR2(15) NOT NULL,     
-    -- 제품 번호 (PRODUCT 테이블의 PID를 참조)
-    PID INT NOT NULL,          
+    M_ID VARCHAR2(15) NOT NULL,     
+    -- 상품 번호 (PRODUCT 테이블의 PID를 참조)
+    P_ID INT NOT NULL,          
 	-- 쿠폰 번호 (COUPON 테이블의 CPID를 참조)           
-    CPID VARCHAR2(10),    
+    CP_ID VARCHAR2(10),    
     -- 5. 주문번호
-    ORDERNUM INT NOT NULL,        
+    ORDER_NUM INT NOT NULL,        
 	-- 6. 배송 상태         
-    DELISTAT VARCHAR2(75) DEFAULT '결재 완료' NOT NULL,     
+    DELI_STATE VARCHAR2(75) DEFAULT '결재 완료' NOT NULL,     
     -- 7. 구매 수량
-    CNT INT NOT NULL,
+    B_QTY INT NOT NULL,
     -- 8. 결제 금액
-    PAYMENTPRICE INT NOT NULL,
+    PAYMENT_PRICE INT NOT NULL,
     -- 9. 구매일
-    BUYDATE DATE NOT NULL
+    BUY_DATE TIMESTAMP NOT NULL
+);
+
+--리뷰 테이블
+CREATE TABLE REVIEW (
+	--리뷰번호
+	R_ID INT PRIMARY KEY,
+	--회원ID
+	M_ID VARCHAR2(15) NOT NULL,
+	--구매번호
+	B_ID INT NOT NULL,
+	--별점
+	SCORE INT NOT NULL,
+	--리뷰내용
+	CONTENTS VARCHAR2(1500) NOT NULL,
+	--작성일
+	CREATE_DATE TIMESTAMP NOT NULL
 );
 -------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
+--회원가입
+INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH) VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), '남', '010-2525-2525', 'teemo@gmail.com', '경기도 용인시', 'USER', '눈');
 
-INSERT INTO MEMBER (MID, MNAME, MPASSWORD, YOB, GENDER, NATIONALITY, PHONENUMBER, ADDRESS, GRADE, HEALTH) VALUES ('user1', 'TEEMO', '1234', TO_DATE('2099-12-30 23:59:59', 'YYYY-MM-DD HH24:MI:SS'), '남', 'Korea', '010-5092-9241', '경기도 용인시', 'USER', '눈 아픔');
-INSERT INTO PRODUCT (PID, PNAME, COSTPRICE, REGULARPRICE, SELLINGPRICE, CNT, INGREDIENT, USAGE, EXP, CATEGORY) VALUES (1001, 'omega', 15000, 20000, 17000, 45, '맛도 좋고 몸에 좋음', '1일 2정', '2년', '눈');
-INSERT INTO PRODUCT (PID, PNAME, COSTPRICE, REGULARPRICE, SELLINGPRICE, CNT, INGREDIENT, USAGE, EXP, CATEGORY) VALUES (1002, 'vitamin', 14000, 19000, 16000, 44, '맛도 좋고 몸에 좋음', '1일 2정', '2년', '간');
-INSERT INTO COUPON (CPID, MID, CPNAME, PERIOD, DISCOUNT, CATEGORY) VALUES ('testcp0001', 'user1', '테스트쿠폰', TO_TIMESTAMP('2099-12-30 23:59:59', 'YYYY-MM-DD HH24:MI:SS'), 50, '눈');
-INSERT INTO COUPON (CPID, MID, CPNAME, PERIOD, DISCOUNT, CATEGORY) VALUES ('testcp0002', 'user1', '테스트쿠폰', TO_TIMESTAMP('2099-12-30 23:59:59', 'YYYY-MM-DD HH24:MI:SS'), 50, '눈');
 SELECT * FROM MEMBER;
 SELECT * FROM PRODUCT;
 SELECT * FROM CART;
 SELECT * FROM COUPON;
 SELECT * FROM BUYINFO;
+SELECT * FROM REVIEW;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DROP TABLE MEMBER;
@@ -122,3 +140,4 @@ DROP TABLE PRODUCT;
 DROP TABLE CART;
 DROP TABLE COUPON;
 DROP TABLE BUYINFO;
+DROP TABLE REVIEW;
