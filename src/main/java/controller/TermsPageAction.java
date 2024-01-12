@@ -13,7 +13,8 @@ public class TermsPageAction implements Action{
 			throws ServletException, IOException {
 		
 		ActionForward forward = new ActionForward();
-		
+		forward.setPath("termsPage.jsp");
+		forward.setRedirect(true);		
 		
 		return forward;
 	}
