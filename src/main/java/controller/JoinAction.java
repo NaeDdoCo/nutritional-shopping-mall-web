@@ -40,6 +40,10 @@ public class JoinAction implements Action {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        System.out.println("[JoinAction] " + sqlDate);
+        
+        // phoneNumber 조합
+        String phoneNumber = request.getParameter("phoneNumber0") + "-" + request.getParameter("phoneNumber1") + "-" + request.getParameter("phoneNumber2");
 		
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
@@ -48,10 +52,12 @@ public class JoinAction implements Action {
 		mDTO.setmPassword(mpw);
 		mDTO.setDob(sqlDate);
 		mDTO.setGender(request.getParameter("gender"));
-		mDTO.setPhoneNumber(request.getParameter("phoneNumber"));
+		mDTO.setPhoneNumber(phoneNumber);
 		mDTO.setEmail(request.getParameter("email"));
 		mDTO.setAddress(request.getParameter("address"));
 		mDTO.setHealth(request.getParameter("health"));
+		System.out.println("[JoinAction] " + mDTO);
+		
 		if (mDAO.insert(mDTO)) {
 			forward.setPath("mainPage.do");
 			forward.setRedirect(false);		

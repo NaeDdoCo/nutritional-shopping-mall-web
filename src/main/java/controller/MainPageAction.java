@@ -13,7 +13,7 @@ public class MainPageAction implements Action {
 			throws ServletException, IOException {
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("mainPage.jsp");
+		forward.setPath("main.jsp");
 		forward.setRedirect(true);		
 		
 		

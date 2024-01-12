@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-import model.dto.CouponDTO;
 import model.dto.MemberDTO;
 
 public class MemberDAO {
@@ -39,22 +38,31 @@ public class MemberDAO {
 	private static final String DELETE="";
 	
 	public ArrayList<MemberDTO> selectAll(MemberDTO mDTO) {
-		return null;
+		ArrayList<MemberDTO> datas = new ArrayList<MemberDTO>();
+		MemberDTO data = new MemberDTO();
+		
+		data.setMid("teemo");
+		datas.add(data);
+		return datas;
 	}
 	
 	public MemberDTO selectOne(MemberDTO mDTO) {
-		return null;
+		MemberDTO data = new MemberDTO();
+		
+		data.setMid("teemo");
+
+		return data;
 	}
 	
 	public boolean insert(MemberDTO mDTO) {
-		return false;
+		return true;
 	}
 	
 	public boolean update(MemberDTO mDTO) {
-		return false;
+		return true;
 	}
 	
 	public boolean delete(MemberDTO mDTO) {
-		return false;
+		return true;
 	}
 }
