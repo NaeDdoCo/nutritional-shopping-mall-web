@@ -174,7 +174,7 @@
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여자">여자
 							</div>
 							<div class="col-lg-2">
-								<input class="form-control p-3 border-secondary" type="text" name="phoneNum1" value="010" disabled required>
+								<input class="form-control p-3 border-secondary" type="text" name="phoneNum1" value="010" readonly required>
 							</div>
 							<div class="col-lg-3">
 								<input class="form-control p-3 border-secondary" type="text" name="phoneNum2" placeholder="0000" required>
