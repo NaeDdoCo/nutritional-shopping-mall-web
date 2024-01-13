@@ -47,6 +47,7 @@ public class JoinAction implements Action {
 		
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
+		mDTO.setSearchCondition("회원가입");
 		mDTO.setMid(request.getParameter("MID"));
 		mDTO.setmName(request.getParameter("mName"));
 		mDTO.setmPassword(mpw);
@@ -62,7 +63,7 @@ public class JoinAction implements Action {
 			forward.setPath("mainPage.do");
 			forward.setRedirect(false);		
 		} else {
-			// TODO: error
+			return null;
 		}
 		
 		
