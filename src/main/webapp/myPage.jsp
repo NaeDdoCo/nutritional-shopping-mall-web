@@ -90,6 +90,7 @@
 						</div>
 					</div>
 					<div class="d-flex m-3 me-0">
+						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
 						<button
 							class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
 							data-bs-toggle="modal" data-bs-target="#searchModal">
@@ -165,18 +166,10 @@
 				<div class="row g-4">
 					<div class="col-lg-3">
 						<a href="#">
-							<h1 class="text-primary mb-0">Fruitables</h1>
-							<p class="text-secondary mb-0">Fresh products</p>
+							<h1 class="text-primary mb-0">NaeDdoCo Pills</h1>
 						</a>
 					</div>
 					<div class="col-lg-6">
-						<div class="position-relative mx-auto">
-							<input class="form-control border-0 w-100 py-3 px-4 rounded-pill"
-								type="number" placeholder="Your Email">
-							<button type="submit"
-								class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-								style="top: 0; right: 0;">Subscribe Now</button>
-						</div>
 					</div>
 					<div class="col-lg-3">
 						<div class="d-flex justify-content-end pt-3">
