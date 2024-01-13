@@ -7,7 +7,6 @@ public class MemberDTO {
 	private String mid;
 	private String mName;
 	private String mPassword;
-	// 년,월,일만 저장하는 클래스 LocalDate
 	private Date dob;
 	private String gender;
 	private String phoneNumber;
@@ -85,4 +84,11 @@ public class MemberDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	@Override
+	public String toString() {
+		return "MemberDTO [mid=" + mid + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
+				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", grade="
+				+ grade + ", health=" + health + ", searchCondition=" + searchCondition + "]";
+	}
+	
 }

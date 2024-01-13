@@ -49,7 +49,11 @@ CREATE TABLE PRODUCT(
 	-- 등록일
 	REG_DATE TIMESTAMP NOT NULL,
 	-- 판매상태
-	SELLING_STATE VARCHAR2(15)
+	-- NOT NULL 작성_01_13
+	SELLING_STATE VARCHAR2(15) NOT NULL,
+	-- 상품이미지 경로
+	-- 추가작성_01_13
+	IMAGEPATH VARCHAR2(255)
 );
 
 --장바구니 테이블
@@ -90,11 +94,12 @@ CREATE TABLE COUPON (
 CREATE TABLE BUYINFO (
 	-- 구매번호
     B_ID INT PRIMARY KEY,   
-    -- 회원 아이디 (MEMBER 테이블의 MID를 참조)
-    M_ID VARCHAR2(15) NOT NULL,     
-    -- 상품 번호 (PRODUCT 테이블의 PID를 참조)
+    -- 회원 아이디
+    -- NOT NULL 제거_01_13
+    M_ID VARCHAR2(15),     
+    -- 상품 번호
     P_ID INT NOT NULL,          
-	-- 쿠폰 번호 (COUPON 테이블의 CPID를 참조)           
+	-- 쿠폰 번호        
     CP_ID VARCHAR2(10),    
     -- 5. 주문번호
     ORDER_NUM INT NOT NULL,        
@@ -113,7 +118,8 @@ CREATE TABLE REVIEW (
 	--리뷰번호
 	R_ID INT PRIMARY KEY,
 	--회원ID
-	M_ID VARCHAR2(15) NOT NULL,
+	--NOT NULL 제거_01_13
+	M_ID VARCHAR2(15),
 	--구매번호
 	B_ID INT NOT NULL,
 	--별점
@@ -126,6 +132,45 @@ CREATE TABLE REVIEW (
 -------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
 --회원가입
 INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH) VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), '남', '010-2525-2525', 'teemo@gmail.com', '경기도 용인시', 'USER', '눈');
+--중복검사
+SELECT M_ID FROM MEMBER WHERE M_ID = 'teemo';
+
+--회원정보변경(미완성)
+UPDATE MEMBER 
+SET M_PASSWORD = , GENDER = , PHONE_NUMBER = , EMAIL = , ADDRESS = , HEALTH = 
+WHERE M_ID = 'teemo';
+-------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
+--장바구니에 담기
+INSERT INTO CART (C_ID, M_ID, P_ID, C_QTY) VALUES (NVL((SELECT MAX(C_ID) FROM CART), 0)+1, 'teemo', 1, 1);
+
+--조인해서 장바구니에 출력하기 
+SELECT C.C_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGEPATH
+FROM CART C
+JOIN PRODUCT P ON C.P_ID = P.P_ID;
+
+--총합까지 연산
+--SELECT C.C_ID,C.M_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGEPATH, (C.C_QTY * P.SELLING_PRICE) AS TOTAL_PRICE 
+--FROM CART C
+--JOIN PRODUCT P ON C.P_ID = P.P_ID;
+
+-------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
+--제품추가
+INSERT INTO PRODUCT (P_ID, P_NAME, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_DATE, SELLING_STATE, IMAGEPATH)
+VALUES (
+  NVL((SELECT MAX(P_ID) FROM PRODUCT), 0) + 1,
+  '상품명',
+  10000,  -- 원가
+  15000,  -- 정가
+  12000,  -- 판매가
+  50,     -- 재고
+  '상품 성분',
+  '카테고리',
+  SYSTIMESTAMP, -- 현재 시간
+  '판매중',       
+  '이미지 경로'
+);
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 SELECT * FROM MEMBER;
 SELECT * FROM PRODUCT;

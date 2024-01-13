@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-
+<html>
 <head>
 <meta charset="utf-8">
-<title>로그인</title>
+<title>회원가입</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -13,21 +12,15 @@
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
 <!-- Icon Font Stylesheet -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-<link href="lib/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
 
 <!-- Customized Bootstrap Stylesheet -->
@@ -52,13 +45,11 @@
 		<div class="container topbar bg-primary d-none d-lg-block">
 			<div class="d-flex justify-content-between">
 				<div class="top-info ps-2">
-					<small class="me-3">
-						<i class="fas fa-map-marker-alt me-2 text-secondary"></i> 
-						<a href="#" class="text-white">123 Street, New York</a>
-					</small> 
-					<small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i>
-						<a href="#" class="text-white">Email@Example.com</a>
-					</small>
+					<small class="me-3"><i
+						class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+						class="text-white">123 Street, New York</a></small> <small class="me-3"><i
+						class="fas fa-envelope me-2 text-secondary"></i><a href="#"
+						class="text-white">Email@Example.com</a></small>
 				</div>
 				<div class="top-link pe-2">
 					<a href="#" class="text-white">
@@ -78,7 +69,8 @@
 				<a href="main.jsp" class="navbar-brand">
 					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
 				</a>
-				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+				<button class="navbar-toggler py-2 px-3" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 					<span class="fa fa-bars text-primary"></span>
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
@@ -144,24 +136,95 @@
 	<!-- Single Page Header End -->
 
 
-	<!-- 로그인 폼 시작 -->
+	<!-- 404 Start -->
 	<div class="container-fluid py-5">
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="login.do" method="POST">
-						<input class="form-control p-3 border-secondary" type="text" name="MID" placeholder="아이디 입력란" required> <br> 
-						<input class="form-control p-3 border-secondary" type="password" name="mPassword" placeholder="비밀번호 입력란" required> <br> 
-						<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="로그인">
-						<a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="join.jsp">회원가입</a>
+					<form action="login.jsp" method="POST" name ="joinForm" onsubmit="return checkField()">
+						<div class="row g-4">
+							<div class="col-lg-8">
+								<input class="form-control p-3  border-secondary" type="text" name="MID" placeholder="아이디">	
+							</div>	
+							<div class="col-lg-4">
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">중복 검사</button>	
+							</div>		
+							<div class="col-lg-6">
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword" placeholder="비밀번호" required>
+							</div>
+							<div class="col-lg-6">
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" placeholder="재입입력" required>
+							</div>
+							<div class="col-lg-12">
+								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
+							</div>
+							<div class="col-lg-4">
+								<input class="form-control p-3 border-secondary" type="text" name="year" placeholder="yyyy" required>
+							</div>
+							<div class="col-lg-4">
+								<input class="form-control p-3 border-secondary" type="text" name="month" placeholder="MM" required>
+							</div>
+							<div class="col-lg-4">
+								<input class="form-control p-3 border-secondary" type="text" name="day" placeholder="dd" required>
+							</div>
+							<div class="col-lg-6">
+								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남자" checked="checked">남자
+							</div>
+							<div class="col-lg-6">
+								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여자">여자
+							</div>
+							<div class="col-lg-2">
+								<input class="form-control p-3 border-secondary" type="text" name="phoneNum1" value="010" readonly required>
+							</div>
+							<div class="col-lg-3">
+								<input class="form-control p-3 border-secondary" type="text" name="phoneNum2" placeholder="0000" required>
+							</div>
+							<div class="col-lg-3">
+								<input class="form-control p-3 border-secondary" type="text" name="phoneNum3" placeholder="0000" required>
+							</div>
+							<div class="col-lg-4">
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 발송</button>	
+							</div>
+							<div class="col-lg-8">
+								<input class="form-control p-3 border-secondary" type="text" name="authNum" placeholder="인증번호" required>
+							</div>
+							<div class="col-lg-4">
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 확인</button>	
+							</div>
+							<div class="col-lg-5">
+								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디" required>
+							</div>
+							<div class="col-lg-2">
+								<P>@</P>
+							</div>
+							<div class="col-lg-5">
+								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
+							</div>
+							<div class="col-lg-8">
+								<input class="form-control p-3 border-secondary" type="text" name="zipcode" placeholder="우편번호" required>
+							</div>
+							<div class="col-lg-4">
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">우편번호 찾기</button>	
+							</div>
+							<div class="col-lg-6">
+								<input class="form-control p-3 border-secondary " type="password" name="address1" placeholder="도로명 주소" required>
+							</div>
+							<div class="col-lg-6">
+								<input class="form-control p-3 border-secondary" type="password" name="address2" placeholder="지번 주소" required>
+							</div>
+							<div class="col-lg-6">
+								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="회원가입">
+							</div>
+							<div class="col-lg-6">
+								<button class="btn border border-secondary text-primary rounded-pill px-3 py-3" type="button" onclick="">취소</button>	
+							</div>
+						</div>
 					</form>
 				</div>
 			</div>
-			<hr>		
-				<a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="#">카카오 로그인</a>
 		</div>
 	</div>
-	<!-- 로그인 폼 끝 -->
+	<!-- 404 End -->
 
 
 	<!-- Footer Start -->
@@ -247,6 +310,7 @@
 	</div>
 	<!-- Footer End -->
 
+
 	<!-- Copyright Start -->
 	<div class="container-fluid copyright bg-dark py-4">
 		<div class="container">
@@ -270,18 +334,15 @@
 	<!-- Copyright End -->
 
 
-
 	<!-- Back to Top -->
-	<a href="#"
-		class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-		class="fa fa-arrow-up"></i></a>
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top">
+		<i class="fa fa-arrow-up"></i>
+	</a>
 
 
 	<!-- JavaScript Libraries -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="lib/easing/easing.min.js"></script>
 	<script src="lib/waypoints/waypoints.min.js"></script>
 	<script src="lib/lightbox/js/lightbox.min.js"></script>
@@ -289,6 +350,24 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-</body>
 
+	<script>
+	
+		function checkField(){
+			
+			if (!document.joinForm.MID.value){
+				
+				alert("비밀번호를 입력하지 않았습니다.");
+				
+				document.joinForm.focus();
+				
+				return false;
+				
+			}
+			
+		}
+		
+	</script>
+	
+</body>
 </html>

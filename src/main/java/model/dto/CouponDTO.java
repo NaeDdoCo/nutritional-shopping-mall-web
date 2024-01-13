@@ -61,5 +61,11 @@ public class CouponDTO {
 	}
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
+	}
+	@Override
+	public String toString() {
+		return "CouponDTO [CPID=" + CPID + ", MID=" + MID + ", cpName=" + cpName + ", period=" + period + ", discount="
+				+ discount + ", used=" + used + ", category=" + category + ", searchCondition=" + searchCondition + "]";
 	}    
+	
 }

@@ -9,7 +9,7 @@ public class ProductDTO {
     private int costPrice;
     private int regularPrice;
     private int sellingPrice;
-    private int qty;
+    private int pQty;
     private String ingredient;
     private String usage;
     private String exp;
@@ -17,9 +17,20 @@ public class ProductDTO {
     private Timestamp regTime;
     private String sellingState;
     private String searchCondition;
+    // 사진경로
+    private String imagePath;
+    private int ancSelectMin;
+    private int ancSelectMax;
     
     
     
+    
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	public int getPID() {
 		return PID;
 	}
@@ -50,11 +61,11 @@ public class ProductDTO {
 	public void setSellingPrice(int sellingPrice) {
 		this.sellingPrice = sellingPrice;
 	}
-	public int getQty() {
-		return qty;
+	public int getpQty() {
+		return pQty;
 	}
-	public void setQty(int qty) {
-		this.qty = qty;
+	public void setpQty(int pQty) {
+		this.pQty = pQty;
 	}
 	public String getIngredient() {
 		return ingredient;
@@ -98,4 +109,28 @@ public class ProductDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public int getAncSelectMin() {
+		return ancSelectMin;
+	}
+	public void setAncSelectMin(int ancSelectMin) {
+		this.ancSelectMin = ancSelectMin;
+	}
+	public int getAncSelectMax() {
+		return ancSelectMax;
+	}
+	public void setAncSelectMax(int ancSelectMax) {
+		this.ancSelectMax = ancSelectMax;
+	}
+	@Override
+	public String toString() {
+		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", costPrice=" + costPrice + ", regularPrice="
+				+ regularPrice + ", sellingPrice=" + sellingPrice + ", pQty=" + pQty + ", ingredient=" + ingredient
+				+ ", usage=" + usage + ", exp=" + exp + ", category=" + category + ", regTime=" + regTime
+				+ ", sellingState=" + sellingState + ", searchCondition=" + searchCondition + ", imagePath=" + imagePath
+				+ ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax + "]";
+	}
+    
+    
+    
+
 }

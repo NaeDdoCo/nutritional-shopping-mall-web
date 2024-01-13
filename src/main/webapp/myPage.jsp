@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <head>
 <meta charset="utf-8">
-<title>로그인</title>
+<title>마이</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -83,16 +82,15 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
+						<a href="index.html" class="nav-item nav-link">개인정보수정</a>
+                       	<a href="shop.html" class="nav-item nav-link">구매내역</a>
+                      	<a href="shop-detail.html" class="nav-item nav-link">리뷰내역</a>
+                      	<a href="shop-detail.html" class="nav-item nav-link">쿠폰관리</a>
 						<div class="nav-item dropdown">
-							<div class="dropdown-menu m-0 bg-secondary rounded-0">
-								<a href="cart.html" class="dropdown-item">Cart</a> <a
-									href="chackout.html" class="dropdown-item">Chackout</a> <a
-									href="testimonial.html" class="dropdown-item">Testimonial</a> <a
-									href="404.html" class="dropdown-item active">404 Page</a>
-							</div>
 						</div>
 					</div>
 					<div class="d-flex m-3 me-0">
+						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
 						<button
 							class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
 							data-bs-toggle="modal" data-bs-target="#searchModal">
@@ -139,29 +137,25 @@
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">로그인</h1>
+		<h1 class="text-center text-white display-6">마이</h1>
 	</div>
 	<!-- Single Page Header End -->
 
 
-	<!-- 로그인 폼 시작 -->
+	<!-- 마이 폼 시작 -->
 	<div class="container-fluid py-5">
-		<div class="container py-5 text-center">
+		<div class="container py-5 text-left">
 			<div class="row justify-content-center">
-				<div class="col-lg-6">
-					<form action="login.do" method="POST">
-						<input class="form-control p-3 border-secondary" type="text" name="MID" placeholder="아이디 입력란" required> <br> 
-						<input class="form-control p-3 border-secondary" type="password" name="mPassword" placeholder="비밀번호 입력란" required> <br> 
-						<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="로그인">
-						<a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="join.jsp">회원가입</a>
-					</form>
-				</div>
+				<p>이름</p>
+				<p>성별</p>
+				<p>생년월일</p>
+				<p>휴대폰번호</p>
+				<p>이메일</p>
+				<p>건강상태</p>
 			</div>
-			<hr>		
-				<a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="#">카카오 로그인</a>
 		</div>
 	</div>
-	<!-- 로그인 폼 끝 -->
+	<!-- 마이 폼 끝 -->
 
 
 	<!-- Footer Start -->
@@ -172,18 +166,10 @@
 				<div class="row g-4">
 					<div class="col-lg-3">
 						<a href="#">
-							<h1 class="text-primary mb-0">Fruitables</h1>
-							<p class="text-secondary mb-0">Fresh products</p>
+							<h1 class="text-primary mb-0">NaeDdoCo Pills</h1>
 						</a>
 					</div>
 					<div class="col-lg-6">
-						<div class="position-relative mx-auto">
-							<input class="form-control border-0 w-100 py-3 px-4 rounded-pill"
-								type="number" placeholder="Your Email">
-							<button type="submit"
-								class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-								style="top: 0; right: 0;">Subscribe Now</button>
-						</div>
 					</div>
 					<div class="col-lg-3">
 						<div class="d-flex justify-content-end pt-3">

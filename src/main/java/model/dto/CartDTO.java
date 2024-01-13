@@ -5,12 +5,14 @@ public class CartDTO {
 	private int cid;
 	private String mid;
 	private int pid;
-	// qty변경필요
-	private int qty;
+	private int cQty;
+	
+	private String pName;
 	private String searchCondition;
-	
-	
-	
+	private int sellingPrice;
+	private String imagePath;
+	 
+	 
 	public int getCid() {
 		return cid;
 	}
@@ -29,11 +31,17 @@ public class CartDTO {
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
-	public int getQty() {
-		return qty;
+	public int getcQty() {
+		return cQty;
 	}
-	public void setQty(int qty) {
-		this.qty = qty;
+	public void setcQty(int cQty) {
+		this.cQty = cQty;
+	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
 	}
 	public String getSearchCondition() {
 		return searchCondition;
@@ -41,4 +49,29 @@ public class CartDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public int getSellingPrice() {
+		return sellingPrice;
+	}
+	public void setSellingPrice(int sellingPrice) {
+		this.sellingPrice = sellingPrice;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	@Override
+	public String toString() {
+		return "CartDTO [cid=" + cid + ", mid=" + mid + ", pid=" + pid + ", cQty=" + cQty + ", pName=" + pName
+				+ ", searchCondition=" + searchCondition + ", sellingPrice=" + sellingPrice + ", imagePath=" + imagePath
+				+ "]";
+	}
+	
+	
+	
+	
+	
+	
+
 }

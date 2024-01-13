@@ -2,9 +2,13 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.dto.MemberDTO;
+import model.util.JDBCUtil;
+
 
 public class MemberDAO {
 
@@ -29,9 +33,13 @@ public class MemberDAO {
 	
 	private static final String SELECTALL="";
 	
-	private static final String SELECTONE="";
+	// 아이디 중복검사
+	private static final String SELECTONE_ID_CHECK = "SELECT M_ID FROM MEMBER WHERE M_ID=?";
 
-	private static final String INSERT="";
+	// 회원가입
+	private static final String INSERT = "INSERT INTO "
+			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
 	
 	private static final String UPDATE="";
 	
@@ -46,15 +54,62 @@ public class MemberDAO {
 		return datas;
 	}
 	
-	public MemberDTO selectOne(MemberDTO mDTO) {
-		MemberDTO data = new MemberDTO();
+public MemberDTO selectOne(MemberDTO mDTO) {
 		
-		data.setMid("teemo");
-
-		return data;
+		MemberDTO memberDTO = null;                
+		
+		if(mDTO.getSearchCondition().equals("아이디중복검사")) {
+			
+			memberDTO = new MemberDTO();
+			
+			conn = JDBCUtil.connect();
+			
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_ID_CHECK);
+				pstmt.setString(1, mDTO.getMid());
+				
+				ResultSet rs = pstmt.executeQuery();				
+				
+				if(rs.next()) {
+					memberDTO.setMid(rs.getString("M_ID"));
+				}
+				
+				rs.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}			
+		}
+		return memberDTO;
 	}
-	
+
 	public boolean insert(MemberDTO mDTO) {
+		if (mDTO.getSearchCondition().equals("회원가입")) {
+			conn = JDBCUtil.connect();
+			try {
+				pstmt = conn.prepareStatement(INSERT);
+				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(2, mDTO.getmName());
+				pstmt.setString(3, mDTO.getmPassword());
+				pstmt.setDate(4, mDTO.getDob());
+				pstmt.setString(5, mDTO.getGender());
+				pstmt.setString(6, mDTO.getPhoneNumber());
+				pstmt.setString(7, mDTO.getEmail());
+				pstmt.setString(8, mDTO.getAddress());
+				pstmt.setString(9, mDTO.getHealth());
+				int rs = pstmt.executeUpdate();
+				if (rs <= 0) {
+					return false;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+		}
 		return true;
 	}
 	
