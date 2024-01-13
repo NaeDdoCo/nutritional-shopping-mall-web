@@ -185,15 +185,18 @@ public class FrontController extends HttpServlet {
 		else {
 			// 404
 			// TODO: 에러페이지
+			forward = new ActionForward();
+			forward.setPath("error.jsp");
+			forward.setRedirect(true);
 		}
 
 		if (forward == null) {
 			// 에러 상황
 			forward = new ActionForward();
-			forward.setPath("");
+			forward.setPath("error.jsp");
 			forward.setRedirect(true);
 
-			request.setAttribute("msg", "forward 가 null 입니다..........");
+//			request.setAttribute("msg", "forward 가 null 입니다..........");
 		}
 
 		if (forward.isRedirect()) {
