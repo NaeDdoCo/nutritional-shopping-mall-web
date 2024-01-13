@@ -30,11 +30,12 @@ public class LoginAction implements Action{
 		if (mDTO != null) {
 			session.setAttribute("member", mDTO.getMid());
 			forward.setPath("mainPage.do");
-			forward.setRedirect(true);
-			return forward;
+		} else {
+			forward.setPath("loginPage.do");
+			// TODO: login 실패 alert
 		}
-		
-		return null;
+		forward.setRedirect(true);
+		return forward;
 	}
 
 }
