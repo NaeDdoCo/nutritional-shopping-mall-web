@@ -82,6 +82,10 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
+						<a href="index.html" class="nav-item nav-link">개인정보수정</a>
+                       	<a href="shop.html" class="nav-item nav-link">구매내역</a>
+                      	<a href="shop-detail.html" class="nav-item nav-link">리뷰내역</a>
+                      	<a href="shop-detail.html" class="nav-item nav-link">쿠폰관리</a>
 						<div class="nav-item dropdown">
 						</div>
 					</div>
