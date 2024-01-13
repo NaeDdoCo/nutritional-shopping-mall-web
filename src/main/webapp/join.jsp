@@ -207,10 +207,10 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">우편번호 찾기</button>	
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="address1" placeholder="도로명 주소" required>
+								<input class="form-control p-3 border-secondary " type="text" name="address1" placeholder="도로명 주소" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="address2" placeholder="지번 주소" required>
+								<input class="form-control p-3 border-secondary" type="text" name="address2" placeholder="지번 주소" required>
 							</div>
 							<div class="col-lg-6">
 								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="회원가입">
