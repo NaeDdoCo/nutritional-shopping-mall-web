@@ -61,6 +61,12 @@ public class CartDTO {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	@Override
+	public String toString() {
+		return "CartDTO [cid=" + cid + ", mid=" + mid + ", pid=" + pid + ", cQty=" + cQty + ", pName=" + pName
+				+ ", searchCondition=" + searchCondition + ", sellingPrice=" + sellingPrice + ", imagePath=" + imagePath
+				+ "]";
+	}
 	
 	
 	

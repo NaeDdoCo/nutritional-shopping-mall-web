@@ -73,6 +73,12 @@ public class BuyInfoDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	@Override
+	public String toString() {
+		return "BuyInfoDTO [BID=" + BID + ", MID=" + MID + ", PID=" + PID + ", CPID=" + CPID + ", orderNum=" + orderNum
+				+ ", deliState=" + deliState + ", bQty=" + bQty + ", paymentPrice=" + paymentPrice + ", buyTime="
+				+ buyTime + ", searchCondition=" + searchCondition + "]";
+	}
     
     
     

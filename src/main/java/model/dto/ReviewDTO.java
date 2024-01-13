@@ -55,4 +55,11 @@ public class ReviewDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	@Override
+	public String toString() {
+		return "ReviewDTO [RID=" + RID + ", MID=" + MID + ", BID=" + BID + ", score=" + score + ", contents=" + contents
+				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + "]";
+	}
+	
+	
 }

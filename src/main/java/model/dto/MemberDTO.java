@@ -84,4 +84,11 @@ public class MemberDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	@Override
+	public String toString() {
+		return "MemberDTO [mid=" + mid + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
+				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", grade="
+				+ grade + ", health=" + health + ", searchCondition=" + searchCondition + "]";
+	}
+	
 }

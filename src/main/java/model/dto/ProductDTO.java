@@ -121,6 +121,14 @@ public class ProductDTO {
 	public void setAncSelectMax(int ancSelectMax) {
 		this.ancSelectMax = ancSelectMax;
 	}
+	@Override
+	public String toString() {
+		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", costPrice=" + costPrice + ", regularPrice="
+				+ regularPrice + ", sellingPrice=" + sellingPrice + ", pQty=" + pQty + ", ingredient=" + ingredient
+				+ ", usage=" + usage + ", exp=" + exp + ", category=" + category + ", regTime=" + regTime
+				+ ", sellingState=" + sellingState + ", searchCondition=" + searchCondition + ", imagePath=" + imagePath
+				+ ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax + "]";
+	}
     
     
     
