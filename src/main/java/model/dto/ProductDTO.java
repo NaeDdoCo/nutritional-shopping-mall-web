@@ -17,8 +17,20 @@ public class ProductDTO {
     private Timestamp regTime;
     private String sellingState;
     private String searchCondition;
+    // 사진경로
+    private String imagePath;
     private int ancSelectMin;
     private int ancSelectMax;
+    
+    
+    
+    
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	public int getPID() {
 		return PID;
 	}

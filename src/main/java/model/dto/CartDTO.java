@@ -6,7 +6,13 @@ public class CartDTO {
 	private String mid;
 	private int pid;
 	private int cQty;
+	
+	private String pName;
 	private String searchCondition;
+	private int sellingPrice;
+	private String imagePath;
+	 
+	 
 	public int getCid() {
 		return cid;
 	}
@@ -31,12 +37,33 @@ public class CartDTO {
 	public void setcQty(int cQty) {
 		this.cQty = cQty;
 	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
 	public String getSearchCondition() {
 		return searchCondition;
 	}
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public int getSellingPrice() {
+		return sellingPrice;
+	}
+	public void setSellingPrice(int sellingPrice) {
+		this.sellingPrice = sellingPrice;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
+	
+	
 	
 	
 	
