@@ -5,12 +5,8 @@ public class CartDTO {
 	private int cid;
 	private String mid;
 	private int pid;
-	// qty변경필요
-	private int qty;
+	private int cQty;
 	private String searchCondition;
-	
-	
-	
 	public int getCid() {
 		return cid;
 	}
@@ -29,11 +25,11 @@ public class CartDTO {
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
-	public int getQty() {
-		return qty;
+	public int getcQty() {
+		return cQty;
 	}
-	public void setQty(int qty) {
-		this.qty = qty;
+	public void setcQty(int cQty) {
+		this.cQty = cQty;
 	}
 	public String getSearchCondition() {
 		return searchCondition;
@@ -41,4 +37,8 @@ public class CartDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	
+	
+	
+
 }

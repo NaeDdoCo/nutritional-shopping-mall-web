@@ -7,7 +7,6 @@ public class MemberDTO {
 	private String mid;
 	private String mName;
 	private String mPassword;
-	// 년,월,일만 저장하는 클래스 LocalDate
 	private Date dob;
 	private String gender;
 	private String phoneNumber;

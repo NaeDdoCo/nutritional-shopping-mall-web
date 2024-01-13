@@ -9,14 +9,10 @@ public class BuyInfoDTO {
     private String CPID;
     private int orderNum;
     private String deliState;
-    // qty 변경필요
-    private int qty;
+    private int bQty;
     private int paymentPrice;
     private Timestamp buyTime;
     private String searchCondition;
-    
-    
-    
 	public int getBID() {
 		return BID;
 	}
@@ -53,11 +49,11 @@ public class BuyInfoDTO {
 	public void setDeliState(String deliState) {
 		this.deliState = deliState;
 	}
-	public int getQty() {
-		return qty;
+	public int getbQty() {
+		return bQty;
 	}
-	public void setQty(int qty) {
-		this.qty = qty;
+	public void setbQty(int bQty) {
+		this.bQty = bQty;
 	}
 	public int getPaymentPrice() {
 		return paymentPrice;
@@ -76,5 +72,9 @@ public class BuyInfoDTO {
 	}
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
-	} 
+	}
+    
+    
+    
+
 }

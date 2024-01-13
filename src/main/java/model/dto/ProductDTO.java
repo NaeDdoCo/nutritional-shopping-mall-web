@@ -9,7 +9,7 @@ public class ProductDTO {
     private int costPrice;
     private int regularPrice;
     private int sellingPrice;
-    private int qty;
+    private int pQty;
     private String ingredient;
     private String usage;
     private String exp;
@@ -17,9 +17,8 @@ public class ProductDTO {
     private Timestamp regTime;
     private String sellingState;
     private String searchCondition;
-    
-    
-    
+    private int ancSelectMin;
+    private int ancSelectMax;
 	public int getPID() {
 		return PID;
 	}
@@ -50,11 +49,11 @@ public class ProductDTO {
 	public void setSellingPrice(int sellingPrice) {
 		this.sellingPrice = sellingPrice;
 	}
-	public int getQty() {
-		return qty;
+	public int getpQty() {
+		return pQty;
 	}
-	public void setQty(int qty) {
-		this.qty = qty;
+	public void setpQty(int pQty) {
+		this.pQty = pQty;
 	}
 	public String getIngredient() {
 		return ingredient;
@@ -98,4 +97,20 @@ public class ProductDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public int getAncSelectMin() {
+		return ancSelectMin;
+	}
+	public void setAncSelectMin(int ancSelectMin) {
+		this.ancSelectMin = ancSelectMin;
+	}
+	public int getAncSelectMax() {
+		return ancSelectMax;
+	}
+	public void setAncSelectMax(int ancSelectMax) {
+		this.ancSelectMax = ancSelectMax;
+	}
+    
+    
+    
+
 }
