@@ -22,10 +22,10 @@ public class LoginAction implements Action{
 		
 		HttpSession session = request.getSession();
 		
+		mDTO.setSearchCondition("로그인");
 		mDTO.setMid((String)request.getParameter("MID"));
 		mDTO.setmPassword((String)request.getParameter("mPassword"));
 		
-		// TODO: setSearchCondition("로그인");
 		mDTO = mDAO.selectOne(mDTO);
 		if (mDTO != null) {
 			session.setAttribute("member", mDTO.getMid());
