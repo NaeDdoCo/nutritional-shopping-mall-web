@@ -31,8 +31,13 @@ public class MemberDAO {
 	 *  5) 회원탈퇴
 	 */ 
 	
-	private static final String SELECTALL="";
-	
+	private static final String SELECTALL = "";
+
+	// 로그인(마이페이지는 세션(M_ID) + 입력값(M_PW)
+	private static final String SELECTONE_LOGIN = "SELECT "
+			+ "M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH "
+			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
+
 	// 아이디 중복검사
 	private static final String SELECTONE_ID_CHECK = "SELECT M_ID FROM MEMBER WHERE M_ID=?";
 
@@ -40,49 +45,87 @@ public class MemberDAO {
 	private static final String INSERT = "INSERT INTO "
 			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
-	
-	private static final String UPDATE="";
-	
-	private static final String DELETE="";
-	
+
+	private static final String UPDATE = "";
+
+	private static final String DELETE = "";
+
 	public ArrayList<MemberDTO> selectAll(MemberDTO mDTO) {
-		ArrayList<MemberDTO> datas = new ArrayList<MemberDTO>();
-		MemberDTO data = new MemberDTO();
-		
-		data.setMid("teemo");
-		datas.add(data);
-		return datas;
+		return null;
 	}
-	
-public MemberDTO selectOne(MemberDTO mDTO) {
-		
-		MemberDTO memberDTO = null;                
-		
-		if(mDTO.getSearchCondition().equals("아이디중복검사")) {
-			
+
+	public MemberDTO selectOne(MemberDTO mDTO) {
+
+		MemberDTO memberDTO = null;
+
+		if (mDTO.getSearchCondition().equals("아이디중복검사")) {
+
 			memberDTO = new MemberDTO();
-			
+
 			conn = JDBCUtil.connect();
-			
+
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_ID_CHECK);
 				pstmt.setString(1, mDTO.getMid());
-				
-				ResultSet rs = pstmt.executeQuery();				
-				
-				if(rs.next()) {
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
 					memberDTO.setMid(rs.getString("M_ID"));
 				}
-				
+
 				rs.close();
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
+				return null;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
-			}			
+			}
+			if (memberDTO != null) {
+				return memberDTO;
+			}
 		}
-		return memberDTO;
+
+		else if (mDTO.getSearchCondition().equals("로그인")) {
+			memberDTO = new MemberDTO();
+
+			conn = JDBCUtil.connect();
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_LOGIN);
+				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(2, mDTO.getmPassword());
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					memberDTO.setMid(rs.getString("M_ID"));
+					memberDTO.setmName(rs.getString("M_NAME"));
+					memberDTO.setmPassword(rs.getString("M_PASSWORD"));
+					memberDTO.setDob(rs.getDate("DOB"));
+					memberDTO.setGender(rs.getString("GENDER"));
+					memberDTO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+					memberDTO.setEmail(rs.getNString("EMAIL"));
+					memberDTO.setAddress(rs.getString("ADDRESS"));
+					memberDTO.setGrade(rs.getString("GRADE"));
+					memberDTO.setHealth(rs.getString("HEALTH"));
+
+				}
+
+				rs.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			if (memberDTO != null) {
+				return memberDTO;
+			}
+		}
+		return null;
 	}
 
 	public boolean insert(MemberDTO mDTO) {
@@ -112,12 +155,12 @@ public MemberDTO selectOne(MemberDTO mDTO) {
 		}
 		return true;
 	}
-	
+
 	public boolean update(MemberDTO mDTO) {
-		return true;
+		return false;
 	}
-	
+
 	public boolean delete(MemberDTO mDTO) {
-		return true;
+		return false;
 	}
 }
