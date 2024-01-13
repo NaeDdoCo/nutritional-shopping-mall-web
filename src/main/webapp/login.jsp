@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
-
 <head>
 <meta charset="utf-8">
 <title>로그인</title>
@@ -10,25 +8,21 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- sweetalert2 css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
 <!-- Icon Font Stylesheet -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-<link href="lib/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -84,12 +78,6 @@
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
 						<div class="nav-item dropdown">
-							<div class="dropdown-menu m-0 bg-secondary rounded-0">
-								<a href="cart.html" class="dropdown-item">Cart</a> <a
-									href="chackout.html" class="dropdown-item">Chackout</a> <a
-									href="testimonial.html" class="dropdown-item">Testimonial</a> <a
-									href="404.html" class="dropdown-item active">404 Page</a>
-							</div>
 						</div>
 					</div>
 					<div class="d-flex m-3 me-0">
@@ -167,22 +155,15 @@
 	<!-- Footer Start -->
 	<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
 		<div class="container py-5">
-			<div class="pb-4 mb-4"
-				style="border-bottom: 1px solid rgba(226, 175, 24, 0.5);">
+			<div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5);">
 				<div class="row g-4">
 					<div class="col-lg-3">
 						<a href="#">
-							<h1 class="text-primary mb-0">Fruitables</h1>
-							<p class="text-secondary mb-0">Fresh products</p>
+							<h1 class="text-primary mb-0">NaeDdoCo Pills</h1>
 						</a>
 					</div>
 					<div class="col-lg-6">
 						<div class="position-relative mx-auto">
-							<input class="form-control border-0 w-100 py-3 px-4 rounded-pill"
-								type="number" placeholder="Your Email">
-							<button type="submit"
-								class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-								style="top: 0; right: 0;">Subscribe Now</button>
 						</div>
 					</div>
 					<div class="col-lg-3">
@@ -270,25 +251,23 @@
 	<!-- Copyright End -->
 
 
-
 	<!-- Back to Top -->
-	<a href="#"
-		class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-		class="fa fa-arrow-up"></i></a>
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top">
+		<i class="fa fa-arrow-up"></i>
+	</a>
 
 
 	<!-- JavaScript Libraries -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="lib/easing/easing.min.js"></script>
 	<script src="lib/waypoints/waypoints.min.js"></script>
 	<script src="lib/lightbox/js/lightbox.min.js"></script>
 	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	
 </body>
-
 </html>
