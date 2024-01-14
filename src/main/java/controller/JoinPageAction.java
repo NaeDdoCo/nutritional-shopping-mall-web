@@ -13,7 +13,7 @@ public class JoinPageAction implements Action{
 			throws ServletException, IOException {
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("joinPage.jsp");
+		forward.setPath("join.jsp");
 		forward.setRedirect(true);
 		
 		return forward;
