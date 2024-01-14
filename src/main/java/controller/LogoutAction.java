@@ -21,10 +21,10 @@ public class LogoutAction implements Action {
 		session.removeAttribute("member");
 		
 		forward.setPath("mainPage.do"); 
-		forward.setRedirect(true);
-		//수정예정: 모달창 문구 mainPage.do에서 출력 예정
-		//request.setAttribute("msg", "로그아웃이 완료되었습니다! :D");
-		//forward.setRedirect(false);
+		//로그아웃 성공시 구분할 값 : result 
+		request.setAttribute("result", true);
+		forward.setRedirect(false);
+
 		return forward;
 	
 	}
