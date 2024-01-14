@@ -153,7 +153,7 @@
 								<input class="form-control p-3 border-secondary " type="password" name="mPassword" placeholder="비밀번호" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" placeholder="재입입력" required>
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" placeholder="재입력" required>
 							</div>
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
