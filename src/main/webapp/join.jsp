@@ -194,8 +194,8 @@
 							<div class="col-lg-5">
 								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디" required>
 							</div>
-							<div class="col-lg-2">
-								<P>@</P>
+							<div class="col-lg-1">
+								<P class="mt-3">@</P>
 							</div>
 							<div class="col-lg-5">
 								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
