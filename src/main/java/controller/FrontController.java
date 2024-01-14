@@ -80,8 +80,14 @@ public class FrontController extends HttpServlet {
 			forward = new ReviewInfoPageAction().execute(request, response);
 		} else if (action.equals("/deleteReview.do")) {// 리뷰삭제
 			forward = new DeleteReviewAction().execute(request, response);
+		} else {
+			response.sendRedirect("error.jsp");
 		}
-
+		
+		if (forward == null) {
+			response.sendRedirect("error.jsp");
+			return;
+		}
 		if (forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());
 		} else {

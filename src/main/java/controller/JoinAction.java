@@ -19,54 +19,85 @@ public class JoinAction implements Action {
 			throws ServletException, IOException {
 
 		ActionForward forward = new ActionForward();
-		// mpwCheck 체크하는 로직
-		String mpw = request.getParameter("mPassword");
-		String pwc = request.getParameter("mpwCheck");
-		if (!mpw.equals(pwc)) {
-			// TODO: 설계 후 에러처리
+		request.setCharacterEncoding("UTF-8");
+		
+		String MID = request.getParameter("MID");
+		String mName = request.getParameter("mName");
+		
+		// 비밀번호 체크하는 로직 -> View 담당
+		String mPassword = request.getParameter("mPassword");
+//		String mPassword2 = request.getParameter("mPassword2");
+		
+        // dob format: yyyy-MM-dd
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+		String day = request.getParameter("day");
+		if (year.length() < 4) {
+			while (year.length() < 4) {
+				year += "0" + year;
+			}
+		} else if (year.length() > 4) {
+			year.substring(0, 4);
+		}
+		if (month.length() == 1) {
+			month += "0" + month;
+		}
+		if (day.length() == 1) {
+			day += "0" + day;
 		}
 		
-        // 년, 월, 일을 합쳐서 하나의 날짜 문자열로 만듭니다.
-        String dateString = request.getParameter("year") + "-" + request.getParameter("month") + "-" + request.getParameter("day");
+		String dateString = year + "-" + month + "-" + day;
         java.sql.Date sqlDate = null;
         try {
-            // SimpleDateFormat을 사용하여 문자열을 Date 객체로 변환합니다.
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date utilDate = sdf.parse(dateString);
 
-            // java.util.Date를 java.sql.Date로 변환합니다.
             sqlDate = new java.sql.Date(utilDate.getTime());
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println("[JoinAction] " + sqlDate);
         
-        // phoneNumber 조합
-        String phoneNumber = request.getParameter("phoneNumber0") + "-" + request.getParameter("phoneNumber1") + "-" + request.getParameter("phoneNumber2");
+        String gender = request.getParameter("gender");
+        // String 조합
+        String phoneNumber = request.getParameter("phoneNum1") + "-" + request.getParameter("phoneNum2") + "-" + request.getParameter("phoneNum3");
+		String email = request.getParameter("email1") + "@" + request.getParameter("email2");
+
+		String zipNo = request.getParameter("zipNo");
+		String roadAddrPart1 = request.getParameter("roadAddrPart1");
+		String addrDetail = request.getParameter("addrDetail");
+		// TODO: 나중에 분리해서 저장
+		String addr = zipNo + "; " + roadAddrPart1 + "; " + addrDetail;
+		
+		String skel = request.getParameter("skel");
+		String liver = request.getParameter("liver");
+		String eye = request.getParameter("eye");
+		String energy = request.getParameter("energy");
+		String immune = request.getParameter("immune");
+		String brain = request.getParameter("brain");
+		String skin = request.getParameter("skin");
+		String digest = request.getParameter("digest");
+		String health = skel + "; " + liver + "; " + eye + "; " + energy + "; " + immune + "; " + brain + "; " + skin + "; " + digest;
 		
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
 		mDTO.setSearchCondition("회원가입");
-		mDTO.setMid(request.getParameter("MID"));
-		mDTO.setmName(request.getParameter("mName"));
-		mDTO.setmPassword(mpw);
+		mDTO.setMid(MID);
+		mDTO.setmName(mName);
+		mDTO.setmPassword(mPassword);
 		mDTO.setDob(sqlDate);
-		mDTO.setGender(request.getParameter("gender"));
+		mDTO.setGender(gender);
 		mDTO.setPhoneNumber(phoneNumber);
-		mDTO.setEmail(request.getParameter("email"));
-		mDTO.setAddress(request.getParameter("address"));
-		mDTO.setHealth(request.getParameter("health"));
-		System.out.println("[JoinAction] " + mDTO);
+		mDTO.setEmail(email);
+		mDTO.setAddress(zipNo);
+		mDTO.setHealth(health);
 		
 		if (mDAO.insert(mDTO)) {
 			forward.setPath("mainPage.do");
-			forward.setRedirect(false);		
+			forward.setRedirect(false);
 		} else {
 			return null;
 		}
-		
-		
 		
 		return forward;
 	}
