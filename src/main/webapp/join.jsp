@@ -136,12 +136,12 @@
 	<!-- Single Page Header End -->
 
 
-	<!-- 404 Start -->
+	<!-- 회원가입 시작 -->
 	<div class="container-fluid py-5">
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="login.jsp" method="POST" name ="joinForm" onsubmit="return checkField()">
+					<form action="join.do" method="POST" name ="joinForm" onsubmit="return checkField()">
 						<div class="row g-4">
 							<div class="col-lg-8">
 								<input class="form-control p-3  border-secondary" type="text" name="MID" placeholder="아이디">	
@@ -224,7 +224,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 404 End -->
+	<!-- 회원가입 끝 -->
 
 
 	<!-- Footer Start -->
@@ -235,17 +235,11 @@
 				<div class="row g-4">
 					<div class="col-lg-3">
 						<a href="#">
-							<h1 class="text-primary mb-0">Fruitables</h1>
-							<p class="text-secondary mb-0">Fresh products</p>
+							<h1 class="text-primary mb-0">NaeDdoCo Pills</h1>
 						</a>
 					</div>
 					<div class="col-lg-6">
 						<div class="position-relative mx-auto">
-							<input class="form-control border-0 w-100 py-3 px-4 rounded-pill"
-								type="number" placeholder="Your Email">
-							<button type="submit"
-								class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-								style="top: 0; right: 0;">Subscribe Now</button>
 						</div>
 					</div>
 					<div class="col-lg-3">
