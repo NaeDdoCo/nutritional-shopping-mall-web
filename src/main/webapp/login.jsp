@@ -8,8 +8,9 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
-<!-- sweetalert2 css -->
+<!-- sweetalert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -268,6 +269,57 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	
+	
+	<!-- sweetalert -->
+	 <script type="text/javascript">
+        function alertSuccess(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!!',
+                text: 'Good jop!',
+                footer: '<a href="">Your Request Succeed!</a>'
+            })
+        }
+
+        function alertWarning(){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'warning!',
+                footer: '<a href="">this is warning</a>'
+            })
+        }
+
+        function alertError(){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Something went wrong!',
+                footer: '<a href="">Why do I have this issue?</a>'
+            })
+        }
+
+        function alertDelete(){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+            })
+        }
+    </script>
 	
 </body>
 </html>
