@@ -89,7 +89,7 @@ public class JoinAction implements Action {
 		mDTO.setGender(gender);
 		mDTO.setPhoneNumber(phoneNumber);
 		mDTO.setEmail(email);
-		mDTO.setAddress(zipNo);
+		mDTO.setAddress(addr);
 		mDTO.setHealth(health);
 		
 		if (mDAO.insert(mDTO)) {

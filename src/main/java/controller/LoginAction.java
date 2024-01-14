@@ -29,9 +29,8 @@ public class LoginAction implements Action{
 		mDTO = mDAO.selectOne(mDTO);
 		if (mDTO != null) {
 			session.setAttribute("member", mDTO.getMid());
-			request.setAttribute("result", true);
 			forward.setPath("mainPage.do");
-			forward.setRedirect(false);
+			forward.setRedirect(true);
 		} else {
 			request.setAttribute("result", false);
 			forward.setPath("loginPage.do");
