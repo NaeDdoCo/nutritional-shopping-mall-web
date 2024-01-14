@@ -201,16 +201,16 @@
 								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" name="zipcode" placeholder="우편번호" required>
+								<input class="form-control p-3 border-secondary" type="text" id="zipNo" name="zipNo" placeholder="우편번호"/>
 							</div>
 							<div class="col-lg-4">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">우편번호 찾기</button>	
+								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3"  type="button" onClick="goPopup();" value="우편번호 찾기"/>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="text" name="address1" placeholder="도로명 주소" required>
+								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소"/>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="text" name="address2" placeholder="지번 주소" required>
+								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" placeholder="상세 주소"/>
 							</div>
 							<div class="col-lg-6">
 								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="회원가입">
@@ -345,23 +345,36 @@
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
 
-	<script>
+
+	<!-- 주소 api 자바스크립트 -->
+	<script language="javascript">
 	
-		function checkField(){
+		// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. 
+		// (＂팝업 API 호출 소스"도 동일하게 적용시켜야 합니다.)
+		//document.domain = "abc.go.kr";
+		function goPopup(){
 			
-			if (!document.joinForm.MID.value){
-				
-				alert("비밀번호를 입력하지 않았습니다.");
-				
-				document.joinForm.focus();
-				
-				return false;
-				
-			}
+			//경로는 시스템에 맞게 수정하여 사용
+			//호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를
+			//호출하게 됩니다.
+			var pop = window.open("jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 			
+			//** 2017년 5월 모바일용 팝업 API 기능 추가제공 **/
+			// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서
+			// 실제 주소검색 URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+			// var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 		}
 		
-	</script>
+		function jusoCallBack(roadAddrPart1,addrDetail, zipNo){
+			
+ 			// 2017년 2월 제공항목이 추가되었습니다. 원하시는 항목을 추가하여 사용하시면 됩니다.
+ 			document.joinForm.roadAddrPart1.value = roadAddrPart1;
+ 			document.joinForm.addrDetail.value = addrDetail;
+ 			document.joinForm.zipNo.value = zipNo;
+ 			
+		}
+		
+</script>
 	
 </body>
 </html>
