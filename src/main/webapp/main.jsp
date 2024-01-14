@@ -10,8 +10,9 @@
 <meta content="" name="description">
 
 
-<!-- SweetAlert2 css -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
 
 <!-- Google Web Fonts -->
@@ -39,10 +40,42 @@
 
 </head>
 <body>
-
+	
+	
+	<!-- 로그인 유저 아이디 세션에 저장 -->
 	<%
 		String member=(String)session.getAttribute("member");
 	%>
+	
+	
+	<!-- 로그아웃 성공 모달 -->
+	<%
+		if((Boolean)request.getAttribute("logoutResult")!=null){
+	%>
+	<% 
+			Boolean result = (Boolean)request.getAttribute("logoutResult");
+			if(result == true){	
+	%>
+				<!-- sweetalert -->
+	 			<script type="text/javascript">
+	 			 	window.onload = function () {
+	 			 		logoutSuccess();
+	 		    	};
+        			function logoutSuccess(){
+            			Swal.fire({
+                		icon: 'success',
+                		title: '로그아웃 성공',
+                		text: '로그아웃이 처리되었습니다.',
+           	 			})
+        			}
+    			</script>
+	<% 	
+			}	
+	%>
+	<% 
+		}
+	%> 
+	
 
 	<!-- Spinner Start -->
 	<div id="spinner"

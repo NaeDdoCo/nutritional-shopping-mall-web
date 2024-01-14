@@ -1,38 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
-<title>로그인</title>
+<title>메인</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+
 <!-- sweetalert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
+
 <!-- Icon Font Stylesheet -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
 
 <!-- Libraries Stylesheet -->
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
+
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
-</head>
 
-<body>
+</head>
+<body>	
+
+	
+	<!-- 로그인 실패 모달 -->
+	<%
+		if((Boolean)request.getAttribute("loginResult")!=null){
+	%>
+	<% 
+			Boolean result = (Boolean)request.getAttribute("loginResult");
+			if(result == false){	
+	%>
+				<!-- sweetalert -->
+	 			<script type="text/javascript">
+	 			 	window.onload = function () {
+	 			 		loginFail();
+	 		    	};
+        			function loginFail(){
+            			Swal.fire({
+                		icon: 'error',
+                		title: '로그인 실패',
+                		text: '로그인이 실패하였습니다.',
+           	 			})
+        			}
+    			</script>
+	<% 	
+			}	
+	%>
+	<% 
+		}
+	%> 
+
 
 	<!-- Spinner Start -->
 	<div id="spinner"
@@ -269,57 +306,6 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-	
-	
-	<!-- sweetalert -->
-	 <script type="text/javascript">
-        function alertSuccess(){
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!!',
-                text: 'Good jop!',
-                footer: '<a href="">Your Request Succeed!</a>'
-            })
-        }
-
-        function alertWarning(){
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning!',
-                text: 'warning!',
-                footer: '<a href="">this is warning</a>'
-            })
-        }
-
-        function alertError(){
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Something went wrong!',
-                footer: '<a href="">Why do I have this issue?</a>'
-            })
-        }
-
-        function alertDelete(){
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
-                }
-            })
-        }
-    </script>
 	
 </body>
 </html>
