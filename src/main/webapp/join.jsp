@@ -159,13 +159,13 @@
 								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="text" name="year" placeholder="yyyy" required>
+								<input class="form-control p-3 border-secondary" type="number" name="year" placeholder="yyyy" required>
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="text" name="month" placeholder="MM" required>
+								<input class="form-control p-3 border-secondary" type="number" name="month" placeholder="MM" required>
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="text" name="day" placeholder="dd" required>
+								<input class="form-control p-3 border-secondary" type="number" name="day" placeholder="dd" required>
 							</div>
 							<div class="col-lg-6">
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남자" checked="checked">남자
@@ -174,13 +174,13 @@
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여자">여자
 							</div>
 							<div class="col-lg-2">
-								<input class="form-control p-3 border-secondary" type="text" name="phoneNum1" value="010" readonly required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" value="010" readonly required>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="text" name="phoneNum2" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" placeholder="0000" required>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="text" name="phoneNum3" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum3" placeholder="0000" required>
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 발송</button>	
@@ -201,16 +201,26 @@
 								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" id="zipNo" name="zipNo" placeholder="우편번호"/>
+								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" placeholder="우편번호" readonly/>
 							</div>
 							<div class="col-lg-4">
 								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3"  type="button" onClick="goPopup();" value="우편번호 찾기"/>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소"/>
+								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly/>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" placeholder="상세 주소"/>
+								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" placeholder="상세 주소" readonly/>
+							</div>
+							<div>
+								<input type="checkbox" name="skel" value="뼈/치아">뼈/치아 
+								<input type="checkbox" name="liver" value="간">간
+								<input type="checkbox" name="eye" value="눈">눈
+								<input type="checkbox" name="energy" value="활력">활력
+								<input type="checkbox" name="immune" value="면역">면역
+								<input type="checkbox" name="brain" value="두뇌">두뇌
+								<input type="checkbox" name="skin" value="피부">피부
+								<input type="checkbox" name="digest" value="소화">소화
 							</div>
 							<div class="col-lg-6">
 								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="회원가입">
