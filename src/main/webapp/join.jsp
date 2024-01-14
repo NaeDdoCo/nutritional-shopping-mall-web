@@ -168,10 +168,10 @@
 								<input class="form-control p-3 border-secondary" type="number" name="day" placeholder="dd" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남자" checked="checked">남자
+								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남" checked="checked">남자
 							</div>
 							<div class="col-lg-6">
-								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여자">여자
+								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여">여자
 							</div>
 							<div class="col-lg-2">
 								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" value="010" readonly required>
@@ -384,7 +384,7 @@
  			
 		}
 		
-</script>
+	</script>
 	
 </body>
 </html>
