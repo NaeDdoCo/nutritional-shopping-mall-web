@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,9 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import model.dao.MemberDAO;
-import model.dto.MemberDTO;
 
 @WebServlet("*.do") // new 가 사실은 작성되어있었던것!!!!!
 public class FrontController extends HttpServlet {
@@ -84,119 +80,6 @@ public class FrontController extends HttpServlet {
 			forward = new ReviewInfoPageAction().execute(request, response);
 		} else if (action.equals("/deleteReview.do")) {// 리뷰삭제
 			forward = new DeleteReviewAction().execute(request, response);
-		}
-
-		/*
-		 * 모델 테스트용 .do
-		 * 
-		 * 조건문 안에 내용은 테스트 예제 코드
-		 */
-		else if (action.equals("/testSelectAll.do")) {
-			System.out.println("[FrontController] testSelectAll");
-
-			// 테스트 페이지로 리다이렉트
-			forward = new ActionForward();
-			forward.setPath("test.jsp");
-			forward.setRedirect(true);
-
-			MemberDTO mDTO = new MemberDTO();
-			MemberDAO mDAO = new MemberDAO();
-
-			// 필요한 요소에 맞게 set
-			mDTO.setMid("teemo");
-			ArrayList<MemberDTO> datas = mDAO.selectAll(mDTO);
-
-			// 결과 확인
-			if (datas == null) {
-				System.out.println("[FrontController] datas == null");
-			} else {
-				for (MemberDTO data : datas) {
-					System.out.println(data);
-				}
-			}
-
-		} else if (action.equals("/testSelectOne.do")) {
-			System.out.println("[FrontController] testSelectOne");
-			
-			// 테스트 페이지로 리다이렉트
-			forward = new ActionForward();
-			forward.setPath("test.jsp");
-			forward.setRedirect(true);
-			
-			MemberDTO mDTO = new MemberDTO();
-			MemberDAO mDAO = new MemberDAO();
-
-			// 필요한 요소에 맞게 set
-			mDTO.setMid("teemo");
-			mDTO = mDAO.selectOne(mDTO);
-
-			// 결과 확인
-			System.out.println(mDTO);
-		} else if (action.equals("/testInsert.do")) {
-			System.out.println("[FrontController] testInsert");
-
-			// 테스트 페이지로 리다이렉트
-			forward = new ActionForward();
-			forward.setPath("test.jsp");
-			forward.setRedirect(true);
-			
-			MemberDTO mDTO = new MemberDTO();
-			MemberDAO mDAO = new MemberDAO();
-
-			// 필요한 요소에 맞게 set
-			mDTO.setMid("teemo");
-
-			// 결과 확인 + DB에서 직접 확인
-			System.out.println(mDAO.insert(mDTO));
-		} else if (action.equals("/testUpdate.do")) {
-			System.out.println("[FrontController] testUpdate");
-
-			// 테스트 페이지로 리다이렉트
-			forward = new ActionForward();
-			forward.setPath("test.jsp");
-			forward.setRedirect(true);
-			
-			MemberDTO mDTO = new MemberDTO();
-			MemberDAO mDAO = new MemberDAO();
-
-			// 필요한 요소에 맞게 set
-			mDTO.setMid("teemo");
-
-			// 결과 확인 + DB에서 직접 확인
-			System.out.println(mDAO.update(mDTO));
-		} else if (action.equals("/testDelete.do")) {
-			System.out.println("[FrontController] testDelete");
-
-			// 테스트 페이지로 리다이렉트
-			forward = new ActionForward();
-			forward.setPath("test.jsp");
-			forward.setRedirect(true);
-			
-			MemberDTO mDTO = new MemberDTO();
-			MemberDAO mDAO = new MemberDAO();
-
-			// 필요한 요소에 맞게 set
-			mDTO.setMid("teemo");
-
-			// 결과 확인 + DB에서 직접 확인
-			System.out.println(mDAO.delete(mDTO));
-		}
-
-		else {
-			// 404
-			// TODO: 에러페이지
-			forward = new ActionForward();
-			forward.setPath("error.jsp");
-			forward.setRedirect(true);
-		}
-
-		if (forward == null) {
-			// 에러 상황
-			forward = new ActionForward();
-			forward.setPath("error.jsp");
-			forward.setRedirect(true);
-
-//			request.setAttribute("msg", "forward 가 null 입니다..........");
 		}
 
 		if (forward.isRedirect()) {
