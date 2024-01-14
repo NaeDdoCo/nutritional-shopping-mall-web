@@ -26,8 +26,11 @@ public class CartDAO {
 	 * + "FROM CART C " + "JOIN PRODUCT P ON C.P_ID = P.P_ID;";
 	 */
 
-	private static final String SELECTALL = "SELECT C.C_ID, C.M_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGEPATH "
-			+ "FROM CART C " + "JOIN PRODUCT P ON C.P_ID = P.P_ID";
+	private static final String SELECTALL = "SELECT C.C_ID, M.M_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGEPATH "
+			+ "FROM CART C "
+			+ "JOIN PRODUCT P ON C.P_ID = P.P_ID "
+			+ "JOIN MEMBER M ON C.M_ID = M.M_ID "
+			+ "WHERE M.M_ID = ?";
 
 	private static final String SELECTONE = "";
 
@@ -48,6 +51,7 @@ public class CartDAO {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTALL);
+				pstmt.setString(1, cDTO.getMid());
 				ResultSet rs = pstmt.executeQuery();
 
 				while (rs.next()) {

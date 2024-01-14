@@ -35,7 +35,7 @@ public class MemberDAO {
 
 	// 로그인(마이페이지는 세션(M_ID) + 입력값(M_PW)
 	private static final String SELECTONE_LOGIN = "SELECT "
-			+ "M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH "
+			+ "M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
 			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
 
 	// 아이디 중복검사
@@ -105,12 +105,12 @@ public class MemberDAO {
 				if (rs.next()) {
 					memberDTO.setMid(rs.getString("M_ID"));
 					memberDTO.setmName(rs.getString("M_NAME"));
-					memberDTO.setmPassword(rs.getString("M_PASSWORD"));
+					//memberDTO.setmPassword(rs.getString("M_PASSWORD"));
 					memberDTO.setDob(rs.getDate("DOB"));
 					memberDTO.setGender(rs.getString("GENDER"));
-					memberDTO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
-					memberDTO.setEmail(rs.getNString("EMAIL"));
-					memberDTO.setAddress(rs.getString("ADDRESS"));
+					//memberDTO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+					//memberDTO.setEmail(rs.getNString("EMAIL"));
+					//memberDTO.setAddress(rs.getString("ADDRESS"));
 					memberDTO.setGrade(rs.getString("GRADE"));
 					memberDTO.setHealth(rs.getString("HEALTH"));
 				} else {
