@@ -22,7 +22,7 @@ public class LogoutAction implements Action {
 		
 		forward.setPath("mainPage.do"); 
 		//로그아웃 성공시 구분할 값 : result 
-		request.setAttribute("result", true);
+		request.setAttribute("logoutResult", true);
 		forward.setRedirect(false);
 
 		return forward;
