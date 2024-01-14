@@ -49,10 +49,9 @@ public class MemberDAO {
 	private static final String UPDATE = "";
 
 	private static final String DELETE = "";
-
-	public ArrayList<MemberDTO> selectAll(MemberDTO mDTO) {
-		return null;
-	}
+	
+	
+	
 
 	public MemberDTO selectOne(MemberDTO mDTO) {
 
@@ -72,17 +71,21 @@ public class MemberDAO {
 
 				if (rs.next()) {
 					memberDTO.setMid(rs.getString("M_ID"));
+				} else {
+					memberDTO = null;
 				}
 
 				rs.close();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
+				System.out.println("[로그_아이디중복검사] 반환 NULL_예외처리");
 				return null;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
 			if (memberDTO != null) {
+				System.out.println("[로그_아이디중복검사] 성공");
 				return memberDTO;
 			}
 		}
@@ -110,21 +113,25 @@ public class MemberDAO {
 					memberDTO.setAddress(rs.getString("ADDRESS"));
 					memberDTO.setGrade(rs.getString("GRADE"));
 					memberDTO.setHealth(rs.getString("HEALTH"));
-
+				} else {
+					memberDTO = null;
 				}
 
 				rs.close();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
+				System.out.println("[로그_로그인] 반환 NULL_예외처리");
 				return null;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
 			if (memberDTO != null) {
+				System.out.println("[로그_로그인] 성공");
 				return memberDTO;
 			}
 		}
+		System.out.println("[로그_SelectOne] 반환 NULL");
 		return null;
 	}
 
