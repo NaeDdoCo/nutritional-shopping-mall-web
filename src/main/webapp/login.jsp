@@ -141,7 +141,7 @@
 						<input class="form-control p-3 border-secondary" type="text" name="MID" placeholder="아이디" required> <br> 
 						<input class="form-control p-3 border-secondary" type="password" name="mPassword" placeholder="비밀번호" required> <br> 
 						<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="로그인">
-						<a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="join.jsp">회원가입</a>
+						<a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="joinPage.do">회원가입</a>
 					</form>
 				</div>
 			</div>
