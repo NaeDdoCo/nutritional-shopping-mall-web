@@ -32,7 +32,7 @@ public class LoginAction implements Action{
 			forward.setPath("mainPage.do");
 			forward.setRedirect(true);
 		} else {
-			request.setAttribute("result", false);
+			request.setAttribute("loginResult", false);
 			forward.setPath("loginPage.do");
 			forward.setRedirect(false);
 		}
