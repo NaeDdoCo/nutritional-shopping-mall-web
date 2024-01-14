@@ -92,7 +92,7 @@
 						<%
 							if(member != null){
 						%>
-						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto" href="logout.do">로그아웃</a>
+						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
 						<%
 							}
 						%>
@@ -112,7 +112,7 @@
 						<%
 							} else {
 						%>
-						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto" href="loginPage.do">로그인</a>
+						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">로그인</a>
 						<%
 							}
 						%>
