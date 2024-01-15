@@ -25,22 +25,16 @@ public class CheckId extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String MID = request.getParameter("MID");
-		System.out.println(MID);
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
 		mDTO.setSearchCondition("아이디중복검사");
 		mDTO.setMid(MID);
 		mDTO=mDAO.selectOne(mDTO);
-		System.out.println(mDTO);
 		PrintWriter out = response.getWriter();
-		if(mDTO!=null) {
-			System.out.println("suc");
-			out.print("suc");
-			
-		}else {
-			System.out.println("fail");
+		if(mDTO==null) {
 			out.print("fail");
-			
+		}else {
+			out.print("suc");
 		}
 	
 	}
