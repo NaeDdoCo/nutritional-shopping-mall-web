@@ -135,7 +135,8 @@ CREATE TABLE REVIEW (
 );
 -------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
 --회원가입
-INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH) VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), '남', '010-2525-2525', 'teemo@gmail.com', '경기도 용인시', 'USER', '눈');
+INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, POSTCODE, ADDRESS, DETAILED_ADDRESS, GRADE, HEALTH) 
+VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), '남', '010-2525-2525', 'teemo@gmail.com', 99999, '경기도 용인시', '군인숙소','USER', '눈');
 --중복검사
 SELECT M_ID FROM MEMBER WHERE M_ID = 'teemo';
 --회원목록
