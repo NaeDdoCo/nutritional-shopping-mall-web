@@ -9,6 +9,10 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,42 +38,56 @@
 
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 	<script type="text/javascript">
-	
-		var midResult;
-	
-		$(document).ready(function(){
-			
-			$("#checkIdDupl").on("click",function(){
-		
-				$.ajax({
-					type : "POST",
-					url : "CheckId",
-					data : { 'MID' : "#MID"},
-					dataType : 'text',
-					success : function(data){
-						
-						midResult = data;
-					
-						if(data.equals("suc")){
-						
-							$("body").append("사용 가능한 아이디입니다.");
-						
-						} else{
-						
-							$("body").append("사용 불가능한 아이디입니다.");
-						
-						}
-		
-					},
-					error : function(error){
-						console.log('에러발생!');
-						console.log('에러의 종류 : '+error);
-					}
-				});
-			
-			});
-		});
-		
+		function checkMID() {
+	    	// 사용자가 입력한 아이디 가져오기
+	    	var MID = $("#MID").val();
+	    	
+	    	if(MID === ""){
+	    		
+	    		Swal.fire({
+        			
+        			icon: 'error',
+        			title: '아이디 검사',
+        			text: '아이디를 입력해주세요.',
+        			
+   	 			})
+   	 			
+   	 			return 0;
+	    		
+	    	}
+
+	    	// AJAX 요청 보내기
+	    	$.ajax({
+	        	type: "POST", // 또는 "GET"
+	        	url: "CheckId", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+	        	data: { 'MID': MID },
+	        	success: function(data) {
+	         
+	        		if(data === "suc"){
+	        			
+	        			Swal.fire({
+		        			
+	            			icon: 'success',
+	            			title: '아이디 검사',
+	            			text: '사용 가능한 아이디 입니다.',
+	            			
+	       	 			})
+	        			
+	        		} else {
+	        			
+						Swal.fire({
+		        			
+	            			icon: 'error',
+	            			title: '아이디 검사',
+	            			text: '사용 불가능한 아이디 입니다.',
+	            			
+	       	 			})
+	        			
+	        		}
+	        		
+	        	}
+	    	});
+		}	
 	</script>
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 
@@ -183,13 +201,13 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="join.do" method="POST" name ="joinForm" onsubmit="return checkField()">
+					<form action="join.do" method="POST">
 						<div class="row g-4">
 							<div class="col-lg-8">
-								<input class="form-control p-3  border-secondary" type="text" name="MID" placeholder="아이디">	
+								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디">	
 							</div>	
 							<div class="col-lg-4">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" id="checkIdDupl">중복 검사</button>	
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>	
 							</div>		
 							<div class="col-lg-6">
 								<input class="form-control p-3 border-secondary " type="password" name="mPassword" placeholder="비밀번호" required>
@@ -437,6 +455,7 @@
 	<!-- jquery -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<!-- jquery -->
+	
 	
 </body>
 </html>
