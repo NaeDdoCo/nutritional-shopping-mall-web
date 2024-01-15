@@ -38,6 +38,9 @@
 
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 	<script type="text/javascript">
+	
+		var MIDResult;
+	
 		function checkMID() {
 	    	// 사용자가 입력한 아이디 가져오기
 	    	var MID = $("#MID").val();
@@ -62,6 +65,8 @@
 	        	url: "CheckId", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
 	        	data: { 'MID': MID },
 	        	success: function(data) {
+	        		
+	        		MIDResult = data
 	         
 	        		if(data === "suc"){
 	        			
@@ -90,6 +95,57 @@
 		}	
 	</script>
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
+
+
+	<!-- 비밀 중복검사하는 ajax -->
+	<script>
+	
+		$('#confirmPassword').on("input", function() {
+			
+			var password = $('#password').val();
+			var confirmPassword = $('#confirmPassword').val();
+
+			$.ajax({
+				
+				type: "POST",
+				url:"CheckPw",
+				data:{"password":password, "confirmPassword":confirmPassword},
+				success:function(data){
+					
+					if(data === "suc"){
+						
+						Swal.fire({
+		        			
+	            			icon: 'success',
+	            			title: '비밀번호 검사',
+	            			text: '사용 가능한 비밀번호 입니다.',
+	            			
+	       	 			})
+						
+					} else {
+						
+						Swal.fire({
+		        			
+	            			icon: 'error',
+	            			title: '비밀번호 검사',
+	            			text: '사용  불가능한 비밀번호 입니다.',
+	            			
+	       	 			})
+						
+					}
+					
+				},
+				error:function(){
+					
+					alert("에러!")
+					
+				}
+			
+			})
+		})
+
+	</script>
+	<!-- 비밀 중복검사하는 ajax -->
 
 
 	<!-- Spinner Start -->
@@ -210,10 +266,10 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>	
 							</div>		
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword" placeholder="비밀번호" required>
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword" id="password" placeholder="비밀번호" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" placeholder="재입력" required>
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" required>
 							</div>
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
