@@ -11,11 +11,12 @@ public class MemberDTO {
 	private String gender;
 	private String phoneNumber;
 	private String email;
+	private int postCode;
 	private String address;
+	private String detailedAddress;
 	private String grade;
 	private String health;
 	private String searchCondition;
-	
 	
 	
 	public String getMid() {
@@ -60,11 +61,23 @@ public class MemberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public int getPostCode() {
+		return postCode;
+	}
+	public void setPostCode(int postCode) {
+		this.postCode = postCode;
+	}
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getDetailedAddress() {
+		return detailedAddress;
+	}
+	public void setDetailedAddress(String detailedAddress) {
+		this.detailedAddress = detailedAddress;
 	}
 	public String getGrade() {
 		return grade;
@@ -87,8 +100,12 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [mid=" + mid + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
-				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", grade="
-				+ grade + ", health=" + health + ", searchCondition=" + searchCondition + "]";
+				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", postCode=" + postCode + ", address="
+				+ address + ", detailedAddress=" + detailedAddress + ", grade=" + grade + ", health=" + health
+				+ ", searchCondition=" + searchCondition + "]";
 	}
 	
+	
+	
+
 }
