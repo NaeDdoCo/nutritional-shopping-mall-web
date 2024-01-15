@@ -32,6 +32,8 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+<link href="css/number.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -104,10 +106,14 @@
 
 	<!-- 비밀 중복검사하는 ajax -->
 	<script type="text/javascript">
+	
+		var pwResult;
 		
 		function pwCheck(){
 			
 	    	if($('#password').val() == $('#confirmPassword').val()){
+	    		
+	    		pwResult = true
 	    		
 	    		Swal.fire({
         			
