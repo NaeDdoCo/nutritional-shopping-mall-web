@@ -36,6 +36,11 @@
 
 <body>
 
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<!-- jquery -->
+
+
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 	<script type="text/javascript">
 	
@@ -98,52 +103,34 @@
 
 
 	<!-- 비밀 중복검사하는 ajax -->
-	<script>
-	
-		$('#confirmPassword').on("input", function() {
+	<script type="text/javascript">
+		
+		function pwCheck(){
 			
-			var password = $('#password').val();
-			var confirmPassword = $('#confirmPassword').val();
-
-			$.ajax({
-				
-				type: "POST",
-				url:"CheckPw",
-				data:{"password":password, "confirmPassword":confirmPassword},
-				success:function(data){
-					
-					if(data === "suc"){
-						
-						Swal.fire({
-		        			
-	            			icon: 'success',
-	            			title: '비밀번호 검사',
-	            			text: '사용 가능한 비밀번호 입니다.',
-	            			
-	       	 			})
-						
-					} else {
-						
-						Swal.fire({
-		        			
-	            			icon: 'error',
-	            			title: '비밀번호 검사',
-	            			text: '사용  불가능한 비밀번호 입니다.',
-	            			
-	       	 			})
-						
-					}
-					
-				},
-				error:function(){
-					
-					alert("에러!")
-					
-				}
-			
-			})
-		})
-
+	    	if($('#password').val() == $('#confirmPassword').val()){
+	    		
+	    		Swal.fire({
+        			
+        			icon: 'success',
+        			title: '비밀번호 검사',
+        			text: '비밀번호가 일치합니다.',
+        			
+   	 			})
+	        
+	    	} else {
+	    		
+				Swal.fire({
+        			
+        			icon: 'error',
+        			title: '비밀번호 검사',
+        			text: '비밀번호가 일치하지 않습니다.',
+        			
+   	 			})
+	    		
+	    	}
+	    	
+		}
+		
 	</script>
 	<!-- 비밀 중복검사하는 ajax -->
 
@@ -269,7 +256,7 @@
 								<input class="form-control p-3 border-secondary " type="password" name="mPassword" id="password" placeholder="비밀번호" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" required>
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" onblur="pwCheck()" required>
 							</div>
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
@@ -506,11 +493,6 @@
 		
 	</script>
 	<!-- 주소 api 자바스크립트 -->
-	
-	
-	<!-- jquery -->
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-	<!-- jquery -->
 	
 	
 </body>
