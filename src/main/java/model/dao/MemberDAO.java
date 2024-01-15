@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import model.dto.MemberDTO;
 import model.util.JDBCUtil;
-
 
 public class MemberDAO {
 
@@ -43,8 +41,8 @@ public class MemberDAO {
 
 	// 회원가입
 	private static final String INSERT = "INSERT INTO "
-			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, ADDRESS, GRADE, HEALTH) "
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
+			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, POSTCODE, ADDRESS, DETAILED_ADDRESS, GRADE, HEALTH) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
 
 	private static final String UPDATE = "";
 
@@ -147,8 +145,10 @@ public class MemberDAO {
 				pstmt.setString(5, mDTO.getGender());
 				pstmt.setString(6, mDTO.getPhoneNumber());
 				pstmt.setString(7, mDTO.getEmail());
-				pstmt.setString(8, mDTO.getAddress());
-				pstmt.setString(9, mDTO.getHealth());
+				pstmt.setInt(8, mDTO.getPostCode());
+				pstmt.setString(9, mDTO.getAddress());
+				pstmt.setString(10, mDTO.getDetailedAddress());
+				pstmt.setString(11, mDTO.getHealth());
 				int rs = pstmt.executeUpdate();
 				if (rs <= 0) {
 					return false;
