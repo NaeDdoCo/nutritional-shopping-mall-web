@@ -32,6 +32,48 @@
 
 <body>
 
+	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
+	<script type="text/javascript">
+	
+		var midResult;
+	
+		$(document).ready(function(){
+			
+			$("#checkIdDupl").on("click",function(){
+		
+				$.ajax({
+					type : "POST",
+					url : "CheckId",
+					data : { 'MID' : "#MID"},
+					dataType : 'text',
+					success : function(data){
+						
+						midResult = data;
+					
+						if(data.equals("suc")){
+						
+							$("body").append("사용 가능한 아이디입니다.");
+						
+						} else{
+						
+							$("body").append("사용 불가능한 아이디입니다.");
+						
+						}
+		
+					},
+					error : function(error){
+						console.log('에러발생!');
+						console.log('에러의 종류 : '+error);
+					}
+				});
+			
+			});
+		});
+		
+	</script>
+	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
+
+
 	<!-- Spinner Start -->
 	<div id="spinner"
 		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -131,7 +173,7 @@
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">로그인</h1>
+		<h1 class="text-center text-white display-6">회원가입</h1>
 	</div>
 	<!-- Single Page Header End -->
 
@@ -147,7 +189,7 @@
 								<input class="form-control p-3  border-secondary" type="text" name="MID" placeholder="아이디">	
 							</div>	
 							<div class="col-lg-4">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">중복 검사</button>	
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" id="checkIdDupl">중복 검사</button>	
 							</div>		
 							<div class="col-lg-6">
 								<input class="form-control p-3 border-secondary " type="password" name="mPassword" placeholder="비밀번호" required>
@@ -342,7 +384,8 @@
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top">
 		<i class="fa fa-arrow-up"></i>
 	</a>
-
+	<!-- Back to Top -->
+	
 
 	<!-- JavaScript Libraries -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -351,9 +394,12 @@
 	<script src="lib/waypoints/waypoints.min.js"></script>
 	<script src="lib/lightbox/js/lightbox.min.js"></script>
 	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	<!-- JavaScript Libraries -->
+	
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	<!-- Template Javascript -->
 
 
 	<!-- 주소 api 자바스크립트 -->
@@ -385,6 +431,12 @@
 		}
 		
 	</script>
+	<!-- 주소 api 자바스크립트 -->
+	
+	
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<!-- jquery -->
 	
 </body>
 </html>
