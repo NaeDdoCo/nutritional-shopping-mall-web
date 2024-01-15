@@ -66,8 +66,7 @@ public class JoinAction implements Action {
 		String zipNo = request.getParameter("zipNo");
 		String roadAddrPart1 = request.getParameter("roadAddrPart1");
 		String addrDetail = request.getParameter("addrDetail");
-		// TODO: 나중에 분리해서 저장
-		String addr = zipNo + "; " + roadAddrPart1 + "; " + addrDetail;
+//		String addr = zipNo + "; " + roadAddrPart1 + "; " + addrDetail;
 		
 		String skel = request.getParameter("skel");
 		String liver = request.getParameter("liver");
@@ -89,7 +88,10 @@ public class JoinAction implements Action {
 		mDTO.setGender(gender);
 		mDTO.setPhoneNumber(phoneNumber);
 		mDTO.setEmail(email);
-		mDTO.setAddress(addr);
+		System.out.println("[JoinAction] " + zipNo);
+		mDTO.setPostCode(Integer.parseInt(zipNo));
+		mDTO.setAddress(roadAddrPart1);
+		mDTO.setDetailedAddress(addrDetail);
 		mDTO.setHealth(health);
 		
 		if (mDAO.insert(mDTO)) {
