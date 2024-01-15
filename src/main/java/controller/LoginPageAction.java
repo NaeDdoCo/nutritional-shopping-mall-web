@@ -14,7 +14,7 @@ public class LoginPageAction implements Action{
 		ActionForward forward = new ActionForward();
 		
 		forward.setPath("login.jsp");
-		forward.setRedirect(true);
+		forward.setRedirect(false);
 		
 		return forward;
 	}
