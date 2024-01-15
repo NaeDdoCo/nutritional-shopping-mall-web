@@ -25,7 +25,7 @@ CREATE TABLE MEMBER(
 	--회원등급(admin == 5byte)
 	GRADE VARCHAR2(5) NOT NULL,
 	--건강상태(뷰에서 선택지 형식으로 1. 눈 건강 이상, 2. 간 건강 이상 ....)
-	HEALTH VARCHAR2(255) NOT NULL
+	HEALTH VARCHAR2(255)
 );
 
 --상품 테이블
@@ -217,12 +217,14 @@ SELECT * FROM BUYINFO;
 SELECT * FROM REVIEW;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---DROP TABLE MEMBER;
---DROP TABLE PRODUCT;
---DROP TABLE CART;
---DROP TABLE COUPON;
---DROP TABLE BUYINFO;
---DROP TABLE REVIEW;
+-- ※경고※ --
+-- 테이블 삭제 명령어 --
+DROP TABLE MEMBER;
+DROP TABLE PRODUCT;
+DROP TABLE CART;
+DROP TABLE COUPON;
+DROP TABLE BUYINFO;
+DROP TABLE REVIEW;
 
 -- 컬럼명 변경
 ALTER TABLE PRODUCT RENAME COLUMN REG_DATE TO REG_TIME;
