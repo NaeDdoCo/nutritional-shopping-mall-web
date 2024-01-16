@@ -32,9 +32,9 @@ public class CheckId extends HttpServlet {
 		mDTO=mDAO.selectOne(mDTO);
 		PrintWriter out = response.getWriter();
 		if(mDTO==null) {
-			out.print("fail");
-		}else {
 			out.print("suc");
+		}else {
+			out.print("fail");
 		}
 	
 	}
