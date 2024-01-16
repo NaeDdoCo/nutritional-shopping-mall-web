@@ -45,58 +45,38 @@
 
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 	<script type="text/javascript">
-	
 		var MIDResult;
-	
 		function checkMID() {
 	    	// 사용자가 입력한 아이디 가져오기
 	    	var MID = $("#MID").val();
-	    	
 	    	if(MID === ""){
-	    		
 	    		Swal.fire({
-        			
         			icon: 'error',
         			title: '아이디 검사',
         			text: '아이디를 입력해주세요.',
-        			
    	 			})
-   	 			
    	 			return 0;
-	    		
 	    	}
-
 	    	// AJAX 요청 보내기
 	    	$.ajax({
 	        	type: "POST", // 또는 "GET"
 	        	url: "CheckId", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
 	        	data: { 'MID': MID },
 	        	success: function(data) {
-	        		
 	        		MIDResult = data
-	         
 	        		if(data === "suc"){
-	        			
 	        			Swal.fire({
-		        			
 	            			icon: 'success',
 	            			title: '아이디 검사',
-	            			text: '사용 가능한 아이디 입니다.',
-	            			
+	            			text: '사용 가능한 아이디 입니다.',	
 	       	 			})
-	        			
 	        		} else {
-	        			
 						Swal.fire({
-		        			
 	            			icon: 'error',
 	            			title: '아이디 검사',
 	            			text: '사용 불가능한 아이디 입니다.',
-	            			
 	       	 			})
-	        			
 	        		}
-	        		
 	        	}
 	    	});
 		}	
@@ -106,39 +86,38 @@
 
 	<!-- 비밀 중복검사하는 ajax -->
 	<script type="text/javascript">
-	
 		var pwResult;
-		
 		function pwCheck(){
-			
 	    	if($('#password').val() == $('#confirmPassword').val()){
-	    		
-	    		pwResult = true
-	    		
+	    		pwResult = "suc"
 	    		Swal.fire({
-        			
         			icon: 'success',
         			title: '비밀번호 검사',
         			text: '비밀번호가 일치합니다.',
-        			
    	 			})
-	        
 	    	} else {
-	    		
 				Swal.fire({
-        			
         			icon: 'error',
         			title: '비밀번호 검사',
         			text: '비밀번호가 일치하지 않습니다.',
-        			
    	 			})
-	    		
 	    	}
-	    	
 		}
-		
 	</script>
 	<!-- 비밀 중복검사하는 ajax -->
+	
+	
+	<!-- 회원가입 조건이 충족됬는지 확인 -->
+	<script>
+		function checkForm(){
+			if(MIDResult=="suc"&&pwResult=="suc"){
+				return true;
+			}else{
+				return false;
+			}			
+		}
+	</script>
+	<!-- 회원가입 조건이 충족됬는지 확인 -->
 
 
 	<!-- Spinner Start -->
@@ -250,7 +229,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="join.do" method="POST">
+					<form action="join.do" name="joinForm" method="POST">
 						<div class="row g-4">
 							<div class="col-lg-8">
 								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디">	
@@ -310,16 +289,16 @@
 								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" placeholder="우편번호" readonly/>
+								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" placeholder="우편번호" readonly required/>
 							</div>
 							<div class="col-lg-4">
-								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3"  type="button" onClick="goPopup();" value="우편번호 찾기"/>
+								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3"  type="button" onClick="goPopup()" value="우편번호 찾기"/>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly/>
+								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly required/>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" placeholder="상세 주소" readonly/>
+								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" placeholder="상세 주소" readonly required/>
 							</div>
 							<div>
 								<input type="checkbox" name="skel" value="뼈/치아">뼈/치아 
@@ -332,10 +311,11 @@
 								<input type="checkbox" name="digest" value="소화">소화
 							</div>
 							<div class="col-lg-6">
-								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="회원가입">
+								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="submit" value="회원가입">
+								
 							</div>
 							<div class="col-lg-6">
-								<button class="btn border border-secondary text-primary rounded-pill px-3 py-3" type="button" onclick="">취소</button>	
+								<button class="btn border border-secondary text-primary rounded-pill px-5 py-3" type="button" onclick="">취소</button>	
 							</div>
 						</div>
 					</form>
