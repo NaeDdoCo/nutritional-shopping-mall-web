@@ -89,9 +89,9 @@ public class JoinAction implements Action {
 		mDTO.setPhoneNumber(phoneNumber);
 		mDTO.setEmail(email);
 		System.out.println("[JoinAction] " + zipNo);
-		mDTO.setPostCode(Integer.parseInt(zipNo));
-		mDTO.setAddress(roadAddrPart1);
-		mDTO.setDetailedAddress(addrDetail);
+		mDTO.setmPostCode(Integer.parseInt(zipNo));
+		mDTO.setmAddress(roadAddrPart1);
+		mDTO.setmDetailedAddress(addrDetail);
 		mDTO.setHealth(health);
 		
 		if (mDAO.insert(mDTO)) {
