@@ -22,8 +22,18 @@ public class MainPageAction implements Action {
 		ArrayList<ProductDTO> pDTOs = new ArrayList<ProductDTO>();
 		ProductDTO pDTO = new ProductDTO();
 		ProductDAO pDAO = new ProductDAO();
-		// TODO: pDAO.selectAll
-	
+		
+		// 상품목록페이지
+		pDTO.setSearchCondition("상품목록페이지");
+		pDTO.setAncSelectMin(1);
+		pDTO.setAncSelectMax(8);
+		pDTOs = pDAO.selectAll(pDTO);
+		
+		// 상품출력전체
+		pDTO.setSearchCondition("상품출력전체");
+		rcmDTOs = pDAO.selectAll(pDTO);
+		rcmDTOs = recommendProduct(rcmDTOs);
+		
 		request.setAttribute("rcmDTOs", rcmDTOs);
 		request.setAttribute("pDTOs", pDTOs);
 		
@@ -31,6 +41,17 @@ public class MainPageAction implements Action {
 		forward.setRedirect(false);		
 		
 		return forward;
+	}
+	
+	private ArrayList<ProductDTO> recommendProduct(ArrayList<ProductDTO> rcmDTOs) {
+		ArrayList<ProductDTO> retDTOs = new ArrayList<ProductDTO>();
+		
+		// TODO: 상품 추천 알고리즘
+		for (ProductDTO data : rcmDTOs) {
+			retDTOs.add(data);
+		}
+		
+		return retDTOs;
 	}
 
 }
