@@ -250,7 +250,7 @@
 								<input class="form-control p-3 border-secondary" type="number" name="year" placeholder="yyyy" required>
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="number" name="month" placeholder="MM" required>
+								<input class="form-control p-3 border-secondary" type="number" name="month" placeholder="mm" required>
 							</div>
 							<div class="col-lg-4">
 								<input class="form-control p-3 border-secondary" type="number" name="day" placeholder="dd" required>
