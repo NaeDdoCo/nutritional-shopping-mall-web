@@ -265,7 +265,7 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>	
 							</div>		
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword" id="password" placeholder="비밀번호" required>
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" required>
 							</div>
 							<div class="col-lg-6">
 								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" onblur="pwCheck()" required>
