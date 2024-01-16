@@ -123,9 +123,13 @@
 	<!-- 휴대폰 인증 요청 -->
 	<script type="text/javascript">
 		function checkTel() {
+			var phoneNum1 = $("#phoneNum1").val();
+			var phoneNum2 = $("#phoneNum2").val();
+			var phoneNum3 = $("#phoneNum3").val();
 			$.ajax({
 	        	type: "POST",
 	        	url: "CheckTel",
+	        	data: { 'phoneNum1':phoneNum1, 'phoneNum2':phoneNum2, 'phoneNum3':phoneNum3},
 	        	success: function(data) {
 	        		MIDResult = data
 	        		if(data === "suc"){
@@ -134,17 +138,24 @@
 	            			title: '아이디 검사',
 	            			text: '사용 가능한 아이디 입니다.',	
 	       	 			})
-	        		} else {
-						Swal.fire({
-	            			icon: 'error',
-	            			title: '아이디 검사',
-	            			text: '사용 불가능한 아이디 입니다.',
-	       	 			})
 	        		}
 	        	}
 	    	});
 		}
 	</script>
+	<!-- 휴대폰 인증 요청 -->
+	
+	
+	<!-- 휴대폰 인증번호 확인 -->
+		<script type="text/javascript">
+			function checkAuthNum(){
+		
+				var phoneNum1 = $("#phoneNum1").val();
+				
+		
+			}
+		</script>
+	<!-- 휴대폰 인증번호 확인 -->
 	
 
 	<!-- Spinner Start -->
@@ -289,13 +300,13 @@
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여">여자
 							</div>
 							<div class="col-lg-2">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" value="010" readonly required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" id="phoneNum1" value="010" readonly required>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" id="phoneNum2" placeholder="0000" required>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum3" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum3" id="phoneNum3" placeholder="0000" required>
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkTel()">인증번호 발송</button>	
