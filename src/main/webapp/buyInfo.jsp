@@ -121,6 +121,7 @@
                         <thead>
                           <tr>
                             <th scope="col">상품</th>
+                            <th scope="col">주문번호</th>
                             <th scope="col">이름</th>
                             <th scope="col">구매일시</th>
                             <th scope="col">구매수량</th>
@@ -136,6 +137,9 @@
                                         <img src="img/vegetable-item-3.png" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
                                     </div>
                                 </th>
+                              	<td>
+                                    <p class="mb-0 mt-4">주문번호</p>
+                                </td>
                                 <td>
                                     <p class="mb-0 mt-4">이름</p>
                                 </td>
