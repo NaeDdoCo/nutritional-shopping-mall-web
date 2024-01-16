@@ -32,6 +32,26 @@
     </head>
 
     <body>
+    
+    	<!-- jquery -->
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<!-- jquery -->
+    
+    	<!--  -->
+    	<script>
+  			$(document).ready(function () {
+    			// 모달 열기
+    			$("#openModalButton").click(function () {
+      				$("#couponModal").fadeIn();
+    			});
+    			// 모달 닫기
+    			$("#closeModalButton").click(function () {
+      				$("#couponModal").fadeOut();
+    			});
+  			});
+		</script>
+		<!--  -->
+		
 
         <!-- Spinner Start -->
         <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -82,7 +102,7 @@
         <!-- Navbar End -->
 
 
-        <!-- Modal Search Start -->
+        <!-- 검색 모달 -->
         <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content rounded-0">
@@ -99,7 +119,51 @@
                 </div>
             </div>
         </div>
-        <!-- Modal Search End -->
+        <!-- 검색 모달 -->
+        
+        
+         <!-- 쿠폰 모달 -->
+        <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">쿠폰 적용</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <table class="table">
+                        		<thead>
+                          			<tr>
+                            			<th scope="col"></th>
+                            			<th scope="col">쿠폰이름</th>
+                            			<th scope="col">할인금액</th>
+                           				<th scope="col">카테고리</th>
+                          			</tr>
+                        		</thead>
+                        		<tbody>
+                            		<tr>
+                                		<td>
+                                    		<p class="mb-3 mt-4"><input type="checkbox"></p>
+                                		</td>
+                                		<td>
+                                    		<p class="mb-0 mt-4">쿠폰이름</p>
+                                		</td>
+                                		<td>
+                                   			<p class="mb-0 mt-4">할인금액</p>
+                               			</td>
+                                		<td>
+                                    		<p class="mb-0 mt-4">카테고리</p>
+                                		</td>
+                            		</tr>
+                        		</tbody>
+                    		</table>
+                  		</div>
+              		</div>
+           		</div>
+       		</div>
+   		</div>
+        <!-- 쿠폰 모달 -->
 
 
         <!-- Single Page Header start -->
@@ -145,7 +209,7 @@
                                 <input type="email" class="form-control">
                             </div>
                            <div class="col-lg-4 my-3">
-								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3"  type="button" onClick="goPopup()" value="쿠폰 적용"/>
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" data-bs-toggle="modal" data-bs-target="#couponModal" value="쿠폰 적용">쿠폰적용</button>
 							</div>
                         </div>
                         <div class="col-md-12 col-lg-6 col-xl-5">
@@ -209,7 +273,7 @@
                                 </table>
                             </div>
                             <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                                <button type="button" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place Order</button>
+                                <button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" type="button">Place Order</button>
                             </div>
                         </div>
                     </div>
