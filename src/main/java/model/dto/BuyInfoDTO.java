@@ -12,7 +12,12 @@ public class BuyInfoDTO {
     private int bQty;
     private int paymentPrice;
     private Timestamp buyTime;
+	private int bPostCode;
+	private String bAddress;
+	private String bDetailedAddress;
     private String searchCondition;
+    
+    
 	public int getBID() {
 		return BID;
 	}
@@ -67,6 +72,24 @@ public class BuyInfoDTO {
 	public void setBuyTime(Timestamp buyTime) {
 		this.buyTime = buyTime;
 	}
+	public int getbPostCode() {
+		return bPostCode;
+	}
+	public void setbPostCode(int bPostCode) {
+		this.bPostCode = bPostCode;
+	}
+	public String getbAddress() {
+		return bAddress;
+	}
+	public void setbAddress(String bAddress) {
+		this.bAddress = bAddress;
+	}
+	public String getbDetailedAddress() {
+		return bDetailedAddress;
+	}
+	public void setbDetailedAddress(String bDetailedAddress) {
+		this.bDetailedAddress = bDetailedAddress;
+	}
 	public String getSearchCondition() {
 		return searchCondition;
 	}
@@ -77,10 +100,11 @@ public class BuyInfoDTO {
 	public String toString() {
 		return "BuyInfoDTO [BID=" + BID + ", MID=" + MID + ", PID=" + PID + ", CPID=" + CPID + ", orderNum=" + orderNum
 				+ ", deliState=" + deliState + ", bQty=" + bQty + ", paymentPrice=" + paymentPrice + ", buyTime="
-				+ buyTime + ", searchCondition=" + searchCondition + "]";
+				+ buyTime + ", bPostCode=" + bPostCode + ", bAddress=" + bAddress + ", bDetailedAddress="
+				+ bDetailedAddress + ", searchCondition=" + searchCondition + "]";
 	}
     
-    
+
     
 
 }

@@ -11,14 +11,12 @@ public class MemberDTO {
 	private String gender;
 	private String phoneNumber;
 	private String email;
-	private int postCode;
-	private String address;
-	private String detailedAddress;
+	private int mPostCode;
+	private String mAddress;
+	private String mDetailedAddress;
 	private String grade;
 	private String health;
 	private String searchCondition;
-	
-	
 	public String getMid() {
 		return mid;
 	}
@@ -61,23 +59,23 @@ public class MemberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPostCode() {
-		return postCode;
+	public int getmPostCode() {
+		return mPostCode;
 	}
-	public void setPostCode(int postCode) {
-		this.postCode = postCode;
+	public void setmPostCode(int mPostCode) {
+		this.mPostCode = mPostCode;
 	}
-	public String getAddress() {
-		return address;
+	public String getmAddress() {
+		return mAddress;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setmAddress(String mAddress) {
+		this.mAddress = mAddress;
 	}
-	public String getDetailedAddress() {
-		return detailedAddress;
+	public String getmDetailedAddress() {
+		return mDetailedAddress;
 	}
-	public void setDetailedAddress(String detailedAddress) {
-		this.detailedAddress = detailedAddress;
+	public void setmDetailedAddress(String mDetailedAddress) {
+		this.mDetailedAddress = mDetailedAddress;
 	}
 	public String getGrade() {
 		return grade;
@@ -100,12 +98,13 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [mid=" + mid + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
-				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", postCode=" + postCode + ", address="
-				+ address + ", detailedAddress=" + detailedAddress + ", grade=" + grade + ", health=" + health
-				+ ", searchCondition=" + searchCondition + "]";
+				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", mPostCode=" + mPostCode
+				+ ", mAddress=" + mAddress + ", mDetailedAddress=" + mDetailedAddress + ", grade=" + grade + ", health="
+				+ health + ", searchCondition=" + searchCondition + "]";
 	}
 	
 	
-	
+
 
 }
+

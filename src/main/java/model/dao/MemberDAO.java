@@ -41,7 +41,7 @@ public class MemberDAO {
 
 	// 회원가입
 	private static final String INSERT = "INSERT INTO "
-			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, POSTCODE, ADDRESS, DETAILED_ADDRESS, GRADE, HEALTH) "
+			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, GRADE, HEALTH) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
 
 	private static final String UPDATE = "";
@@ -145,9 +145,9 @@ public class MemberDAO {
 				pstmt.setString(5, mDTO.getGender());
 				pstmt.setString(6, mDTO.getPhoneNumber());
 				pstmt.setString(7, mDTO.getEmail());
-				pstmt.setInt(8, mDTO.getPostCode());
-				pstmt.setString(9, mDTO.getAddress());
-				pstmt.setString(10, mDTO.getDetailedAddress());
+				pstmt.setInt(8, mDTO.getmPostCode());
+				pstmt.setString(9, mDTO.getmAddress());
+				pstmt.setString(10, mDTO.getmDetailedAddress());
 				pstmt.setString(11, mDTO.getHealth());
 				int rs = pstmt.executeUpdate();
 				if (rs <= 0) {

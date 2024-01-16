@@ -17,11 +17,11 @@ CREATE TABLE MEMBER(
 	--이메일
 	EMAIL VARCHAR2(255) NOT NULL,
 	--우편번호
-	POSTCODE INT NOT NULL,
+	M_POSTCODE INT NOT NULL,
 	--도로명주소
-	ADDRESS VARCHAR2(255) NOT NULL,
+	M_ADDRESS VARCHAR2(255) NOT NULL,
 	--상세주소
-	DETAILED_ADDRESS VARCHAR2(255) NOT NULL,
+	M_DETAILED_ADDRESS VARCHAR2(255) NOT NULL,
 	--회원등급(admin == 5byte)
 	GRADE VARCHAR2(5) NOT NULL,
 	--건강상태(뷰에서 선택지 형식으로 1. 눈 건강 이상, 2. 간 건강 이상 ....)
@@ -80,11 +80,7 @@ CREATE TABLE COUPON (
     M_ID VARCHAR2(15) NOT NULL,
     -- 쿠폰 이름
     CP_NAME VARCHAR2(75) NOT NULL, 
-    -- 사용기간 (발급일로부터 30초)
-    -- DATETIME 사용불가
-    -- TIMESTAMP 사용가능
-    -- 둘의 차이는 정확도와 그에 따른 자료형의 크기
-    -- 시연 후 DATE타입으로 
+    -- 사용기간
     PERIOD TIMESTAMP NOT NULL,   
     -- 5. 할인율 (%로 저장)
     DISCOUNT INT NOT NULL,
@@ -114,7 +110,13 @@ CREATE TABLE BUYINFO (
     -- 8. 결제 금액
     PAYMENT_PRICE INT NOT NULL,
     -- 9. 구매일
-    BUY_TIME TIMESTAMP NOT NULL
+    BUY_TIME TIMESTAMP NOT NULL,
+    	--우편번호
+	B_POSTCODE INT NOT NULL,
+	--도로명주소
+	B_ADDRESS VARCHAR2(255) NOT NULL,
+	--상세주소
+	B_DETAILED_ADDRESS VARCHAR2(255) NOT NULL
 );
 
 --리뷰 테이블
@@ -135,8 +137,9 @@ CREATE TABLE REVIEW (
 );
 -------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
 --회원가입
-INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, POSTCODE, ADDRESS, DETAILED_ADDRESS, GRADE, HEALTH) 
-VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), '남', '010-2525-2525', 'teemo@gmail.com', 99999, '경기도 용인시', '군인숙소','USER', '눈');
+INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, GRADE, HEALTH) 
+VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), 
+'남', '010-2525-2525', 'teemo@gmail.com', 99999, '경기도 용인시', '군인숙소','USER', '눈');
 --중복검사
 SELECT M_ID FROM MEMBER WHERE M_ID = 'teemo';
 --회원목록
@@ -146,7 +149,7 @@ SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH FROM MEMBER WHERE M_ID='teemo' A
 
 --회원정보변경(미완성)
 UPDATE MEMBER 
-SET M_PASSWORD = , GENDER = , PHONE_NUMBER = , EMAIL = , ADDRESS = , HEALTH = 
+SET M_PASSWORD = , GENDER = , PHONE_NUMBER = , EMAIL = , M_ADDRESS = , HEALTH = 
 WHERE M_ID = 'teemo';
 -------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
 --장바구니에 담기
@@ -205,18 +208,43 @@ WHERE RN BETWEEN 79 AND 90;
 --WHERE ROWNUM BETWEEN 79 AND 90
 --AND SELLING_STATE = '판매중';
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--쿠폰생성(만약 부여를 한다고하면 쿠폰번호는 컨트롤러에서 만들어서 set)--
+INSERT INTO COUPON (CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY)
+VALUES (
+ '4', 	--쿠폰번호--
+ 'teemo',		--소유자MID--
+ '임시쿠폰 1',	--쿠폰이름--
+ SYSTIMESTAMP,	--현재시간 +30일--
+ 30,			-- 할인율
+ '눈'
+);
+--쿠폰업데이트--
+UPDATE COUPON 
+SET USED = '사용'
+WHERE CP_ID = '5';
 
+--쿠폰목록출력(마이페이지, 사용, 미사용 정렬 후 만료일 순 정렬)--
+-- 내림차순으로 해야 사용이위로 옴
+SELECT CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY, USED 
+FROM COUPON
+WHERE M_ID = 'teemo'
+ORDER BY USED DESC, PERIOD ASC;
 
+--쿠폰목록출력(쿠폰적용, 미사용쿠폰을 만료일 순으로 정렬하여 사용)--
+SELECT CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY, USED 
+FROM COUPON
+WHERE M_ID = 'teemo' AND USED = '미사용'
+ORDER BY PERIOD ASC;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+-- 테이블 전체목록--
 SELECT * FROM MEMBER;
 SELECT * FROM PRODUCT;
 SELECT * FROM CART;
 SELECT * FROM COUPON;
 SELECT * FROM BUYINFO;
 SELECT * FROM REVIEW;
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ※경고※ --
 -- 테이블 삭제 명령어 --
@@ -226,6 +254,6 @@ DROP TABLE CART;
 DROP TABLE COUPON;
 DROP TABLE BUYINFO;
 DROP TABLE REVIEW;
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 컬럼명 변경
 ALTER TABLE PRODUCT RENAME COLUMN REG_DATE TO REG_TIME;
