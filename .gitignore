@@ -27,3 +27,5 @@ replay_pid*
 # custom
 *.xml
 *.jpg
+.classpath
+.settings/**
