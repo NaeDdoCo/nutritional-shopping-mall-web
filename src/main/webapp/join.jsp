@@ -122,6 +122,9 @@
 	
 	<!-- 휴대폰 인증 요청 -->
 	<script type="text/javascript">
+	
+		var telResult;
+	
 		function checkTel() {
 			var phoneNum1 = $("#phoneNum1").val();
 			var phoneNum2 = $("#phoneNum2").val();
@@ -131,14 +134,7 @@
 	        	url: "CheckTel",
 	        	data: { 'phoneNum1':phoneNum1, 'phoneNum2':phoneNum2, 'phoneNum3':phoneNum3},
 	        	success: function(data) {
-	        		MIDResult = data
-	        		if(data === "suc"){
-	        			Swal.fire({
-	            			icon: 'success',
-	            			title: '아이디 검사',
-	            			text: '사용 가능한 아이디 입니다.',	
-	       	 			})
-	        		}
+	        		telResult = data;
 	        	}
 	    	});
 		}
@@ -149,10 +145,20 @@
 	<!-- 휴대폰 인증번호 확인 -->
 		<script type="text/javascript">
 			function checkAuthNum(){
-		
-				var phoneNum1 = $("#phoneNum1").val();
-				
-		
+				var authNum = $("#authNum").val();
+				if(telResult === authNum){
+					Swal.fire({
+	        			icon: 'success',
+	        			title: '휴대폰 인증',
+	        			text: '인증이 완료되었습니다.',
+	   	 			})
+				} else {
+					Swal.fire({
+	        			icon: 'error',
+	        			title: '휴대폰 인증',
+	        			text: '인증이 실패하였습니다.',
+	   	 			})
+				}
 			}
 		</script>
 	<!-- 휴대폰 인증번호 확인 -->
@@ -312,10 +318,10 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkTel()">인증번호 발송</button>	
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" name="authNum" placeholder="인증번호" required>
+								<input class="form-control p-3 border-secondary" type="text" name="authNum" id="authNum" placeholder="인증번호" required>
 							</div>
 							<div class="col-lg-4">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 확인</button>	
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkAuthNum()">인증번호 확인</button>	
 							</div>
 							<div class="col-lg-5">
 								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디" required>
