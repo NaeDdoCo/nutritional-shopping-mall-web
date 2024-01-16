@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -20,11 +21,9 @@ public class CheckTel extends HttpServlet {
        
     public CheckTel() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -39,30 +38,28 @@ public class CheckTel extends HttpServlet {
         * 뷰 -- 전화번호 3개로 --> 컨트롤러
         * 컨트롤러 -- 인증번호(요청 파라미터) --> 뷰 (인증번호 확인은 뷰가)
 		*/
+		
 		String phoneNumber1=(String)request.getParameter("phoneNum1");
 		String phoneNumber2=(String)request.getParameter("phoneNum2");
 		String phoneNumber3=(String)request.getParameter("phoneNum3");
 		
 		String combinedPhoneNumber=phoneNumber1+phoneNumber2+phoneNumber3;
 		
-		
+		//인증번호 랜덤으로 생성
 		Random random  = new Random();
         String numStr = "";
         for(int i=0; i<5; i++) {
-            String ranNum = Integer.toString(random.nextInt(10));   // 0부터 9까지 랜덤으로 숫자를 뽑는다.
-            numStr += ranNum;   // 랜덤으로 나온 숫자를 하나씩 누적해서 담는다.
+            String ranNum = Integer.toString(random.nextInt(10));   // 0부터 9까지 랜덤으로 숫자생성
+            numStr += ranNum;   // 랜덤으로 나온 숫자를 누적 => 5자리
         }
-
-        request.setAttribute("AuthNum", numStr);
-
-		
+        
+		//sms api를 사용하여 sms 발송
 		DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSUDWN0MRTNVKOZ", "VFCCDXIBPRJJIOCEMFZAUIAUEX7YZPUJ", "https://api.coolsms.co.kr");
 		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
 		Message message = new Message();
 		message.setFrom("01033157366");
 		message.setTo(combinedPhoneNumber);
-
-		message.setText("내또코 쇼핑몰 인증번호 ["+numStr+"]을 입력해주세요.");
+		message.setText("내또코 영양제 쇼핑몰 인증번호 ["+numStr+"]을 입력해주세요. (•ө•)♡");
 
 		try {
 		  messageService.send(message);
@@ -73,7 +70,10 @@ public class CheckTel extends HttpServlet {
 		} catch (Exception exception) {
 		  System.out.println(exception.getMessage());
 		}
-				
+		
+		//V에 인증번호 전달
+		PrintWriter out = response.getWriter();
+		out.print(numStr);	
 	}
 
 }
