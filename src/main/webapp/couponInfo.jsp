@@ -122,7 +122,7 @@
                           <tr>
                             <th scope="col">생성일</th>
                             <th scope="col">쿠폰이름</th>
-                            <th scope="col">할인금액</th>
+                            <th scope="col">할인율</th>
                             <th scope="col">만료일</th>
                             <th scope="col">카테고리</th>
                             <th scope="col">사용여부</th>
@@ -137,7 +137,7 @@
                                     <p class="mb-0 mt-4">쿠폰이름</p>
                                 </td>
                                 <td>
-                                   <p class="mb-0 mt-4">할인금액</p>
+                                   <p class="mb-0 mt-4">할인율</p>
                                 </td>
                                 <td>
                                     <p class="mb-0 mt-4">만료일</p>
