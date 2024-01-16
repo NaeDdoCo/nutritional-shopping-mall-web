@@ -76,12 +76,6 @@
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
 						<div class="nav-item dropdown">
-							<div class="dropdown-menu m-0 bg-secondary rounded-0">
-								<a href="cart.html" class="dropdown-item">Cart</a> <a
-									href="chackout.html" class="dropdown-item">Chackout</a> <a
-									href="testimonial.html" class="dropdown-item">Testimonial</a> <a
-									href="404.html" class="dropdown-item active">404 Page</a>
-							</div>
 						</div>
 					</div>
 					<div class="d-flex m-3 me-0">
@@ -147,7 +141,7 @@
 								<input class="form-control p-3 border-secondary " type="password" name="mPassword" placeholder="비밀번호" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" placeholder="재입입력" required>
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" placeholder="재입력" required>
 							</div>
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
