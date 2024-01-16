@@ -29,6 +29,8 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <link href="css/number.css" rel="stylesheet">
+        
     </head>
 
     <body>
@@ -37,7 +39,34 @@
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 		<!-- jquery -->
     
-    	<!--  -->
+    
+    	<!-- 주소 api 자바스크립트 -->
+		<script language="javascript">
+			// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. 
+			// (＂팝업 API 호출 소스"도 동일하게 적용시켜야 합니다.)
+			//document.domain = "abc.go.kr";
+			function goPopup(){
+				//경로는 시스템에 맞게 수정하여 사용
+				//호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를
+				//호출하게 됩니다.
+				var pop = window.open("jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+				//** 2017년 5월 모바일용 팝업 API 기능 추가제공 **/
+				// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서
+				// 실제 주소검색 URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+				// var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+			}
+			
+			function jusoCallBack(roadAddrPart1,addrDetail, zipNo){
+ 				// 2017년 2월 제공항목이 추가되었습니다. 원하시는 항목을 추가하여 사용하시면 됩니다.
+ 				document.buyForm.roadAddrPart1.value = roadAddrPart1;
+ 				document.buyForm.addrDetail.value = addrDetail;
+ 				document.buyForm.zipNo.value = zipNo;
+			}
+		</script>
+		<!-- 주소 api 자바스크립트 -->
+    		
+    		
+    	<!--  쿠폰 버튼 제이쿼리  -->
     	<script>
   			$(document).ready(function () {
     			// 모달 열기
@@ -50,7 +79,7 @@
     			});
   			});
 		</script>
-		<!--  -->
+		<!--  쿠폰 버튼 제이쿼리  -->
 		
 
         <!-- Spinner Start -->
@@ -137,7 +166,8 @@
                           			<tr>
                             			<th scope="col"></th>
                             			<th scope="col">쿠폰이름</th>
-                            			<th scope="col">할인금액</th>
+                            			<th scope="col">할인율</th>
+                            			<th scope="col">만료기간</th>
                            				<th scope="col">카테고리</th>
                           			</tr>
                         		</thead>
@@ -150,14 +180,20 @@
                                     		<p class="mb-0 mt-4">쿠폰이름</p>
                                 		</td>
                                 		<td>
-                                   			<p class="mb-0 mt-4">할인금액</p>
+                                   			<p class="mb-0 mt-4">할인율</p>
                                			</td>
+                               			<td>
+                                    		<p class="mb-0 mt-4">만료기간</p>
+                                		</td>
                                 		<td>
                                     		<p class="mb-0 mt-4">카테고리</p>
                                 		</td>
                             		</tr>
                         		</tbody>
                     		</table>
+                    		<div class="mx-auto d-flex">
+                    			<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button">적용하기</button>
+                    		</div>
                   		</div>
               		</div>
            		</div>
@@ -177,38 +213,44 @@
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <h1 class="mb-4">Billing details</h1>
-                <form action="#">
+                <form action="#" name="buyForm">
                     <div class="row g-5">
                         <div class="col-md-12 col-lg-6 col-xl-7">
                             <div class="row">
                                 <div class="col-md-12 col-lg-12">
                                     <div class="form-item w-100">
-                                        <label class="form-label my-3">이름</label>
-                                        <input type="text" class="form-control">
+                                        <label class="form-label my-3"></label>
+                                        <input type="text" class="form-control p-3" placeholder="이름">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-item">
-                                <label class="form-label my-3">우편번호</label>
-                                <input type="text" class="form-control">
+                            <div class="form-item w-100">
+                           		<label class="form-label my-3"></label>
+                             	<input type="text" class="form-control p-3" placeholder="전화번호">
+                        	</div>
+                        	<div class="form-item w-100">
+                           		<label class="form-label my-3"></label>
+                             	<input type="text" class="form-control p-3" placeholder="이메일">
+                        	</div>
+                            <div class="row">
+                            	<label class="form-label my-3"></label>
+                            	<div class="col-lg-8">
+									<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" placeholder="우편번호" readonly required/>
+								</div>
+                            	<div class="col-lg-4">
+									<input class="btn border border-secondary text-primary rounded-pill px-4 py-3"  type="button" onClick="goPopup()" value="우편번호 찾기"/>
+								</div>
                             </div>
-                            <div class="form-item">
-                                <label class="form-label my-3">도로명 주소</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-item">
-                                <label class="form-label my-3">상세주소</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-item">
-                            	<label class="form-label my-3">전화번호</label>
-                            	<input type="text" class="form-control">
-                            </div>
-                            <div class="form-item">
-                                <label class="form-label my-3">이메일</label>
-                                <input type="email" class="form-control">
-                            </div>
-                           <div class="col-lg-4 my-3">
+                            <div class="row">
+                            	<label class="form-label my-3"></label>
+                            	<div class="col-lg-6">
+									<input class="form-control p-3" type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly required/>
+								</div>
+								<div class="col-lg-6">
+									<input class="form-control p-3" type="text" id="addrDetail" name="addrDetail" placeholder="상세주소" readonly required/>
+								</div>
+                         	</div>
+                           	<div class="col-lg-4 my-3">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" data-bs-toggle="modal" data-bs-target="#couponModal" value="쿠폰 적용">쿠폰적용</button>
 							</div>
                         </div>
@@ -273,7 +315,7 @@
                                 </table>
                             </div>
                             <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                                <button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" type="button">Place Order</button>
+                                <button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" type="button">구매</button>
                             </div>
                         </div>
                     </div>
