@@ -6,6 +6,7 @@ public class ProductDTO {
 	
     private int PID;
     private String pName;
+    private String pDetail; //(제품설명)
     private int costPrice;
     private int regularPrice;
     private int sellingPrice;
@@ -22,15 +23,6 @@ public class ProductDTO {
     private int ancSelectMin;
     private int ancSelectMax;
     
-    
-    
-    
-	public String getImagePath() {
-		return imagePath;
-	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
 	public int getPID() {
 		return PID;
 	}
@@ -42,6 +34,12 @@ public class ProductDTO {
 	}
 	public void setpName(String pName) {
 		this.pName = pName;
+	}
+	public String getpDetail() {
+		return pDetail;
+	}
+	public void setpDetail(String pDetail) {
+		this.pDetail = pDetail;
 	}
 	public int getCostPrice() {
 		return costPrice;
@@ -109,6 +107,12 @@ public class ProductDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	public int getAncSelectMin() {
 		return ancSelectMin;
 	}
@@ -123,13 +127,13 @@ public class ProductDTO {
 	}
 	@Override
 	public String toString() {
-		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", costPrice=" + costPrice + ", regularPrice="
-				+ regularPrice + ", sellingPrice=" + sellingPrice + ", pQty=" + pQty + ", ingredient=" + ingredient
-				+ ", usage=" + usage + ", exp=" + exp + ", category=" + category + ", regTime=" + regTime
-				+ ", sellingState=" + sellingState + ", searchCondition=" + searchCondition + ", imagePath=" + imagePath
-				+ ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax + "]";
+		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", pDetail=" + pDetail + ", costPrice=" + costPrice
+				+ ", regularPrice=" + regularPrice + ", sellingPrice=" + sellingPrice + ", pQty=" + pQty
+				+ ", ingredient=" + ingredient + ", usage=" + usage + ", exp=" + exp + ", category=" + category
+				+ ", regTime=" + regTime + ", sellingState=" + sellingState + ", searchCondition=" + searchCondition
+				+ ", imagePath=" + imagePath + ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax
+				+ "]";
 	}
-    
     
     
 

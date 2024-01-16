@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-import model.dto.BuyInfoDTO;
-
 public class BuyInfoDAO {
 	
 	private Connection conn;
