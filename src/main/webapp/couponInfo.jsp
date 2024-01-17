@@ -120,7 +120,6 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">생성일</th>
                             <th scope="col">쿠폰이름</th>
                             <th scope="col">할인율</th>
                             <th scope="col">만료일</th>
@@ -130,9 +129,6 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <p class="mb-3 mt-4">생성일</p>
-                                </td>
                                 <td>
                                     <p class="mb-0 mt-4">쿠폰이름</p>
                                 </td>
