@@ -9,6 +9,9 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 <!-- sweetalert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
@@ -38,11 +41,6 @@
 
 <body>
 
-	<!-- jquery -->
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-	<!-- jquery -->
-
-
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 	<script type="text/javascript">
 		var MIDResult;
@@ -61,9 +59,7 @@
 			$.ajax({
 				type : "POST", // 또는 "GET"
 				url : "CheckId", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
-				data : {
-					'MID' : MID
-				},
+				data : {'MID' : MID},
 				success : function(data) {
 					MIDResult = data
 					if (data === "suc") {
@@ -283,7 +279,7 @@
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남" checked="checked">남자
 							</div>
 							<div class="col-lg-6">
-								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여">여자
+								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여"><p>여자</p>
 							</div>
 							<div class="col-lg-2">
 								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" id="phoneNum1" value="010" readonly required>
