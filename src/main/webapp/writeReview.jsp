@@ -30,6 +30,7 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/starability-minified/starability-all.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/star-rating.css"/>
     </head>
 
     <body>
@@ -131,21 +132,18 @@
                                     </div>
                                      <div class="col-lg-3 d-flex align-items-center">
                                      	<div class="row">
-                                 			<p class="mb-0 me-3">Please rate</p>
-                                 			<fieldset class="starability-basic">
-      											<input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-      											<input type="radio" id="rate1" name="rating" value="1" />
-      											<label for="rate1">1 star.</label>
-      											<input type="radio" id="rate2" name="rating" value="2" />
-      											<label for="rate2">2 stars.</label>
-      											<input type="radio" id="rate3" name="rating" value="3" />
-      											<label for="rate3">3 stars.</label>
-      											<input type="radio" id="rate4" name="rating" value="4" />
-      											<label for="rate4">4 stars.</label>
-      											<input type="radio" id="rate5" name="rating" value="5" />
-      											<label for="rate5">5 stars.</label>
-      											<span class="starability-focus-ring"></span>
-    										</fieldset>
+                                 			<div class="star-rating space-x-4 mx-auto">
+												<input type="radio" id="5-stars" name="rating" value="5"/>
+												<label for="5-stars" class="star pr-4">★</label>
+												<input type="radio" id="4-stars" name="rating" value="4"/>
+												<label for="4-stars" class="star">★</label>
+												<input type="radio" id="3-stars" name="rating" value="3"/>
+												<label for="3-stars" class="star">★</label>
+												<input type="radio" id="2-stars" name="rating" value="2"/>
+												<label for="2-stars" class="star">★</label>
+												<input type="radio" id="1-star" name="rating" value="1"/>
+												<label for="1-star" class="star">★</label>
+											</div>
     									</div>
                                  	</div>
                                     <div class="col-lg-12">
