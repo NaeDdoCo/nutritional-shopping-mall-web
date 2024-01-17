@@ -44,38 +44,28 @@
 <body>
 
 	<!-- 로그인 유저 아이디 세션에 저장 -->
-	<%
-	String member = (String) session.getAttribute("member");
-	%>
+	<c:set var="member" value="${member}" />
+	<!-- 로그인 유저 아이디 세션에 저장 -->
 
 
 	<!-- 로그아웃 성공 모달 -->
-	<%
-	if ((Boolean) request.getAttribute("logoutResult") != null) {
-	%>
-	<%
-	Boolean result = (Boolean) request.getAttribute("logoutResult");
-	if (result == true) {
-	%>
-	<!-- sweetalert -->
-	<script type="text/javascript">
-		window.onload = function() {
-			logoutSuccess();
-		};
-		function logoutSuccess() {
-			Swal.fire({
-				icon : 'success',
-				title : '로그아웃 성공',
-				text : '로그아웃이 처리되었습니다.',
-			})
-		}
-	</script>
-	<%
-	}
-	%>
-	<%
-	}
-	%>
+	<c:if test="${loginResult != null}">
+		<c:if test="${loginResult == true}">
+			<script type="text/javascript">
+				window.onload = function() {
+					logoutSuccess();
+				};
+				function logoutSuccess() {
+					Swal.fire({
+						icon : 'success',
+						title : '로그아웃 성공',
+						text : '로그아웃이 처리되었습니다.',
+					})
+				}
+			</script>
+		</c:if>
+	</c:if>
+	<!-- 로그아웃 성공 모달 -->
 
 
 	<!-- Spinner Start -->
@@ -113,30 +103,21 @@
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto"></div>
 					<div class="d-flex m-3 me-0">
-						<%
-						if (member != null) {
-						%>
-						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
-						<%
-						}
-						%>
+						<c:if test="${member != null}">
+							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
+						</c:if>
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
 						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
 						</a>
-						<%
-						if (member != null) {
-						%>
-						<a href="sss" class="my-auto"> <i class="fas fa-user fa-2x"></i>
-						</a>
-						<%
-						} else {
-						%>
-						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">로그인</a>
-						<%
-						}
-						%>
+						<c:if test="${member != null}">
+							<a href="sss" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+							</a>
+						</c:if>
+						<c:if test="${member == null}">
+							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">로그인</a>
+						</c:if>
 					</div>
 				</div>
 			</nav>
@@ -229,7 +210,7 @@
 													<div class="col-md-6 col-lg-4 col-xl-3">
 														<div class="p-4 border border-secondary rounded position-relative fruite-item">
 															<div class="fruite-img">
-																<img src=${data.imagePath} class="img-fluid w-100 rounded-top" alt="">
+																<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
 															</div>
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${data.category}</div>
 															<div>
