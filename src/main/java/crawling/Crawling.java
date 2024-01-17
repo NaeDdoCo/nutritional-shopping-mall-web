@@ -4,6 +4,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Iterator;
 
 import org.jsoup.Jsoup;
@@ -24,16 +26,25 @@ public class Crawling {
 		String[] products = {
 				"omega3",
 				"milkthistle",
+				"iron-chewable",
+				"calcium-magnesium-vitamind",
+				"vitaminb",
+				"collagen",
+				"probiotics",
+				"lutein",
+				"vitaminc",
+				"hyaluronicacid-spirulina",
 		};
 		int PK = 1001;
+		String imgPath;
 		
 		for (String product : products) {
-//			scrapPage("https://pilly.kr/product/" + product, PK);
-			downloadPhoto("https://pilly.kr/product/", product, PK++);
+			imgPath = downloadPhoto("https://pilly.kr/product/", product, PK++);
+			scrapPage("https://pilly.kr/product/" + product, PK, imgPath);
 		}
 	}
 
-	private static void downloadPhoto(String url, String productName, int pk) {
+	private static String downloadPhoto(String url, String productName, int pk) {
 		Document doc = null;
 		String path = "";
 		
@@ -46,6 +57,7 @@ public class Crawling {
 			for (Element elem : elems) {
 				System.out.println(elem.attr("src"));
 				src = elem.attr("src");
+				break;
 			}
 
 			URL u = new URL(src);
@@ -62,10 +74,10 @@ public class Crawling {
 		}
 
         System.out.println(path + " :: 작업 완료");
-
+        return path;
 		
 	}
-	private static void scrapPage(String url, int pk) {
+	private static void scrapPage(String url, int pk, String imgPath) {
 
 		Document doc = null;
 
@@ -76,32 +88,52 @@ public class Crawling {
 		}
 
 		ProductDTO pDTO = new ProductDTO();
-
+		pDTO.setSearchCondition("상품추가");
+		
 		// PID
-		pDTO.setPID(pk);
+		// DB에서 넣어줌
+//		pDTO.setPID(pk);
 
+		// pDetail
+		Elements elems = doc.select("div.description");
+		Iterator<Element> itr = elems.iterator();
+		if (itr.hasNext()) {
+//			System.out.println("div.desctiption: " + itr.next().text());
+			pDTO.setpDetail(itr.next().text());
+		}
+		
 		// costPrice
 		// regularPrice
 		// sellingPrice
-		Elements elems = doc.select("div.price"); // "13,500원"
-		Iterator<Element> itr = elems.iterator();
+		elems = doc.select("div.price"); // "13,500원"
+		itr = elems.iterator();
 		if (itr.hasNext()) {
 			String strPrice = itr.next().text();
+			if (strPrice.contains("%")) {
+				strPrice = strPrice.split(" ")[2];
+			}
 			strPrice = strPrice.substring(0, strPrice.length() - 1);
 			strPrice = strPrice.replace(String.valueOf(','), "");
-
 			System.out.println(strPrice);
-			int selling = Integer.parseInt(strPrice);
+//			int selling = Integer.parseInt(strPrice);
+			int selling = 3000;
 			pDTO.setCostPrice(selling - 2000);
 			pDTO.setRegularPrice(selling - 1000);
 			pDTO.setSellingPrice(selling);
 		}
 
-		// cnt
+		// pQty
 		pDTO.setpQty(30);
 
-		// image
+		// regTime : 현재 시간
+		// DB에서 넣어줌
+//		pDTO.setRegTime(Timestamp.from(Instant.now()));
 		
+		// imagePath
+		pDTO.setImagePath(imgPath);
+		
+		// sellingState
+		pDTO.setSellingState("판매중");
 		
 		elems = doc.select("dd");
 		itr = elems.iterator();
@@ -132,7 +164,12 @@ public class Crawling {
 				// usage
 				String[] strs = str.split(" 1일 섭취량 당 함량 : ");
 				String usage = "";
-				usage = strs[0].split("1일 섭취량 : ")[1];
+				strs = strs[0].split("1일 섭취량 : ");
+				if (strs.length > 1) {
+					usage = strs[1];
+				} else {
+					usage = "1캡슐";
+				}
 				pDTO.setUsage(usage);
 
 				// ingredient
@@ -149,16 +186,26 @@ public class Crawling {
 				String str = e.text();
 				if (str.contains("눈")) {
 					pDTO.setCategory("눈");
-				} else if (str.contains("피부")) {
-					pDTO.setCategory("피부");
 				} else if (str.contains("간")) {
 					pDTO.setCategory("간");
+				} else if (str.contains("뼈")) {
+					pDTO.setCategory("뼈/치아");
+				} else if (str.contains("에너지")) {
+					pDTO.setCategory("활력");
+				} else if (str.contains("스트레스") || str.contains("면역")) {
+					pDTO.setCategory("면역");
+				} else if (str.contains("기억력")) {
+					pDTO.setCategory("두뇌");
+				} else if (str.contains("피부")) {
+					pDTO.setCategory("피부");
+				} else if (str.contains("유산균")) {
+					pDTO.setCategory("소화");
 				}
 			}
 
 			cnt++;
 		}
-//		System.out.println(pDTO);
+		System.out.println(pDTO);
 		ProductDAO pDAO = new ProductDAO();
 		if (pDAO.insert(pDTO)) {
 			System.out.println("크롤링 성공!!");
