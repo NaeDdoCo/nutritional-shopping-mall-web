@@ -12,9 +12,52 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("*.do") // new 가 사실은 작성되어있었던것!!!!!
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	private MainPageAction mainPageAction;
+	private JoinPageAction joinPageAction;
+	private JoinAction joinAction;
+	private LogoutAction logoutAction;
+	private TermsPageAction termsPageAction;
+	private MypageAction mypageAction;
+	private LoginPageAction loginPageAction;
+	private LoginAction loginAction;
+	private ProductAllPageAction productAllPageAction;
+	private ProductDetailPageAction productDetailPageAction;
+	private CartPageAction cartPageAction;
+	private CartDeleteAction cartDeleteAction;
+	private BuyPageAction buyPageAction;
+	private CouponSetPageAction couponSetPageAction;
+	private BuyCompPageAction buyCompPageAction;
+	private BuyInfoPageAction buyInfoPageAction;
+	private WriteReviewPageAction writeReviewPageAction;
+	private WriteReviewAction writeReviewAction;
+	private ReviewDetailPageAction reviewDetailPageAction;
+	private ReviewInfoPageAction reviewInfoPageAction;
+	private DeleteReviewAction deleteReviewAction;
+	
 	public FrontController() {
 		super();
+		mainPageAction = new MainPageAction();
+		joinPageAction = new JoinPageAction();
+		joinAction = new JoinAction();
+		logoutAction= new LogoutAction();
+		termsPageAction = new TermsPageAction();
+		mypageAction = new MypageAction();
+		loginPageAction = new LoginPageAction();
+		loginAction = new LoginAction();
+		productAllPageAction = new ProductAllPageAction();
+		productDetailPageAction = new ProductDetailPageAction();
+		cartPageAction = new CartPageAction();
+		cartDeleteAction = new CartDeleteAction();
+		buyPageAction = new BuyPageAction();
+		couponSetPageAction = new CouponSetPageAction();
+		buyCompPageAction = new BuyCompPageAction();
+		buyInfoPageAction = new BuyInfoPageAction();
+		writeReviewPageAction = new WriteReviewPageAction();
+		writeReviewAction = new WriteReviewAction();
+		reviewDetailPageAction = new ReviewDetailPageAction();
+		reviewInfoPageAction = new ReviewInfoPageAction();
+		deleteReviewAction = new DeleteReviewAction();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,47 +82,47 @@ public class FrontController extends HttpServlet {
 
 		ActionForward forward = null;
 		if (action.equals("/mainPage.do")) {// 메인페이지
-			forward = new MainPageAction().execute(request, response);
+			forward = mainPageAction.execute(request, response);
 		} else if (action.equals("/joinPage.do")) {// 회원가입페이지
-			forward = new JoinPageAction().execute(request, response);
+			forward = joinPageAction.execute(request, response);
 		} else if (action.equals("/join.do")) {// 회원가입
-			forward = new JoinAction().execute(request, response);
+			forward = joinAction.execute(request, response);
 		} else if (action.equals("/logout.do")) {// 로그아웃
-			forward = new LogoutAction().execute(request, response);
+			forward = logoutAction.execute(request, response);
 		} else if (action.equals("/termsPage.do")) {// 약관페이지
-			forward = new TermsPageAction().execute(request, response);
+			forward = termsPageAction.execute(request, response);
 		} else if (action.equals("/mypage.do")) {// 마이페이지
-			forward = new MypageAction().execute(request, response);
+			forward = mypageAction.execute(request, response);
 		} else if (action.equals("/loginPage.do")) {// 로그인페이지
-			forward = new LoginPageAction().execute(request, response);
+			forward = loginPageAction.execute(request, response);
 		} else if (action.equals("/login.do")) {// 로그인
-			forward = new LoginAction().execute(request, response);
+			forward = loginAction.execute(request, response);
 		} else if (action.equals("/productAllPage.do")) {// 상품전체목록
-			forward = new ProductAllPageAction().execute(request, response);
+			forward = productAllPageAction.execute(request, response);
 		} else if (action.equals("/productDetailPage.do")) {// 상품상세페이지
-			forward = new ProductDetailPageAction().execute(request, response);
+			forward = productDetailPageAction.execute(request, response);
 		} else if (action.equals("/cartPage.do")) {// 장바구니
-			forward = new CartPageAction().execute(request, response);
+			forward = cartPageAction.execute(request, response);
 		} else if (action.equals("/cartDelete.do")) {// 장바구니 제품 삭제
-			forward = new CartDeleteAction().execute(request, response);
+			forward = cartDeleteAction.execute(request, response);
 		} else if (action.equals("/buyPage.do")) {// 구매페이지
-			forward = new BuyPageAction().execute(request, response);
+			forward = buyPageAction.execute(request, response);
 		} else if (action.equals("/couponSetPage.do")) {// 구매페이지에서 쿠폰 적용시
-			forward = new CouponSetPageAction().execute(request, response);
+			forward = couponSetPageAction.execute(request, response);
 		} else if (action.equals("/buyCompPage.do")) {// 결제완료페이지
-			forward = new BuyCompPageAction().execute(request, response);
+			forward = buyCompPageAction.execute(request, response);
 		} else if (action.equals("/buyInfoPage.do")) {// 마이페이지-구매내역
-			forward = new BuyInfoPageAction().execute(request, response);
+			forward = buyInfoPageAction.execute(request, response);
 		} else if (action.equals("/writeReviewPage.do")) {// 리뷰작성페이지
-			forward = new WriteReviewPageAction().execute(request, response);
+			forward = writeReviewPageAction.execute(request, response);
 		} else if (action.equals("/writeReview.do")) {// 리뷰작성페이지-리뷰작성
-			forward = new WriteReviewAction().execute(request, response);
+			forward = writeReviewAction.execute(request, response);
 		} else if (action.equals("/reviewDetailPage.do")) {// 리뷰상세
-			forward = new ReviewDetailPageAction().execute(request, response);
+			forward = reviewDetailPageAction.execute(request, response);
 		} else if (action.equals("/reviewInfoPage.do")) {// 리뷰목록
-			forward = new ReviewInfoPageAction().execute(request, response);
+			forward = reviewInfoPageAction.execute(request, response);
 		} else if (action.equals("/deleteReview.do")) {// 리뷰삭제
-			forward = new DeleteReviewAction().execute(request, response);
+			forward = deleteReviewAction.execute(request, response);
 		} else {
 			response.sendRedirect("error.jsp");
 		}
