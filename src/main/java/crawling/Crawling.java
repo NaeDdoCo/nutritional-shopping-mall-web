@@ -74,7 +74,7 @@ public class Crawling {
 		}
 
         System.out.println(path + " :: 작업 완료");
-        return path;
+        return "img/" + productName + ".jpg";
 		
 	}
 	private static void scrapPage(String url, int pk, String imgPath) {
