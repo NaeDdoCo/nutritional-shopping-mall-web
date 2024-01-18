@@ -38,6 +38,9 @@ public class MemberDAO {
 
 	// 아이디 중복검사
 	private static final String SELECTONE_ID_CHECK = "SELECT M_ID FROM MEMBER WHERE M_ID=?";
+	
+	// 회원 건강상태
+	private static final String SELECTONE_HEALTH = "SELECT HEALTH FROM MEMBER WHERE M_ID=?";
 
 	// 회원가입
 	private static final String INSERT = "INSERT INTO "
@@ -103,14 +106,14 @@ public class MemberDAO {
 				if (rs.next()) {
 					memberDTO.setMid(rs.getString("M_ID"));
 					memberDTO.setmName(rs.getString("M_NAME"));
-					//memberDTO.setmPassword(rs.getString("M_PASSWORD"));
 					memberDTO.setDob(rs.getDate("DOB"));
 					memberDTO.setGender(rs.getString("GENDER"));
+					memberDTO.setGrade(rs.getString("GRADE"));
+					memberDTO.setHealth(rs.getString("HEALTH"));
+					//memberDTO.setmPassword(rs.getString("M_PASSWORD"));
 					//memberDTO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
 					//memberDTO.setEmail(rs.getNString("EMAIL"));
 					//memberDTO.setAddress(rs.getString("ADDRESS"));
-					memberDTO.setGrade(rs.getString("GRADE"));
-					memberDTO.setHealth(rs.getString("HEALTH"));
 				} else {
 					memberDTO = null;
 				}
@@ -126,6 +129,38 @@ public class MemberDAO {
 			}
 			if (memberDTO != null) {
 				System.out.println("[로그_로그인] 성공");
+				return memberDTO;
+			}
+		}
+		else if (mDTO.getSearchCondition().equals("건강상태")) {
+			memberDTO = new MemberDTO();
+
+			conn = JDBCUtil.connect();
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_HEALTH);
+				pstmt.setString(1, mDTO.getMid());
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					memberDTO.setHealth(rs.getString("HEALTH"));
+					System.out.println("[로그_건강상태] rs.next성공");
+				} else {
+					memberDTO = null;
+				}
+
+				rs.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("[로그_건강상태] 반환 NULL_예외처리");
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			if (memberDTO != null) {
+				System.out.println("[로그_건강상태] 성공");
 				return memberDTO;
 			}
 		}
