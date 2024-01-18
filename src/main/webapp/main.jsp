@@ -152,8 +152,8 @@
 			<div class="container py-5">
 				<h1 class="mb-0">Today's Recommendation</h1>
 				<div class="owl-carousel vegetable-carousel owl-theme">
-					<c:if test="${fn:length(pDTOs) > 0}">
-						<c:forEach var="data" items="${pDTOs}">
+					<c:if test="${fn:length(rcmDTOs) > 0}">
+						<c:forEach var="data" items="${rcmDTOs}">
 							<div class="border border-primary rounded position-relative vesitable-item">
 								<!-- 제품 추천 1 시작 -->
 								<div class="vesitable-img">
@@ -207,8 +207,8 @@
 								<div class="row g-4">
 									<div class="col-lg-12">
 										<div class="row g-4">
-											<c:if test="${fn:length(rcmDTOs) > 0}">
-												<c:forEach var="data" items="${rcmDTOs}">
+											<c:if test="${fn:length(pDTOs) > 0}">
+												<c:forEach var="data" items="${pDTOs}">
 													<div class="col-md-6 col-lg-4 col-xl-3">
 														<div class="p-4 border border-secondary rounded position-relative fruite-item">
 															<div class="fruite-img">
