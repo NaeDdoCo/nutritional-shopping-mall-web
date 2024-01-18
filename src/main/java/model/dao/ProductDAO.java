@@ -28,7 +28,15 @@ public class ProductDAO {
 	private static final String SELECTALL_ALL = "SELECT P_ID, P_NAME, P_DETAIL, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, SELLING_STATE, IMAGEPATH "
 			+ "FROM PRODUCT";
 
-	private static final String SELECTONE = "";
+	// 제품상세출력
+	private static final String SELECTONE_DETAIL = "SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, "
+			+ "P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, "
+			+ "P.SELLING_STATE, P.IMAGEPATH, P.USAGE, P.EXP, R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME "
+			+ "FROM PRODUCT P "
+			+ "JOIN BUYINFO B ON P.P_ID = B.P_ID "
+			+ "JOIN REVIEW R ON B.B_ID = R.B_ID "
+			+ "WHERE P.P_ID = ? "
+			+ "ORDER BY R.CREATE_TIME DESC";
 
 	//성공한 Insert
 	private static final String INSERT = "INSERT INTO PRODUCT "
@@ -147,7 +155,65 @@ public class ProductDAO {
 		return null;
 	}
 
-	public ProductDTO selectOne(ProductDTO DTO) {
+	public ProductDTO selectOne(ProductDTO pDTO) {
+		System.out.println("[로그_SELECTALL 진입]");
+		
+		ProductDTO productDTO = null;
+
+		if (pDTO.getSearchCondition().equals("상품상세정보")) {
+			System.out.println("[로그_상품상세정보] 진입");			
+
+			productDTO = new ProductDTO();
+
+			conn = JDBCUtil.connect();
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_DETAIL);
+				pstmt.setInt(1, pDTO.getPID());
+
+				ResultSet rs = pstmt.executeQuery();						
+				
+				if (rs.next()) {
+					productDTO.setPID(rs.getInt("P_ID"));
+					productDTO.setpName(rs.getString("P_NAME"));
+					productDTO.setpDetail(rs.getString("P_DETAIL"));
+					productDTO.setCostPrice(rs.getInt("COST_PRICE"));
+					productDTO.setRegularPrice(rs.getInt("REGULAR_PRICE"));
+					productDTO.setSellingPrice(rs.getInt("SELLING_PRICE"));
+					productDTO.setpQty(rs.getInt("P_QTY"));
+					productDTO.setIngredient(rs.getString("INGREDIENT"));
+					productDTO.setCategory(rs.getString("CATEGORY"));
+					productDTO.setRegTime(rs.getTimestamp("REG_TIME"));
+					productDTO.setSellingState(rs.getString("SELLING_STATE"));
+					productDTO.setImagePath(rs.getString("IMAGEPATH"));
+					productDTO.setUsage(rs.getString("USAGE"));
+					productDTO.setExp(rs.getString("EXP"));
+					//조인한 속성들
+					productDTO.setAncRID(rs.getInt("R_ID"));
+					productDTO.setAncMID(rs.getString("M_ID"));
+					productDTO.setAncBID(rs.getInt("B_ID"));
+					productDTO.setAncScore(rs.getInt("SCORE"));
+					productDTO.setAncContents(rs.getString("CONTENTS"));
+					productDTO.setAncCreateTime(rs.getTimestamp("CREATE_TIME"));
+				} else {
+					productDTO = null;
+				}
+
+				rs.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("[로그_상품상세] 반환 NULL_예외처리");
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			if (productDTO != null) {
+				System.out.println("[로그_상품상세] 성공");
+				return productDTO;
+			}
+		}
+		System.out.println("[로그_SELECTALL 실패]");
 		return null;
 	}
 

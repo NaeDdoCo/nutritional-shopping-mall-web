@@ -22,6 +22,15 @@ public class ProductDTO {
     private String imagePath;
     private int ancSelectMin;
     private int ancSelectMax;
+    // 조인에 사용하는 멤버변수
+    private int ancRID;
+    private String ancMID;
+    private int ancBID;
+    private int ancScore;
+    private String ancContents;
+    private Timestamp ancCreateTime;
+    
+    
     
 	public int getPID() {
 		return PID;
@@ -125,6 +134,42 @@ public class ProductDTO {
 	public void setAncSelectMax(int ancSelectMax) {
 		this.ancSelectMax = ancSelectMax;
 	}
+	public int getAncRID() {
+		return ancRID;
+	}
+	public void setAncRID(int ancRID) {
+		this.ancRID = ancRID;
+	}
+	public String getAncMID() {
+		return ancMID;
+	}
+	public void setAncMID(String ancMID) {
+		this.ancMID = ancMID;
+	}
+	public int getAncBID() {
+		return ancBID;
+	}
+	public void setAncBID(int ancBID) {
+		this.ancBID = ancBID;
+	}
+	public int getAncScore() {
+		return ancScore;
+	}
+	public void setAncScore(int ancScore) {
+		this.ancScore = ancScore;
+	}
+	public String getAncContents() {
+		return ancContents;
+	}
+	public void setAncContents(String ancContents) {
+		this.ancContents = ancContents;
+	}
+	public Timestamp getAncCreateTime() {
+		return ancCreateTime;
+	}
+	public void setAncCreateTime(Timestamp ancCreateTime) {
+		this.ancCreateTime = ancCreateTime;
+	}
 	@Override
 	public String toString() {
 		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", pDetail=" + pDetail + ", costPrice=" + costPrice
@@ -132,9 +177,8 @@ public class ProductDTO {
 				+ ", ingredient=" + ingredient + ", usage=" + usage + ", exp=" + exp + ", category=" + category
 				+ ", regTime=" + regTime + ", sellingState=" + sellingState + ", searchCondition=" + searchCondition
 				+ ", imagePath=" + imagePath + ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax
-				+ "]";
-	}
-    
-    
-
+				+ ", ancRID=" + ancRID + ", ancMID=" + ancMID + ", ancBID=" + ancBID + ", ancScore=" + ancScore
+				+ ", ancContents=" + ancContents + ", ancCreateTime=" + ancCreateTime + "]";
+	}      
+   
 }

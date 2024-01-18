@@ -46,7 +46,8 @@ CREATE TABLE PRODUCT(
 	-- 상품재고
 	P_QTY INT NOT NULL,
 	-- 상품성분(상품 성분 100자 제한)
-	INGREDIENT VARCHAR2(300) NOT NULL,
+	-- 01_18_자료크기 300 -> 600
+	INGREDIENT VARCHAR2(600) NOT NULL,
 	-- 상품용법(25자 제한) //  1일 2회, 1회 2정 섭취(공백포함 21byte)
 	-- 01_18_NOT NULL 추가
 	USAGE VARCHAR2(75) DEFAULT '1일 2회, 1회 2정 섭취' NOT NULL,
@@ -208,6 +209,17 @@ FROM (
 )
 WHERE RN BETWEEN 1 AND 8;
 
+--제품상세(최신 리뷰가 위로)
+SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, 
+P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, 
+P.SELLING_STATE, P.IMAGEPATH, P.USAGE, P.EXP, R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME
+FROM PRODUCT P
+JOIN BUYINFO B ON P.P_ID = B.P_ID
+JOIN REVIEW R ON B.B_ID = R.B_ID
+WHERE P.P_ID = 1
+ORDER BY R.CREATE_TIME DESC;
+	
+	
 -- 테스트
 --SELECT P_ID, P_NAME, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, SELLING_STATE, IMAGEPATH FROM PRODUCT
 --FROM product
@@ -270,6 +282,35 @@ SELECT P_ID, SUM(B_Qty) AS TOTAL_QTY
 FROM BUYINFO
 WHERE P_ID = 1
 GROUP BY P_ID;
+
+--------------------------------------------------리뷰 샘플 코드-------------------------------------------------------------------------------------------------------------
+--리뷰 테이블
+CREATE TABLE REVIEW (
+	--리뷰번호
+	R_ID INT PRIMARY KEY,
+	--회원ID
+	--NOT NULL 제거_01_13
+	M_ID VARCHAR2(15),
+	--구매번호
+	B_ID INT NOT NULL,
+	--별점
+	SCORE INT NOT NULL,
+	--리뷰내용
+	CONTENTS VARCHAR2(1500) NOT NULL,
+	--작성일
+	CREATE_TIME TIMESTAMP NOT NULL
+);
+
+INSERT INTO REVIEW 
+(R_ID, M_ID, B_ID, SCORE, CONTENTS, CREATE_TIME)
+VALUES (
+    NVL((SELECT MAX(R_ID) FROM REVIEW), 0) + 1,
+    'teemo', 
+    1, 
+    5, 
+    '값 싸고 맛있는 영양제3', 
+    CURRENT_TIMESTAMP
+);
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
