@@ -33,7 +33,8 @@ CREATE TABLE PRODUCT(
 	-- 상품번호(기본키)
 	P_ID INT PRIMARY KEY,
 	-- 제품설명
-	P_DETAIL VARCHAR2(500),
+	-- 01_18_NOT NULL 추가
+	P_DETAIL VARCHAR2(500) NOT NULL,
 	-- 상품이름(20자 제한)
 	P_NAME VARCHAR2(60) NOT NULL,
 	-- 상품 원가
@@ -47,9 +48,11 @@ CREATE TABLE PRODUCT(
 	-- 상품성분(상품 성분 100자 제한)
 	INGREDIENT VARCHAR2(300) NOT NULL,
 	-- 상품용법(25자 제한) //  1일 2회, 1회 2정 섭취(공백포함 21byte)
-	USAGE VARCHAR2(75) DEFAULT '1일 2회, 1회 2정 섭취',
+	-- 01_18_NOT NULL 추가
+	USAGE VARCHAR2(75) DEFAULT '1일 2회, 1회 2정 섭취' NOT NULL,
 	-- 유통기한
-	EXP VARCHAR2(75) DEFAULT '제조일로부터 24개월',
+	-- 01_18_NOT NULL 추가
+	EXP VARCHAR2(75) DEFAULT '제조일로부터 24개월' NOT NULL,
 	-- 카테고리
 	CATEGORY VARCHAR2(75) NOT NULL,
 	-- 등록일
@@ -137,7 +140,7 @@ CREATE TABLE REVIEW (
 	--작성일
 	CREATE_TIME TIMESTAMP NOT NULL
 );
--------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
+----------------------------------------------------회워 샘플 코드 --------------------------------------------------------------------------
 --회원가입
 INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, GRADE, HEALTH) 
 VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), 
@@ -148,12 +151,14 @@ SELECT M_ID FROM MEMBER WHERE M_ID = 'teemo';
 SELECT * FROM MEMBER;
 --로그인
 SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH FROM MEMBER WHERE M_ID='teemo' AND M_PASSWORD = '1234';
+--회원 건강상태
+SELECT HEALTH FROM MEMBER WHERE M_ID='teemo';
 
 --회원정보변경(미완성)
 UPDATE MEMBER 
 SET M_PASSWORD = , GENDER = , PHONE_NUMBER = , EMAIL = , M_ADDRESS = , HEALTH = 
 WHERE M_ID = 'teemo';
--------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
+-------------------------------------------------------카트 샘플 코드 --------------------------------------------------------------------------
 --장바구니에 담기
 INSERT INTO CART (C_ID, M_ID, P_ID, C_QTY) VALUES (NVL((SELECT MAX(C_ID) FROM CART), 0)+1, 'teemo', 1, 1);
 
@@ -171,7 +176,7 @@ WHERE M.M_ID = 'teemo';
 
 -- 장바구니 전체출력
 SELECT * FROM CART;
--------------------------------------------------------------- 샘플 코드 --------------------------------------------------------------------------
+------------------------------------------------------상품 샘플 코드 --------------------------------------------------------------------------
 --제품추가
 INSERT INTO PRODUCT (P_ID, P_NAME, P_DETAIL, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, SELLING_STATE, IMAGEPATH)
 VALUES (
@@ -213,7 +218,7 @@ WHERE RN BETWEEN 1 AND 8;
 --WHERE ROWNUM BETWEEN 79 AND 90
 --AND SELLING_STATE = '판매중';
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------쿠폰 샘플 코드-------------------------------------------------------------------------------------------------------------
 --쿠폰생성(만약 부여를 한다고하면 쿠폰번호는 컨트롤러에서 만들어서 set)--
 INSERT INTO COUPON (CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY)
 VALUES (
@@ -241,6 +246,31 @@ SELECT CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY, USED
 FROM COUPON
 WHERE M_ID = 'teemo' AND USED = '미사용'
 ORDER BY PERIOD ASC;
+--------------------------------------------------구매내역 샘플 코드-------------------------------------------------------------------------------------------------------------
+-- 구매내역 추가
+INSERT INTO BUYINFO 
+(B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS)
+VALUES (
+    NVL((SELECT MAX(B_ID) FROM BUYINFO), 0) + 1,
+    'teemo', 
+    1, 
+    'CP001', 
+    12345, 
+    '결재 완료', 
+    3, 
+    50000, 
+    CURRENT_TIMESTAMP, -- 현재 시간을 타임스탬프로 설정
+    12345, 
+    '서울시 강남구', 
+    '123번지 456호'
+);
+
+-- 판매량 반환
+SELECT P_ID, SUM(B_Qty) AS TOTAL_QTY
+FROM BUYINFO
+WHERE P_ID = 1
+GROUP BY P_ID;
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 테이블 전체목록--

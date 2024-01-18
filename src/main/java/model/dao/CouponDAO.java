@@ -2,9 +2,12 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import model.dto.CouponDTO;
+import model.util.JDBCUtil;
 
 public class CouponDAO {
 
@@ -26,11 +29,46 @@ public class CouponDAO {
 	 *  	사용기간이 지나면 삭제
 	 */ 
 	
+	/*INSERT INTO COUPON (CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY)
+	VALUES (
+	 '4', 	--쿠폰번호--
+	 'teemo',		--소유자MID--
+	 '임시쿠폰 1',	--쿠폰이름--
+	 SYSTIMESTAMP,	--현재시간 +30일--
+	 30,			-- 할인율
+	 '눈'
+	);
+	--쿠폰업데이트--
+	UPDATE COUPON 
+	SET USED = '사용'
+	WHERE CP_ID = '5';
+
+	--쿠폰목록출력(마이페이지, 사용, 미사용 정렬 후 만료일 순 정렬)--
+	-- 내림차순으로 해야 사용이위로 옴
+	SELECT CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY, USED 
+	FROM COUPON
+	WHERE M_ID = 'teemo'
+	ORDER BY USED DESC, PERIOD ASC;
+
+	--쿠폰목록출력(쿠폰적용, 미사용쿠폰을 만료일 순으로 정렬하여 사용)--
+	SELECT CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY, USED 
+	FROM COUPON
+	WHERE M_ID = 'teemo' AND USED = '미사용'
+	ORDER BY PERIOD ASC;*/	
+	
 	private static final String SELECTALL="";
 	
 	private static final String SELECTONE="";
 
-	private static final String INSERT="";
+	private static final String INSERT="INSERT INTO COUPON (CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY) "
+			+ "	VALUES ( "
+			+ "	 ?, "
+			+ "	 ?, "
+			+ "	 ?, "
+			+ "	 SYSTIMESTAMP, "
+			+ "	 ? "
+			+ "	 ? "
+			+ "	)";
 	
 	private static final String UPDATE="";
 	
@@ -45,7 +83,49 @@ public class CouponDAO {
 	}
 	
 	public boolean insert(CouponDTO cpDTO) {
-		return false;
+		if (cpDTO.getSearchCondition().equals("쿠폰추가")) {
+			
+	        int couponLength = 10;
+
+	        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+	        // 랜덤 쿠폰 번호 생성을 위한 StringBuilder 초기화
+	        StringBuilder couponCode = new StringBuilder(couponLength);
+
+	        Random rand = new Random();
+	        for (int i = 0; i < couponLength; i++) {
+	            int randomIndex = rand.nextInt(characters.length());
+	            char randomChar = characters.charAt(randomIndex);
+	            couponCode.append(randomChar);
+	        }
+
+	        System.out.println("[로그] 생성된 쿠폰번호 " + couponCode.toString());	        	        
+	        
+			conn = JDBCUtil.connect();
+			try {
+				pstmt = conn.prepareStatement(INSERT);
+				pstmt.setString(1, couponCode.toString());
+				pstmt.setString(2, cpDTO.getMID());
+				pstmt.setString(3, cpDTO.getCpName());
+				pstmt.setInt(4, cpDTO.getDiscount());
+				pstmt.setString(5, cpDTO.getCategory());
+				System.out.println("[로그_쿠폰추가] pstmt 완료");
+				
+				int rs = pstmt.executeUpdate();
+				
+				System.out.println("[로그_쿠폰추가] SQL문 실행완료");
+				
+				if (rs <= 0) {
+					return false;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+		}
+		return true;
 	}
 	
 	public boolean update(CouponDTO cpDTO) {
