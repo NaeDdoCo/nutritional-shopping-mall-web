@@ -1,9 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class JoinAction implements Action {
 		String mName = request.getParameter("mName");
 		
 		// 비밀번호 체크하는 로직 -> View 담당
-		String mPassword = request.getParameter("mPassword");
+		String mPassword = request.getParameter("mPassword1");
 //		String mPassword2 = request.getParameter("mPassword2");
 		
         // dob format: yyyy-MM-dd
@@ -68,15 +68,40 @@ public class JoinAction implements Action {
 		String addrDetail = request.getParameter("addrDetail");
 //		String addr = zipNo + "; " + roadAddrPart1 + "; " + addrDetail;
 		
-		String skel = request.getParameter("skel");
-		String liver = request.getParameter("liver");
-		String eye = request.getParameter("eye");
-		String energy = request.getParameter("energy");
-		String immune = request.getParameter("immune");
-		String brain = request.getParameter("brain");
-		String skin = request.getParameter("skin");
-		String digest = request.getParameter("digest");
-		String health = skel + "; " + liver + "; " + eye + "; " + energy + "; " + immune + "; " + brain + "; " + skin + "; " + digest;
+		String healths = "";
+		String health;
+		health = request.getParameter("skel");
+		if (health != null) {
+			healths += health + ";";
+		}
+		health = request.getParameter("liver");
+		if (health != null) {
+			healths += health + ";";
+		}
+		health = request.getParameter("eye");
+		if (health != null) {
+			healths += health + ";";
+		}
+		health = request.getParameter("energy");
+		if (health != null) {
+			healths += health + ";";
+		}
+		health = request.getParameter("immune");
+		if (health != null) {
+			healths += health + ";";
+		}
+		health = request.getParameter("brain");
+		if (health != null) {
+			healths += health + ";";
+		}
+		health = request.getParameter("skin");
+		if (health != null) {
+			healths += health + ";";
+		}
+		health = request.getParameter("digest");
+		if (health != null) {
+			healths += health + ";";
+		}
 		
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
@@ -88,11 +113,11 @@ public class JoinAction implements Action {
 		mDTO.setGender(gender);
 		mDTO.setPhoneNumber(phoneNumber);
 		mDTO.setEmail(email);
-		System.out.println("[JoinAction] " + zipNo);
+//		System.out.println("[JoinAction] " + zipNo);
 		mDTO.setmPostCode(Integer.parseInt(zipNo));
 		mDTO.setmAddress(roadAddrPart1);
 		mDTO.setmDetailedAddress(addrDetail);
-		mDTO.setHealth(health);
+		mDTO.setHealth(healths);
 		
 		if (mDAO.insert(mDTO)) {
 			forward.setPath("mainPage.do");
