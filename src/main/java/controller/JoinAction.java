@@ -117,6 +117,7 @@ public class JoinAction implements Action {
 		mDTO.setmPostCode(Integer.parseInt(zipNo));
 		mDTO.setmAddress(roadAddrPart1);
 		mDTO.setmDetailedAddress(addrDetail);
+//		System.out.println("JoinAction: health: " + healths);
 		mDTO.setHealth(healths);
 		
 		if (mDAO.insert(mDTO)) {
