@@ -109,9 +109,9 @@
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
-						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-						</a>
 						<c:if test="${member != null}">
+							<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+							</a>
 							<a href="sss" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 							</a>
 						</c:if>
@@ -171,10 +171,12 @@
 												<p class="text-dark fs-5 fw-bold mb-0 my-2">${data.sellingPrice}원</p>
 											</div>
 										</div>
-										<div class="row">
-											<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-											</a>
-										</div>
+										<c:if test="${member != null}">
+											<div class="row">
+												<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+												</a>
+											</div>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -190,11 +192,11 @@
 					<div class="tab-class text-center">
 						<div class="row g-4">
 							<div class="col-lg-4 text-start">
-								<h1>Our Organic Products</h1>
+								<h1>Our Products</h1>
 							</div>
 							<div class="col-lg-8 text-end">
 								<ul class="nav nav-pills d-inline-flex text-center mb-5">
-									<li class="nav-item"><a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-1"> <span class="text-dark" style="width: 130px;">All Products</span>
+									<li class="nav-item"><a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="productAllPage.do"> <span class="text-dark" style="width: 130px;">All Products</span>
 									</a></li>
 								</ul>
 							</div>
@@ -220,7 +222,9 @@
 																</div>
 																<div class="d-flex justify-content-between flex-lg-wrap">
 																	<p class="text-dark fs-5 fw-bold mb-0">${data.sellingPrice}원</p>
-																	<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+																	<c:if test="${member != null}">
+																		<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+																	</c:if>
 																</div>
 															</div>
 														</div>
