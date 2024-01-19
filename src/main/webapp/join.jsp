@@ -123,7 +123,6 @@
 	<!-- 휴대폰 인증 요청 -->
 	<script type="text/javascript">
 		var telResult;
-
 		function checkTel() {
 			var phoneNum1 = $("#phoneNum1").val();
 			var phoneNum2 = $("#phoneNum2").val();
@@ -131,13 +130,11 @@
 			$.ajax({
 				type : "POST",
 				url : "CheckTel",
-				data : {
-					'phoneNum1' : phoneNum1,
-					'phoneNum2' : phoneNum2,
-					'phoneNum3' : phoneNum3
-				},
+				data : {'phoneNum1' : phoneNum1, 'phoneNum2' : phoneNum2, 'phoneNum3' : phoneNum3},
 				success : function(data) {
 					telResult = data;
+					var authNum = document.getElementById("authNum");
+					authNum.readOnly = false
 				}
 			});
 		}
@@ -147,6 +144,7 @@
 
 	<!-- 휴대폰 인증번호 확인 -->
 	<script type="text/javascript">
+		var authNumResult = false;
 		function checkAuthNum() {
 			var authNum = $("#authNum").val();
 			if (telResult === authNum) {
@@ -155,6 +153,9 @@
 					title : '휴대폰 인증',
 					text : '인증이 완료되었습니다.',
 				})
+				authNumResult = true;
+				var authNum = document.getElementById("authNum");
+				authNum.readOnly = true
 			} else {
 				Swal.fire({
 					icon : 'error',
@@ -165,6 +166,99 @@
 		}
 	</script>
 	<!-- 휴대폰 인증번호 확인 -->
+
+
+	<!-- 필수 항목 누락 검사 -->
+	<script>
+		function checkRequirement() {
+			if ($("#MID").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '아이디를 입력해주세요.',
+				})
+			} else if (MIDResult == null) {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '아이디 중복 검사를 진행해주세요',
+				})
+			} else if ($("#password").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호를 입력해주세요.',
+				})
+			} else if ($("#confirmPassword").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '재입력을 입력해주세요.',
+				})
+			} else if ($("#mName").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '이름을 입력해주세요.',
+				})
+			} else if ($("#year").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '생년월일 연도을 입력해주세요.',
+				})
+			} else if ($("#month").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '생년월일 달을 입력해주세요.',
+				})
+			} else if ($("#day").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '생년월일 일을 입력해주세요.',
+				})
+			} else if ($("#phoneNum2").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '휴대폰 가운데 자리를 입력해주세요.',
+				})
+			} else if ($("#phoneNum3").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '휴대폰 끝 자리를 입력해주세요.',
+				})
+			} else if (authNumResult == false) {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '인증번호 확인을 진행해주세요.',
+				})
+			} else if ($("#email1").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '이메일 아이디를 입력해주세요.',
+				})
+			} else if ($("#email2").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '이메일 주소를 입력해주세요.',
+				})
+			} else if ($("#zipNo").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '주소를 입력해주세요.',
+				})
+			}
+		}
+	</script>
+	<!-- 필수 항목 누락 검사 -->
 
 
 	<!-- Spinner Start -->
@@ -251,7 +345,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="join.do" name="joinForm" method="POST" onsubmit="return checkRequirement()">
+					<form action="join.do" name="joinForm" method="POST">
 						<div class="row g-4">
 							<div class="col-lg-8">
 								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디">
@@ -278,7 +372,8 @@
 								<input class="form-control p-3 border-secondary" type="number" name="day" id="day" placeholder="dd">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남" checked="checked">남자
+								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남" checked="checked">
+								<p>남자</p>
 							</div>
 							<div class="col-lg-6">
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여">
@@ -297,7 +392,7 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkTel()">인증번호 발송</button>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" name="authNum" id="authNum" placeholder="인증번호">
+								<input class="form-control p-3 border-secondary" type="text" name="authNum" id="authNum" placeholder="인증번호" readonly>
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkAuthNum()">인증번호 확인</button>
@@ -327,7 +422,7 @@
 								<input type="checkbox" name="skel" value="뼈/치아">뼈/치아 <input type="checkbox" name="liver" value="간">간 <input type="checkbox" name="eye" value="눈">눈 <input type="checkbox" name="energy" value="활력">활력 <input type="checkbox" name="immune" value="면역">면역 <input type="checkbox" name="brain" value="두뇌">두뇌 <input type="checkbox" name="skin" value="피부">피부 <input type="checkbox" name="digest" value="소화">소화
 							</div>
 							<div class="col-lg-6">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">회원가입</button>
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkRequirement()">회원가입</button>
 							</div>
 							<div class="col-lg-6">
 								<button class="btn border border-secondary text-primary rounded-pill px-5 py-3" type="button" onclick="location.href='loginPage.do'">취소</button>
