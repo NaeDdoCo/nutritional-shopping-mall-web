@@ -38,13 +38,17 @@ public class MainPageAction implements Action {
 		// 상품출력전체
 		pDTO.setSearchCondition("상품출력전체");
 		rcmDTOs = pDAO.selectAll(pDTO);
-		rcmDTOs = recommendProduct(request, rcmDTOs); // TODO: 모델과 협의후 테스트
+		rcmDTOs = recommendProduct(request, rcmDTOs);
 
 		// 추천 상품이 0개면 판매량순 추천
 		request.setAttribute("pDTOs", pDTOs);
 		if (rcmDTOs == null || rcmDTOs.size() == 0) {
 			request.setAttribute("rcmDTOs", pDTOs);
 		} else {
+			int i = 0;
+			while (rcmDTOs.size() < 8) {
+				rcmDTOs.add(pDTOs.get(i++));
+			}
 			request.setAttribute("rcmDTOs", rcmDTOs);
 		}
 
