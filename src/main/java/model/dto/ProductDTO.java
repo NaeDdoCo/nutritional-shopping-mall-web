@@ -6,7 +6,7 @@ public class ProductDTO {
 	
     private int PID;
     private String pName;
-    private String pDetail; //(제품설명)
+    private String pDetail;
     private int costPrice;
     private int regularPrice;
     private int sellingPrice;
@@ -29,6 +29,7 @@ public class ProductDTO {
     private int ancScore;
     private String ancContents;
     private Timestamp ancCreateTime;
+    private int ancTotalQty;
     
     
     
@@ -170,6 +171,12 @@ public class ProductDTO {
 	public void setAncCreateTime(Timestamp ancCreateTime) {
 		this.ancCreateTime = ancCreateTime;
 	}
+	public int getAncTotalQty() {
+		return ancTotalQty;
+	}
+	public void setAncTotalQty(int ancTotalQty) {
+		this.ancTotalQty = ancTotalQty;
+	}
 	@Override
 	public String toString() {
 		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", pDetail=" + pDetail + ", costPrice=" + costPrice
@@ -178,7 +185,8 @@ public class ProductDTO {
 				+ ", regTime=" + regTime + ", sellingState=" + sellingState + ", searchCondition=" + searchCondition
 				+ ", imagePath=" + imagePath + ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax
 				+ ", ancRID=" + ancRID + ", ancMID=" + ancMID + ", ancBID=" + ancBID + ", ancScore=" + ancScore
-				+ ", ancContents=" + ancContents + ", ancCreateTime=" + ancCreateTime + "]";
-	}      
-   
+				+ ", ancContents=" + ancContents + ", ancCreateTime=" + ancCreateTime + ", ancTotalQty=" + ancTotalQty
+				+ "]";
+	}
+ 
 }
