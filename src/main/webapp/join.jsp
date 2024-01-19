@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +59,9 @@
 			$.ajax({
 				type : "POST", // 또는 "GET"
 				url : "CheckId", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
-				data : {'MID' : MID},
+				data : {
+					'MID' : MID
+				},
 				success : function(data) {
 					MIDResult = data
 					if (data === "suc") {
@@ -249,7 +251,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="join.do" name="joinForm" method="POST">
+					<form action="join.do" name="joinForm" method="POST" onsubmit="return checkRequirement()">
 						<div class="row g-4">
 							<div class="col-lg-8">
 								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디">
@@ -258,77 +260,77 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" required>
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" onblur="pwCheck()" required>
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" onblur="pwCheck()">
 							</div>
 							<div class="col-lg-12">
-								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
+								<input class="form-control p-3  border-secondary" type="text" name="mName" id="mName" placeholder="이름">
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="number" name="year" placeholder="yyyy" required>
+								<input class="form-control p-3 border-secondary" type="number" name="year" id="year" placeholder="yyyy">
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="number" name="month" placeholder="mm" required>
+								<input class="form-control p-3 border-secondary" type="number" name="month" id="month" placeholder="mm">
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="number" name="day" placeholder="dd" required>
+								<input class="form-control p-3 border-secondary" type="number" name="day" id="day" placeholder="dd">
 							</div>
 							<div class="col-lg-6">
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남" checked="checked">남자
 							</div>
 							<div class="col-lg-6">
-								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여"><p>여자</p>
+								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여">
+								<p>여자</p>
 							</div>
 							<div class="col-lg-2">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" id="phoneNum1" value="010" readonly required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" id="phoneNum1" value="010" readonly>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" id="phoneNum2" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" id="phoneNum2" placeholder="0000">
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum3" id="phoneNum3" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum3" id="phoneNum3" placeholder="0000">
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkTel()">인증번호 발송</button>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" name="authNum" id="authNum" placeholder="인증번호" required>
+								<input class="form-control p-3 border-secondary" type="text" name="authNum" id="authNum" placeholder="인증번호">
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkAuthNum()">인증번호 확인</button>
 							</div>
 							<div class="col-lg-5">
-								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디" required>
+								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디">
 							</div>
 							<div class="col-lg-1">
 								<P class="mt-3">@</P>
 							</div>
 							<div class="col-lg-5">
-								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
+								<input class="form-control p-3 border-secondary" type="text" name="email2" id="email2" placeholder="이메일 주소">
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" placeholder="우편번호" readonly required />
+								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" id="zipNo" placeholder="우편번호" readonly>
 							</div>
 							<div class="col-lg-4">
-								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onClick="goPopup()" value="우편번호 찾기" />
+								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onClick="goPopup()" value="우편번호 찾기">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" placeholder="도로명 주소" readonly required />
+								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" id="roadAddrPart1" placeholder="도로명 주소" readonly>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" placeholder="상세 주소" readonly required />
+								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" id="addrDetail" placeholder="상세 주소" readonly>
 							</div>
 							<div>
 								<input type="checkbox" name="skel" value="뼈/치아">뼈/치아 <input type="checkbox" name="liver" value="간">간 <input type="checkbox" name="eye" value="눈">눈 <input type="checkbox" name="energy" value="활력">활력 <input type="checkbox" name="immune" value="면역">면역 <input type="checkbox" name="brain" value="두뇌">두뇌 <input type="checkbox" name="skin" value="피부">피부 <input type="checkbox" name="digest" value="소화">소화
 							</div>
 							<div class="col-lg-6">
-								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="submit" value="회원가입">
-
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">회원가입</button>
 							</div>
 							<div class="col-lg-6">
-								<button class="btn border border-secondary text-primary rounded-pill px-5 py-3" type="button" onclick="">취소</button>
+								<button class="btn border border-secondary text-primary rounded-pill px-5 py-3" type="button" onclick="location.href='loginPage.do'">취소</button>
 							</div>
 						</div>
 					</form>
