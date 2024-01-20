@@ -86,10 +86,10 @@
 
 	<!-- 비밀 중복검사하는 ajax -->
 	<script type="text/javascript">
-		var pwResult;
+		var pwResult = false;
 		function pwCheck() {
 			if ($('#password').val() == $('#confirmPassword').val()) {
-				pwResult = "suc"
+				pwResult = true
 				Swal.fire({
 					icon : 'success',
 					title : '비밀번호 검사',
@@ -194,6 +194,12 @@
 					icon : 'error',
 					title : '필수 항목 검사',
 					text : '재입력을 입력해주세요.',
+				})
+			} else if(pwResult == false){
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호 검사를 진행해주세요.',
 				})
 			} else if ($("#mName").val() == "") {
 				Swal.fire({
