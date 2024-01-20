@@ -130,7 +130,11 @@
 			$.ajax({
 				type : "POST",
 				url : "CheckTel",
-				data : {'phoneNum1' : phoneNum1, 'phoneNum2' : phoneNum2, 'phoneNum3' : phoneNum3},
+				data : {
+					'phoneNum1' : phoneNum1,
+					'phoneNum2' : phoneNum2,
+					'phoneNum3' : phoneNum3
+				},
 				success : function(data) {
 					telResult = data;
 					var authNum = document.getElementById("authNum");
@@ -195,7 +199,7 @@
 					title : '필수 항목 검사',
 					text : '재입력을 입력해주세요.',
 				})
-			} else if(pwResult == false){
+			} else if (pwResult == false) {
 				Swal.fire({
 					icon : 'error',
 					title : '필수 항목 검사',
@@ -265,6 +269,23 @@
 		}
 	</script>
 	<!-- 필수 항목 누락 검사 -->
+
+
+	<!-- 숫자 길이 제한 -->
+	<script>
+		function limitNumLength(element, maxLength) {
+			if (element.value.length > maxLength) {
+				element.value = element.value.slice(0, maxLength);
+			}
+		}
+		
+		function checkMinLength(element, minLength){
+			if(element.value.length < minLength){
+				element.focus();
+			}
+		}
+	</script>
+	<!-- 숫자 길이 제한 -->
 
 
 	<!-- Spinner Start -->
@@ -369,13 +390,13 @@
 								<input class="form-control p-3  border-secondary" type="text" name="mName" id="mName" placeholder="이름">
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="number" name="year" id="year" placeholder="yyyy">
+								<input class="form-control p-3 border-secondary" type="number" name="year" id="year" placeholder="yyyy" oninput="limitNumLength(this, 4)" onblur="checkMinLength(this, 4)">
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="number" name="month" id="month" placeholder="mm">
+								<input class="form-control p-3 border-secondary" type="number" name="month" id="month" placeholder="mm" oninput="limitNumLength(this, 2)" onblur="checkMinLength(this, 2)">
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="number" name="day" id="day" placeholder="dd">
+								<input class="form-control p-3 border-secondary" type="number" name="day" id="day" placeholder="dd" oninput="limitNumLength(this, 2)" onblur="checkMinLength(this, 2)">
 							</div>
 							<div class="col-lg-6">
 								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남" checked="checked">
