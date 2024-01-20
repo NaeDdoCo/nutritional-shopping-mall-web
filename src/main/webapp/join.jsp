@@ -375,16 +375,16 @@
 					<form action="join.do" name="joinForm" method="POST">
 						<div class="row g-4">
 							<div class="col-lg-8">
-								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디" maxlength="15">
+								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디" maxlength="15" onblur="checkMinLength(this, 2)">
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" maxlength="15">
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" maxlength="15" onblur="checkMinLength(this, 4)">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="pwCheck()">
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="checkMinLength(this, 4);pwCheck()">
 							</div>
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" name="mName" id="mName" placeholder="이름" maxlength="20">
