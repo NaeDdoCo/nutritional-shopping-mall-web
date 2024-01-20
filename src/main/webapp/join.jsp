@@ -375,19 +375,19 @@
 					<form action="join.do" name="joinForm" method="POST">
 						<div class="row g-4">
 							<div class="col-lg-8">
-								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디">
+								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디" maxlength="15">
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호">
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" maxlength="15">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" onblur="pwCheck()">
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="pwCheck()">
 							</div>
 							<div class="col-lg-12">
-								<input class="form-control p-3  border-secondary" type="text" name="mName" id="mName" placeholder="이름">
+								<input class="form-control p-3  border-secondary" type="text" name="mName" id="mName" placeholder="이름" maxlength="20">
 							</div>
 							<div class="col-lg-4">
 								<input class="form-control p-3 border-secondary" type="number" name="year" id="year" placeholder="yyyy" oninput="limitNumLength(this, 4)" onblur="checkMinLength(this, 4)">
@@ -410,10 +410,10 @@
 								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" id="phoneNum1" value="010" readonly>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" id="phoneNum2" placeholder="0000">
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" id="phoneNum2" placeholder="0000" oninput="limitNumLength(this, 4)">
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum3" id="phoneNum3" placeholder="0000">
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum3" id="phoneNum3" placeholder="0000" oninput="limitNumLength(this, 4)">
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkTel()">인증번호 발송</button>
@@ -425,13 +425,13 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkAuthNum()">인증번호 확인</button>
 							</div>
 							<div class="col-lg-5">
-								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디">
+								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디" maxlength="60">
 							</div>
 							<div class="col-lg-1">
 								<P class="mt-3">@</P>
 							</div>
 							<div class="col-lg-5">
-								<input class="form-control p-3 border-secondary" type="text" name="email2" id="email2" placeholder="이메일 주소">
+								<input class="form-control p-3 border-secondary" type="text" name="email2" id="email2" placeholder="이메일 주소" maxlength="60">
 							</div>
 							<div class="col-lg-8">
 								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" id="zipNo" placeholder="우편번호" readonly>
