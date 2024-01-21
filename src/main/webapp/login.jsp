@@ -32,6 +32,9 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 
+<!-- 카카오 SDK 로드 -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -53,7 +56,22 @@
 		</c:if>
 	</c:if>
 	<!-- 로그인 실패 모달 -->
-	
+
+
+	<!-- 카카오 로그인 -->
+	<script>
+		//카카오 초기화
+		Kakao.init('2a9a8d09bd8fea39b7ca6172e2a2beb1'); // 사용하려는 앱의 JavaScript 키 입력
+		console.log(Kakao.isInitialized()); // 초기화 판단여부
+
+		function loginWithKakao() {
+			Kakao.Auth.authorize({
+				redirectUri : 'https://developers.kakao.com/tool/demo/oauth',
+			});
+		}
+	</script>
+	<!-- 카카오 로그인 -->
+
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -142,7 +160,7 @@
 				</div>
 			</div>
 			<hr>
-			<a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="#">카카오 로그인</a>
+			<a class="btn border-secondary text-primary rounded-pill py-3 px-5" id="kakao-login-btn" href="javascript:loginWithKakao()">카카오 로그인</a>
 		</div>
 	</div>
 	<!-- 로그인 폼 끝 -->
