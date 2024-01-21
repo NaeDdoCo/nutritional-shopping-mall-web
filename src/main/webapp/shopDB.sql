@@ -141,11 +141,12 @@ CREATE TABLE REVIEW (
 	--작성일
 	CREATE_TIME TIMESTAMP NOT NULL
 );
-----------------------------------------------------회워 샘플 코드 --------------------------------------------------------------------------
+----------------------------------------------------회원 샘플 코드 --------------------------------------------------------------------------
 --회원가입
 INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, GRADE, HEALTH) 
-VALUES ('teemo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), 
+VALUES ('teemoo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), 
 '남', '010-2525-2525', 'teemo@gmail.com', 99999, '경기도 용인시', '군인숙소','USER', '눈');
+
 --중복검사
 SELECT M_ID FROM MEMBER WHERE M_ID = 'teemo';
 --회원목록
@@ -156,9 +157,24 @@ SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH FROM MEMBER WHERE M_ID='teemo' A
 SELECT HEALTH FROM MEMBER WHERE M_ID='teemo';
 
 --회원정보변경(미완성)
-UPDATE MEMBER 
-SET M_PASSWORD = , GENDER = , PHONE_NUMBER = , EMAIL = , M_ADDRESS = , HEALTH = 
+UPDATE MEMBER
+SET
+  M_NAME = '티티모',
+  M_PASSWORD = '123456',
+  DOB = TO_DATE('2024-01-20', 'YYYY-MM-DD'),
+  GENDER = '여',
+  PHONE_NUMBER = '010-5252-5252',
+  EMAIL = 'teteemo@gmail.com',
+  M_POSTCODE = '66666',
+  M_ADDRESS = '제일비전타워 13층',
+  M_DETAILED_ADDRESS = 'Jclass 강의장',
+  GRADE = 'USER',
+  HEALTH = '간'
 WHERE M_ID = 'teemo';
+
+
+--회원탈퇴
+DELETE FROM MEMBER WHERE M_ID = 'teemoo';
 -------------------------------------------------------카트 샘플 코드 --------------------------------------------------------------------------
 --장바구니에 담기
 INSERT INTO CART (C_ID, M_ID, P_ID, C_QTY) VALUES (NVL((SELECT MAX(C_ID) FROM CART), 0)+1, 'teemo', 1, 1);
@@ -221,17 +237,13 @@ FROM PRODUCT P
 LEFT JOIN BUYINFO B ON P.P_ID = B.P_ID
 WHERE
     P.SELLING_STATE = '판매중' 
-    AND (P.P_NAME LIKE '%상품%' OR P.P_NAME IS NULL)
-    AND (P.CATEGORY LIKE '%카테%' OR P.CATEGORY IS NULL)
+    AND (P.P_NAME LIKE '%%' OR P.P_NAME IS NULL)
+    AND (P.CATEGORY LIKE '%%' OR P.CATEGORY IS NULL)
     AND (P.SELLING_PRICE <= 13000 OR P.SELLING_PRICE IS NULL)
 GROUP BY P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, 
 P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, 
 P.SELLING_STATE, P.IMAGEPATH
 ORDER BY TOTAL_B_QTY DESC, REG_TIME DESC;
-
-
-
-
 
 --제품출력(페이지)
 SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, P.SELLING_STATE, P.IMAGEPATH, NVL(SUM(B.B_QTY), 0) AS TOTAL_B_QTY
@@ -247,7 +259,6 @@ P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME,
 P.SELLING_STATE, P.IMAGEPATH
 ORDER BY TOTAL_B_QTY DESC, REG_TIME DESC;
 
-
 --제품상세(최신 리뷰가 위로)
 SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, 
 P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, 
@@ -256,8 +267,7 @@ FROM PRODUCT P
 JOIN BUYINFO B ON P.P_ID = B.P_ID
 JOIN REVIEW R ON B.B_ID = R.B_ID
 WHERE P.P_ID = 1
-ORDER BY R.CREATE_TIME DESC;
-	
+ORDER BY R.CREATE_TIME DESC;	
 	
 -- 테스트
 --SELECT P_ID, P_NAME, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, SELLING_STATE, IMAGEPATH FROM PRODUCT
@@ -268,6 +278,11 @@ ORDER BY R.CREATE_TIME DESC;
 --FROM PRODUCT
 --WHERE ROWNUM BETWEEN 79 AND 90
 --AND SELLING_STATE = '판매중';
+
+--상품 판매상태 변경
+UPDATE PRODUCT
+SET SELLING_STATE = '판매중지'
+WHERE P_ID = 1;
 
 --------------------------------------------------쿠폰 샘플 코드-------------------------------------------------------------------------------------------------------------
 --쿠폰생성(만약 부여를 한다고하면 쿠폰번호는 컨트롤러에서 만들어서 set)--
@@ -303,7 +318,7 @@ INSERT INTO BUYINFO
 (B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS)
 VALUES (
     NVL((SELECT MAX(B_ID) FROM BUYINFO), 0) + 1,
-    'teemo', 
+    'teemooo', 
     1, 
     'CP001', 
     12345, 
@@ -322,24 +337,11 @@ FROM BUYINFO
 WHERE P_ID = 1
 GROUP BY P_ID;
 
---------------------------------------------------리뷰 샘플 코드-------------------------------------------------------------------------------------------------------------
---리뷰 테이블
-CREATE TABLE REVIEW (
-	--리뷰번호
-	R_ID INT PRIMARY KEY,
-	--회원ID
-	--NOT NULL 제거_01_13
-	M_ID VARCHAR2(15),
-	--구매번호
-	B_ID INT NOT NULL,
-	--별점
-	SCORE INT NOT NULL,
-	--리뷰내용
-	CONTENTS VARCHAR2(1500) NOT NULL,
-	--작성일
-	CREATE_TIME TIMESTAMP NOT NULL
-);
+SELECT B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS 
+FROM BUYINFO 
+WHERE M_ID = 'teemo';
 
+--------------------------------------------------리뷰 샘플 코드-------------------------------------------------------------------------------------------------------------
 INSERT INTO REVIEW 
 (R_ID, M_ID, B_ID, SCORE, CONTENTS, CREATE_TIME)
 VALUES (

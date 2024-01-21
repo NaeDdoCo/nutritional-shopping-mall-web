@@ -27,16 +27,19 @@ public class ProductDAO {
 	// 상품전체
 	private static final String SELECTALL_ALL = "SELECT P_ID, P_NAME, P_DETAIL, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, SELLING_STATE, IMAGEPATH "
 			+ "FROM PRODUCT";
-	
+
 	// 상품전체
 	private static final String SELECTALL_FILTER = "SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, "
 			+ " P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, "
-			+ " P.SELLING_STATE, P.IMAGEPATH, NVL(SUM(B.B_QTY), 0) AS TOTAL_B_QTY " + " FROM PRODUCT P "
-			+ " LEFT JOIN BUYINFO B ON P.P_ID = B.P_ID " + " WHERE P.SELLING_STATE = ? "
-			+ " AND (P.P_NAME LIKE ? OR P.P_NAME IS NULL) " + " AND (P.CATEGORY LIKE ? OR P.CATEGORY IS NULL) "
+			+ " P.SELLING_STATE, P.IMAGEPATH, NVL(SUM(B.B_QTY), 0) AS TOTAL_B_QTY "
+			+ " FROM PRODUCT P "
+			+ " LEFT JOIN BUYINFO B ON P.P_ID = B.P_ID "
+			+ " WHERE P.SELLING_STATE = ? "
+			+ " AND (P.P_NAME LIKE ? OR P.P_NAME IS NULL) "
+			+ " AND (P.CATEGORY LIKE ? OR P.CATEGORY IS NULL) "
 			+ " AND (P.SELLING_PRICE <= ? OR P.SELLING_PRICE IS NULL) "
 			+ " GROUP BY P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, "
-			+ " P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, " + " P.SELLING_STATE, P.IMAGEPATH "
+			+ " P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, P.SELLING_STATE, P.IMAGEPATH "
 			+ " ORDER BY TOTAL_B_QTY DESC, REG_TIME DESC";
 
 	// 상품상세출력
@@ -45,6 +48,9 @@ public class ProductDAO {
 			+ "P.SELLING_STATE, P.IMAGEPATH, P.USAGE, P.EXP, R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME "
 			+ "FROM PRODUCT P " + "JOIN BUYINFO B ON P.P_ID = B.P_ID " + "JOIN REVIEW R ON B.B_ID = R.B_ID "
 			+ "WHERE P.P_ID = ? " + "ORDER BY R.CREATE_TIME DESC";
+	
+	// 최대가 반환
+	private static final String SELECTONE_MAX_PRICE = "SELECT MAX(SELLING_PRICE) AS PRICE FROM PRODUCT";
 
 	// 성공한 Insert
 	private static final String INSERT = "INSERT INTO PRODUCT "
@@ -53,11 +59,10 @@ public class ProductDAO {
 			+ "	  ?, " + "	  ?, " + "	  ?, " + "	  ?, " + "	  ?, " + "	  SYSTIMESTAMP, " + "	  ?, " + "	  ? "
 			+ "	)";
 
-	private static final String UPDATE = "";
+	// 상품 판매상태 변경(판매중 -> 판매중지)
+	private static final String UPDATE = "UPDATE PRODUCT " + "SET SELLING_STATE = '판매중지' " + "WHERE P_ID = ?";
 
 	private static final String DELETE = "";
-
-	private static final String MAX_PRICE = "SELECT MAX(SELLING_PRICE) AS PRICE FROM PRODUCT";
 
 	public ArrayList<ProductDTO> selectAll(ProductDTO pDTO) {
 
@@ -107,8 +112,7 @@ public class ProductDAO {
 				return productList;
 			}
 
-		}
-		else if (pDTO.getSearchCondition().equals("상품출력전체")) {
+		} else if (pDTO.getSearchCondition().equals("상품출력전체")) {
 
 			conn = JDBCUtil.connect();
 
@@ -150,32 +154,30 @@ public class ProductDAO {
 				return productList;
 			}
 
-		} 
-		else if (pDTO.getSearchCondition().equals("상품출력필터")) {
-			
+		} else if (pDTO.getSearchCondition().equals("상품출력필터")) {
+
 			conn = JDBCUtil.connect();
-			
+
 			System.out.println("[로그_제품출력페이지_필터] 진입");
 
 			if (pDTO.getSellingPrice() == 0) {
 
-				
 				try {
-					pstmt = conn.prepareStatement(MAX_PRICE);
+					pstmt = conn.prepareStatement(SELECTONE_MAX_PRICE);
 					ResultSet rs = pstmt.executeQuery();
 					if (rs.next()) {
 						pDTO.setSellingPrice(rs.getInt("PRICE"));
-						
+
 					}
 					rs.close();
 				} catch (SQLException e) {
 					System.out.println("[로그_맥스값] 오류발생");
 					e.printStackTrace();
-				} 
-				if (pDTO != null) {
-					System.out.println("[로그_맥스값] 성공 "+pDTO.getSellingPrice());
 				}
-			}			
+				if (pDTO != null) {
+					System.out.println("[로그_맥스값] 성공 " + pDTO.getSellingPrice());
+				}
+			}
 
 			try {
 				System.out.println("[로그_제품출력페이지_필터] try진입");
@@ -184,7 +186,6 @@ public class ProductDAO {
 				pstmt.setString(2, "%" + pDTO.getpName() + "%");
 				pstmt.setString(3, "%" + pDTO.getCategory() + "%");
 				pstmt.setInt(4, pDTO.getSellingPrice());
-
 
 				System.out.println("[로그_제품출력페이지_필터] pstmt.set 성공");
 				ResultSet rs = pstmt.executeQuery();
@@ -195,7 +196,7 @@ public class ProductDAO {
 					if (productList == null) {
 						productList = new ArrayList<ProductDTO>();
 					}
-					//System.out.println("[로그] " + rs.getInt("P_ID"));
+					// System.out.println("[로그] " + rs.getInt("P_ID"));
 					ProductDTO productTempDTO = new ProductDTO();
 					productTempDTO.setPID(rs.getInt("P_ID"));
 					productTempDTO.setpName(rs.getString("P_NAME"));
@@ -336,8 +337,31 @@ public class ProductDAO {
 		return true;
 	}
 
+	// 판매중지
 	public boolean update(ProductDTO pDTO) {
-		return false;
+
+		conn = JDBCUtil.connect();
+
+		if (pDTO.getSearchCondition().equals("판매중지")) {
+
+			try {
+				pstmt = conn.prepareStatement(UPDATE);
+				pstmt.setInt(1, pDTO.getPID());
+
+				int result = pstmt.executeUpdate();
+				
+				if (result <= 0) {
+					return false;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+		}
+		return true;
 	}
 
 	public boolean delete(ProductDTO pDTO) {

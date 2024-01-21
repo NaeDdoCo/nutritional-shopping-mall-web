@@ -26,28 +26,44 @@ public class CartDAO {
 	 * + "FROM CART C " + "JOIN PRODUCT P ON C.P_ID = P.P_ID;";
 	 */
 
+	// 장바구니 목록 출력
 	private static final String SELECTALL = "SELECT C.C_ID, M.M_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGEPATH "
 			+ "FROM CART C "
 			+ "JOIN PRODUCT P ON C.P_ID = P.P_ID "
 			+ "JOIN MEMBER M ON C.M_ID = M.M_ID "
 			+ "WHERE M.M_ID = ?";
 
-	private static final String SELECTONE = "";
+	// 장바구니 상품확인(존재여부)
+	private static final String SELECTONE = "SELECT C_ID, C_QTY FROM CART WHERE M_ID = ? AND P_ID = ?";
 
 	// 장바구니 추가
 	private static final String INSERT_CART = "INSERT INTO CART (C_ID, M_ID, P_ID, C_QTY) VALUES (NVL((SELECT MAX(C_ID) FROM CART), 0)+1, ?, ?, ?)";
 
-	private static final String UPDATE = "";
+	// 장바구니 갱신(정해진 수량 으로 변경)
+	private static final String UPDATE_QTY = "UPDATE CART SET C_QTY = ? WHERE C_ID = ?";
 
-	private static final String DELETE = "";
+	// 장바구니 갱신(수량 +버튼)
+	private static final String UPDATE_PLUS = "UPDATE CART SET C_QTY = C_QTY + 1 WHERE C_ID = ?";
+
+	// 장바구니 갱신(수량 -버튼)
+	private static final String UPDATE_MINUS = "UPDATE CART SET C_QTY = C_QTY - 1 WHERE C_ID = ?";
+	
+	// 장바구니 갱신(기존에 있던 상품 추가)
+	private static final String UPDATE_QTY_ADD = "UPDATE CART SET C_QTY = C_QTY + ? WHERE C_ID = ?";
+
+	// 장바구니 상품 1개삭제
+	private static final String DELETE_CID = "DELETE FROM CART WHERE C_ID = ?";
+	
+	// 장바구니 비우기
+	private static final String DELETE_CART = "DELETE FROM CART WHERE M_ID = ?";
 
 	public ArrayList<CartDTO> selectAll(CartDTO cDTO) {
 
 		ArrayList<CartDTO> cartDTO = new ArrayList<CartDTO>();
 
-		if (cDTO.getSearchCondition().equals("장바구니목록출력")) {
+		conn = JDBCUtil.connect();
 
-			conn = JDBCUtil.connect();
+		if (cDTO.getSearchCondition().equals("장바구니목록출력")) {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTALL);
@@ -62,21 +78,25 @@ public class CartDAO {
 					rsCartDTO.setcQty(rs.getInt("C_QTY"));
 					rsCartDTO.setpName(rs.getString("P_NAME"));
 					rsCartDTO.setSellingPrice(rs.getInt("SELLING_PRICE"));
-					// 이미지 경로 추가
 					rsCartDTO.setImagePath(rs.getString("IMAGEPATH"));
-
 					cartDTO.add(rsCartDTO);
 				}
-
 				rs.close();
+
+				if (cartDTO.size() > 0) {
+					System.out.println("[로그_장바구니목록] 성공");
+					return cartDTO;
+				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
+				return null;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
 		}
-
-		return cartDTO;
+		System.out.println("[로그_장바구니ALL] 실패");
+		return null;
 	}
 
 	private CartDTO selectOne(CartDTO cDTO) {
@@ -84,8 +104,10 @@ public class CartDAO {
 	}
 
 	public boolean insert(CartDTO cDTO) {
+
+		conn = JDBCUtil.connect();
+
 		if (cDTO.getSearchCondition().equals("장바구니추가")) {
-			conn = JDBCUtil.connect();
 			try {
 				pstmt = conn.prepareStatement(INSERT_CART);
 				pstmt.setString(1, cDTO.getMid());
@@ -93,8 +115,10 @@ public class CartDAO {
 				pstmt.setInt(3, cDTO.getcQty());
 
 				int rs = pstmt.executeUpdate();
-				if (rs <= 0) {
-					return false;
+
+				if (rs > 0) {
+					System.out.println("[로그_장바구니추가] 성공");
+					return true;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -103,14 +127,147 @@ public class CartDAO {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
 		}
-		return true;
+		System.out.println("[로그_장바구니INSERT] 실패");
+		return false;
 	}
 
 	public boolean update(CartDTO cDTO) {
+
+		conn = JDBCUtil.connect();
+
+		if (cDTO.getSearchCondition().equals("수량갱신")) {
+
+			try {
+				pstmt = conn.prepareStatement(UPDATE_QTY);
+				pstmt.setInt(1, cDTO.getcQty());
+				pstmt.setInt(2, cDTO.getCid());
+
+				int result = pstmt.executeUpdate();
+
+				if (result > 0) {
+					System.out.println("[로그_수량갱신] 성공");
+					return true;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+		} 
+		else if (cDTO.getSearchCondition().equals("수량증가")) {
+
+			try {
+				pstmt = conn.prepareStatement(UPDATE_PLUS);
+				pstmt.setInt(1, cDTO.getCid());
+
+				int result = pstmt.executeUpdate();
+
+				if (result > 0) {
+					System.out.println("[로그_수량갱신] 성공");
+					return true;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+		} 
+		else if (cDTO.getSearchCondition().equals("수량감소")) {
+
+			try {
+				pstmt = conn.prepareStatement(UPDATE_MINUS);
+				pstmt.setInt(1, cDTO.getCid());
+
+				int result = pstmt.executeUpdate();
+
+				if (result > 0) {
+					System.out.println("[로그_수량갱신] 성공");
+					return true;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+		}
+		else if (cDTO.getSearchCondition().equals("동일상품추가")) {
+
+			try {
+				pstmt = conn.prepareStatement(UPDATE_QTY_ADD);
+				pstmt.setInt(1, cDTO.getcQty());
+				pstmt.setInt(2, cDTO.getCid());
+
+				int result = pstmt.executeUpdate();
+
+				if (result > 0) {
+					System.out.println("[로그_수량갱신] 성공");
+					return true;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+		} 
+
+		System.out.println("[로그_수량UPDATE] 실패");
 		return false;
 	}
 
 	public boolean delete(CartDTO cDTO) {
+		
+		conn = JDBCUtil.connect();
+		
+		if(cDTO.getSearchCondition().equals("장바구니삭제")) {
+			
+			try {
+				pstmt = conn.prepareStatement(DELETE_CID);
+				pstmt.setInt(1, cDTO.getCid());
+				
+				int result = pstmt.executeUpdate();
+				
+				if(result > 0) {
+					return true;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			
+		}
+		else if (cDTO.getSearchCondition().equals("장바구니비우기")) {
+			
+			try {
+				pstmt = conn.prepareStatement(DELETE_CART);
+				pstmt.setString(1, cDTO.getMid());
+				
+				int result = pstmt.executeUpdate();
+				System.out.println("[로그_장바구니비우기] "+result+"개 삭제");
+				if(result > 0) {
+					System.out.println("[로그_장바구니비우기] 성공");
+					return true;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			
+		}
+		System.out.println("[로그_장바구니DELETE] 실패");
 		return false;
 	}
 }
