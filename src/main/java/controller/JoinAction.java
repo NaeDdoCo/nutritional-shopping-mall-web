@@ -3,7 +3,7 @@ package controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,16 +19,15 @@ public class JoinAction implements Action {
 			throws ServletException, IOException {
 
 		ActionForward forward = new ActionForward();
-		request.setCharacterEncoding("UTF-8");
-		
+
 		String MID = request.getParameter("MID");
 		String mName = request.getParameter("mName");
-		
+
 		// 비밀번호 체크하는 로직 -> View 담당
 		String mPassword = request.getParameter("mPassword1");
-//		String mPassword2 = request.getParameter("mPassword2");
-		
-        // dob format: yyyy-MM-dd
+		//		String mPassword2 = request.getParameter("mPassword2");
+
+		// dob format: yyyy-MM-dd
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
@@ -45,29 +44,30 @@ public class JoinAction implements Action {
 		if (day.length() == 1) {
 			day += "0" + day;
 		}
-		
+
 		String dateString = year + "-" + month + "-" + day;
-        java.sql.Date sqlDate = null;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date utilDate = sdf.parse(dateString);
+		java.sql.Date sqlDate = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilDate = sdf.parse(dateString);
 
-            sqlDate = new java.sql.Date(utilDate.getTime());
+			sqlDate = new java.sql.Date(utilDate.getTime());
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        String gender = request.getParameter("gender");
-        // String 조합
-        String phoneNumber = request.getParameter("phoneNum1") + "-" + request.getParameter("phoneNum2") + "-" + request.getParameter("phoneNum3");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		String gender = request.getParameter("gender");
+		// String 조합
+		String phoneNumber = request.getParameter("phoneNum1") + "-" + request.getParameter("phoneNum2") + "-" + request.getParameter("phoneNum3");
 		String email = request.getParameter("email1") + "@" + request.getParameter("email2");
 
 		String zipNo = request.getParameter("zipNo");
+
 		String roadAddrPart1 = request.getParameter("roadAddrPart1");
 		String addrDetail = request.getParameter("addrDetail");
-//		String addr = zipNo + "; " + roadAddrPart1 + "; " + addrDetail;
-		
+		//		String addr = zipNo + "; " + roadAddrPart1 + "; " + addrDetail;
+
 		String healths = "";
 		String health;
 		health = request.getParameter("skel");
@@ -102,9 +102,11 @@ public class JoinAction implements Action {
 		if (health != null) {
 			healths += health + ";";
 		}
-		
+
+
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
+
 		mDTO.setSearchCondition("회원가입");
 		mDTO.setMid(MID);
 		mDTO.setmName(mName);
@@ -113,21 +115,35 @@ public class JoinAction implements Action {
 		mDTO.setGender(gender);
 		mDTO.setPhoneNumber(phoneNumber);
 		mDTO.setEmail(email);
-//		System.out.println("[JoinAction] " + zipNo);
-		mDTO.setmPostCode(Integer.parseInt(zipNo));
+		//		System.out.println("[JoinAction] " + zipNo);
 		mDTO.setmAddress(roadAddrPart1);
 		mDTO.setmDetailedAddress(addrDetail);
-//		System.out.println("JoinAction: health: " + healths);
+		//		System.out.println("JoinAction: health: " + healths);
 		mDTO.setHealth(healths);
-		
+
+		if (isNumeric(zipNo)) {
+			mDTO.setmPostCode(Integer.parseInt(zipNo));
+			System.out.println("[로그] [JoinAction] zipNo 정상");
+			
+		} else {
+			// 유효하지 않은 경우에 대한 에러처리
+			System.out.println("[로그] [JoinAction] zipNo 에러");
+			forward.setPath("error.do");
+			forward.setRedirect(true);
+			return forward;
+		}
+
 		if (mDAO.insert(mDTO)) {
 			forward.setPath("mainPage.do");
 			forward.setRedirect(false);
 		} else {
 			return null;
 		}
-		
 		return forward;
+	}
+	//1개 이상의 숫자인지 확인
+	private static boolean isNumeric(String str) {
+		return Pattern.matches("\\d+", str);
 	}
 
 }
