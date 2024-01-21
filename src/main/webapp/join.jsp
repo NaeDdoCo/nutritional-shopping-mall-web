@@ -29,7 +29,6 @@
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -265,6 +264,9 @@
 					title : '필수 항목 검사',
 					text : '주소를 입력해주세요.',
 				})
+			} else {
+				var joinForm = document.getElementById("joinForm");
+				joinFprm.submit();
 			}
 		}
 	</script>
@@ -278,9 +280,9 @@
 				element.value = element.value.slice(0, maxLength);
 			}
 		}
-		
-		function checkMinLength(element, minLength){
-			if(element.value.length < minLength){
+
+		function checkMinLength(element, minLength) {
+			if (element.value.length < minLength) {
 				element.focus();
 			}
 		}
@@ -372,7 +374,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="join.do" name="joinForm" method="POST">
+					<form action="join.do" name="joinForm" id="joinForm" method="POST">
 						<div class="row g-4">
 							<div class="col-lg-8">
 								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디" maxlength="15" onblur="checkMinLength(this, 2)">
