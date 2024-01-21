@@ -116,34 +116,13 @@ public class JoinAction implements Action {
 		mDTO.setPhoneNumber(phoneNumber);
 		mDTO.setEmail(email);
 		//		System.out.println("[JoinAction] " + zipNo);
+		mDTO.setmPostCode(Integer.parseInt(zipNo));
 		mDTO.setmAddress(roadAddrPart1);
 		mDTO.setmDetailedAddress(addrDetail);
 		//		System.out.println("JoinAction: health: " + healths);
 		mDTO.setHealth(healths);
 
-		if (isNumeric(zipNo)) {
-			mDTO.setmPostCode(Integer.parseInt(zipNo));
-			System.out.println("[로그] [JoinAction] zipNo 정상");
-			
-		} else {
-			// 유효하지 않은 경우에 대한 에러처리
-			System.out.println("[로그] [JoinAction] zipNo 에러");
-			forward.setPath("error.do");
-			forward.setRedirect(true);
-			return forward;
-		}
-
-		if (mDAO.insert(mDTO)) {
-			forward.setPath("mainPage.do");
-			forward.setRedirect(false);
-		} else {
-			return null;
-		}
 		return forward;
-	}
-	//1개 이상의 숫자인지 확인
-	private static boolean isNumeric(String str) {
-		return Pattern.matches("\\d+", str);
 	}
 
 }
