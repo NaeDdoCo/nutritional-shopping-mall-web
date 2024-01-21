@@ -122,6 +122,12 @@ public class JoinAction implements Action {
 		//		System.out.println("JoinAction: health: " + healths);
 		mDTO.setHealth(healths);
 
+		if(mDAO.insert(mDTO)) {
+			forward.setPath("mainPage.do");
+			forward.setRedirect(false);
+		}else {
+			return null;
+		}
 		return forward;
 	}
 
