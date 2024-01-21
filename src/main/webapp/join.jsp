@@ -266,7 +266,7 @@
 				})
 			} else {
 				var joinForm = document.getElementById("joinForm");
-				joinFprm.submit();
+				joinForm.submit();
 			}
 		}
 	</script>
