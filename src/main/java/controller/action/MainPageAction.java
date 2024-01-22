@@ -38,7 +38,7 @@ public class MainPageAction implements Action {
 		pDTOs = pDAO.selectAll(pDTO);
 
 		// 상품출력전체
-		pDTO.setSearchCondition("상품출력전체");
+		pDTO.setSearchCondition("상품출력필터");
 		rcmDTOs = pDAO.selectAll(pDTO);
 		rcmDTOs = recommendProduct(request, rcmDTOs);
 

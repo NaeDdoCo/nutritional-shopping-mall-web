@@ -24,8 +24,11 @@ public class ProductAllPageAction implements Action{
 		ProductDAO pDAO = new ProductDAO();
 		
 		// 전체 페이지 수 확인
-		pDTO.setSearchCondition("상품출력전체");
+		pDTO.setSearchCondition("상품출력필터");
+		pDTO.setAncSelectMin(1);
+		pDTO.setAncSelectMax(5);
 		pDTOs = pDAO.selectAll(pDTO);
+		System.out.println("pDTOs.size : " + pDTOs.size());
 		int totalPages = pDTOs.size() / 9;
 		if (pDTOs.size() % 9 != 0) {
 			totalPages++;
