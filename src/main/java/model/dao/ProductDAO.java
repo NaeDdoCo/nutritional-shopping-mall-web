@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.dto.ProductDTO;
+import model.util.JDBCUtil;
+
 public class ProductDAO {
 
 	private Connection conn;

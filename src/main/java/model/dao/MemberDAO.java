@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.dto.MemberDTO;
+import model.util.JDBCUtil;
+
 public class MemberDAO {
 
 	private Connection conn;

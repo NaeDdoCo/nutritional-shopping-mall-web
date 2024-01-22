@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.dto.CartDTO;
+import model.util.JDBCUtil;
+
 public class CartDAO {
 
 	private Connection conn;
