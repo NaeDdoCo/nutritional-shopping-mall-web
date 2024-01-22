@@ -202,7 +202,7 @@
 								<c:if test="${fn:length(pDTOs) > 0}">
 									<c:forEach var="data" items="${pDTOs}">
 										<div class="col-md-6 col-lg-6 col-xl-4">
-											<div class="rounded position-relative fruite-item">
+											<div class="rounded position-relative fruite-item" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 												<div class="fruite-img">
 													<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
 												</div>
