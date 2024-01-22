@@ -25,6 +25,7 @@ public class ProductAllPageAction implements Action{
 		pDTO.setAncSelectMin(1);
 		pDTO.setAncSelectMax(9);
 		pDTOs = pDAO.selectAll(pDTO);
+		request.setAttribute("pDTOs", pDTOs);
 
 		forward.setPath("productDetail.jsp");
 		forward.setRedirect(false);
