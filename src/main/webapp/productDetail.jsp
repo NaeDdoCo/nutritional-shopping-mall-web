@@ -179,7 +179,7 @@
 								<div class="tab-content mb-5">
 									<div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
 
-										<div class="row bg-light align-items-center text-center justify-content-center py-2">
+										<div class="row bg-light align-items-center text-center justify-content-left py-2">
 											<div class="col-6">
 												<p class="mb-0">성분</p>
 											</div>
