@@ -216,7 +216,7 @@
 											<c:if test="${fn:length(pDTOs) > 0}">
 												<c:forEach var="data" items="${pDTOs}">
 													<div class="col-md-6 col-lg-4 col-xl-3">
-														<div class="p-4 border border-secondary rounded position-relative fruite-item" onclick="location.href='productDetailPage.do';">
+														<div class="p-4 border border-secondary rounded position-relative fruite-item" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 															<div class="fruite-img">
 																<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
 															</div>
