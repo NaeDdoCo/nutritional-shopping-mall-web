@@ -10,31 +10,25 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
-
 <!-- sweetalert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
-
 <!-- Icon Font Stylesheet -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
 
 <!-- Libraries Stylesheet -->
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
-
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
@@ -167,7 +161,7 @@
 						<c:forEach var="data" items="${rcmDTOs}">
 							<div class="border border-primary rounded position-relative vesitable-item" onclick="location.href='productDetailPage.do';">
 								<div class="vesitable-img">
-									<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
+									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top" alt="">
 								</div>
 								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
 								<div class="p-4 rounded-bottom">
@@ -221,8 +215,8 @@
 										<div class="row g-4">
 											<c:if test="${fn:length(pDTOs) > 0}">
 												<c:forEach var="data" items="${pDTOs}">
-													<div class="col-md-6 col-lg-4 col-xl-3" onclick="location.href='productDetailPage.do';">
-														<div class="p-4 border border-secondary rounded position-relative fruite-item">
+													<div class="col-md-6 col-lg-4 col-xl-3">
+														<div class="p-4 border border-secondary rounded position-relative fruite-item" onclick="location.href='productDetailPage.do';">
 															<div class="fruite-img">
 																<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
 															</div>
