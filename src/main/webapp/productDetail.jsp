@@ -145,7 +145,7 @@
 								<div class="d-flex mb-4">
 									<i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
 								</div>
-								<p class="mb-4">${productDetail.pDetail}원.</p>
+								<p class="mb-4">${productDetail.pDetail}</p>
 								<c:if test="${member != null}">
 									<div class="input-group quantity mb-5" style="width: 100px;">
 										<div class="input-group-btn">
@@ -181,6 +181,36 @@
 										<p>${productDetail.ingredient}</p>
 										<p>${productDetail.usage}</p>
 										<p>${productDetail.exp}</p>
+										<div class="px-2">
+											<div class="row g-4">
+												<div class="col-6">
+													<div class="row bg-light align-items-center text-center justify-content-center py-2">
+														<div class="col-6">
+															<p class="mb-0">성분</p>
+														</div>
+														<div class="col-6">
+															<p class="mb-0">${productDetail.ingredient}</p>
+														</div>
+													</div>
+													<div class="row text-center align-items-center justify-content-center py-2">
+														<div class="col-6">
+															<p class="mb-0">용법</p>
+														</div>
+														<div class="col-6">
+															<p class="mb-0">${productDetail.usage}</p>
+														</div>
+													</div>
+													<div class="row bg-light text-center align-items-center justify-content-center py-2">
+														<div class="col-6">
+															<p class="mb-0">유통기한</p>
+														</div>
+														<div class="col-6">
+															<p class="mb-0">Organic${productDetail.exp}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 									<div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
 										<div class="d-flex">
