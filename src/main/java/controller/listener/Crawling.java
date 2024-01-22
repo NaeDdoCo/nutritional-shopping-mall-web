@@ -117,8 +117,8 @@ public class Crawling {
 			System.out.println(strPrice);
 			int selling = Integer.parseInt(strPrice);
 //			int selling = 3000;
-			pDTO.setCostPrice(selling - 2000);
-			pDTO.setRegularPrice(selling - 1000);
+			pDTO.setCostPrice(selling + 2000);
+			pDTO.setRegularPrice(selling + 1000);
 			pDTO.setSellingPrice(selling);
 		}
 
