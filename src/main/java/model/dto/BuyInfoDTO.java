@@ -103,8 +103,4 @@ public class BuyInfoDTO {
 				+ buyTime + ", bPostCode=" + bPostCode + ", bAddress=" + bAddress + ", bDetailedAddress="
 				+ bDetailedAddress + ", searchCondition=" + searchCondition + "]";
 	}
-    
-
-    
-
 }

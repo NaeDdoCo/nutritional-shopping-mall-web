@@ -13,6 +13,9 @@ public class ReviewDTO {
     // 조인
     private int PID;
     private String pNAME;
+    private String mName;
+    
+    
 	public int getRID() {
 		return RID;
 	}
@@ -67,11 +70,19 @@ public class ReviewDTO {
 	public void setpNAME(String pNAME) {
 		this.pNAME = pNAME;
 	}
+	public String getmName() {
+		return mName;
+	}
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
 	@Override
 	public String toString() {
 		return "ReviewDTO [RID=" + RID + ", MID=" + MID + ", BID=" + BID + ", score=" + score + ", contents=" + contents
 				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + ", PID=" + PID + ", pNAME="
-				+ pNAME + "]";
+				+ pNAME + ", mName=" + mName + "]";
 	}
+    
+
 	
 }

@@ -25,16 +25,12 @@ public class ProductDAO {
 			+ "    FROM PRODUCT " + "WHERE SELLING_STATE = '판매중'" + ") " + "WHERE RN BETWEEN ? AND ?";
 
 	// 상품전체
-	private static final String SELECTALL_ALL = "SELECT P_ID, P_NAME, P_DETAIL, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, SELLING_STATE, IMAGEPATH "
-			+ "FROM PRODUCT";
-
-	// 상품전체
 	private static final String SELECTALL_FILTER = "SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, "
 			+ " P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, "
 			+ " P.SELLING_STATE, P.IMAGEPATH, NVL(SUM(B.B_QTY), 0) AS TOTAL_B_QTY "
 			+ " FROM PRODUCT P "
 			+ " LEFT JOIN BUYINFO B ON P.P_ID = B.P_ID "
-			+ " WHERE P.SELLING_STATE = ? "
+			+ " WHERE P.SELLING_STATE = '판매중' "
 			+ " AND (P.P_NAME LIKE ? OR P.P_NAME IS NULL) "
 			+ " AND (P.CATEGORY LIKE ? OR P.CATEGORY IS NULL) "
 			+ " AND (P.SELLING_PRICE <= ? OR P.SELLING_PRICE IS NULL) "
@@ -43,14 +39,12 @@ public class ProductDAO {
 			+ " ORDER BY TOTAL_B_QTY DESC, REG_TIME DESC";
 
 	// 상품상세출력
-	private static final String SELECTONE_DETAIL = "SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, "
-			+ "P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, "
-			+ "P.SELLING_STATE, P.IMAGEPATH, P.USAGE, P.EXP, R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME "
-			+ "FROM PRODUCT P " + "JOIN BUYINFO B ON P.P_ID = B.P_ID " + "JOIN REVIEW R ON B.B_ID = R.B_ID "
-			+ "WHERE P.P_ID = ? " + "ORDER BY R.CREATE_TIME DESC";
-	
+	private static final String SELECTONE_DETAIL = "SELECT " + "P_ID, P_NAME, P_DETAIL, COST_PRICE, REGULAR_PRICE, "
+			+ "SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, " + "SELLING_STATE, IMAGEPATH, USAGE, EXP "
+			+ "FROM PRODUCT " + "WHERE P_ID = ?";
+
 	// 최대가 반환
-	private static final String SELECTONE_MAX_PRICE = "SELECT MAX(SELLING_PRICE) AS PRICE FROM PRODUCT";
+	private static final String SELECTONE_MAX_PRICE = "SELECT MAX(SELLING_PRICE) AS PRICE FROM PRODUCT WHERE SELLING_STATE = '판매중'";
 
 	// 성공한 Insert
 	private static final String INSERT = "INSERT INTO PRODUCT "
@@ -76,48 +70,6 @@ public class ProductDAO {
 				pstmt = conn.prepareStatement(SELECTALL_PAGE);
 				pstmt.setInt(1, pDTO.getAncSelectMin());
 				pstmt.setInt(2, pDTO.getAncSelectMax());
-
-				ResultSet rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					if (productList == null) {
-						productList = new ArrayList<ProductDTO>(); // productList가 null인 경우에만 객체 생성
-					}
-					ProductDTO productTempDTO = new ProductDTO();
-					productTempDTO.setPID(rs.getInt("P_ID"));
-					productTempDTO.setpName(rs.getString("P_NAME"));
-					productTempDTO.setCostPrice(rs.getInt("COST_PRICE"));
-					productTempDTO.setRegularPrice(rs.getInt("REGULAR_PRICE"));
-					productTempDTO.setSellingPrice(rs.getInt("SELLING_PRICE"));
-					productTempDTO.setpQty(rs.getInt("P_QTY"));
-					productTempDTO.setIngredient(rs.getString("INGREDIENT"));
-					productTempDTO.setCategory(rs.getString("CATEGORY"));
-					productTempDTO.setRegTime(rs.getTimestamp("REG_TIME"));
-					productTempDTO.setSellingState(rs.getString("SELLING_STATE"));
-					productTempDTO.setImagePath(rs.getString("IMAGEPATH"));
-					productTempDTO.setpDetail(rs.getString("P_DETAIL"));
-					productList.add(productTempDTO);
-				}
-
-				rs.close();
-
-			} catch (SQLException e) {
-				System.out.println("[로그_제품출력페이지] 오류발생");
-				e.printStackTrace();
-			} finally {
-				JDBCUtil.disconnect(pstmt, conn);
-			}
-			if (productList != null) {
-				System.out.println("[로그_제품출력페이지] 성공");
-				return productList;
-			}
-
-		} else if (pDTO.getSearchCondition().equals("상품출력전체")) {
-
-			conn = JDBCUtil.connect();
-
-			try {
-				pstmt = conn.prepareStatement(SELECTALL_ALL);
 
 				ResultSet rs = pstmt.executeQuery();
 
@@ -182,10 +134,9 @@ public class ProductDAO {
 			try {
 				System.out.println("[로그_제품출력페이지_필터] try진입");
 				pstmt = conn.prepareStatement(SELECTALL_FILTER);
-				pstmt.setString(1, pDTO.getSellingState());
-				pstmt.setString(2, "%" + pDTO.getpName() + "%");
-				pstmt.setString(3, "%" + pDTO.getCategory() + "%");
-				pstmt.setInt(4, pDTO.getSellingPrice());
+				pstmt.setString(1, "%" + pDTO.getpName() + "%");
+				pstmt.setString(2, "%" + pDTO.getCategory() + "%");
+				pstmt.setInt(3, pDTO.getSellingPrice());
 
 				System.out.println("[로그_제품출력페이지_필터] pstmt.set 성공");
 				ResultSet rs = pstmt.executeQuery();
@@ -264,13 +215,6 @@ public class ProductDAO {
 					productDTO.setImagePath(rs.getString("IMAGEPATH"));
 					productDTO.setUsage(rs.getString("USAGE"));
 					productDTO.setExp(rs.getString("EXP"));
-					// 조인한 속성들
-					productDTO.setAncRID(rs.getInt("R_ID"));
-					productDTO.setAncMID(rs.getString("M_ID"));
-					productDTO.setAncBID(rs.getInt("B_ID"));
-					productDTO.setAncScore(rs.getInt("SCORE"));
-					productDTO.setAncContents(rs.getString("CONTENTS"));
-					productDTO.setAncCreateTime(rs.getTimestamp("CREATE_TIME"));
 				} else {
 					productDTO = null;
 				}
@@ -349,7 +293,7 @@ public class ProductDAO {
 				pstmt.setInt(1, pDTO.getPID());
 
 				int result = pstmt.executeUpdate();
-				
+
 				if (result <= 0) {
 					return false;
 				}
