@@ -159,6 +159,7 @@
 				<div class="owl-carousel vegetable-carousel owl-theme">
 					<c:if test="${fn:length(rcmDTOs) > 0}">
 						<c:forEach var="data" items="${rcmDTOs}">
+							<c:set var="PID" value="data.PID"/>
 							<div class="border border-primary rounded position-relative vesitable-item" onclick="location.href='productDetailPage.do';">
 								<div class="vesitable-img">
 									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top" alt="">
