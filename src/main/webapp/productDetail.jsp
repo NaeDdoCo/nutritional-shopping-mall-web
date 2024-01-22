@@ -178,39 +178,32 @@
 								<!-- 하단 메뉴 -->
 								<div class="tab-content mb-5">
 									<div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-										<p>${productDetail.ingredient}</p>
-										<p>${productDetail.usage}</p>
-										<p>${productDetail.exp}</p>
-										<div class="px-2">
-											<div class="row g-4">
-												<div class="col-6">
-													<div class="row bg-light align-items-center text-center justify-content-center py-2">
-														<div class="col-6">
-															<p class="mb-0">성분</p>
-														</div>
-														<div class="col-6">
-															<p class="mb-0">${productDetail.ingredient}</p>
-														</div>
-													</div>
-													<div class="row text-center align-items-center justify-content-center py-2">
-														<div class="col-6">
-															<p class="mb-0">용법</p>
-														</div>
-														<div class="col-6">
-															<p class="mb-0">${productDetail.usage}</p>
-														</div>
-													</div>
-													<div class="row bg-light text-center align-items-center justify-content-center py-2">
-														<div class="col-6">
-															<p class="mb-0">유통기한</p>
-														</div>
-														<div class="col-6">
-															<p class="mb-0">Organic${productDetail.exp}</p>
-														</div>
-													</div>
-												</div>
+
+										<div class="row bg-light align-items-center text-center justify-content-center py-2">
+											<div class="col-6">
+												<p class="mb-0">성분</p>
+											</div>
+											<div class="col-6">
+												<p class="mb-0">${productDetail.ingredient}</p>
 											</div>
 										</div>
+										<div class="row text-center align-items-center justify-content-center py-2">
+											<div class="col-6">
+												<p class="mb-0">용법</p>
+											</div>
+											<div class="col-6">
+												<p class="mb-0">${productDetail.usage}</p>
+											</div>
+										</div>
+										<div class="row bg-light text-center align-items-center justify-content-center py-2">
+											<div class="col-6">
+												<p class="mb-0">소비기한</p>
+											</div>
+											<div class="col-6">
+												<p class="mb-0">${productDetail.exp}</p>
+											</div>
+										</div>
+
 									</div>
 									<div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
 										<div class="d-flex">
