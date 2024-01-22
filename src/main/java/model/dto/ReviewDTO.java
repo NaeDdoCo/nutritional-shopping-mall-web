@@ -10,9 +10,9 @@ public class ReviewDTO {
     private String contents;
     private Timestamp createTime;
     private String searchCondition;
-    
-    
-    
+    // 조인
+    private int PID;
+    private String pNAME;
 	public int getRID() {
 		return RID;
 	}
@@ -55,11 +55,23 @@ public class ReviewDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public int getPID() {
+		return PID;
+	}
+	public void setPID(int pID) {
+		PID = pID;
+	}
+	public String getpNAME() {
+		return pNAME;
+	}
+	public void setpNAME(String pNAME) {
+		this.pNAME = pNAME;
+	}
 	@Override
 	public String toString() {
 		return "ReviewDTO [RID=" + RID + ", MID=" + MID + ", BID=" + BID + ", score=" + score + ", contents=" + contents
-				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + "]";
+				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + ", PID=" + PID + ", pNAME="
+				+ pNAME + "]";
 	}
-	
 	
 }
