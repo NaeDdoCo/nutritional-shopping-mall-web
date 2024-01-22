@@ -83,10 +83,10 @@
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 
 
-	<!-- 비밀 중복검사하는 ajax -->
+	<!-- 비밀 중복검사 -->
 	<script type="text/javascript">
 		var pwResult = false;
-		function pwCheck() {
+		function pwSameCheck() {
 			if ($('#password').val() == $('#confirmPassword').val()) {
 				pwResult = true
 				Swal.fire({
@@ -103,7 +103,25 @@
 			}
 		}
 	</script>
-	<!-- 비밀 중복검사하는 ajax -->
+	<!-- 비밀 중복검사 -->
+
+
+	<!-- 비밀번호 포맷 검사 -->
+	<script>
+		function pwFormatCheck() {
+
+			var reg = new RegExp("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
+
+			if (!reg.test($('#password').val())) {
+				Swal.fire({
+					icon : 'error',
+					title : '비밀번호 검사',
+					text : '영어 대소문자와 숫자를 포함해야합니다.',
+				})
+			}
+		}
+	</script>
+	<!-- 비밀번호 포맷 검사 -->
 
 
 	<!-- 회원가입 조건이 충족됬는지 확인 -->
@@ -265,6 +283,7 @@
 					text : '주소를 입력해주세요.',
 				})
 			} else {
+				console.log("로그1");
 				var joinForm = document.getElementById("joinForm");
 				joinForm.submit();
 			}
@@ -383,10 +402,10 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" maxlength="15" onblur="checkMinLength(this, 4)">
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" maxlength="15" onblur="pwFormatCheck()">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="checkMinLength(this, 4);pwCheck()">
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="pwSameCheck()">
 							</div>
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" name="mName" id="mName" placeholder="이름" maxlength="20">
