@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.dto.ProductDTO;
-import model.util.JDBCUtil;
-
 public class ProductDAO {
 
 	private Connection conn;
@@ -28,9 +25,9 @@ public class ProductDAO {
 	private static final String SELECTALL_FILTER = "SELECT P.P_ID, P.P_NAME, P.P_DETAIL, P.COST_PRICE, P.REGULAR_PRICE, "
 			+ " P.SELLING_PRICE, P.P_QTY, P.INGREDIENT, P.CATEGORY, P.REG_TIME, "
 			+ " P.SELLING_STATE, P.IMAGEPATH, NVL(SUM(B.B_QTY), 0) AS TOTAL_B_QTY "
-			+ " FROM PRODUCT P "
+			+ " FROM (SELECT P_ID, P_NAME, P_DETAIL, COST_PRICE, REGULAR_PRICE, SELLING_PRICE, P_QTY, INGREDIENT, CATEGORY, REG_TIME, SELLING_STATE, IMAGEPATH, ROWNUM AS RN FROM PRODUCT WHERE SELLING_STATE = '판매중') P "
 			+ " LEFT JOIN BUYINFO B ON P.P_ID = B.P_ID "
-			+ " WHERE P.SELLING_STATE = '판매중' "
+			+ " WHERE RN BETWEEN ? AND ?"
 			+ " AND (P.P_NAME LIKE ? OR P.P_NAME IS NULL) "
 			+ " AND (P.CATEGORY LIKE ? OR P.CATEGORY IS NULL) "
 			+ " AND (P.SELLING_PRICE <= ? OR P.SELLING_PRICE IS NULL) "
@@ -134,9 +131,11 @@ public class ProductDAO {
 			try {
 				System.out.println("[로그_제품출력페이지_필터] try진입");
 				pstmt = conn.prepareStatement(SELECTALL_FILTER);
-				pstmt.setString(1, "%" + pDTO.getpName() + "%");
-				pstmt.setString(2, "%" + pDTO.getCategory() + "%");
-				pstmt.setInt(3, pDTO.getSellingPrice());
+				pstmt.setInt(1, pDTO.getAncSelectMin());
+				pstmt.setInt(2, pDTO.getAncSelectMax());
+				pstmt.setString(3, "%" + pDTO.getpName() + "%");
+				pstmt.setString(4, "%" + pDTO.getCategory() + "%");
+				pstmt.setInt(5, pDTO.getSellingPrice());
 
 				System.out.println("[로그_제품출력페이지_필터] pstmt.set 성공");
 				ResultSet rs = pstmt.executeQuery();

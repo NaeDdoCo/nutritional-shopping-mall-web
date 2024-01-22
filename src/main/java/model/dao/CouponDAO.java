@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import model.dto.CouponDTO;
-import model.util.JDBCUtil;
-
 public class CouponDAO {
 
 	private Connection conn;

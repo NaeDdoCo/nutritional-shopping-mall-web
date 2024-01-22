@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.dto.BuyInfoDTO;
-import model.util.JDBCUtil;
-
 public class BuyInfoDAO {
 
 	private Connection conn;
