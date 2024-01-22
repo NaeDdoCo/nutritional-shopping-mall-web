@@ -179,27 +179,27 @@
 								<div class="tab-content mb-5">
 									<div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
 
-										<div class="row bg-light align-items-center text-center justify-content-left py-2">
-											<div class="col-6">
+										<div class="row bg-light align-items-center justify-content-center py-2">
+											<div class="col-6 text-center">
 												<p class="mb-0">성분</p>
 											</div>
-											<div class="col-6">
+											<div class="col-6 text-left">
 												<p class="mb-0">${productDetail.ingredient}</p>
 											</div>
 										</div>
-										<div class="row text-center align-items-center justify-content-center py-2">
-											<div class="col-6">
-												<p class="mb-0">용법</p>
+										<div class="row align-items-center justify-content-center py-2">
+											<div class="col-6 text-center text-center">
+												<p class="mb-0 text-left">용법</p>
 											</div>
-											<div class="col-6">
+											<div class="col-6 text-left">
 												<p class="mb-0">${productDetail.usage}</p>
 											</div>
 										</div>
-										<div class="row bg-light text-center align-items-center justify-content-center py-2">
-											<div class="col-6">
+										<div class="row bg-light align-items-center justify-content-center py-2">
+											<div class="col-6 text-center">
 												<p class="mb-0">소비기한</p>
 											</div>
-											<div class="col-6">
+											<div class="col-6 text-left">
 												<p class="mb-0">${productDetail.exp}</p>
 											</div>
 										</div>
