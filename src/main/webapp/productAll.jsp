@@ -225,12 +225,12 @@
 								</c:if>
 								<!-- 전체 제품 표시 -->
 								<!-- 하단 페이지네이션 -->
-								<div>
+								<div class="pagination d-flex justify-content-center mt-5">
 									<c:forEach var="page" begin="1" end="${totalPages}">
 										<c:url var="pageUrl" value="productAllPage.do">
 											<c:param name="page" value="${page}" />
 										</c:url>
-										<a href="<c:out value="${pageUrl}" />"><c:out value="${page}" /></a>
+										<a class="rounded" href="<c:out value="${pageUrl}" />"><c:out value="${page}" /></a>
 									</c:forEach>
 								</div>
 								<!-- 하단 페이지네이션 -->
