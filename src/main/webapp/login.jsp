@@ -65,9 +65,10 @@
 		console.log(Kakao.isInitialized()); // 초기화 판단여부
 
 		function loginWithKakao() {
-			Kakao.Auth.authorize({
-				redirectUri : 'https://developers.kakao.com/tool/demo/oauth',
-			});
+			Kakao.Auth
+					.authorize({
+						redirectUri : 'http://localhost:8088/nutritional-shopping-mall2/main.jsp',
+					});
 		}
 	</script>
 	<!-- 카카오 로그인 -->
@@ -112,9 +113,11 @@
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
-						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-						</a> <a href="#" class="my-auto"> <i class="fas fa-user fa-2x"></i>
-						</a>
+						<!-- 로그인 버튼 -->
+						<c:if test="${member == null}">
+							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">로그인</a>
+						</c:if>
+						<!-- 로그인 버튼 -->
 					</div>
 				</div>
 			</nav>
@@ -149,21 +152,26 @@
 	<!-- Single Page Header End -->
 
 
-	<!-- 로그인 폼 시작 -->
 	<div class="container-fluid py-5">
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
+					<!-- 로그인 폼 -->
 					<form action="login.do" method="POST">
-						<input class="form-control p-3 border-secondary" type="text" name="MID" placeholder="아이디" required> <br> <input class="form-control p-3 border-secondary" type="password" name="mPassword" placeholder="비밀번호" required> <br> <input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="로그인"> <a class="btn border-secondary text-primary rounded-pill py-3 px-5" href="termsPage.do">회원가입</a>
+						<input class="form-control p-3 border-secondary my-3" type="text" name="MID" placeholder="아이디" required> 
+						<input class="form-control p-3 border-secondary my-3" type="password" name="mPassword" placeholder="비밀번호" required>
+						<input class="btn border-secondary text-primary rounded-pill py-3 px-5 my-3" type="submit" value="로그인"> 
+						<a class="btn border-secondary text-primary rounded-pill py-3 px-5 my-3" href="termsPage.do">회원가입</a>
 					</form>
+					<!-- 로그인 폼 -->
 				</div>
 			</div>
 			<hr>
+			<!-- 카카오 로그인 -->
 			<a class="btn border-secondary text-primary rounded-pill py-3 px-5" id="kakao-login-btn" href="javascript:loginWithKakao()">카카오 로그인</a>
+			<!-- 카카오 로그인 -->
 		</div>
 	</div>
-	<!-- 로그인 폼 끝 -->
 
 
 	<!-- Footer Start -->
@@ -172,9 +180,11 @@
 			<div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5);">
 				<div class="row g-4">
 					<div class="col-lg-3">
-						<a href="#">
+						<!-- 로고 버튼 -->
+						<a href="mainPage.do">
 							<h1 class="text-primary mb-0">NaeDdoCo Pills</h1>
 						</a>
+						<!-- 로고 버튼 -->
 					</div>
 					<div class="col-lg-6">
 						<div class="position-relative mx-auto"></div>
