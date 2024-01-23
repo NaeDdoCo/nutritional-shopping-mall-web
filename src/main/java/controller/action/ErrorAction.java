@@ -15,7 +15,7 @@ public class ErrorAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		forward.setPath("error.do");
+		forward.setPath("error.jsp");
 		forward.setRedirect(true);
 		
 		return forward;
