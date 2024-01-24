@@ -150,15 +150,62 @@
 									<div class="mb-3">
 										<h4>카테고리</h4>
 										<ul class="list-unstyled fruite-categorie">
-											<c:forEach var="data" items="${pDTOs}">
-												<li>
-													<div class="d-flex justify-content-between fruite-name">
-														<a href="productAllPage.do?category=${data.category}">
-															<i class="fas fa-apple-alt me-2"></i>${data.category}
-														</a>
-													</div>
-												</li>
-											</c:forEach>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=간"> 
+														<i class="fas fa-apple-alt me-2"></i>간
+													</a>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=눈"> 
+														<i class="fas fa-apple-alt me-2"></i>눈
+													</a>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=두뇌"> 
+														<i class="fas fa-apple-alt me-2"></i>두뇌
+													</a>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=면역"> 
+														<i class="fas fa-apple-alt me-2"></i>면역
+													</a>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=뼈/치아"> 
+														<i class="fas fa-apple-alt me-2"></i>뼈/치아
+													</a>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=소화"> 
+														<i class="fas fa-apple-alt me-2"></i>소화
+													</a>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=피부"> 
+														<i class="fas fa-apple-alt me-2"></i>피부
+													</a>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
+													<a href="productAllPage.do?category=활력"> 
+														<i class="fas fa-apple-alt me-2"></i>활력
+													</a>
+												</div>
+											</li>
 										</ul>
 									</div>
 									<!-- 카테고리 -->
