@@ -150,41 +150,27 @@
 									<div class="mb-3">
 										<h4>카테고리</h4>
 										<ul class="list-unstyled fruite-categorie">
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a> <span>(3)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a> <span>(5)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a> <span>(2)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a> <span>(8)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a> <span>(5)</span>
-												</div>
-											</li>
+											<c:forEach var="data" items="${pDTOs}">
+												<li>
+													<div class="d-flex justify-content-between fruite-name">
+														<a href="productAllPage.do?category=${data.category}">
+															<i class="fas fa-apple-alt me-2"></i>${data.category}
+														</a>
+													</div>
+												</li>
+											</c:forEach>
 										</ul>
 									</div>
 									<!-- 카테고리 -->
 								</div>
 								<div class="col-lg-12">
+									<!-- 가격 설정 -->
 									<div class="mb-3">
 										<h4 class="mb-2">가격</h4>
 										<input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="100000" value="0" oninput="amount.value=rangeInput.value">
 										<output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
 									</div>
+									<!-- 가격 설정 -->
 								</div>
 								<div class="col-lg-12">
 									<div class="mb-3"></div>
