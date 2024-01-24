@@ -173,7 +173,7 @@ public class ProductDAO {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
 			if (productList != null) {
-				System.out.println("[로그_제품출력페이지] 성공");
+				System.out.println("[로그_제품출력페이지] 성공 : "+productList.size()+"개 반환");
 				return productList;
 			}
 
