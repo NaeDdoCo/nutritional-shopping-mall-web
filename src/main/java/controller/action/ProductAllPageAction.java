@@ -50,7 +50,10 @@ public class ProductAllPageAction implements Action{
 //		pDTO.setSellingPrice(0);
 		pDTOs = pDAO.selectAll(pDTO);
 		
-		// 전체 페이지 수 확인
+		/* 
+		 * 전체 페이지 수 확인
+		*/
+		
 		System.out.println("pDTOs.size : " + pDTOs.size());
 		int totalPages = pDTOs.size() / 9;
 		if (pDTOs.size() % 9 != 0) {
@@ -63,23 +66,34 @@ public class ProductAllPageAction implements Action{
 		*/
 		
 		// 뷰에서 넘겨준 page
-		String p = request.getParameter("page");
-		System.out.println("String p : " + p);
-		int curPage = 1;
-		if (isNumber(p)) {
-			curPage = Integer.parseInt(p);
+		String strPage = request.getParameter("page");
+		System.out.println("String strPage : " + strPage);
+		int intPage = 1;
+		
+		// strPage == null 인 상황은, (메인 페이지 -> 전체 목록 페이지) 처음 올 때! 
+		if (strPage != null) {
+			intPage = Integer.parseInt(strPage);
+		}
+		// page가 유효한 범위를 벗어남
+		if (intPage < 0 || intPage > totalPages) {
+			forward.setPath("error.do");
+			forward.setRedirect(true);
+			
+			return forward;
 		}
 		
 		// retDTOs : 뷰에게 넘겨준 DTO들이고
 		// pDTOs : 모델에서 가져온 필터가 적용된 모든 상품들 (9개 이상일 수 있음)
 		ArrayList<ProductDTO> retDTOs = new ArrayList<ProductDTO>();
-		int startProduct = (curPage - 1) * 9 + 1;
-		int endProduct = (curPage - 1) * 9 + 9;
+		int startProduct = (intPage - 1) * 9 + 1;
+		int endProduct = (intPage - 1) * 9 + 9;
 		
 		// 마지막 페이지에서 상품이 9개가 안 될 경우 인덱스 에러가 날 수 있어서 방지!
 		if (endProduct > pDTOs.size()) {
 			endProduct = pDTOs.size() - 1;
 		}
+		
+		// 해당 페이지에 포함되는 제품 9개 담아줌
 		for (int i = startProduct; i <= endProduct; i++) {
 			retDTOs.add(pDTOs.get(i));
 		}
