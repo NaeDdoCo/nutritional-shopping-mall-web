@@ -26,7 +26,18 @@ public class ProductAllPageAction implements Action{
 		// 전체 페이지 수 확인
 		pDTO.setSearchCondition("상품출력필터");
 		pDTO.setAncSelectMin(1);
-		pDTO.setAncSelectMax(5);
+		pDTO.setAncSelectMax(100);
+		pDTO.setpName((String)request.getParameter("searchName"));
+//		System.out.println("price : " + price);
+		pDTO.setCategory((String)request.getParameter("category"));
+		
+		int price = 0;
+		if (request.getParameter("price") != null) {
+			price = Integer.parseInt((String)request.getParameter("price"));
+		}
+		System.out.println("price : " + price);
+		pDTO.setSellingPrice(price);
+//		pDTO.setSellingPrice(0);
 		pDTOs = pDAO.selectAll(pDTO);
 		System.out.println("pDTOs.size : " + pDTOs.size());
 		int totalPages = pDTOs.size() / 9;
