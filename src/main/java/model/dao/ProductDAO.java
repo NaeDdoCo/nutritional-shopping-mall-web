@@ -132,6 +132,9 @@ public class ProductDAO {
 				pstmt = conn.prepareStatement(SELECTALL_FILTER);
 				System.out.println("[로그]_제품출력페이지_필터 최소값" + pDTO.getAncSelectMin());
 				System.out.println("[로그]_제품출력페이지_필터 최대값" + pDTO.getAncSelectMax());
+				System.out.println("[로그]_제품출력페이지_필터 포함상품명" + pDTO.getpName());
+				System.out.println("[로그]_제품출력페이지_필터 카테고리" + pDTO.getCategory());
+				System.out.println("[로그]_제품출력페이지_필터 가격필터" + pDTO.getSellingPrice());
 				pstmt.setInt(1, pDTO.getAncSelectMin());
 				pstmt.setInt(2, pDTO.getAncSelectMax());
 				pstmt.setString(3, "%" + pDTO.getpName() + "%");
