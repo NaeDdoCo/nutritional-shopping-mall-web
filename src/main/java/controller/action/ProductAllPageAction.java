@@ -23,13 +23,23 @@ public class ProductAllPageAction implements Action{
 		ProductDTO pDTO = new ProductDTO();
 		ProductDAO pDAO = new ProductDAO();
 		
-		// 전체 페이지 수 확인
 		pDTO.setSearchCondition("상품출력필터");
 		pDTO.setAncSelectMin(1);
 		pDTO.setAncSelectMax(100);
-		pDTO.setpName((String)request.getParameter("searchName"));
-//		System.out.println("price : " + price);
-		pDTO.setCategory((String)request.getParameter("category"));
+		
+		String searchName = "";
+		if (request.getParameter("searchName") != null) {
+			searchName = (String)request.getParameter("searchName");
+		}
+		System.out.println("searchName : " + searchName);
+		pDTO.setpName(searchName);
+		
+		String category = "";
+		if (request.getParameter("category") != null) {
+			category = (String)request.getParameter("category");
+		}
+		System.out.println("category : " + category);
+		pDTO.setCategory(category);
 		
 		int price = 0;
 		if (request.getParameter("price") != null) {
@@ -39,6 +49,8 @@ public class ProductAllPageAction implements Action{
 		pDTO.setSellingPrice(price);
 //		pDTO.setSellingPrice(0);
 		pDTOs = pDAO.selectAll(pDTO);
+		
+		// 전체 페이지 수 확인
 		System.out.println("pDTOs.size : " + pDTOs.size());
 		int totalPages = pDTOs.size() / 9;
 		if (pDTOs.size() % 9 != 0) {
@@ -46,7 +58,11 @@ public class ProductAllPageAction implements Action{
 		}
 		request.setAttribute("totalPages", totalPages);
 		
-		// 상품 목록 가져오기
+		/* 
+		 * 상품 목록 9개 띄우기
+		*/
+		
+		// 뷰에서 넘겨준 page
 		String p = request.getParameter("page");
 		System.out.println("String p : " + p);
 		int curPage = 1;
@@ -54,13 +70,21 @@ public class ProductAllPageAction implements Action{
 			curPage = Integer.parseInt(p);
 		}
 		
-		pDTO.setSearchCondition("상품목록페이지");
+		// retDTOs : 뷰에게 넘겨준 DTO들이고
+		// pDTOs : 모델에서 가져온 필터가 적용된 모든 상품들 (9개 이상일 수 있음)
+		ArrayList<ProductDTO> retDTOs = new ArrayList<ProductDTO>();
+		int startProduct = (curPage - 1) * 9 + 1;
+		int endProduct = (curPage - 1) * 9 + 9;
 		
-		pDTO.setAncSelectMin((curPage - 1) * 9 + 1);
-		pDTO.setAncSelectMax((curPage - 1) * 9 + 9);
-		pDTOs = pDAO.selectAll(pDTO);
-		System.out.println("pDTOs : " + pDTOs);
-		request.setAttribute("pDTOs", pDTOs);
+		// 마지막 페이지에서 상품이 9개가 안 될 경우 인덱스 에러가 날 수 있어서 방지!
+		if (endProduct > pDTOs.size()) {
+			endProduct = pDTOs.size() - 1;
+		}
+		for (int i = startProduct; i <= endProduct; i++) {
+			retDTOs.add(pDTOs.get(i));
+		}
+		
+		request.setAttribute("pDTOs", retDTOs);
 
 		forward.setPath("productAll.jsp");
 		forward.setRedirect(false);
