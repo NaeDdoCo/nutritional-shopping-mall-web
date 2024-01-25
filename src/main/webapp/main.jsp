@@ -10,6 +10,9 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 <!-- sweetalert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
@@ -61,27 +64,26 @@
 	<script>
 		function addItemToCart(PID) {
 			$.ajax({
-				type : "POST",
-				url : "InsertCart",
-				data : {
-					'PID' : PID,
-					'member' : ${member}
-				},
+				type : "POST", // 또는 "GET"
+				url : "InsertCart", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+				data : {'PID' : PID},
 				success : function(data) {
-					Swal.fire({
-						if(data==true){
+					MIDResult = data
+					if (data === true) {
+						Swal.fire({
 							icon : 'success',
 							title : '장바구니 추가',
-							text : '성공적으로 추가되었습니다.'
-						} else{
+							text : '추가되었습니다.',
+						})
+					} else {
+						Swal.fire({
 							icon : 'error',
 							title : '장바구니 추가',
-							text : '추가하지 못 했습니다.'
-						}
-					})
+							text : '실패하였습니다.',
+						})
+					}
 				}
 			});
-		
 		}
 	</script>
 	<!-- 장바구니 추가 비동기처리 -->
