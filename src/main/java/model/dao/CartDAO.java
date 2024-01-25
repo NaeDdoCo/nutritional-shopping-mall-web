@@ -121,8 +121,10 @@ public class CartDAO {
 					cartDTO = new CartDTO();
 					cartDTO.setMid(rs.getString("M_ID"));
 					cartDTO.setPid(rs.getInt("P_ID"));
+					cartDTO.setCid(rs.getInt("C_ID"));
 					System.out.println("[로그]_상품확인 ID : "+cartDTO.getMid());
 					System.out.println("[로그]_상품확인 P_ID : "+cartDTO.getPid());
+					System.out.println("[로그]_상품확인 C_ID : "+cartDTO.getCid());
 				} else {
 					System.out.println("[로그]_상품확인 else로 null저장");
 					cartDTO = null;
