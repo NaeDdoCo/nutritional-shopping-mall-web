@@ -42,6 +42,17 @@
 		</c:when>
 	</c:choose>
 	<!-- 비로그인 접근 방지 -->
+	
+	
+	<!-- 페이지 진입 시 총금액 계산 -->
+	<c:set var="total" value="0" />
+	<c:forEach var="data" items="${cartList}" varStatus="status">
+		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" />
+	</c:forEach>
+	<script>
+		var total = ${total}
+	</script>
+	<!-- 페이지 진입 시 총금액 계산 -->
 
 
 	<!-- 상품 금액 계산 -->
@@ -49,27 +60,26 @@
     	function calculPlusPrice(sellingPrice, index) {
         	var cQTY = parseInt($("#cQTY_" + index).val()) + 1;
         	var productPrice = sellingPrice * cQTY;
-        	console.log(productPrice);
         	$("#productPrice_" + index).text(productPrice);
+        	cQTY = cQTY - 1;
+        	productPrice = sellingPrice * cQTY;
+        	total = total + productPrice;
+        	document.getElementById("totalPrice").textContent = total;
     	}
 
     	function calculMinusPrice(sellingPrice, index) {
         	var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
         	var productPrice = sellingPrice * cQTY;
-        	console.log(productPrice);
         	$("#productPrice_" + index).text(productPrice);
+        	total = total - productPrice;
+        	document.getElementById("totalPrice").textContent = total; 
     	}
 	</script>
 	<!-- 상품 금액 계산 -->
 	
 
-	<!-- 체크 총금액 계산 -->
-	<c:set var="total" value="0" />
-	<c:forEach var="data" items="${cartList}" varStatus="status">
-		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" />
-	</c:forEach>
+	<!-- 체크 총금액 갱신 -->
 	<script>
-		var total = ${total}
     	// 체크박스가 변경될 때 호출되는 함수
     	function updateTotalPrice(checkbox, price, index) {
     		var productPrice = price * $("#cQTY_" + index).val();    	
