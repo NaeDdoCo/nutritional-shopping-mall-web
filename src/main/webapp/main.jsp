@@ -60,6 +60,30 @@
 		</c:if>
 	</c:if>
 	<!-- 로그아웃 성공 모달 -->
+	
+	
+	<!-- 장바구니 추가 비동기처리 -->
+	<script>
+		function addItemToCart(PID) {
+			$.ajax({
+				type : "POST",
+				url : "calculPrice",
+				data : {
+					'PID' : PID,
+					'member' : ${member}
+				},
+				success : function(data) {
+					Swal.fire({
+						icon : 'success',
+						title : '장바구니 추가',
+						text : '성공적으로 추가되었습니다.',
+					})
+				}
+			});
+		
+		}
+	</script>
+	<!-- 장바구니 추가 비동기처리 -->
 
 
 	<!-- Spinner Start -->
@@ -177,8 +201,7 @@
 										</div>
 										<c:if test="${member != null}">
 											<div class="row">
-												<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-												</a>
+												<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
 											</div>
 										</c:if>
 									</div>
@@ -229,7 +252,7 @@
 																<div class="d-flex justify-content-between flex-lg-wrap">
 																	<p class="text-dark fs-5 fw-bold mb-0" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.sellingPrice}원</p>
 																	<c:if test="${member != null}">
-																		<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+																		<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
 																	</c:if>
 																</div>
 															</div>
