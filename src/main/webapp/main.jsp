@@ -159,8 +159,8 @@
 				<div class="owl-carousel vegetable-carousel owl-theme">
 					<c:if test="${fn:length(rcmDTOs) > 0}">
 						<c:forEach var="data" items="${rcmDTOs}">
-							<div class="border border-primary rounded position-relative vesitable-item" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
-								<div class="vesitable-img">
+							<div class="border border-primary rounded position-relative vesitable-item">
+								<div class="vesitable-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top" alt="">
 								</div>
 								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
@@ -216,18 +216,18 @@
 											<c:if test="${fn:length(pDTOs) > 0}">
 												<c:forEach var="data" items="${pDTOs}">
 													<div class="col-md-6 col-lg-4 col-xl-3">
-														<div class="p-4 border border-secondary rounded position-relative fruite-item" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
-															<div class="fruite-img">
-																<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
+														<div class="p-4 border border-secondary rounded position-relative fruite-item">
+															<div class="fruite-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
+																<img src=${data.imagePath} class="img-fluid w-100 rounded-top" alt="">
 															</div>
-															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${data.category}</div>
+															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
-																<h4>${data.pName}</h4>
-																<div class="line-clamp my-2">
+																<h4 onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.pName}</h4>
+																<div class="line-clamp my-2" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 																	<p>${data.pDetail}</p>
 																</div>
 																<div class="d-flex justify-content-between flex-lg-wrap">
-																	<p class="text-dark fs-5 fw-bold mb-0">${data.sellingPrice}원</p>
+																	<p class="text-dark fs-5 fw-bold mb-0" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.sellingPrice}원</p>
 																	<c:if test="${member != null}">
 																		<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
 																	</c:if>

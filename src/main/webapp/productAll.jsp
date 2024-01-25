@@ -152,57 +152,49 @@
 										<ul class="list-unstyled fruite-categorie">
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=간"> 
-														<i class="fas fa-apple-alt me-2"></i>간
+													<a href="productAllPage.do?category=간"> <i class="fas fa-apple-alt me-2"></i>간
 													</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=눈"> 
-														<i class="fas fa-apple-alt me-2"></i>눈
+													<a href="productAllPage.do?category=눈"> <i class="fas fa-apple-alt me-2"></i>눈
 													</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=두뇌"> 
-														<i class="fas fa-apple-alt me-2"></i>두뇌
+													<a href="productAllPage.do?category=두뇌"> <i class="fas fa-apple-alt me-2"></i>두뇌
 													</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=면역"> 
-														<i class="fas fa-apple-alt me-2"></i>면역
+													<a href="productAllPage.do?category=면역"> <i class="fas fa-apple-alt me-2"></i>면역
 													</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=뼈/치아"> 
-														<i class="fas fa-apple-alt me-2"></i>뼈/치아
+													<a href="productAllPage.do?category=뼈/치아"> <i class="fas fa-apple-alt me-2"></i>뼈/치아
 													</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=소화"> 
-														<i class="fas fa-apple-alt me-2"></i>소화
+													<a href="productAllPage.do?category=소화"> <i class="fas fa-apple-alt me-2"></i>소화
 													</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=피부"> 
-														<i class="fas fa-apple-alt me-2"></i>피부
+													<a href="productAllPage.do?category=피부"> <i class="fas fa-apple-alt me-2"></i>피부
 													</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="productAllPage.do?category=활력"> 
-														<i class="fas fa-apple-alt me-2"></i>활력
+													<a href="productAllPage.do?category=활력"> <i class="fas fa-apple-alt me-2"></i>활력
 													</a>
 												</div>
 											</li>
@@ -215,7 +207,7 @@
 									<div class="mb-3">
 										<h4 class="mb-2">가격</h4>
 										<input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="100000" value="0" oninput="amount.value=rangeInput.value">
-										<output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+										<output id="amount" name="amount" for="rangeInput">0</output>
 									</div>
 									<!-- 가격 설정 -->
 								</div>
@@ -223,9 +215,12 @@
 									<div class="mb-3"></div>
 								</div>
 								<div class="col-lg-12">
+									<!-- 필터 검색 버튼 -->
 									<div class="d-flex justify-content-center my-4">
-										<a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">필터 검색</a>
+										<c:set var="currentURL" value="${pageContext.request.requestURL}"/>
+										<a href="${currentURL}" id="filterbtn" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">필터 검색</a>
 									</div>
+									<!-- 필터 검색 버튼 -->
 								</div>
 							</div>
 						</div>
@@ -235,8 +230,8 @@
 								<c:if test="${fn:length(pDTOs) > 0}">
 									<c:forEach var="data" items="${pDTOs}">
 										<div class="col-md-6 col-lg-6 col-xl-4">
-											<div class="p-4 border border-secondary rounded position-relative fruite-item" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
-												<div class="fruite-img">
+											<div class="p-4 border border-secondary rounded position-relative fruite-item">
+												<div class="fruite-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 													<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
 												</div>
 												<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${data.category}</div>
@@ -248,7 +243,8 @@
 													<div class="d-flex justify-content-between flex-lg-wrap">
 														<p class="text-dark fs-5 fw-bold mb-0">${data.sellingPrice}원</p>
 														<c:if test="${member != null}">
-															<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+															<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+															</a>
 														</c:if>
 													</div>
 												</div>
@@ -331,6 +327,7 @@
 		</div>
 	</div>
 	<!-- Footer End -->
+
 
 	<!-- Copyright Start -->
 	<div class="container-fluid copyright bg-dark py-4">
