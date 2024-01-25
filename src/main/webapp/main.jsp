@@ -69,7 +69,7 @@
 				data : {'PID' : PID},
 				success : function(data) {
 					MIDResult = data
-					if (data === true) {
+					if (data === "true") {
 						Swal.fire({
 							icon : 'success',
 							title : '장바구니 추가',
