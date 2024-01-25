@@ -7,7 +7,6 @@ import controller.action.BuyCompPageAction;
 import controller.action.BuyInfoPageAction;
 import controller.action.BuyPageAction;
 import controller.action.CartDeleteAction;
-import controller.action.CartInsertAction;
 import controller.action.CartPageAction;
 import controller.action.CouponSetPageAction;
 import controller.action.DeleteReviewAction;
@@ -25,6 +24,7 @@ import controller.action.ReviewDetailPageAction;
 import controller.action.ReviewInfoPageAction;
 import controller.action.TermsPageAction;
 import controller.action.WriteReviewPageAction;
+import controller.async.InsertCartAction;
 
 public class HandlerMapper {
 	private Map<String,Action> mappings;
@@ -45,7 +45,6 @@ public class HandlerMapper {
 		this.mappings.put("/productAllPage.do", new ProductAllPageAction());// 상품전페목록
 		this.mappings.put("/productDetailPage.do", new ProductDetailPageAction());// 상품상세페이지
 		this.mappings.put("/cartPage.do", new CartPageAction());// 장바구니
-		this.mappings.put("/cartInsert.do", new CartInsertAction());// 장바구니 상품 추가
 		this.mappings.put("/cartDelete.do", new CartDeleteAction());// 장바구니 상품 삭제
 		this.mappings.put("/buyPage.do", new BuyPageAction());// 구매페이지
 		this.mappings.put("/couponSetPage.do", new CouponSetPageAction());// 구매페이지에서 쿠폰 적용시
