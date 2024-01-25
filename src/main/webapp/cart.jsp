@@ -23,7 +23,6 @@
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -33,6 +32,7 @@
 </head>
 
 <body>
+
 
 	<!-- 비로그인 접근 방지 -->
 	<c:choose>
@@ -61,6 +61,35 @@
     	}
 	</script>
 	<!-- 상품 금액 계산 -->
+	
+
+	<!-- 체크 총금액 계산 -->
+	<script>
+    	// 선택된 품목들의 가격을 저장하는 배열
+    	var selectedPrices = [];
+    	// 체크박스가 변경될 때 호출되는 함수
+    	function updateTotalPrice(checkbox, price, index) {	
+    		var productPrice = price * $("#cQTY_" + index).val();    		
+        	// 체크박스의 체크 상태 확인
+        	if (checkbox.checked) {
+            	// 체크되었다면 가격을 배열에 추가
+            	selectedPrices.push(productPrice);
+        	} else {
+            	// 체크가 해제되었다면 배열에서 제거
+            	var index = selectedPrices.indexOf(productPrice);
+            	if (index !== -1) {
+                	selectedPrices.splice(index, 1);
+            	}
+        	}
+        	// 선택된 품목들의 총금액 계산
+        	var totalPrice = selectedPrices.reduce(function(acc, cur) {
+            	return acc + cur;
+        	}, 0);
+        	// 총금액을 표시하는 요소 업데이트
+        	document.getElementById("totalPrice").textContent = totalPrice;       	
+    	}
+	</script>
+	<!-- 체크 총금액 계산 -->
 
 
 	<!-- Spinner Start -->
@@ -160,7 +189,7 @@
 								<td scope="row">
 									<div class="d-flex align-items-center">
 										<p class="mb-3 mt-4">
-											<input type="checkbox">
+											<input type="checkbox"  onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
 										</p>
 									</div>
 								</td>
@@ -189,7 +218,7 @@
 												<i class="fa fa-minus"></i>
 											</button>
 										</div>
-										<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="1">
+										<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
 										<div class="input-group-btn">
 											<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
 												<i class="fa fa-plus"></i>
@@ -200,7 +229,7 @@
 								<!-- 수량 -->
 								<!-- 가격*수량 -->
 								<td>
-									<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice}</p>
+									<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice * data.cQty}</p>
 								</td>
 								<!-- 취소 버튼 -->
 								<td>
@@ -223,7 +252,7 @@
 							<h1 class="display-6 mb-4">총금액</h1>
 							<div class="d-flex justify-content-between mb-4">
 								<h5 class="mb-0 me-4">합계:</h5>
-								<p class="mb-0">$96.00</p>
+								<p class="mb-0" id="totalPrice">0</p>
 							</div>
 							<div class="d-flex justify-content-between"></div>
 						</div>
