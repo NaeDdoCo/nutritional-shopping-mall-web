@@ -37,11 +37,6 @@
 </head>
 <body>
 
-	<!-- 로그인 유저 아이디 세션에 저장 -->
-	<c:set var="member" value="${member}" />
-	<!-- 로그인 유저 아이디 세션에 저장 -->
-
-
 	<!-- 로그아웃 성공 모달 -->
 	<c:if test="${loginResult != null}">
 		<c:if test="${loginResult == true}">
@@ -60,8 +55,8 @@
 		</c:if>
 	</c:if>
 	<!-- 로그아웃 성공 모달 -->
-	
-	
+
+
 	<!-- 장바구니 추가 비동기처리 -->
 	<script>
 		function addItemToCart(PID) {
@@ -74,9 +69,15 @@
 				},
 				success : function(data) {
 					Swal.fire({
-						icon : 'success',
-						title : '장바구니 추가',
-						text : '성공적으로 추가되었습니다.',
+						if(data==true){
+							icon : 'success',
+							title : '장바구니 추가',
+							text : '성공적으로 추가되었습니다.'
+						} else{
+							icon : 'error',
+							title : '장바구니 추가',
+							text : '추가하지 못 했습니다.'
+						}
 					})
 				}
 			});
@@ -131,16 +132,24 @@
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
+						<!-- 장바구니 버튼 -->
 						<c:if test="${member != null}">
-							<!-- 장바구니 버튼 -->
-							<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+							<a href="cartPage.do" class="position-relative me-4 my-auto"> 
+								<i class="fa fa-shopping-bag fa-2x"></i> 
 							</a>
-							<!-- 장바구니 버튼 -->
-							<!-- 프로필 버튼 -->
+						</c:if>
+						<c:if test="${member == null}">
+							<a href="loginPage.do" class="position-relative me-4 my-auto"> 
+								<i class="fa fa-shopping-bag fa-2x"></i> 
+							</a>
+						</c:if>
+						<!-- 장바구니 버튼 -->
+						<!-- 프로필 버튼 -->
+						<c:if test="${member != null}">
 							<a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 							</a>
-							<!-- 프로필 버튼 -->
 						</c:if>
+						<!-- 프로필 버튼 -->
 						<!-- 로그인 버튼 -->
 						<c:if test="${member == null}">
 							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">로그인</a>
@@ -204,6 +213,10 @@
 												<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
 											</div>
 										</c:if>
+										<c:if test="${member == null}">
+											<a href="loginPage.do" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+											</a>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -223,11 +236,8 @@
 							</div>
 							<div class="col-lg-8 text-end">
 								<ul class="nav nav-pills d-inline-flex text-center mb-5">
-									<li class="nav-item">
-										<a class="d-flex m-2 py-2 bg-light rounded-pill active" href="productAllPage.do"> 
-											<span class="text-dark" style="width: 130px;">All Products</span>
-										</a>
-									</li>
+									<li class="nav-item"><a class="d-flex m-2 py-2 bg-light rounded-pill active" href="productAllPage.do"> <span class="text-dark" style="width: 130px;">All Products</span>
+									</a></li>
 								</ul>
 							</div>
 						</div>
@@ -241,7 +251,7 @@
 													<div class="col-md-6 col-lg-4 col-xl-3">
 														<div class="p-4 border border-secondary rounded position-relative fruite-item">
 															<div class="fruite-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
-																<img src=${data.imagePath} class="img-fluid w-100 rounded-top" alt="">
+																<img src=${data.imagePath } class="img-fluid w-100 rounded-top" alt="">
 															</div>
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
@@ -253,6 +263,10 @@
 																	<p class="text-dark fs-5 fw-bold mb-0" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.sellingPrice}원</p>
 																	<c:if test="${member != null}">
 																		<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
+																	</c:if>
+																	<c:if test="${member == null}">
+																		<a href="loginPage.do" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+																		</a>
 																	</c:if>
 																</div>
 															</div>
