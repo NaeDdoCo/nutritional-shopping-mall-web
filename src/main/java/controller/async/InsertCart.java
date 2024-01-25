@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.CartDAO;
 import model.dao.ProductDAO;
@@ -41,19 +42,19 @@ public class InsertCart extends HttpServlet {
 		*/
 		
 		// 장바구니에 담을 상품 받아오기 (필수)
-		System.out.println("PID: " + request.getAttribute("PID"));
-		if (request.getAttribute("PID") == null) {
-			out.print(false);
+		System.out.println("PID: " + request.getParameter("PID"));
+		if (request.getParameter("PID") == null) {
+			out.print("false");
 			return;
 		}
-		String strPid = (String)request.getAttribute("PID");
+		String strPid = (String)request.getParameter("PID");
 		int intPid = Integer.parseInt(strPid);
 		
 		// 장바구니에 담는 수량 받아오기 (선택)
 		// 디폴트는 1
 		int intQty = 1;
 		if (request.getAttribute("cQty") != null) {
-			String strQty = (String)request.getAttribute("cQty");
+			String strQty = (String)request.getParameter("cQty");
 			intQty = Integer.parseInt(strQty);
 		}
 		System.out.println("cQty: " + intQty);
@@ -67,17 +68,18 @@ public class InsertCart extends HttpServlet {
 		pDTO = pDAO.selectOne(pDTO);
 		if (intQty > pDTO.getpQty()) {
 			System.out.println("재고 부족 cQty: " + intQty + "  pQty: " + pDTO.getpQty());
-			out.print(false);
+			out.print("false");
 			return;
 		}
 
 		// 로그인한 사용자 받아오기 (필수)
 		System.out.println("member: " + request.getAttribute("member"));
-		if (request.getAttribute("member") == null) {
-			out.print(false);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("member") == null) {
+			out.print("false");
 			return;
 		}
-		String mid = (String)request.getAttribute("member");
+		String mid = (String)session.getAttribute("member");
 		
 		// 장바구니에 담기
 		CartDTO cDTO = new CartDTO();
@@ -90,7 +92,7 @@ public class InsertCart extends HttpServlet {
 		System.out.println("cDAO.insert result: " + cDAO.insert(cDTO));
 		
 		// V에 인증번호 전달
-		out.print(true);	
+		out.print("true");	
 	}
 
 }
