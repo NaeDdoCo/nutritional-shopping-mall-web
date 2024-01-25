@@ -32,7 +32,7 @@ public class CartDAO {
 			+ "WHERE M.M_ID = ?";
 
 	// 장바구니 상품확인(존재여부)
-	private static final String SELECTONE = "SELECT C_ID, C_QTY FROM CART WHERE M_ID = ? AND P_ID = ?";
+	private static final String SELECTONE = "SELECT P_ID, M_ID, C_ID, C_QTY FROM CART WHERE M_ID = ? AND P_ID = ?";
 
 	// 장바구니 추가
 	private static final String INSERT_CART = "INSERT INTO CART (C_ID, M_ID, P_ID, C_QTY) VALUES (NVL((SELECT MAX(C_ID) FROM CART), 0)+1, ?, ?, ?)";
@@ -100,7 +100,48 @@ public class CartDAO {
 		return null;
 	}
 
-	private CartDTO selectOne(CartDTO cDTO) {
+	public CartDTO selectOne(CartDTO cDTO) {
+
+		CartDTO cartDTO = null;
+
+		conn = JDBCUtil.connect();
+
+		if (cDTO.getSearchCondition().equals("상품확인")) {
+			System.out.println("[로그]_상품확인 ID : "+cDTO.getMid());
+			System.out.println("[로그]_상품확인 P_ID : "+cDTO.getPid());
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE);
+				pstmt.setString(1, cDTO.getMid());
+				pstmt.setInt(2, cDTO.getPid());
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					cartDTO = new CartDTO();
+					cartDTO.setMid(rs.getString("M_ID"));
+					cartDTO.setPid(rs.getInt("P_ID"));
+					System.out.println("[로그]_상품확인 ID : "+cartDTO.getMid());
+					System.out.println("[로그]_상품확인 P_ID : "+cartDTO.getPid());
+				} else {
+					System.out.println("[로그]_상품확인 else로 null저장");
+					cartDTO = null;
+				}
+				
+				rs.close();
+
+			} catch (SQLException e) {
+				System.out.println("[로그]_상품확인 예외처리 null반환");
+				e.printStackTrace();
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			if (cartDTO != null) {
+				return cartDTO;
+			}
+		}
+		System.out.println("[로그]_장바구니Select 실패 null반환");
 		return null;
 	}
 
