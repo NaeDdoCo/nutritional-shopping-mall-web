@@ -90,9 +90,13 @@ public class InsertCart extends HttpServlet {
 		cDTO.setPid(intPid);
 		cDTO.setcQty(intQty);
 		System.out.println("cDAO.insert result: " + cDAO.insert(cDTO));
+		if (cDAO.insert(cDTO)) {
+			out.print("true");
+		} else {
+			out.print("false");
+		}
 		
 		// V에 인증번호 전달
-		out.print("true");	
 	}
 
 }
