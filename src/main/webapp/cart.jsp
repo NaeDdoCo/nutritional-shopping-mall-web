@@ -44,22 +44,22 @@
 	<!-- 비로그인 접근 방지 -->
 
 
-<!-- 상품 금액 계산 -->
-<script>
-    function calculPlusPrice(sellingPrice, index) {
-        var cQTY = parseInt($("#cQTY_" + index).val()) + 1;
-        var productPrice = sellingPrice * cQTY;
-        console.log(productPrice);
-        $("#productPrice_" + index).text(productPrice);
-    }
+	<!-- 상품 금액 계산 -->
+	<script>
+    	function calculPlusPrice(sellingPrice, index) {
+        	var cQTY = parseInt($("#cQTY_" + index).val()) + 1;
+        	var productPrice = sellingPrice * cQTY;
+        	console.log(productPrice);
+        	$("#productPrice_" + index).text(productPrice);
+    	}
 
-    function calculMinusPrice(sellingPrice, index) {
-        var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
-        var productPrice = sellingPrice * cQTY;
-        console.log(productPrice);
-        $("#productPrice_" + index).text(productPrice);
-    }
-</script>
+    	function calculMinusPrice(sellingPrice, index) {
+        	var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
+        	var productPrice = sellingPrice * cQTY;
+        	console.log(productPrice);
+        	$("#productPrice_" + index).text(productPrice);
+    	}
+	</script>
 	<!-- 상품 금액 계산 -->
 
 
@@ -155,8 +155,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="data" items="${cartList}">
-							<tr>
+						<c:forEach var="data" items="${cartList}" varStatus="status">
+							<tr id="row_${status.index}">
 								<td scope="row">
 									<div class="d-flex align-items-center">
 										<p class="mb-3 mt-4">
@@ -183,31 +183,32 @@
 								<!-- 가격 -->
 								<!-- 수량 -->
 								<td>
-								    <div class="input-group quantity mt-4" style="width: 100px;">
-								        <div class="input-group-btn">
-								            <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice}, ${data.index})">
-								                <i class="fa fa-minus"></i>
-								            </button>
-								        </div>
-								        <input id="cQTY_${data.index}" type="number" class="form-control form-control-sm text-center border-0" value="1">
-								        <div class="input-group-btn">
-								            <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${data.index})">
-								                <i class="fa fa-plus"></i>
-								            </button>
-								        </div>
-								    </div>
+									<div class="input-group quantity mt-4" style="width: 100px;">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice}, ${status.index})">
+												<i class="fa fa-minus"></i>
+											</button>
+										</div>
+										<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="1">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</div>
 								</td>
 								<!-- 수량 -->
 								<!-- 가격*수량 -->
 								<td>
-								    <p class="text-center mb-0 mt-4" id="productPrice_${data.index}"></p>
+									<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice}</p>
 								</td>
 								<!-- 취소 버튼 -->
 								<td>
-									<button class="btn btn-md rounded-circle bg-light border mt-4">
+									<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?cid=${data.cid}";'>
 										<i class="fa fa-times text-danger"></i>
 									</button>
 								</td>
+								<!-- 취소 버튼 -->
 							</tr>
 						</c:forEach>
 					</tbody>
