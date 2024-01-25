@@ -24,7 +24,6 @@ import controller.action.ReviewDetailPageAction;
 import controller.action.ReviewInfoPageAction;
 import controller.action.TermsPageAction;
 import controller.action.WriteReviewPageAction;
-import controller.async.InsertCartAction;
 
 public class HandlerMapper {
 	private Map<String,Action> mappings;
