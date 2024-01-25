@@ -62,7 +62,7 @@
 		function addItemToCart(PID) {
 			$.ajax({
 				type : "POST",
-				url : "calculPrice",
+				url : "InsertCart",
 				data : {
 					'PID' : PID,
 					'member' : ${member}
