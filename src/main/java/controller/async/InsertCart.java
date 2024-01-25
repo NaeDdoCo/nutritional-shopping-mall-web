@@ -73,8 +73,8 @@ public class InsertCart extends HttpServlet {
 		}
 
 		// 로그인한 사용자 받아오기 (필수)
-		System.out.println("member: " + request.getAttribute("member"));
 		HttpSession session = request.getSession();
+		System.out.println("member: " + session.getAttribute("member"));
 		if (session.getAttribute("member") == null) {
 			out.print("false");
 			return;
@@ -82,18 +82,42 @@ public class InsertCart extends HttpServlet {
 		String mid = (String)session.getAttribute("member");
 		
 		// 장바구니에 담기
+		// 이미 담겨 있으면 update
+		// 없으면 insert
 		CartDTO cDTO = new CartDTO();
 		CartDAO cDAO = new CartDAO();
 		
-		cDTO.setSearchCondition("장바구니추가");
+		// 장바구니에 담겨 있는지 확인
+		cDTO.setSearchCondition("상품확인");
 		cDTO.setMid(mid);
 		cDTO.setPid(intPid);
-		cDTO.setcQty(intQty);
-		System.out.println("cDAO.insert result: " + cDAO.insert(cDTO));
-		if (cDAO.insert(cDTO)) {
-			out.print("true");
-		} else {
-			out.print("false");
+		cDTO = cDAO.selectOne(cDTO);
+		System.out.println("selectOne cDTO: " + cDTO);
+		
+		if (cDTO == null) { // 장바구니에 없음
+			cDTO = new CartDTO();
+			cDTO.setSearchCondition("장바구니추가");
+			cDTO.setMid(mid);
+			cDTO.setPid(intPid);
+			cDTO.setcQty(intQty);
+//		System.out.println("cDAO.insert result: " + cDAO.insert(cDTO));
+			if (cDAO.insert(cDTO)) {
+				out.print("true");
+			} else {
+				out.print("false");
+			}
+		} else { // 장바구니에 있음
+			cDTO.setSearchCondition("동일상품추가");
+			cDTO.setcQty(intQty);
+//			cDTO.setCid(cDTO.getCid()); // 이미 들어있음
+			System.out.println("update cDTO: " + cDTO);
+			if (cDAO.update(cDTO)) {
+				System.out.println("update: true");
+				out.print("true");
+			} else {
+				System.out.println("update: false");
+				out.print("false");
+			}
 		}
 		
 		// V에 인증번호 전달
