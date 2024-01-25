@@ -44,21 +44,22 @@
 	<!-- 비로그인 접근 방지 -->
 
 
-	<!-- 상품 금액 계산 -->
-	<script>
-		function calculPlusPrice(sellingPrice){
-			var cQTY = parseInt($("#cQTY").val()) + 1;
-			var productPrice = sellingPrice * cQTY;
-			console.log(productPrice);
-			$("#productPrice").text(productPrice);
-		}
-		function calculMinusPrice(sellingPrice){
-			var cQTY = parseInt($("#cQTY").val()) - 1;
-			var productPrice = sellingPrice * cQTY;
-			console.log(productPrice);
-			$("#productPrice").text(productPrice);
-		}
-	</script>
+<!-- 상품 금액 계산 -->
+<script>
+    function calculPlusPrice(sellingPrice, index) {
+        var cQTY = parseInt($("#cQTY_" + index).val()) + 1;
+        var productPrice = sellingPrice * cQTY;
+        console.log(productPrice);
+        $("#productPrice_" + index).text(productPrice);
+    }
+
+    function calculMinusPrice(sellingPrice, index) {
+        var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
+        var productPrice = sellingPrice * cQTY;
+        console.log(productPrice);
+        $("#productPrice_" + index).text(productPrice);
+    }
+</script>
 	<!-- 상품 금액 계산 -->
 
 
@@ -182,26 +183,26 @@
 								<!-- 가격 -->
 								<!-- 수량 -->
 								<td>
-									<div class="input-group quantity mt-4" style="width: 100px;">
-										<div class="input-group-btn">
-											<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice})">
-												<i class="fa fa-minus"></i>
-											</button>
-										</div>
-										<input id="cQTY" type="number" class="form-control form-control-sm text-center border-0" value="1">
-										<div class="input-group-btn">
-											<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice})">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-									</div>
+								    <div class="input-group quantity mt-4" style="width: 100px;">
+								        <div class="input-group-btn">
+								            <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice}, ${data.index})">
+								                <i class="fa fa-minus"></i>
+								            </button>
+								        </div>
+								        <input id="cQTY_${data.index}" type="number" class="form-control form-control-sm text-center border-0" value="1">
+								        <div class="input-group-btn">
+								            <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${data.index})">
+								                <i class="fa fa-plus"></i>
+								            </button>
+								        </div>
+								    </div>
 								</td>
 								<!-- 수량 -->
 								<!-- 가격*수량 -->
 								<td>
-									<p class="text-center mb-0 mt-4" id="productPrice"></p>
+								    <p class="text-center mb-0 mt-4" id="productPrice_${data.index}"></p>
 								</td>
-								<!-- 가격*수량 -->
+								<!-- 취소 버튼 -->
 								<td>
 									<button class="btn btn-md rounded-circle bg-light border mt-4">
 										<i class="fa fa-times text-danger"></i>
