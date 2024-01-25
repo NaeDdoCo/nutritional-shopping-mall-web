@@ -64,29 +64,25 @@
 	
 
 	<!-- 체크 총금액 계산 -->
+	<c:set var="total" value="0" />
+	<c:forEach var="data" items="${cartList}" varStatus="status">
+		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" />
+	</c:forEach>
 	<script>
-    	// 선택된 품목들의 가격을 저장하는 배열
-    	var selectedPrices = [];
+		var total = ${total}
     	// 체크박스가 변경될 때 호출되는 함수
-    	function updateTotalPrice(checkbox, price, index) {	
-    		var productPrice = price * $("#cQTY_" + index).val();    		
+    	function updateTotalPrice(checkbox, price, index) {
+    		var productPrice = price * $("#cQTY_" + index).val();    	
         	// 체크박스의 체크 상태 확인
         	if (checkbox.checked) {
             	// 체크되었다면 가격을 배열에 추가
-            	selectedPrices.push(productPrice);
+        		total = total + productPrice;
         	} else {
             	// 체크가 해제되었다면 배열에서 제거
-            	var index = selectedPrices.indexOf(productPrice);
-            	if (index !== -1) {
-                	selectedPrices.splice(index, 1);
-            	}
+        		total = total - productPrice;
         	}
-        	// 선택된 품목들의 총금액 계산
-        	var totalPrice = selectedPrices.reduce(function(acc, cur) {
-            	return acc + cur;
-        	}, 0);
-        	// 총금액을 표시하는 요소 업데이트
-        	document.getElementById("totalPrice").textContent = totalPrice;       	
+        	
+        	document.getElementById("totalPrice").textContent = total;     	
     	}
 	</script>
 	<!-- 체크 총금액 계산 -->
@@ -189,7 +185,7 @@
 								<td scope="row">
 									<div class="d-flex align-items-center">
 										<p class="mb-3 mt-4">
-											<input type="checkbox"  onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
+											<input type="checkbox" onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
 										</p>
 									</div>
 								</td>
@@ -252,7 +248,7 @@
 							<h1 class="display-6 mb-4">총금액</h1>
 							<div class="d-flex justify-content-between mb-4">
 								<h5 class="mb-0 me-4">합계:</h5>
-								<p class="mb-0" id="totalPrice">0</p>
+								<p class="mb-0" id="totalPrice">${total}</p>
 							</div>
 							<div class="d-flex justify-content-between"></div>
 						</div>
