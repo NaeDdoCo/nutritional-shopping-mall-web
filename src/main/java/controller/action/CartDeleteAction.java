@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.common.Action;
 import controller.common.ActionForward;
+import model.dao.CartDAO;
+import model.dto.CartDTO;
 
 public class CartDeleteAction implements Action{
 
@@ -17,7 +19,23 @@ public class CartDeleteAction implements Action{
 	
 		ActionForward forward = new ActionForward();
 		
+		// DB에서 선택한 상품 삭제
+		CartDTO cDTO = new CartDTO();
+		CartDAO cDAO = new CartDAO();
 		
+		String strCid = (String)request.getParameter("cid");
+		System.out.println("cart delete strCid: " + strCid);
+		int intCid = Integer.parseInt(strCid);
+		
+		cDTO.setSearchCondition("장바구니삭제");
+		cDTO.setCid(intCid);
+		if (cDAO.delete(cDTO)) {
+			forward.setPath("cartPage.do");
+			forward.setRedirect(true);
+		} else {
+			forward.setPath("error.do");
+			forward.setRedirect(true);
+		}
 		
 		return forward;
 	}
