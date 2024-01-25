@@ -18,11 +18,16 @@ public class ProductAllPageAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		
 		ArrayList<ProductDTO> pDTOs = new ArrayList<ProductDTO>();
 		ProductDTO pDTO = new ProductDTO();
 		ProductDAO pDAO = new ProductDAO();
 		
+		// 전체 상품 중 최대 가격을 가져와서 price 변수를 초기화
+		pDTO.setSearchCondition("최대값");
+		pDTO = pDAO.selectOne(pDTO);
+		int price = pDTO.getSellingPrice();
+		
+		// 필터링해서 상품들 가져오기
 		pDTO.setSearchCondition("상품출력필터");
 		pDTO.setAncSelectMin(1);
 		pDTO.setAncSelectMax(100);
@@ -41,11 +46,12 @@ public class ProductAllPageAction implements Action{
 		System.out.println("category : " + category);
 		pDTO.setCategory(category);
 		
-		int price = 0;
+		// View에서 넘겨준 price가 존재하면 갱신
 		if (request.getParameter("price") != null) {
 			price = Integer.parseInt((String)request.getParameter("price"));
 		}
 		System.out.println("price : " + price);
+		
 		pDTO.setSellingPrice(price);
 //		pDTO.setSellingPrice(0);
 		pDTOs = pDAO.selectAll(pDTO);
