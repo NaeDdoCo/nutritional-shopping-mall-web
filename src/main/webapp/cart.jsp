@@ -29,9 +29,38 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+<link href="css/number.css" rel="stylesheet">
 </head>
 
 <body>
+
+	<!-- 비로그인 접근 방지 -->
+	<c:choose>
+		<c:when test="${empty sessionScope.member}">
+			<c:redirect url="mainPage.do" />
+			<!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
+		</c:when>
+	</c:choose>
+	<!-- 비로그인 접근 방지 -->
+
+
+	<!-- 상품 금액 계산 -->
+	<script>
+		function calculPlusPrice(sellingPrice){
+			var cQTY = parseInt($("#cQTY").val()) + 1;
+			var productPrice = sellingPrice * cQTY;
+			console.log(productPrice);
+			$("#productPrice").text(productPrice);
+		}
+		function calculMinusPrice(sellingPrice){
+			var cQTY = parseInt($("#cQTY").val()) - 1;
+			var productPrice = sellingPrice * cQTY;
+			console.log(productPrice);
+			$("#productPrice").text(productPrice);
+		}
+	</script>
+	<!-- 상품 금액 계산 -->
+
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -71,7 +100,7 @@
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
-						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
 						</a> <a href="#" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 						</a>
 					</div>
@@ -115,51 +144,71 @@
 				<table class="table">
 					<thead>
 						<tr>
+							<th scope="col">선택</th>
 							<th scope="col">상품</th>
 							<th scope="col">이름</th>
 							<th scope="col">가격</th>
 							<th scope="col">수량</th>
-							<th scope="col">총금액</th>
+							<th scope="col">상품금액</th>
 							<th scope="col">삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">
-								<div class="d-flex align-items-center">
-									<img src="img/vegetable-item-3.png" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-								</div>
-							</th>
-							<td>
-								<p class="mb-0 mt-4">Big Banana</p>
-							</td>
-							<td>
-								<p class="mb-0 mt-4">2.99 $</p>
-							</td>
-							<td>
-								<div class="input-group quantity mt-4" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-minus rounded-circle bg-light border">
-											<i class="fa fa-minus"></i>
-										</button>
+						<c:forEach var="data" items="${cartList}">
+							<tr>
+								<td scope="row">
+									<div class="d-flex align-items-center">
+										<p class="mb-3 mt-4">
+											<input type="checkbox">
+										</p>
 									</div>
-									<input type="text" class="form-control form-control-sm text-center border-0" value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-plus rounded-circle bg-light border">
-											<i class="fa fa-plus"></i>
-										</button>
+								</td>
+								<!-- 이미지 -->
+								<td scope="row">
+									<div class="d-flex align-items-center">
+										<img src="${data.imagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
 									</div>
-								</div>
-							</td>
-							<td>
-								<p class="text-center mb-0 mt-4">2.99 $</p>
-							</td>
-							<td>
-								<button class="btn btn-md rounded-circle bg-light border mt-4">
-									<i class="fa fa-times text-danger"></i>
-								</button>
-							</td>
-						</tr>
+								</td>
+								<!-- 이미지 -->
+								<!-- 이름 -->
+								<td>
+									<p class="mb-0 mt-4">${data.pName}</p>
+								</td>
+								<!-- 이름 -->
+								<!-- 가격 -->
+								<td>
+									<p class="mb-0 mt-4" id="sellingPrice">${data.sellingPrice}</p>
+								</td>
+								<!-- 가격 -->
+								<!-- 수량 -->
+								<td>
+									<div class="input-group quantity mt-4" style="width: 100px;">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice})">
+												<i class="fa fa-minus"></i>
+											</button>
+										</div>
+										<input id="cQTY" type="number" class="form-control form-control-sm text-center border-0" value="1">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice})">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</div>
+								</td>
+								<!-- 수량 -->
+								<!-- 가격*수량 -->
+								<td>
+									<p class="text-center mb-0 mt-4" id="productPrice"></p>
+								</td>
+								<!-- 가격*수량 -->
+								<td>
+									<button class="btn btn-md rounded-circle bg-light border mt-4">
+										<i class="fa fa-times text-danger"></i>
+									</button>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
