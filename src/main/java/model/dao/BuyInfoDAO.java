@@ -28,6 +28,9 @@ public class BuyInfoDAO {
 	// 판매량 반환
 	private static final String SELECTONE_QTY = "SELECT P_ID, SUM(B_QTY) AS TOTAL_QTY " + "FROM BUYINFO "
 			+ "WHERE P_ID = ? " + "GROUP BY P_ID";
+	
+	// 주문번호 최대값 찾기
+	private static final String SELECTONE_ORDER_NUM = "SELECT NVL(MAX(ORDER_NUM), 1) AS MAX_ORDER_NUM FROM BUYINFO";
 
 	// 구매내역 추가
 	private static final String INSERT = "INSERT INTO BUYINFO "
@@ -123,12 +126,40 @@ public class BuyInfoDAO {
 				}
 
 			} catch (SQLException e) {
-				e.printStackTrace();
 				System.out.println("[로그_판매량] 반환 NULL_예외처리");
+				e.printStackTrace();
 				return null;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
+		} else if(bDTO.getSearchCondition().equals("주문번호")) {
+			
+			buyInfoDTO = new BuyInfoDTO();
+			
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_ORDER_NUM);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					buyInfoDTO.setMaxOrderNum(rs.getInt("MAX_ORDER_NUM"));
+				} 
+				
+				rs.close();
+				
+			} catch (SQLException e) {
+				System.out.println("[로그_주문번호] 반환 NULL_예외처리");
+				e.printStackTrace();
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			
+			if(buyInfoDTO.getMaxOrderNum() > 0) {
+				System.out.println("[로그_주문번호] 성공");
+				return buyInfoDTO;
+			}
+			
 		}
 		System.out.println("[로그_구매내역 SelectOne] 실패");
 		return null;
