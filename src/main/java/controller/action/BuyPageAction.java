@@ -31,15 +31,14 @@ public class BuyPageAction implements Action{
       CouponDAO cpDAO = new CouponDAO();
       MemberDTO mDTO = new MemberDTO();
       MemberDAO mDAO = new MemberDAO();
-      ProductDTO pDTO = new ProductDTO();
 
 
       //회원정보가져오기
       mDTO.setMID(mid);
-      mDTO.setSearchCondition("");
+      mDTO.setSearchCondition("주문정보");
       mDTO = mDAO.selectOne(mDTO);
       request.setAttribute("memberInfo", mDTO);
-
+      System.out.println("[log] mDTO : " + mDTO);
 
       //쿠폰목록가져오기
       cpDTO.setSearchCondition("사용가능쿠폰");
@@ -74,6 +73,7 @@ public class BuyPageAction implements Action{
       
       ArrayList<ProductDTO> selectedProductsList = new ArrayList<>();
       for (int i = 0; i < pNames.length; i++) {
+    	 ProductDTO pDTO = new ProductDTO();
          String imagePath = imagePaths[i];
          String pName = pNames[i];
          int sellingPrice = Integer.parseInt(sellingPrices[i]);
@@ -86,8 +86,10 @@ public class BuyPageAction implements Action{
       }
 
       request.setAttribute("selectedProductsList", selectedProductsList);
+      for (ProductDTO productDTO : selectedProductsList) {
+		System.out.println("productDTO : " + productDTO);
+	}
 //    System.out.println("[log] selectedProductsList : "+ selectedProductsList);
-      
       
       
 
