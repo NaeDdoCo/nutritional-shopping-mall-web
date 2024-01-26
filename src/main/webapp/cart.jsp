@@ -101,23 +101,22 @@
 
 
 	<!-- 구매 진행 -->
-	<script type="text/javascript">
-		function submitCheckedItems() {
-        	var checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
-        	var selectedItems = [];
-        	checkedItems.forEach(function(item) {// 체크된 항목들을 배열에 추가
-            	selectedItems.push(item.value);
+	<script>
+    	function goToBuy() {
+    		console.log(adadad);'
+        	var rows = document.querySelectorAll('tr[id^="row_"]');
+        	rows.forEach(function(row) {
+            	var form = document.getElementById('dataForm');
+            	// 각 행의 정보를 hidden input에 설정합니다.
+            	form.innerHTML += '<input type="hidden" name="isChecked[]" value="' + row.querySelector('input[type="checkbox"]').checked + '">';
+            	form.innerHTML += '<input type="hidden" name="imagePath[]" value="' + row.querySelector('img').src + '">';
+            	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('.pName').innerText + '">';
+            	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#sellingPrice').innerText + '">';
+            	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
+            	form.innerHTML += '<input type="hidden" name="productPrice[]" value="' + row.querySelector('#productPrice').innerText + '">';
         	});
-        	var form = document.getElementById('cartForm');// 선택된 항목들을 hidden input으로 폼에 추가하여 서버로 전송
-        	selectedItems.forEach(function(item) {
-            	var input = document.createElement('input');
-            	input.type = 'hidden';
-            	input.name = 'selectedItems';
-            	input.value = item;
-            	form.appendChild(input);
-        	});
-        	// 폼 제출
-        	form.submit();
+        	// 폼을 서버로 제출합니다.
+        	document.getElementById('cartForm').submit();
     	}
 	</script>
 	<!-- 구매 진행 -->
@@ -222,6 +221,7 @@
 										<div class="d-flex align-items-center">
 											<p class="mb-3 mt-4">
 												<input type="checkbox" onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
+												<input type="hidden" name="isChecked[]" value="">
 											</p>
 										</div>
 									</td>
@@ -229,17 +229,20 @@
 									<td scope="row">
 										<div class="d-flex align-items-center">
 											<img src="${data.imagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+											<input type="hidden" name="imagePath[]" value="">
 										</div>
 									</td>
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
 										<p class="mb-0 mt-4">${data.pName}</p>
+										<input type="hidden" name="pName[]" value="">
 									</td>
 									<!-- 이름 -->
 									<!-- 가격 -->
 									<td>
 										<p class="mb-0 mt-4" id="sellingPrice">${data.sellingPrice}</p>
+										<input type="hidden" name="sellingPrice[]" value="">
 									</td>
 									<!-- 가격 -->
 									<!-- 수량 -->
@@ -251,6 +254,7 @@
 												</button>
 											</div>
 											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
+											<input type="hidden" name="cQty[]" value="">
 											<div class="input-group-btn">
 												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
 													<i class="fa fa-plus"></i>
@@ -262,6 +266,7 @@
 									<!-- 가격*수량 -->
 									<td>
 										<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice * data.cQty}</p>
+										<input type="hidden" name="productPrice[]" value="">
 									</td>
 									<!-- 취소 버튼 -->
 									<td>
@@ -289,7 +294,7 @@
 							</div>
 							<div class="d-flex justify-content-between"></div>
 						</div>
-						<button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button" onclick="submitCheckedItems()">구매 진행</button>
+						<button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button" onclick="goToBuy()">구매 진행</button>
 					</div>
 				</div>
 			</div>
