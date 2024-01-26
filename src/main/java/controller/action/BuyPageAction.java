@@ -23,9 +23,9 @@ public class BuyPageAction implements Action{
          throws ServletException, IOException {
 
       ActionForward forward = new ActionForward();
-
       HttpSession session = request.getSession();
-      String mid = request.getParameter("member"); //mid가져오기
+      //세션의 mid가져오기
+      String mid = (String)session.getAttribute("member");
 
       CouponDTO cpDTO = new CouponDTO();
       CouponDAO cpDAO = new CouponDAO();
@@ -43,9 +43,14 @@ public class BuyPageAction implements Action{
 
       //쿠폰목록가져오기
       cpDTO.setSearchCondition("사용가능쿠폰");
+      System.out.println("[log] mid : " + mid);
       cpDTO.setMID(mid);
+      System.out.println("[log]cpDTO.getMID() :  " + cpDTO.getMID());
+      
       ArrayList<CouponDTO> couponList = cpDAO.selectAll(cpDTO);
       request.setAttribute("couponList", couponList);
+      
+      System.out.println("couponList" + couponList);
 
       //장바구니 상품은 체크박스로 선택된 상품만 배열로 각각정보가 넘어옴
       String[] imagePaths = request.getParameterValues("imagePath[]");
