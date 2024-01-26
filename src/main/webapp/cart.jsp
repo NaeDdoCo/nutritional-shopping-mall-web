@@ -107,12 +107,10 @@
         	rows.forEach(function(row) {
             	var form = document.getElementById('cartForm');
             	// 각 행의 정보를 hidden input에 설정합니다.
-            	form.innerHTML += '<input type="hidden" name="isChecked[]" value="' + row.querySelector('input[type="checkbox"]').checked + '">';
             	form.innerHTML += '<input type="hidden" name="imagePath[]" value="' + row.querySelector('img').src + '">';
             	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('.pName').innerText + '">';
             	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#sellingPrice').innerText + '">';
             	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
-            	form.innerHTML += '<input type="hidden" name="productPrice[]" value="' + row.querySelector('#productPrice').innerText + '">';
         	});
         	// 폼을 서버로 제출합니다.
         	document.getElementById('cartForm').submit();
