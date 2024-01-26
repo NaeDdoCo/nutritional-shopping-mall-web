@@ -42,8 +42,8 @@
 		</c:when>
 	</c:choose>
 	<!-- 비로그인 접근 방지 -->
-	
-	
+
+
 	<!-- 페이지 진입 시 총금액 계산 -->
 	<c:set var="total" value="0" />
 	<c:forEach var="data" items="${cartList}" varStatus="status">
@@ -61,22 +61,25 @@
         	var cQTY = parseInt($("#cQTY_" + index).val()) + 1;
         	var productPrice = sellingPrice * cQTY;
         	$("#productPrice_" + index).text(productPrice);
+        	
         	cQTY = cQTY - 1;
-        	productPrice = sellingPrice * cQTY;
+        	productPrice = sellingPrice;
         	total = total + productPrice;
-        	document.getElementById("totalPrice").textContent = total;
+        	document.getElementById("totalPrice").textContent = total + "원";
     	}
 
     	function calculMinusPrice(sellingPrice, index) {
         	var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
         	var productPrice = sellingPrice * cQTY;
         	$("#productPrice_" + index).text(productPrice);
+        	
+        	productPrice = sellingPrice;
         	total = total - productPrice;
-        	document.getElementById("totalPrice").textContent = total; 
+        	document.getElementById("totalPrice").textContent = total + "원"; 
     	}
 	</script>
 	<!-- 상품 금액 계산 -->
-	
+
 
 	<!-- 체크 총금액 갱신 -->
 	<script>
@@ -136,7 +139,7 @@
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
-						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
+						<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
 						</a> <a href="#" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 						</a>
 					</div>
@@ -258,7 +261,7 @@
 							<h1 class="display-6 mb-4">총금액</h1>
 							<div class="d-flex justify-content-between mb-4">
 								<h5 class="mb-0 me-4">합계:</h5>
-								<p class="mb-0" id="totalPrice">${total}</p>
+								<p class="mb-0" id="totalPrice">${total}원</p>
 							</div>
 							<div class="d-flex justify-content-between"></div>
 						</div>
