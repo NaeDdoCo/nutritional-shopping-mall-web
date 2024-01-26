@@ -218,7 +218,7 @@
 										<div class="d-flex align-items-center">
 											<p class="mb-3 mt-4">
 												<input type="checkbox" onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
-												<input type="hidden" name="isChecked[]" value="">
+
 											</p>
 										</div>
 									</td>
@@ -226,20 +226,20 @@
 									<td scope="row">
 										<div class="d-flex align-items-center">
 											<img src="${data.imagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-											<input type="hidden" name="imagePath[]" value="">
+
 										</div>
 									</td>
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
 										<p class="mb-0 mt-4" id="pName">${data.pName}</p>
-										<input type="hidden" name="pName[]" value="">
+
 									</td>
 									<!-- 이름 -->
 									<!-- 가격 -->
 									<td>
 										<p class="mb-0 mt-4" id="sellingPrice">${data.sellingPrice}</p>
-										<input type="hidden" name="sellingPrice[]" value="">
+
 									</td>
 									<!-- 가격 -->
 									<!-- 수량 -->
@@ -251,7 +251,7 @@
 												</button>
 											</div>
 											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
-											<input type="hidden" name="cQty[]" value="">
+
 											<div class="input-group-btn">
 												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
 													<i class="fa fa-plus"></i>
@@ -263,7 +263,7 @@
 									<!-- 가격*수량 -->
 									<td>
 										<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice * data.cQty}</p>
-										<input type="hidden" name="productPrice[]" value="">
+
 									</td>
 									<!-- 취소 버튼 -->
 									<td>
