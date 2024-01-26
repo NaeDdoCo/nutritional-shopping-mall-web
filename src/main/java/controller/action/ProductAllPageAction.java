@@ -56,6 +56,16 @@ public class ProductAllPageAction implements Action{
 //		pDTO.setSellingPrice(0);
 		pDTOs = pDAO.selectAll(pDTO);
 		
+		// 보여줄 상품이 하나도 없는 경우
+		if (pDTOs.size() == 0) {
+			request.setAttribute("pDTOs", pDTOs);
+			
+			forward.setPath("productAll.jsp");
+			forward.setRedirect(false);
+			
+			return forward;
+		}
+		
 		/* 
 		 * 전체 페이지 수 확인
 		*/
@@ -80,8 +90,9 @@ public class ProductAllPageAction implements Action{
 		if (strPage != null) {
 			intPage = Integer.parseInt(strPage);
 		}
+		
 		// page가 유효한 범위를 벗어남
-		if (intPage < 0 || intPage > totalPages) {
+		if (intPage < 1 || intPage > totalPages) {
 			forward.setPath("error.do");
 			forward.setRedirect(true);
 			
@@ -96,13 +107,17 @@ public class ProductAllPageAction implements Action{
 		
 		// 마지막 페이지에서 상품이 9개가 안 될 경우 인덱스 에러가 날 수 있어서 방지!
 		if (endProduct > pDTOs.size()) {
-			endProduct = pDTOs.size() - 1;
+			endProduct = pDTOs.size();
 		}
 		
 		// 해당 페이지에 포함되는 제품 9개 담아줌
-		for (int i = startProduct; i <= endProduct; i++) {
+		System.out.println("startProduct index: " + startProduct);
+		System.out.println("endProduct index: " + endProduct);
+		for (int i = startProduct - 1; i < endProduct; i++) {
 			retDTOs.add(pDTOs.get(i));
+			System.out.println("[ProductAllPage] i: " + i);
 		}
+		System.out.println("[ProductAllPage] for end");
 		
 		request.setAttribute("pDTOs", retDTOs);
 
