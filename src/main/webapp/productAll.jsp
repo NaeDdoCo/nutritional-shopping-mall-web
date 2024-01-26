@@ -11,6 +11,13 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +40,36 @@
 </head>
 
 <body>
+
+
+	<!-- 장바구니 추가 비동기처리 -->
+	<script>
+		function addItemToCart(PID) {
+			$.ajax({
+				type : "POST", // 또는 "GET"
+				url : "InsertCart", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+				data : {'PID' : PID},
+				success : function(data) {
+					console.log(data);
+					if (data === "true") {
+						Swal.fire({
+							icon : 'success',
+							title : '장바구니 추가',
+							text : '추가되었습니다.',
+						})
+					} else {
+						Swal.fire({
+							icon : 'error',
+							title : '장바구니 추가',
+							text : '실패하였습니다.',
+						})
+					}
+				}
+			});
+		}
+	</script>
+	<!-- 장바구니 추가 비동기처리 -->
+
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -74,16 +111,22 @@
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
+						<!-- 장바구니 버튼 -->
 						<c:if test="${member != null}">
-							<!-- 장바구니 버튼 -->
-							<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+							<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
 							</a>
-							<!-- 장바구니 버튼 -->
-							<!-- 프로필 버튼 -->
+						</c:if>
+						<c:if test="${member == null}">
+							<a href="loginPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
+							</a>
+						</c:if>
+						<!-- 장바구니 버튼 -->
+						<!-- 프로필 버튼 -->
+						<c:if test="${member != null}">
 							<a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 							</a>
-							<!-- 프로필 버튼 -->
 						</c:if>
+						<!-- 프로필 버튼 -->
 						<!-- 로그인 버튼 -->
 						<c:if test="${member == null}">
 							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">로그인</a>
@@ -133,7 +176,8 @@
 						<div class="col-6"></div>
 						<div class="col-xl-3">
 							<div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-								<label for="fruits">Default Sorting:</label> <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+								<label for="fruits">Default Sorting:</label>
+								<select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
 									<option value="volvo">Nothing</option>
 									<option value="saab">Popularity</option>
 									<option value="opel">Organic</option>
@@ -217,7 +261,7 @@
 								<div class="col-lg-12">
 									<!-- 필터 검색 버튼 -->
 									<div class="d-flex justify-content-center my-4">
-										<c:set var="currentURL" value="${pageContext.request.requestURL}"/>
+										<c:set var="currentURL" value="${pageContext.request.requestURL}" />
 										<a href="${currentURL}" id="filterbtn" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">필터 검색</a>
 									</div>
 									<!-- 필터 검색 버튼 -->
@@ -242,10 +286,9 @@
 													</div>
 													<div class="d-flex justify-content-between flex-lg-wrap">
 														<p class="text-dark fs-5 fw-bold mb-0">${data.sellingPrice}원</p>
-														<c:if test="${member != null}">
-															<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-															</a>
-														</c:if>
+														<div class="row">
+															<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
+														</div>
 													</div>
 												</div>
 											</div>
