@@ -23,7 +23,7 @@ public class CartDeleteAction implements Action{
 		CartDTO cDTO = new CartDTO();
 		CartDAO cDAO = new CartDAO();
 		
-		String strCid = (String)request.getParameter("cid");
+		String strCid = (String)request.getParameter("CID");
 		System.out.println("cart delete strCid: " + strCid);
 		int intCid = Integer.parseInt(strCid);
 		
