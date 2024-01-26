@@ -103,10 +103,9 @@
 	<!-- 구매 진행 -->
 	<script>
     	function goToBuy() {
-    		console.log(adadad);'
         	var rows = document.querySelectorAll('tr[id^="row_"]');
         	rows.forEach(function(row) {
-            	var form = document.getElementById('dataForm');
+            	var form = document.getElementById('cartForm');
             	// 각 행의 정보를 hidden input에 설정합니다.
             	form.innerHTML += '<input type="hidden" name="isChecked[]" value="' + row.querySelector('input[type="checkbox"]').checked + '">';
             	form.innerHTML += '<input type="hidden" name="imagePath[]" value="' + row.querySelector('img').src + '">';
@@ -270,7 +269,7 @@
 									</td>
 									<!-- 취소 버튼 -->
 									<td>
-										<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?cid=${data.cid}";'>
+										<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?CID=${data.CID}";'>
 											<i class="fa fa-times text-danger"></i>
 										</button>
 									</td>
