@@ -37,6 +37,7 @@
 	<!-- 비로그인 접근 방지 -->
 	<c:choose>
 		<c:when test="${empty sessionScope.member}">
+			<!-- 세션의 member가 없으면 -->
 			<c:redirect url="mainPage.do" />
 			<!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
 		</c:when>
@@ -46,11 +47,14 @@
 
 	<!-- 페이지 진입 시 총금액 계산 -->
 	<c:set var="total" value="0" />
+	<!-- 총금액을 저장하기 위한 jstl변수 -->
 	<c:forEach var="data" items="${cartList}" varStatus="status">
+		<!-- 장바구니 데이터 반복 -->
 		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" />
+		<!-- 가격*금액을 총금액에 가산 -->
 	</c:forEach>
 	<script>
-		var total = ${total}
+		var total = ${total}<!-- 총금액을 자바스크립트 전역 변수에 저장 -->
 	</script>
 	<!-- 페이지 진입 시 총금액 계산 -->
 
@@ -81,24 +85,42 @@
 	<!-- 상품 금액 계산 -->
 
 
-	<!-- 체크 총금액 갱신 -->
+	<!-- 총금액 갱신 -->
 	<script>
-    	// 체크박스가 변경될 때 호출되는 함수
-    	function updateTotalPrice(checkbox, price, index) {
+    	function updateTotalPrice(checkbox, price, index) { // 체크박스가 변경될 때 호출되는 함수
     		var productPrice = price * $("#cQTY_" + index).val();    	
-        	// 체크박스의 체크 상태 확인
-        	if (checkbox.checked) {
-            	// 체크되었다면 가격을 배열에 추가
-        		total = total + productPrice;
+        	if (checkbox.checked) { // 체크박스의 체크 상태 확인
+        		total = total + productPrice; // 체크되었다면 가격을 배열에 추가
         	} else {
-            	// 체크가 해제되었다면 배열에서 제거
-        		total = total - productPrice;
+        		total = total - productPrice; // 체크가 해제되었다면 배열에서 제거
         	}
-        	
-        	document.getElementById("totalPrice").textContent = total;     	
+        	document.getElementById("totalPrice").textContent = total; // totalPrice라는 id를 가진 태그에 텍스트 넣기
     	}
 	</script>
-	<!-- 체크 총금액 계산 -->
+	<!-- 총금액 계산 -->
+
+
+	<!-- 구매 진행 -->
+	<script type="text/javascript">
+		function submitCheckedItems() {
+        	var checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
+        	var selectedItems = [];
+        	checkedItems.forEach(function(item) {// 체크된 항목들을 배열에 추가
+            	selectedItems.push(item.value);
+        	});
+        	var form = document.getElementById('cartForm');// 선택된 항목들을 hidden input으로 폼에 추가하여 서버로 전송
+        	selectedItems.forEach(function(item) {
+            	var input = document.createElement('input');
+            	input.type = 'hidden';
+            	input.name = 'selectedItems';
+            	input.value = item;
+            	form.appendChild(input);
+        	});
+        	// 폼 제출
+        	form.submit();
+    	}
+	</script>
+	<!-- 구매 진행 -->
 
 
 	<!-- Spinner Start -->
@@ -180,77 +202,79 @@
 	<div class="container-fluid py-5">
 		<div class="container py-5">
 			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">선택</th>
-							<th scope="col">상품</th>
-							<th scope="col">이름</th>
-							<th scope="col">가격</th>
-							<th scope="col">수량</th>
-							<th scope="col">상품금액</th>
-							<th scope="col">삭제</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="data" items="${cartList}" varStatus="status">
-							<tr id="row_${status.index}">
-								<td scope="row">
-									<div class="d-flex align-items-center">
-										<p class="mb-3 mt-4">
-											<input type="checkbox" onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
-										</p>
-									</div>
-								</td>
-								<!-- 이미지 -->
-								<td scope="row">
-									<div class="d-flex align-items-center">
-										<img src="${data.imagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-									</div>
-								</td>
-								<!-- 이미지 -->
-								<!-- 이름 -->
-								<td>
-									<p class="mb-0 mt-4">${data.pName}</p>
-								</td>
-								<!-- 이름 -->
-								<!-- 가격 -->
-								<td>
-									<p class="mb-0 mt-4" id="sellingPrice">${data.sellingPrice}</p>
-								</td>
-								<!-- 가격 -->
-								<!-- 수량 -->
-								<td>
-									<div class="input-group quantity mt-4" style="width: 100px;">
-										<div class="input-group-btn">
-											<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice}, ${status.index})">
-												<i class="fa fa-minus"></i>
-											</button>
-										</div>
-										<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
-										<div class="input-group-btn">
-											<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-									</div>
-								</td>
-								<!-- 수량 -->
-								<!-- 가격*수량 -->
-								<td>
-									<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice * data.cQty}</p>
-								</td>
-								<!-- 취소 버튼 -->
-								<td>
-									<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?cid=${data.cid}";'>
-										<i class="fa fa-times text-danger"></i>
-									</button>
-								</td>
-								<!-- 취소 버튼 -->
+				<form id="cartForm" action="buyPage.do" method="post">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">선택</th>
+								<th scope="col">상품</th>
+								<th scope="col">이름</th>
+								<th scope="col">가격</th>
+								<th scope="col">수량</th>
+								<th scope="col">상품금액</th>
+								<th scope="col">삭제</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach var="data" items="${cartList}" varStatus="status">
+								<tr id="row_${status.index}">
+									<td scope="row">
+										<div class="d-flex align-items-center">
+											<p class="mb-3 mt-4">
+												<input type="checkbox" onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
+											</p>
+										</div>
+									</td>
+									<!-- 이미지 -->
+									<td scope="row">
+										<div class="d-flex align-items-center">
+											<img src="${data.imagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+										</div>
+									</td>
+									<!-- 이미지 -->
+									<!-- 이름 -->
+									<td>
+										<p class="mb-0 mt-4">${data.pName}</p>
+									</td>
+									<!-- 이름 -->
+									<!-- 가격 -->
+									<td>
+										<p class="mb-0 mt-4" id="sellingPrice">${data.sellingPrice}</p>
+									</td>
+									<!-- 가격 -->
+									<!-- 수량 -->
+									<td>
+										<div class="input-group quantity mt-4" style="width: 100px;">
+											<div class="input-group-btn">
+												<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice}, ${status.index})">
+													<i class="fa fa-minus"></i>
+												</button>
+											</div>
+											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
+											<div class="input-group-btn">
+												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
+													<i class="fa fa-plus"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<!-- 수량 -->
+									<!-- 가격*수량 -->
+									<td>
+										<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice * data.cQty}</p>
+									</td>
+									<!-- 취소 버튼 -->
+									<td>
+										<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?cid=${data.cid}";'>
+											<i class="fa fa-times text-danger"></i>
+										</button>
+									</td>
+									<!-- 취소 버튼 -->
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</form>
 			</div>
 			<div class="mt-5"></div>
 			<div class="row g-4 justify-content-end">
@@ -265,7 +289,7 @@
 							</div>
 							<div class="d-flex justify-content-between"></div>
 						</div>
-						<button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">구매 진행</button>
+						<button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button" onclick="submitCheckedItems()">구매 진행</button>
 					</div>
 				</div>
 			</div>
