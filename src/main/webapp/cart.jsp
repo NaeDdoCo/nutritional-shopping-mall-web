@@ -108,7 +108,7 @@
             	var form = document.getElementById('cartForm');
             	// 각 행의 정보를 hidden input에 설정합니다.
             	form.innerHTML += '<input type="hidden" name="imagePath[]" value="' + row.querySelector('img').src + '">';
-            	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('.pName').innerText + '">';
+            	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('#pName').innerText + '">';
             	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#sellingPrice').innerText + '">';
             	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
         	});
@@ -232,7 +232,7 @@
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
-										<p class="mb-0 mt-4">${data.pName}</p>
+										<p class="mb-0 mt-4" id="pName">${data.pName}</p>
 										<input type="hidden" name="pName[]" value="">
 									</td>
 									<!-- 이름 -->
