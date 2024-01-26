@@ -110,7 +110,7 @@ public class JoinAction implements Action {
 		MemberDAO mDAO = new MemberDAO();
 
 		mDTO.setSearchCondition("회원가입");
-		mDTO.setMid(MID);
+		mDTO.setMID(MID);
 		mDTO.setmName(mName);
 		mDTO.setmPassword(mPassword);
 		mDTO.setDob(sqlDate);

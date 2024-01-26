@@ -28,7 +28,7 @@ public class CartPageAction implements Action{
 		//세션에 로그인한 mid로 장바구니 DB목록 가져오기
 		String mid = (String)session.getAttribute("member");
 		
-		cDTO.setMid(mid);
+		cDTO.setMID(mid);
 		cDTO.setSearchCondition("장바구니목록출력");
 		ArrayList<CartDTO> cartList = cDAO.selectAll(cDTO);
 		System.out.println("[log] cartList : "+ cartList);

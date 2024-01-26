@@ -83,7 +83,7 @@ public class MainPageAction implements Action {
 			System.out.println("recommendProduct: 로그인");
 			mDTO.setSearchCondition("건강상태");
 //			System.out.println("recommendProduct: mid: " + mid);
-			mDTO.setMid(mid);
+			mDTO.setMID(mid);
 			mDTO = mDAO.selectOne(mDTO);
 			if (mDTO != null) {
 				health = mDTO.getHealth();

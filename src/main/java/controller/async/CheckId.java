@@ -28,7 +28,7 @@ public class CheckId extends HttpServlet {
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
 		mDTO.setSearchCondition("아이디중복검사");
-		mDTO.setMid(MID);
+		mDTO.setMID(MID);
 		mDTO=mDAO.selectOne(mDTO);
 		PrintWriter out = response.getWriter();
 		if(mDTO==null) {

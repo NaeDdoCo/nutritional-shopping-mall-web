@@ -89,16 +89,16 @@ public class InsertCart extends HttpServlet {
 		
 		// 장바구니에 담겨 있는지 확인
 		cDTO.setSearchCondition("상품확인");
-		cDTO.setMid(mid);
-		cDTO.setPid(intPid);
+		cDTO.setMID(mid);
+		cDTO.setPID(intPid);
 		cDTO = cDAO.selectOne(cDTO);
 		System.out.println("selectOne cDTO: " + cDTO);
 		
 		if (cDTO == null) { // 장바구니에 없음
 			cDTO = new CartDTO();
 			cDTO.setSearchCondition("장바구니추가");
-			cDTO.setMid(mid);
-			cDTO.setPid(intPid);
+			cDTO.setMID(mid);
+			cDTO.setPID(intPid);
 			cDTO.setcQty(intQty);
 //		System.out.println("cDAO.insert result: " + cDAO.insert(cDTO));
 			if (cDAO.insert(cDTO)) {
