@@ -2,34 +2,32 @@ package model.dto;
 
 public class CartDTO {
 	
-	private int cid;
-	private String mid;
-	private int pid;
+	private int CID;
+	private String MID;
+	private int PID;
 	private int cQty;
-	
 	private String pName;
 	private String searchCondition;
 	private int sellingPrice;
 	private String imagePath;
-	 
-	 
-	public int getCid() {
-		return cid;
+	
+	public int getCID() {
+		return CID;
 	}
-	public void setCid(int cid) {
-		this.cid = cid;
+	public void setCID(int cID) {
+		CID = cID;
 	}
-	public String getMid() {
-		return mid;
+	public String getMID() {
+		return MID;
 	}
-	public void setMid(String mid) {
-		this.mid = mid;
+	public void setMID(String mID) {
+		MID = mID;
 	}
-	public int getPid() {
-		return pid;
+	public int getPID() {
+		return PID;
 	}
-	public void setPid(int pid) {
-		this.pid = pid;
+	public void setPID(int pID) {
+		PID = pID;
 	}
 	public int getcQty() {
 		return cQty;
@@ -63,15 +61,11 @@ public class CartDTO {
 	}
 	@Override
 	public String toString() {
-		return "CartDTO [cid=" + cid + ", mid=" + mid + ", pid=" + pid + ", cQty=" + cQty + ", pName=" + pName
+		return "CartDTO [CID=" + CID + ", MID=" + MID + ", PID=" + PID + ", cQty=" + cQty + ", pName=" + pName
 				+ ", searchCondition=" + searchCondition + ", sellingPrice=" + sellingPrice + ", imagePath=" + imagePath
 				+ "]";
 	}
-	
-	
-	
-	
-	
+	 
 	
 
 }

@@ -47,7 +47,7 @@ public class CouponDAO {
 			+ "?, "
 			+ "?, "
 			+ "SYSTIMESTAMP, "
-			+ "? "
+			+ "?, "
 			+ "?)";
 
 	private static final String UPDATE = "UPDATE COUPON SET USED = '사용' WHERE CP_ID = ?";

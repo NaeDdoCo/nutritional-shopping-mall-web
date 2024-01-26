@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class MemberDTO {
 
-	private String mid;
+	private String MID;
 	private String mName;
 	private String mPassword;
 	private Date dob;
@@ -17,11 +17,13 @@ public class MemberDTO {
 	private String grade;
 	private String health;
 	private String searchCondition;
-	public String getMid() {
-		return mid;
+
+	
+	public String getMID() {
+		return MID;
 	}
-	public void setMid(String mid) {
-		this.mid = mid;
+	public void setMID(String mID) {
+		MID = mID;
 	}
 	public String getmName() {
 		return mName;
@@ -97,7 +99,7 @@ public class MemberDTO {
 	}
 	@Override
 	public String toString() {
-		return "MemberDTO [mid=" + mid + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
+		return "MemberDTO [mid=" + MID + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
 				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", mPostCode=" + mPostCode
 				+ ", mAddress=" + mAddress + ", mDetailedAddress=" + mDetailedAddress + ", grade=" + grade + ", health="
 				+ health + ", searchCondition=" + searchCondition + "]";

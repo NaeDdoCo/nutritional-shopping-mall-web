@@ -35,6 +35,9 @@ public class MemberDAO {
 
 	// 회원 건강상태
 	private static final String SELECTONE_HEALTH = "SELECT HEALTH FROM MEMBER WHERE M_ID=?";
+	
+	// 회원 주문정보
+	private static final String SELECTONE_BUYPAGE = "SELECT M_NAME, PHONE_NUMBER, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, EMAIL FROM MEMBER WHERE M_ID=?";
 
 	// 회원가입
 	private static final String INSERT = "INSERT INTO "
@@ -72,12 +75,12 @@ public class MemberDAO {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_ID_CHECK);
-				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(1, mDTO.getMID());
 
 				ResultSet rs = pstmt.executeQuery();
 
 				if (rs.next()) {
-					memberDTO.setMid(rs.getString("M_ID"));
+					memberDTO.setMID(rs.getString("M_ID"));
 				} else {
 					memberDTO = null;
 				}
@@ -102,13 +105,13 @@ public class MemberDAO {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_LOGIN);
-				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(1, mDTO.getMID());
 				pstmt.setString(2, mDTO.getmPassword());
 
 				ResultSet rs = pstmt.executeQuery();
 
 				if (rs.next()) {
-					memberDTO.setMid(rs.getString("M_ID"));
+					memberDTO.setMID(rs.getString("M_ID"));
 					memberDTO.setmName(rs.getString("M_NAME"));
 					memberDTO.setDob(rs.getDate("DOB"));
 					memberDTO.setGender(rs.getString("GENDER"));
@@ -137,7 +140,7 @@ public class MemberDAO {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_MYPAGE);
-				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(1, mDTO.getMID());
 				pstmt.setString(2, mDTO.getmPassword());
 
 				ResultSet rs = pstmt.executeQuery();
@@ -175,7 +178,7 @@ public class MemberDAO {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_HEALTH);
-				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(1, mDTO.getMID());
 
 				ResultSet rs = pstmt.executeQuery();
 
@@ -199,6 +202,42 @@ public class MemberDAO {
 				System.out.println("[로그_건강상태] 성공");
 				return memberDTO;
 			}
+		} else if(mDTO.getSearchCondition().equals("주문정보")) {
+			
+			memberDTO = new MemberDTO();
+			
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_BUYPAGE);
+				pstmt.setString(1, mDTO.getMID());
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					memberDTO.setmName(rs.getString("M_NAME"));
+					memberDTO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+					memberDTO.setmPostCode(rs.getInt("M_POSTCODE"));
+					memberDTO.setmAddress(rs.getString("M_ADDRESS"));
+					memberDTO.setmDetailedAddress(rs.getString("M_DETAILED_ADDRESS"));
+					memberDTO.setEmail(rs.getString("EMAIL"));
+				} else {
+					memberDTO = null;
+				}
+				
+				rs.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("[로그_주문정보] 반환 NULL_예외처리");
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			
+			if(memberDTO != null) {
+				System.out.println("[로그_주문정보] 성공");
+				return memberDTO;
+			}
+			
 		}
 		System.out.println("[로그_SelectOne] 반환 NULL");
 		return null;
@@ -212,7 +251,7 @@ public class MemberDAO {
 			
 			try {
 				pstmt = conn.prepareStatement(INSERT);
-				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(1, mDTO.getMID());
 				pstmt.setString(2, mDTO.getmName());
 				pstmt.setString(3, mDTO.getmPassword());
 				pstmt.setDate(4, mDTO.getDob());
@@ -257,7 +296,7 @@ public class MemberDAO {
 				pstmt.setInt(6, mDTO.getmPostCode());
 				pstmt.setString(7, mDTO.getmAddress());
 				pstmt.setString(8, mDTO.getmDetailedAddress());
-				pstmt.setString(9, mDTO.getMid());
+				pstmt.setString(9, mDTO.getMID());
 
 				int result = pstmt.executeUpdate();
 				System.out.println("[로그_회원정보변경] execute완료");
@@ -283,7 +322,7 @@ public class MemberDAO {
 				// 이름, 생년월일, 성별, 전화번호, 이메일, 주소
 				pstmt = conn.prepareStatement(UPDATE_PW);
 				pstmt.setString(1, mDTO.getmPassword());
-				pstmt.setString(2, mDTO.getMid());
+				pstmt.setString(2, mDTO.getMID());
 
 				int result = pstmt.executeUpdate();
 
@@ -315,7 +354,7 @@ public class MemberDAO {
 
 			try {
 				pstmt = conn.prepareStatement(DELETE);
-				pstmt.setString(1, mDTO.getMid());
+				pstmt.setString(1, mDTO.getMID());
 
 				int result = pstmt.executeUpdate();
 

@@ -68,14 +68,14 @@ public class CartDAO {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTALL);
-				pstmt.setString(1, cDTO.getMid());
+				pstmt.setString(1, cDTO.getMID());
 				ResultSet rs = pstmt.executeQuery();
 
 				while (rs.next()) {
 					CartDTO rsCartDTO = new CartDTO();
-					rsCartDTO.setCid(rs.getInt("C_ID"));
-					rsCartDTO.setMid(rs.getString("M_ID"));
-					rsCartDTO.setPid(rs.getInt("P_ID"));
+					rsCartDTO.setCID(rs.getInt("C_ID"));
+					rsCartDTO.setMID(rs.getString("M_ID"));
+					rsCartDTO.setPID(rs.getInt("P_ID"));
 					rsCartDTO.setcQty(rs.getInt("C_QTY"));
 					rsCartDTO.setpName(rs.getString("P_NAME"));
 					rsCartDTO.setSellingPrice(rs.getInt("SELLING_PRICE"));
@@ -107,24 +107,24 @@ public class CartDAO {
 		conn = JDBCUtil.connect();
 
 		if (cDTO.getSearchCondition().equals("상품확인")) {
-			System.out.println("[로그]_상품확인 ID : "+cDTO.getMid());
-			System.out.println("[로그]_상품확인 P_ID : "+cDTO.getPid());
+			System.out.println("[로그]_상품확인 ID : "+cDTO.getMID());
+			System.out.println("[로그]_상품확인 P_ID : "+cDTO.getPID());
 
 			try {
 				pstmt = conn.prepareStatement(SELECTONE);
-				pstmt.setString(1, cDTO.getMid());
-				pstmt.setInt(2, cDTO.getPid());
+				pstmt.setString(1, cDTO.getMID());
+				pstmt.setInt(2, cDTO.getPID());
 
 				ResultSet rs = pstmt.executeQuery();
 
 				if (rs.next()) {
 					cartDTO = new CartDTO();
-					cartDTO.setMid(rs.getString("M_ID"));
-					cartDTO.setPid(rs.getInt("P_ID"));
-					cartDTO.setCid(rs.getInt("C_ID"));
-					System.out.println("[로그]_상품확인 ID : "+cartDTO.getMid());
-					System.out.println("[로그]_상품확인 P_ID : "+cartDTO.getPid());
-					System.out.println("[로그]_상품확인 C_ID : "+cartDTO.getCid());
+					cartDTO.setMID(rs.getString("M_ID"));
+					cartDTO.setPID(rs.getInt("P_ID"));
+					cartDTO.setCID(rs.getInt("C_ID"));
+					System.out.println("[로그]_상품확인 ID : "+cartDTO.getMID());
+					System.out.println("[로그]_상품확인 P_ID : "+cartDTO.getPID());
+					System.out.println("[로그]_상품확인 C_ID : "+cartDTO.getCID());
 				} else {
 					System.out.println("[로그]_상품확인 else로 null저장");
 					cartDTO = null;
@@ -154,8 +154,8 @@ public class CartDAO {
 		if (cDTO.getSearchCondition().equals("장바구니추가")) {
 			try {
 				pstmt = conn.prepareStatement(INSERT_CART);
-				pstmt.setString(1, cDTO.getMid());
-				pstmt.setInt(2, cDTO.getPid());
+				pstmt.setString(1, cDTO.getMID());
+				pstmt.setInt(2, cDTO.getPID());
 				pstmt.setInt(3, cDTO.getcQty());
 
 				int rs = pstmt.executeUpdate();
@@ -184,7 +184,7 @@ public class CartDAO {
 			try {
 				pstmt = conn.prepareStatement(UPDATE_QTY_ADD);
 				pstmt.setInt(1, cDTO.getcQty());
-				pstmt.setInt(2, cDTO.getCid());
+				pstmt.setInt(2, cDTO.getCID());
 
 				int result = pstmt.executeUpdate();
 
@@ -271,7 +271,7 @@ public class CartDAO {
 
 			try {
 				pstmt = conn.prepareStatement(DELETE_CID);
-				pstmt.setInt(1, cDTO.getCid());
+				pstmt.setInt(1, cDTO.getCID());
 
 				int result = pstmt.executeUpdate();
 
@@ -290,7 +290,7 @@ public class CartDAO {
 
 			try {
 				pstmt = conn.prepareStatement(DELETE_CART);
-				pstmt.setString(1, cDTO.getMid());
+				pstmt.setString(1, cDTO.getMID());
 
 				int result = pstmt.executeUpdate();
 				System.out.println("[로그_장바구니비우기] " + result + "개 삭제");
