@@ -78,7 +78,7 @@ public class CouponDAO {
 					couponDTO.setCpName(rs.getString("CP_NAME"));
 					couponDTO.setPeriod(rs.getTimestamp("PERIOD"));
 					couponDTO.setDiscount(rs.getInt("DISCOUNT"));
-					couponDTO.setCategory("CATEGORY");
+					couponDTO.setCategory(rs.getString("CATEGORY"));
 					couponDTO.setUsed(rs.getString("USED"));
 					couponList.add(couponDTO);
 				}
