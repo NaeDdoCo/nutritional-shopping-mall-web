@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="model.dto.*,java.util.ArrayList"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,6 +88,13 @@
 		}
 	</script>
 	<!-- 장바구니 추가 비동기처리 -->
+	
+	
+	<script>
+    	function updatePriceRange(value) {
+       	 document.getElementById('amount').value = value;
+    	}
+	</script>
 
 
 	<!-- Spinner Start -->
@@ -207,7 +215,7 @@
 									<div class="d-flex justify-content-between flex-lg-wrap">
 										<div class="row">
 											<div class="col">
-												<p class="text-dark fs-5 fw-bold mb-0 my-2">${data.sellingPrice}원</p>
+												<p class="text-dark fs-5 fw-bold mb-0 my-2"><fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />원</p>
 											</div>
 										</div>
 										<c:if test="${member != null}">
@@ -262,7 +270,7 @@
 																	<p>${data.pDetail}</p>
 																</div>
 																<div class="d-flex justify-content-between flex-lg-wrap">
-																	<p class="text-dark fs-5 fw-bold mb-0" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.sellingPrice}원</p>
+																	<p class="text-dark fs-5 fw-bold mb-0" onclick='location.href="productDetailPage.do?PID=${data.PID}";'><fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />원</p>
 																	<c:if test="${member != null}">
 																		<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
 																	</c:if>
