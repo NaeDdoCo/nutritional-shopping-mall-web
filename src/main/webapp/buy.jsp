@@ -119,12 +119,13 @@
 			
 			var products = [];
 			// 각 상품 행을 순회하면서 상품 정보 수집
-			$(".productTable tbody tr").each(function() {
+			$(".productTable tbody tr").each(function(index) {
 				// 상품 이름과 가격을 각각 변수에 저장
 				var productPrice = $(this).find("td:eq(2)").text();
 				var productCategory = $(this).find("#category").val();
 				// 수집된 상품 정보를 객체로 생성하여 배열에 추가
 				var product = {
+					index: index,
 			 		price: productPrice,
 			 		category : productCategory
 				};	
@@ -133,15 +134,22 @@
 			
 			// 할인 적용 여부를 나타내는 변수
 	        var discountApplied = false;
+			var index = 0;
 	        // 각 상품에 대해 할인 적용 가능한지 확인하고 적용
 	        products.forEach(function(product) {
 	            selectedCoupons.forEach(function(coupon) {
-	                if (product.category === coupon.category) {
+	            	console.log("product.category : " + product.category);
+	            	console.log("coupon.category : " + coupon.category.trim());
+	            	console.log("index : " + index);
+	                if (product.category === coupon.category.trim()) {
 	                    // 해당 상품의 카테고리와 일치하는 쿠폰이 있으면 할인 적용
 	                    product.price -= (product.price * parseFloat(coupon.discount)) / 100;
+	                    console.log(product.category + ' : ' + product.price);
+	                   	$("#productPrice_" + index).text(product.price);
 	                    discountApplied = true;
 	                }
 	            });
+	            index = index + 1;
 	        });
 	        
 	        // 총 할인 금액과 할인 적용 여부에 따라 적절한 메시지 표시
@@ -151,9 +159,9 @@
 	            console.log("할인이 적용되지 않았습니다.");
 	        }
 	        // 총 결제 금액 계산
-	        var totalPriceAfterDiscount = totalProductPrice - totalDiscount;
+/* 	        var totalPriceAfterDiscount = totalProductPrice - totalDiscount;
 	        console.log("총 결제 금액: " + totalPriceAfterDiscount.toFixed(2) + "원");
-		}		
+ */		}		
 	</script>
 	<!-- 할인 금액 계산 -->
 
@@ -346,8 +354,8 @@
 								</thead>
 								<tbody>
 									<c:set var="total" value="0" />
-									<c:forEach var="product" items="${selectedProductsList}">
-										<tr>
+									<c:forEach var="product" items="${selectedProductsList}" varStatus="status">
+										<tr id="row_${status.index}">
 											<th scope="row">
 												<div class="d-flex align-items-center mt-2">
 													<img src="${product.imagePath}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
@@ -356,7 +364,7 @@
 											<td class="py-5">${product.pName}</td>
 											<td class="py-5">${product.pQty}</td>
 											<td class="py-5">${product.sellingPrice*product.pQty}</td>
-											<td class="py-5">0</td>
+											<td class="py-5" id="productPrice_${status.index}">${product.sellingPrice*product.pQty}</td>
 											<td><input type="hidden" id="category" value="${product.category}"></td>
 											<td><input type="hidden" value="${product.PID}"></td>
 											<c:set var="total" value="${total +(product.sellingPrice*product.pQty)}" />
