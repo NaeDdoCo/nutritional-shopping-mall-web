@@ -55,6 +55,7 @@ public class BuyPageAction implements Action{
 
 		//장바구니 상품은 체크박스로 선택된 상품만 배열로 각각 정보가 넘어옴
 		String[] PIDs = request.getParameterValues("PID[]");
+		String[] CIDs = request.getParameterValues("CID[]");
 		String[] imagePaths = request.getParameterValues("imagePath[]");
 		String[] pNames = request.getParameterValues("pName[]");
 		String[] sellingPrices = request.getParameterValues("sellingPrice[]");
@@ -83,13 +84,15 @@ public class BuyPageAction implements Action{
 			String pName = pNames[i];
 			int sellingPrice = Integer.parseInt(sellingPrices[i]);
 			int cQty = Integer.parseInt(cQtys[i]);
+			int CID = Integer.parseInt(CIDs[i]);
 
 			//PID로 CATEGORY 가져오기
 			productDTO.setSearchCondition("카테고리");
 			productDTO.setPID(PID);
 			productDTO = productDAO.selectOne(productDTO);
 			System.out.println("[log] productDTO category : " + productDTO);
-			//V에서 받아온 imagePath/pName/cQty/sellingPrice + category selectedProductsList에 넣기
+			//V에서 받아온 CID/imagePath/pName/cQty/sellingPrice + category selectedProductsList에 넣기
+			productDTO.setAncCID(CID);
 			productDTO.setImagePath(imagePath);
 			productDTO.setpName(pName);
 			productDTO.setpQty(cQty);
