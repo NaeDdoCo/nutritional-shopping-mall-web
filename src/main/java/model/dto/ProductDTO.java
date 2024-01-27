@@ -23,14 +23,8 @@ public class ProductDTO {
     private int ancSelectMin;
     private int ancSelectMax;
     // 조인에 사용하는 멤버변수
-//    private int ancRID;
-//    private String ancMID;
-//    private int ancBID;
-//    private int ancScore;
-//    private String ancContents;
-//    private Timestamp ancCreateTime;
     private int ancTotalQty;
-    
+    private int ancCID;
 	public int getPID() {
 		return PID;
 	}
@@ -139,6 +133,12 @@ public class ProductDTO {
 	public void setAncTotalQty(int ancTotalQty) {
 		this.ancTotalQty = ancTotalQty;
 	}
+	public int getAncCID() {
+		return ancCID;
+	}
+	public void setAncCID(int ancCID) {
+		this.ancCID = ancCID;
+	}
 	@Override
 	public String toString() {
 		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", pDetail=" + pDetail + ", costPrice=" + costPrice
@@ -146,7 +146,9 @@ public class ProductDTO {
 				+ ", ingredient=" + ingredient + ", usage=" + usage + ", exp=" + exp + ", category=" + category
 				+ ", regTime=" + regTime + ", sellingState=" + sellingState + ", searchCondition=" + searchCondition
 				+ ", imagePath=" + imagePath + ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax
-				+ ", ancTotalQty=" + ancTotalQty + "]";
+				+ ", ancTotalQty=" + ancTotalQty + ", ancCID=" + ancCID + "]";
 	}
+    
+
 
 }
