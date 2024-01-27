@@ -8,7 +8,6 @@ import controller.action.BuyInfoPageAction;
 import controller.action.BuyPageAction;
 import controller.action.CartDeleteAction;
 import controller.action.CartPageAction;
-import controller.action.CouponSetPageAction;
 import controller.action.DeleteReviewAction;
 import controller.action.ErrorAction;
 import controller.action.JoinAction;
@@ -46,7 +45,6 @@ public class HandlerMapper {
 		this.mappings.put("/cartPage.do", new CartPageAction());// 장바구니
 		this.mappings.put("/cartDelete.do", new CartDeleteAction());// 장바구니 상품 삭제
 		this.mappings.put("/buyPage.do", new BuyPageAction());// 구매페이지
-		this.mappings.put("/couponSetPage.do", new CouponSetPageAction());// 구매페이지에서 쿠폰 적용시
 		this.mappings.put("/buyCompPage.do", new BuyCompPageAction());// 결제완료페이지
 		this.mappings.put("/buyInfoPage.do", new BuyInfoPageAction());// 마이페이지-구매내역
 		this.mappings.put("/writeReviewPage.do.do", new WriteReviewPageAction());// 리뷰작성페이지
