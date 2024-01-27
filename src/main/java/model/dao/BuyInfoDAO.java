@@ -137,7 +137,7 @@ public class BuyInfoDAO {
 				ResultSet rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
-					buyInfoDTO.setMaxOrderNum(rs.getInt("MAX_ORDER_NUM"));
+					buyInfoDTO.setOrderNum(rs.getInt("MAX_ORDER_NUM"));
 				} 
 				
 				rs.close();
@@ -150,7 +150,7 @@ public class BuyInfoDAO {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
 			
-			if(buyInfoDTO.getMaxOrderNum() > 0) {
+			if(buyInfoDTO.getOrderNum() > 0) {
 				System.out.println("[로그_주문번호] 성공");
 				return buyInfoDTO;
 			}

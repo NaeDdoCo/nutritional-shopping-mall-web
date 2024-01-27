@@ -16,7 +16,7 @@ public class BuyInfoDTO {
 	private String bAddress;
 	private String bDetailedAddress;
     private String searchCondition;
-    private int maxOrderNum;
+
 	public int getBID() {
 		return BID;
 	}
@@ -95,18 +95,14 @@ public class BuyInfoDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
-	public int getMaxOrderNum() {
-		return maxOrderNum;
-	}
-	public void setMaxOrderNum(int maxOrderNum) {
-		this.maxOrderNum = maxOrderNum;
-	}
 	@Override
 	public String toString() {
 		return "BuyInfoDTO [BID=" + BID + ", MID=" + MID + ", PID=" + PID + ", CPID=" + CPID + ", orderNum=" + orderNum
 				+ ", deliState=" + deliState + ", bQty=" + bQty + ", paymentPrice=" + paymentPrice + ", buyTime="
 				+ buyTime + ", bPostCode=" + bPostCode + ", bAddress=" + bAddress + ", bDetailedAddress="
-				+ bDetailedAddress + ", searchCondition=" + searchCondition + ", maxOrderNum=" + maxOrderNum + "]";
+				+ bDetailedAddress + ", searchCondition=" + searchCondition + "]";
 	}
+
+
 
 }
