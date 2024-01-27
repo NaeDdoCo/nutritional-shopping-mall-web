@@ -35,17 +35,22 @@
 <body>
 
 	<c:choose>
-		<c:when test="${empty sessionScope.member}"> <!-- 비로그인 접근 방지 -->
-			<c:redirect url="mainPage.do" /> <!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
+		<c:when test="${empty sessionScope.member}">
+			<!-- 비로그인 접근 방지 -->
+			<c:redirect url="mainPage.do" />
+			<!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
 		</c:when>
 	</c:choose>
 	<!-- 비로그인 접근 방지 -->
 
 
 	<!-- 페이지 진입 시 총금액 계산 -->
-	<c:set var="total" value="0" /> <!-- 총금액을 저장하기 위한 jstl변수 -->
-	<c:forEach var="data" items="${cartList}" varStatus="status"> <!-- 장바구니 데이터 반복 -->
-		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" /> <!-- 가격*금액을 총금액에 가산 -->
+	<c:set var="total" value="0" />
+	<!-- 총금액을 저장하기 위한 jstl변수 -->
+	<c:forEach var="data" items="${cartList}" varStatus="status">
+		<!-- 장바구니 데이터 반복 -->
+		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" />
+		<!-- 가격*금액을 총금액에 가산 -->
 	</c:forEach>
 	<script>
 		var total = ${total} <!-- 총금액을 자바스크립트 전역 변수에 저장 -->
@@ -55,25 +60,24 @@
 
 	<!-- 상품 금액 계산 -->
 	<script>
-		function calculPlusPrice(sellingPrice, index) {
-        	var cQTY = parseInt($("#cQTY_" + index).val()) + 1;
-        	var productPrice = sellingPrice * cQTY;
-        	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
+		function calculPlusPrice(sellingPrice, index) { // 수량 + 버튼을 눌렸을 때 가격을 가산 하는기능
+        	var cQTY = parseInt($("#cQTY_" + index).val()) + 1; // 버튼을 눌렀을 시점에는 아직 수량 가산이 안됬기 때문에 +1
+        	var productPrice = sellingPrice * cQTY; // 가격 * 수량
+        	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원"); // 가격 * 수량 금액을 원화 단위를 적용하여 표시
         
-        	cQTY = cQTY - 1;
+        	cQTY = cQTY - 1; 
         	productPrice = sellingPrice;
         	total = total + productPrice;
         	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원";
     	}
-
     	function calculMinusPrice(sellingPrice, index) {
-        	var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
-        	var productPrice = sellingPrice * cQTY;
-        	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
-        
-        	productPrice = sellingPrice;
-        	total = total - productPrice;
-        	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원"; 
+    		var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
+           	var productPrice = sellingPrice * cQTY;
+           	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
+            
+           	productPrice = sellingPrice;
+           	total = total - productPrice;
+           	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원"; 
     	}
 	</script>
 	<!-- 상품 금액 계산 -->
@@ -105,6 +109,7 @@
             	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('#pName').innerText + '">';
             	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#hiddenSellingPrice').value + '">';
             	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
+            	form.innerHTML += '<input type="hidden" name="PID[]" value="' + row.querySelector('#hiddenPID').value + '">';
         	});
         	// 폼을 서버로 제출합니다.
         	document.getElementById('cartForm').submit();
@@ -230,9 +235,9 @@
 									<!-- 가격 -->
 									<td>
 										<p class="mb-0 mt-4" id="sellingPrice">
-											<fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW"/>원
-										</p> 
-										<input type="hidden" id="hiddenSellingPrice" value="${data.sellingPrice}" />
+											<fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />
+											원
+										</p> <input type="hidden" id="hiddenSellingPrice" value="${data.sellingPrice}" />
 									</td>
 									<!-- 가격 -->
 									<!-- 수량 -->
@@ -267,7 +272,9 @@
 										</button>
 									</td>
 									<!-- 취소 버튼 -->
-									<td><input type="hidden" id="hiddenPID" value="${data.PID}" /></td>
+									<td>
+										<input type="hidden" id="hiddenPID" value="${data.PID}" />
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -283,7 +290,10 @@
 							<h1 class="display-6 mb-4">총금액</h1>
 							<div class="d-flex justify-content-between mb-4">
 								<h5 class="mb-0 me-4">합계:</h5>
-								<p class="mb-0" id="totalPrice"><fmt:formatNumber value="${total}" currencyCode="KRW"/>원</p>
+								<p class="mb-0" id="totalPrice">
+									<fmt:formatNumber value="${total}" currencyCode="KRW" />
+									원
+								</p>
 							</div>
 							<div class="d-flex justify-content-between"></div>
 						</div>
