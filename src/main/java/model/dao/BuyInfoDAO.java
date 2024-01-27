@@ -14,28 +14,23 @@ public class BuyInfoDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 
-	// 조인, 서브쿼리를 사용할 수 있는 기능을 생각해보자
-
-	/*
-	 * 기능 1) 구매내역 불러오기 로그인한 ID와 일치하는 구매내역 불러오기 정렬을 구매일 순 2) 구매내역 상세보기 해당 제품과
-	 * 주문번호(orderNum)가 같은 제품을 출력 3) 구매내역 추가 4) 구매상태 변경(취소, 환불) 5) X
-	 */
-
-	// 내 구매내역
+	// 내 구매내역(해당 회원의 구매내역을 불러온다)
+	// 선택할 컬럼 B_ID, M_ID, P_ID, CP_ID, 주문번호, 배송상태, 구매수량, 지불금액, 구매시간, 주소
+	// 테이블 BUYINFO
+	// 조건 M_ID가 전달받은 값과 같은 행
 	private static final String SELECTALL_LIST = "SELECT B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS "
 			+ "FROM BUYINFO " + "WHERE M_ID = ?";
-
-	// 판매량 반환
-	private static final String SELECTONE_QTY = "SELECT P_ID, SUM(B_QTY) AS TOTAL_QTY " + "FROM BUYINFO "
-			+ "WHERE P_ID = ? " + "GROUP BY P_ID";
 	
-	// 주문번호 최대값 찾기
-	private static final String SELECTONE_ORDER_NUM = "SELECT NVL(MAX(ORDER_NUM), 1) AS MAX_ORDER_NUM FROM BUYINFO";
+	// 주문번호의 최대값 +1
+	private static final String SELECTALL_MAX_ORDER_NUM = "SELECT NVL(MAX(ORDER_NUM),0)+1 AS MAX_ORDER_NUM FROM BUYINFO";
+
+	// 판매량 반환(P_ID로 그룹화 하여 ) // 진행중
+	private static final String SELECTONE_QTY = "SELECT SUM(B_Qty) AS TOTAL_QTY FROM BUYINFO WHERE P_ID = ?";
 
 	// 구매내역 추가
 	private static final String INSERT = "INSERT INTO BUYINFO "
 			+ "(B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS) "
-			+ "VALUES (NVL((SELECT MAX(B_ID) FROM BUYINFO), 0) + 1, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, "
+			+ "VALUES (NVL((SELECT MAX(B_ID) FROM BUYINFO), 0) + 1, " + "?, " + "?, " + "?, " + "?, " + "'결재완료', " + "?, "
 			+ "?, " + "SYSTIMESTAMP, " + "?, " + "?, " + "?)";
 
 	// 구매상태변경(환불, 취소)
@@ -137,7 +132,7 @@ public class BuyInfoDAO {
 			buyInfoDTO = new BuyInfoDTO();
 			
 			try {
-				pstmt = conn.prepareStatement(SELECTONE_ORDER_NUM);
+				pstmt = conn.prepareStatement(SELECTALL_MAX_ORDER_NUM);
 				
 				ResultSet rs = pstmt.executeQuery();
 				
@@ -175,16 +170,15 @@ public class BuyInfoDAO {
 				System.out.println("[로그_구매내역추가] INSERT SQL구문 준비");
 				pstmt = conn.prepareStatement(INSERT);
 				System.out.println("[로그_구매내역추가] SQL구문 바인딩변수 값 지정");
-				pstmt.setString(1, "teemo"); // mid
-				pstmt.setInt(2, 1); // pid
-				pstmt.setString(3, "CP001"); // cpid
-				pstmt.setInt(4, 12345); // ordernum
-				pstmt.setString(5, "결재 완료"); // DELI_STATE
-				pstmt.setInt(6, 3); // QTY
-				pstmt.setInt(7, 50000); // price
-				pstmt.setInt(8, 12345);
-				pstmt.setString(9, "서울시 강남구");
-				pstmt.setString(10, "123번지 456호");
+				pstmt.setString(1, bDTO.getMID()); // mid
+				pstmt.setInt(2, bDTO.getPID()); // pid
+				pstmt.setString(3, bDTO.getCPID()); // cpid
+				pstmt.setInt(4, bDTO.getOrderNum()); // ordernum
+				pstmt.setInt(5, bDTO.getbQty()); // QTY
+				pstmt.setInt(6, bDTO.getPaymentPrice()); // price
+				pstmt.setInt(7, bDTO.getbPostCode());
+				pstmt.setString(8, bDTO.getbAddress());
+				pstmt.setString(9, bDTO.getbDetailedAddress());
 
 				int rs = pstmt.executeUpdate();
 

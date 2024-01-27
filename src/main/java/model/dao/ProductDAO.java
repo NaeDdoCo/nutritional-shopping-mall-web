@@ -44,6 +44,9 @@ public class ProductDAO {
 
 	// 최대가 반환
 	private static final String SELECTONE_MAX_PRICE = "SELECT MAX(SELLING_PRICE) AS PRICE FROM PRODUCT WHERE SELLING_STATE = '판매중'";
+	
+	// 카테고리 반환
+	private static final String SELECTONE_CATEGORY = "SELECT CATEGORY FROM PRODUCT WHERE P_ID = ?";
 
 	// 성공한 Insert
 	private static final String INSERT = "INSERT INTO PRODUCT "
@@ -239,6 +242,35 @@ public class ProductDAO {
 			}
 			if (pDTO != null) {
 				System.out.println("[로그_맥스값] 성공 " + pDTO.getSellingPrice());
+				return productDTO;
+			}
+
+		} else if (pDTO.getSearchCondition().equals("카테고리")) {
+
+			productDTO = new ProductDTO();
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_CATEGORY);
+				pstmt.setInt(1, pDTO.getPID());
+				
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					productDTO.setCategory(rs.getString("CATEGORY"));
+				} else {
+					productDTO = null;
+				}
+
+				rs.close();
+
+			} catch (SQLException e) {
+				System.out.println("[로그_카테고리] 오류발생");
+				e.printStackTrace();
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			if (pDTO != null) {
+				System.out.println("[로그_카테고리] 성공 " + productDTO.getCategory());
 				return productDTO;
 			}
 
