@@ -86,51 +86,74 @@
 
 	<!-- 할인 금액 계산 -->
 	<script>
-		$(document).ready(
+		function applyCoupon() {
+				
+			$('#couponModal').modal('hide');
+			
+			var selectedCoupons = [];
+			// 체크된 쿠폰들의 정보 수집
+			$("input[type=checkbox]:checked").each(
 				function() {
-					$("#applyCouponButton").click(
-							function() {
-								var selectedCoupons = [];
-								// 체크된 쿠폰들의 정보 수집
-								$("input[type=checkbox]:checked").each(
-										function() {
-											var couponName = $(this).closest(
-													"tr").find("td:eq(1)")
-													.text();
-											var discount = $(this)
-													.closest("tr").find(
-															"td:eq(2)").text();
-											var period = $(this).closest("tr")
-													.find("td:eq(3)").text();
-											var category = $(this)
-													.closest("tr").find(
-															"td:eq(4)").text();
-											selectedCoupons.push({
-												couponName : couponName,
-												discount : discount,
-												period : period,
-												category : category
-											});
-										});
-								// JSON 형식으로 변환
-								var jsonData = JSON.stringify(selectedCoupons);
-								console.log(jsonData);
-								// Ajax를 사용하여 서버로 전송
-								$.ajax({
-									url : "ApplyCoupon", // 서버 측 URL
-									type : "POST",
-									data : {coupons : jsonData},
-									success : function(response) {
-										// 서버 응답에 따른 처리
-										console.log(response);
-									},
-									error : function(xhr, status, error) {
-										// 오류 처리
-										console.error(error);
-									}
-								});
-							});
+					var couponName = $(this).closest("tr").find("td:eq(1)").text();
+					var discount = $(this).closest("tr").find("td:eq(2)").text();
+					var period = $(this).closest("tr").find("td:eq(3)").text();
+					var category = $(this).closest("tr").find("td:eq(4)").text();
+					var CPID = $(this).closest("tr").find("td:eq(5)").text();
+					selectedCoupons.push({
+						couponName : couponName, 
+						discount : discount, 
+						period : period,
+						category : category
+					});
 				});
+			
+			var usedCouponList = $("#usedCoponList");
+			usedCouponList.empty();    
+			selectedCoupons.forEach(function(coupon) {
+			    var couponHTML = 
+			    "<td>" + coupon.couponName + "</td>" +
+			  	"<td>" + coupon.discount + "</td>" +
+			   	"<td>" + coupon.category + "</td>";
+			   	usedCouponList.append("<tr>" + couponHTML + "</tr>");
+			});
+			
+			var products = [];
+			// 각 상품 행을 순회하면서 상품 정보 수집
+			$(".productTable tbody tr").each(function() {
+				// 상품 이름과 가격을 각각 변수에 저장
+				var productPrice = $(this).find("td:eq(2)").text();
+				var productCategory = $(this).find("#category").val();
+				// 수집된 상품 정보를 객체로 생성하여 배열에 추가
+				var product = {
+			 		price: productPrice,
+			 		category : productCategory
+				};	
+				products.push(product);
+			});
+			
+			// 할인 적용 여부를 나타내는 변수
+	        var discountApplied = false;
+	        // 각 상품에 대해 할인 적용 가능한지 확인하고 적용
+	        products.forEach(function(product) {
+	            selectedCoupons.forEach(function(coupon) {
+	                if (product.category === coupon.category) {
+	                    // 해당 상품의 카테고리와 일치하는 쿠폰이 있으면 할인 적용
+	                    product.price -= (product.price * parseFloat(coupon.discount)) / 100;
+	                    discountApplied = true;
+	                }
+	            });
+	        });
+	        
+	        // 총 할인 금액과 할인 적용 여부에 따라 적절한 메시지 표시
+	        if (discountApplied) {
+	            console.log("할인이 적용되었습니다. 총 할인 금액: " + totalDiscount.toFixed(2) + "원");
+	        } else {
+	            console.log("할인이 적용되지 않았습니다.");
+	        }
+	        // 총 결제 금액 계산
+	        var totalPriceAfterDiscount = totalProductPrice - totalDiscount;
+	        console.log("총 결제 금액: " + totalPriceAfterDiscount.toFixed(2) + "원");
+		}		
 	</script>
 	<!-- 할인 금액 계산 -->
 
@@ -235,7 +258,7 @@
 											<p class="mb-0 mt-4">${coupon.cpName}</p>
 										</td>
 										<td>
-											<p class="mb-0 mt-4">${coupon.discount}</p>
+											<p class="mb-0 mt-4">${coupon.discount}%</p>
 										</td>
 										<td>
 											<p class="mb-0 mt-4">${coupon.period}</p>
@@ -243,12 +266,13 @@
 										<td>
 											<p class="mb-0 mt-4">${coupon.category}</p>
 										</td>
+										<td><input type="hidden" id="hiddenCPID" value="${coupon.CPID}"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 						<div class="mx-auto d-flex">
-							<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" id="applyCouponButton">적용하기</button>
+							<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="applyCoupon()">적용하기</button>
 						</div>
 					</div>
 				</div>
@@ -310,14 +334,14 @@
 					</div>
 					<div class="col-md-12 col-lg-6 col-xl-5">
 						<div class="table-responsive">
-							<table class="table">
+							<table class="productTable">
 								<thead>
 									<tr>
 										<th scope="col">상품</th>
 										<th scope="col">이름</th>
 										<th scope="col">수량</th>
-										<th scope="col">가격</th>
-										<th scope="col">할인 가격</th>
+										<th scope="col">판매 금액</th>
+										<th scope="col">결제 금액</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -331,8 +355,10 @@
 											</th>
 											<td class="py-5">${product.pName}</td>
 											<td class="py-5">${product.pQty}</td>
-											<td class="py-5">${product.sellingPrice}</td>
 											<td class="py-5">${product.sellingPrice*product.pQty}</td>
+											<td class="py-5">0</td>
+											<td><input type="hidden" id="category" value="${product.category}"></td>
+											<td><input type="hidden" value="${product.PID}"></td>
 											<c:set var="total" value="${total +(product.sellingPrice*product.pQty)}" />
 										</tr>
 									</c:forEach>
@@ -345,7 +371,7 @@
 										<td class="py-5"></td>
 										<td class="py-5">
 											<div class="py-3 border-bottom border-top">
-												<p class="mb-0 text-dark">${total}원</p>
+												<p class="mb-0 text-dark" id="total">${total}원</p>
 											</div>
 										</td>
 									</tr>
@@ -357,17 +383,11 @@
 								<thead>
 									<tr>
 										<th scope="col">쿠폰명</th>
-										<th scope="col">할인금액</th>
+										<th scope="col">할인율</th>
 										<th scope="col">카테고리</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td class="py-5">생일 쿠폰</td>
-										<td class="py-5">30%</td>
-										<td class="py-5">눈</td>
-
-									</tr>
+								<tbody id="usedCoponList">
 								</tbody>
 							</table>
 						</div>
