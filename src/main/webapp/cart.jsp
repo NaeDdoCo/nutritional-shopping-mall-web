@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,53 +34,46 @@
 
 <body>
 
-
-	<!-- 비로그인 접근 방지 -->
 	<c:choose>
-		<c:when test="${empty sessionScope.member}">
-			<!-- 세션의 member가 없으면 -->
-			<c:redirect url="mainPage.do" />
-			<!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
+		<c:when test="${empty sessionScope.member}"> <!-- 비로그인 접근 방지 -->
+			<c:redirect url="mainPage.do" /> <!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
 		</c:when>
 	</c:choose>
 	<!-- 비로그인 접근 방지 -->
 
 
 	<!-- 페이지 진입 시 총금액 계산 -->
-	<c:set var="total" value="0" />
-	<!-- 총금액을 저장하기 위한 jstl변수 -->
-	<c:forEach var="data" items="${cartList}" varStatus="status">
-		<!-- 장바구니 데이터 반복 -->
-		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" />
-		<!-- 가격*금액을 총금액에 가산 -->
+	<c:set var="total" value="0" /> <!-- 총금액을 저장하기 위한 jstl변수 -->
+	<c:forEach var="data" items="${cartList}" varStatus="status"> <!-- 장바구니 데이터 반복 -->
+		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" /> <!-- 가격*금액을 총금액에 가산 -->
 	</c:forEach>
 	<script>
-		var total = ${total}<!-- 총금액을 자바스크립트 전역 변수에 저장 -->
+		var total = ${total} <!-- 총금액을 자바스크립트 전역 변수에 저장 -->
 	</script>
 	<!-- 페이지 진입 시 총금액 계산 -->
 
 
 	<!-- 상품 금액 계산 -->
 	<script>
-    	function calculPlusPrice(sellingPrice, index) {
+		function calculPlusPrice(sellingPrice, index) {
         	var cQTY = parseInt($("#cQTY_" + index).val()) + 1;
         	var productPrice = sellingPrice * cQTY;
-        	$("#productPrice_" + index).text(productPrice);
-        	
+        	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
+        
         	cQTY = cQTY - 1;
         	productPrice = sellingPrice;
         	total = total + productPrice;
-        	document.getElementById("totalPrice").textContent = total + "원";
+        	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원";
     	}
 
     	function calculMinusPrice(sellingPrice, index) {
         	var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
         	var productPrice = sellingPrice * cQTY;
-        	$("#productPrice_" + index).text(productPrice);
-        	
+        	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
+        
         	productPrice = sellingPrice;
         	total = total - productPrice;
-        	document.getElementById("totalPrice").textContent = total + "원"; 
+        	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원"; 
     	}
 	</script>
 	<!-- 상품 금액 계산 -->
@@ -94,7 +88,7 @@
         	} else {
         		total = total - productPrice; // 체크가 해제되었다면 배열에서 제거
         	}
-        	document.getElementById("totalPrice").textContent = total; // totalPrice라는 id를 가진 태그에 텍스트 넣기
+        	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원"; // totalPrice라는 id를 가진 태그에 텍스트 넣기
     	}
 	</script>
 	<!-- 총금액 계산 -->
@@ -109,7 +103,7 @@
             	// 각 행의 정보를 hidden input에 설정합니다.
             	form.innerHTML += '<input type="hidden" name="imagePath[]" value="' + row.querySelector('img').src + '">';
             	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('#pName').innerText + '">';
-            	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#sellingPrice').innerText + '">';
+            	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#hiddenSellingPrice').value + '">';
             	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
         	});
         	// 폼을 서버로 제출합니다.
@@ -218,7 +212,6 @@
 										<div class="d-flex align-items-center">
 											<p class="mb-3 mt-4">
 												<input type="checkbox" onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
-
 											</p>
 										</div>
 									</td>
@@ -226,20 +219,20 @@
 									<td scope="row">
 										<div class="d-flex align-items-center">
 											<img src="${data.imagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-
 										</div>
 									</td>
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
 										<p class="mb-0 mt-4" id="pName">${data.pName}</p>
-
 									</td>
 									<!-- 이름 -->
 									<!-- 가격 -->
 									<td>
-										<p class="mb-0 mt-4" id="sellingPrice">${data.sellingPrice}</p>
-
+										<p class="mb-0 mt-4" id="sellingPrice">
+											<fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW"/>원
+										</p> 
+										<input type="hidden" id="hiddenSellingPrice" value="${data.sellingPrice}" />
 									</td>
 									<!-- 가격 -->
 									<!-- 수량 -->
@@ -262,8 +255,10 @@
 									<!-- 수량 -->
 									<!-- 가격*수량 -->
 									<td>
-										<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">${data.sellingPrice * data.cQty}</p>
-
+										<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">
+											<fmt:formatNumber value="${data.sellingPrice * data.cQty}" currencyCode="KRW" />
+											원
+										</p>
 									</td>
 									<!-- 취소 버튼 -->
 									<td>
@@ -272,6 +267,7 @@
 										</button>
 									</td>
 									<!-- 취소 버튼 -->
+									<td><input type="hidden" id="hiddenPID" value="${data.PID}" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -287,7 +283,7 @@
 							<h1 class="display-6 mb-4">총금액</h1>
 							<div class="d-flex justify-content-between mb-4">
 								<h5 class="mb-0 me-4">합계:</h5>
-								<p class="mb-0" id="totalPrice">${total}원</p>
+								<p class="mb-0" id="totalPrice"><fmt:formatNumber value="${total}" currencyCode="KRW"/>원</p>
 							</div>
 							<div class="d-flex justify-content-between"></div>
 						</div>
