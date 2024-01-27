@@ -14,40 +14,18 @@ public class CartDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 
-	/*
-	 * 기능 1) 장바구니 목록출력 2) X장바구니 속 물품 상세보기 제품 상세보기 페이지 활용 3) 장바구니에 물품 추가하가 장바구니에 추가
-	 * 4) 장바구니 물품 수량변경 해당 제품이 보유중인 PID값의 재고 변경 5) 구매한 물품 제거 장바구니에서 체크한 상품만 구매하기 때문에
-	 * 구매한 상품은 장바구니에서 제거
-	 */
-
-	/*
-	 * 연산을 DB에서 하는 코드 private static final String
-	 * SELECTALL="SELECT C.C_ID,C.M_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGE_PATH, (C.C_QTY * P.SELLING_PRICE) AS TOTAL_PRICE "
-	 * + "FROM CART C " + "JOIN PRODUCT P ON C.P_ID = P.P_ID;";
-	 */
-
 	// 장바구니 목록 출력
-	private static final String SELECTALL = "SELECT C.C_ID, M.M_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGE_PATH "
-			+ "FROM CART C " + "JOIN PRODUCT P ON C.P_ID = P.P_ID " + "JOIN MEMBER M ON C.M_ID = M.M_ID "
-			+ "WHERE M.M_ID = ?";
+	// P_ID
+	private static final String SELECTALL_CART = "SELECT C.C_ID, C.P_ID, C.C_QTY, P.P_NAME, P.SELLING_PRICE, P.IMAGE_PATH "
+			+ "FROM CART C "
+			+ "JOIN PRODUCT P ON C.P_ID = P.P_ID "
+			+ "WHERE C.M_ID = ?";
 
 	// 장바구니 상품확인(존재여부)
 	private static final String SELECTONE = "SELECT P_ID, M_ID, C_ID, C_QTY FROM CART WHERE M_ID = ? AND P_ID = ?";
 
 	// 장바구니 추가
 	private static final String INSERT_CART = "INSERT INTO CART (C_ID, M_ID, P_ID, C_QTY) VALUES (NVL((SELECT MAX(C_ID) FROM CART), 0)+1, ?, ?, ?)";
-
-	// 장바구니 갱신(정해진 수량 으로 변경)
-	// private static final String UPDATE_QTY = "UPDATE CART SET C_QTY = ? WHERE
-	// C_ID = ?";
-
-	// 장바구니 갱신(수량 +버튼)
-	// private static final String UPDATE_PLUS = "UPDATE CART SET C_QTY = C_QTY + 1
-	// WHERE C_ID = ?";
-
-	// 장바구니 갱신(수량 -버튼)
-	// private static final String UPDATE_MINUS = "UPDATE CART SET C_QTY = C_QTY - 1
-	// WHERE C_ID = ?";
 
 	// 장바구니 갱신(기존에 있던 상품 추가)
 	private static final String UPDATE_QTY_ADD = "UPDATE CART SET C_QTY = C_QTY + ? WHERE C_ID = ?";
@@ -67,14 +45,15 @@ public class CartDAO {
 		if (cDTO.getSearchCondition().equals("장바구니목록출력")) {
 
 			try {
-				pstmt = conn.prepareStatement(SELECTALL);
+				pstmt = conn.prepareStatement(SELECTALL_CART);
+				System.out.println(SELECTALL_CART);
 				pstmt.setString(1, cDTO.getMID());
+				
 				ResultSet rs = pstmt.executeQuery();
 
 				while (rs.next()) {
 					CartDTO rsCartDTO = new CartDTO();
 					rsCartDTO.setCID(rs.getInt("C_ID"));
-					rsCartDTO.setMID(rs.getString("M_ID"));
 					rsCartDTO.setPID(rs.getInt("P_ID"));
 					rsCartDTO.setcQty(rs.getInt("C_QTY"));
 					rsCartDTO.setpName(rs.getString("P_NAME"));
@@ -82,19 +61,22 @@ public class CartDAO {
 					rsCartDTO.setImagePath(rs.getString("IMAGE_PATH"));
 					cartDTO.add(rsCartDTO);
 				}
+				
 				rs.close();
 
-				if (cartDTO.size() > 0) {
-					System.out.println("[로그_장바구니목록] 성공");
-					return cartDTO;
-				}
-
 			} catch (SQLException e) {
+				System.out.println("[로그_장바구니목록] 예외처리");
 				e.printStackTrace();
 				return null;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
+			
+			if (cartDTO.size() > 0) {
+				System.out.println("[로그_장바구니목록] 성공");
+				return cartDTO;
+			}
+			
 		}
 		System.out.println("[로그_장바구니ALL] 실패");
 		return null;
