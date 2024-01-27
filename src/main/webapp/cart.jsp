@@ -35,22 +35,17 @@
 <body>
 
 	<c:choose>
-		<c:when test="${empty sessionScope.member}">
-			<!-- 비로그인 접근 방지 -->
-			<c:redirect url="mainPage.do" />
-			<!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
+		<c:when test="${empty sessionScope.member}"> <!-- 비로그인 접근 방지 -->
+			<c:redirect url="mainPage.do" /> <!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
 		</c:when>
 	</c:choose>
 	<!-- 비로그인 접근 방지 -->
 
 
 	<!-- 페이지 진입 시 총금액 계산 -->
-	<c:set var="total" value="0" />
-	<!-- 총금액을 저장하기 위한 jstl변수 -->
-	<c:forEach var="data" items="${cartList}" varStatus="status">
-		<!-- 장바구니 데이터 반복 -->
-		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" />
-		<!-- 가격*금액을 총금액에 가산 -->
+	<c:set var="total" value="0" /> <!-- 총금액을 저장하기 위한 jstl변수 -->
+	<c:forEach var="data" items="${cartList}" varStatus="status"> <!-- 장바구니 데이터 반복 -->
+		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" /> <!-- 가격*금액을 총금액에 가산 -->
 	</c:forEach>
 	<script>
 		var total = ${total} <!-- 총금액을 자바스크립트 전역 변수에 저장 -->
@@ -110,6 +105,7 @@
             	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#hiddenSellingPrice').value + '">';
             	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
             	form.innerHTML += '<input type="hidden" name="PID[]" value="' + row.querySelector('#hiddenPID').value + '">';
+            	form.innerHTML += '<input type="hidden" name="CID[]" value="' + row.querySelector('#hiddenCID').value + '">';
         	});
         	// 폼을 서버로 제출합니다.
         	document.getElementById('cartForm').submit();
@@ -237,7 +233,8 @@
 										<p class="mb-0 mt-4" id="sellingPrice">
 											<fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />
 											원
-										</p> <input type="hidden" id="hiddenSellingPrice" value="${data.sellingPrice}" />
+										</p> 
+										<input type="hidden" id="hiddenSellingPrice" value="${data.sellingPrice}" />
 									</td>
 									<!-- 가격 -->
 									<!-- 수량 -->
@@ -249,7 +246,6 @@
 												</button>
 											</div>
 											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
-
 											<div class="input-group-btn">
 												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
 													<i class="fa fa-plus"></i>
@@ -270,6 +266,7 @@
 										<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?CID=${data.CID}";'>
 											<i class="fa fa-times text-danger"></i>
 										</button>
+										<input type="hidden" id="hiddenCID" value="${data.CID}" />
 									</td>
 									<!-- 취소 버튼 -->
 									<td>
