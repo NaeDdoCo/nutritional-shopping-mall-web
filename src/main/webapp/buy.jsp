@@ -87,11 +87,10 @@
 	<!-- 할인 금액 계산 -->
 	<script>
 		function applyCoupon() {
-				
 			$('#couponModal').modal('hide');
-			
-			var selectedCoupons = [];
 			// 체크된 쿠폰들의 정보 수집
+			var selectedCoupons = [];
+			var products = [];
 			$("input[type=checkbox]:checked").each(
 				function() {
 					var couponName = $(this).closest("tr").find("td:eq(1)").text();
@@ -103,79 +102,84 @@
 						couponName : couponName, 
 						discount : discount, 
 						period : period,
-						category : category
+						category : category,
+						CPID : CPID
 					});
 				});
 			
             var usedCouponList = $("#usedCoponList");
-			selectedCoupons.forEach(function(coupon) {
+            usedCouponList.empty();
+            usedCouponList.prepend('<thead>'+'<tr>'+'<th>'+'쿠폰명'+'</th>'+'<th>'+'할인율'+'</th>'+'<th>'+'카테고리'+'</th>'+'</tr>'+'</thead>');
+            selectedCoupons.forEach(function(coupon) {
 			    var couponHTML = 
 			    "<td>" + coupon.couponName + "</td>" +
-			  	"<td>" + coupon.discount + "</td>" +
-			   	"<td>" + coupon.category + "</td>";
-			   	usedCouponList.prepend(
-			   							'<thead>' +
-			   								'<tr>'+
-			   									'<th>'+'쿠폰명'+'</th>'+
-			   									'<th>'+'할인율'+'</th>'+
-			   									'<th>'+'카테고리'+'</th>'+
-			   								'</tr>'+
-			   							'</thead>'+
-			   							'<tbody>'+
-			   								'<tr>'+ 
-			   									couponHTML + 
-			   								'</tr>'+
-			   							'</tbody>');
-			   							
+			  	"<td id='couponDiscount'>" + coupon.discount + "</td>" +
+			   	"<td id='couponCategory'>" + coupon.category + "</td>";
+			   	couponHTML += "<td>"+"<input type='hidden' name='hiddenCPID' value='" + coupon.CPID + "'>" + "</td>";
+			   	usedCouponList.append('<tbody>' + '<tr id="coupon_">' + couponHTML + '</tr>' + '</tbody>');
 			});
 			
-			var products = [];
 			// 각 상품 행을 순회하면서 상품 정보 수집
-			$(".productTable tbody tr").each(function(index) {
+			$(".productTable tbody tr").each(function() {
 				// 상품 이름과 가격을 각각 변수에 저장
 				var productPrice = $(this).find("td:eq(2)").text();
-				var productCategory = $(this).find("#category").val();
+				var productCategory = $(this).find("#hiddenCategory").val();
 				// 수집된 상품 정보를 객체로 생성하여 배열에 추가
 				var product = {
-					index: index,
 			 		price: productPrice,
 			 		category : productCategory
 				};	
 				products.push(product);
 			});
 			
-			// 할인 적용 여부를 나타내는 변수
 	        var discountApplied = false;
 			var index = 0;
-	        // 각 상품에 대해 할인 적용 가능한지 확인하고 적용
 	        products.forEach(function(product) {
 	            selectedCoupons.forEach(function(coupon) {
-	            	console.log("product.category : " + product.category);
-	            	console.log("coupon.category : " + coupon.category.trim());
-	            	console.log("index : " + index);
-	                if (product.category === coupon.category.trim()) {
+	                if (product.category == coupon.category.trim()) {
 	                    // 해당 상품의 카테고리와 일치하는 쿠폰이 있으면 할인 적용
 	                    product.price -= (product.price * parseFloat(coupon.discount)) / 100;
-	                    console.log(product.category + ' : ' + product.price);
 	                   	$("#productPrice_" + index).text(product.price);
 	                    discountApplied = true;
 	                }
 	            });
 	            index = index + 1;
-	        });
-	        
-	        // 총 할인 금액과 할인 적용 여부에 따라 적절한 메시지 표시
-	        if (discountApplied) {
-	            console.log("할인이 적용되었습니다. 총 할인 금액: " + totalDiscount.toFixed(2) + "원");
-	        } else {
-	            console.log("할인이 적용되지 않았습니다.");
-	        }
-	        // 총 결제 금액 계산
-/* 	        var totalPriceAfterDiscount = totalProductPrice - totalDiscount;
-	        console.log("총 결제 금액: " + totalPriceAfterDiscount.toFixed(2) + "원");
- */		}		
+	        });	       
+ 		}		
 	</script>
 	<!-- 할인 금액 계산 -->
+
+
+	<!-- 구매 확정 -->
+	<script>
+		function goToPurchase(){
+			var form = document.getElementById('buyForm');
+			
+			<!-- 유저 정보 수집 -->
+			form.innerHTML += '<input type="hidden" name="bPostcode" value="' + document.getElementById('zipNo').value + '">';
+			form.innerHTML += '<input type="hidden" name="bAddress" value="' + document.getElementById('roadAddrPart1').value + '">';
+			form.innerHTML += '<input type="hidden" name="bDetailedAddress" value="' + document.getElementById('addrDetail').value + '">';
+			
+			var productRows = document.querySelectorAll('tr[id^="product_"]');
+			productRows.forEach(function(row) {
+				<!-- 상품 정보 수집 -->
+				form.innerHTML += '<input type="hidden" name="PID[]" value="' + row.querySelector('#hiddenPID').value + '">';
+				form.innerHTML += '<input type="hidden" name="CID[]" value="' + row.querySelector('#hiddenCID').value + '">';
+				form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('td[id^="productPrice_"]').innerText + '">';
+            	form.innerHTML += '<input type="hidden" name="productCategory[]" value="' + row.querySelector('#hiddenCategory').value + '">';
+            	form.innerHTML += '<input type="hidden" name="qty[]" value="' + row.querySelector('#pQty').innerText + '">';
+			});
+			var couponRows = document.querySelectorAll('tr[id^="coupon_"]');
+			couponRows.forEach(function(row) {
+			    <!-- 쿠폰 정보 수집 -->
+			    form.innerHTML += '<input type="hidden" name="CPID[]" value="' + row.querySelector('input[name="hiddenCPID"]').value + '">';
+			    form.innerHTML += '<input type="hidden" name="discount[]" value="' + row.querySelector('#couponDiscount').innerText + '">';
+			    form.innerHTML += '<input type="hidden" name="couponCategory[]" value="' + row.querySelector('#couponCategory').innerText + '">';
+			});
+			document.getElementById('buyForm').submit();
+		}
+	</script>
+	<!-- 구매 확정 -->
 
 
 	<!-- Spinner Start -->
@@ -286,7 +290,6 @@
 										<td>
 											<p class="mb-0 mt-4">${coupon.category}</p>
 										</td>
-										<td><input type="hidden" id="hiddenCPID" value="${coupon.CPID}"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -313,7 +316,7 @@
 	<div class="container-fluid py-5">
 		<div class="container py-5">
 			<h1 class="mb-4">Billing details</h1>
-			<form action="#" name="buyForm">
+			<form action="buyCompPage.do" id="buyForm">
 				<div class="row g-5">
 					<div class="col-md-12 col-lg-6 col-xl-7">
 						<c:set var="memberInfo" value="${requestScope.memberInfo}" />
@@ -367,18 +370,19 @@
 								<tbody>
 									<c:set var="total" value="0" />
 									<c:forEach var="product" items="${selectedProductsList}" varStatus="status">
-										<tr id="row_${status.index}">
+										<tr id="product_${status.index}">
 											<th scope="row">
 												<div class="d-flex align-items-center mt-2">
 													<img src="${product.imagePath}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
 												</div>
 											</th>
 											<td class="py-5">${product.pName}</td>
-											<td class="py-5">${product.pQty}</td>
+											<td class="py-5" id="pQty">${product.pQty}</td>
 											<td class="py-5">${product.sellingPrice*product.pQty}</td>
 											<td class="py-5" id="productPrice_${status.index}">${product.sellingPrice*product.pQty}</td>
-											<td><input type="hidden" id="category" value="${product.category}"></td>
-											<td><input type="hidden" value="${product.PID}"></td>
+											<td><input type="hidden" id="hiddenCategory" value="${product.category}"></td>
+											<td><input type="hidden" id="hiddenPID" value="${product.PID}"></td>
+											<td><input type="hidden" id="hiddenCID" value="${product.ancCID}"></td>
 											<c:set var="total" value="${total +(product.sellingPrice*product.pQty)}" />
 										</tr>
 									</c:forEach>
@@ -400,11 +404,10 @@
 						</div>
 						<div class="table-responsive my-3">
 							<table class="table" id="usedCoponList">
-								
 							</table>
 						</div>
 						<div class="row g-4 text-center align-items-center justify-content-center pt-4">
-							<button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" type="button">구매</button>
+							<button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" type="button" onclick="goToPurchase()">구매</button>
 						</div>
 					</div>
 				</div>
