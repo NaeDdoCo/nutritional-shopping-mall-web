@@ -107,14 +107,26 @@
 					});
 				});
 			
-			var usedCouponList = $("#usedCoponList");
-			usedCouponList.empty();    
+            var usedCouponList = $("#usedCoponList");
 			selectedCoupons.forEach(function(coupon) {
 			    var couponHTML = 
 			    "<td>" + coupon.couponName + "</td>" +
 			  	"<td>" + coupon.discount + "</td>" +
 			   	"<td>" + coupon.category + "</td>";
-			   	usedCouponList.append("<tr>" + couponHTML + "</tr>");
+			   	usedCouponList.prepend(
+			   							'<thead>' +
+			   								'<tr>'+
+			   									'<th>'+'쿠폰명'+'</th>'+
+			   									'<th>'+'할인율'+'</th>'+
+			   									'<th>'+'카테고리'+'</th>'+
+			   								'</tr>'+
+			   							'</thead>'+
+			   							'<tbody>'+
+			   								'<tr>'+ 
+			   									couponHTML + 
+			   								'</tr>'+
+			   							'</tbody>');
+			   							
 			});
 			
 			var products = [];
@@ -387,16 +399,8 @@
 							</table>
 						</div>
 						<div class="table-responsive my-3">
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">쿠폰명</th>
-										<th scope="col">할인율</th>
-										<th scope="col">카테고리</th>
-									</tr>
-								</thead>
-								<tbody id="usedCoponList">
-								</tbody>
+							<table class="table" id="usedCoponList">
+								
 							</table>
 						</div>
 						<div class="row g-4 text-center align-items-center justify-content-center pt-4">
