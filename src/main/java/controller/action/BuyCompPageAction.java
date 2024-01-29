@@ -62,8 +62,11 @@ public class BuyCompPageAction implements Action{
 		
 		// 쿠폰 관련 정보
 		String[] CPIDs = request.getParameterValues("CPID[]");
+		System.out.println("[BuyCompPage] CPIDs : " + CPIDs.length);
 		String[] discounts = request.getParameterValues("discount[]");
+		System.out.println("[BuyCompPage] discounts : " + discounts.length);
 		String[] couponCategories = request.getParameterValues("couponCategory[]");
+		System.out.println("[BuyCompPage] couponCategories : " + couponCategories.length);
 		
 		int PID = 0;
 		int CID = 0;
@@ -75,7 +78,9 @@ public class BuyCompPageAction implements Action{
 		int discount = 0;
 		String couponCategory = "";
 		for (int i = 0; i < PIDs.length; i++) {
+			System.out.println("[BuyCompPage] PIDs[i] : " + PIDs[i]);
 			PID = Integer.parseInt(PIDs[i]);
+			System.out.println("[BuyCompPage] CIDs[i] : " + CIDs[i]);
 			CID = Integer.parseInt(CIDs[i]);
 			sellingPrice = Integer.parseInt(sellingPrices[i]);
 			productCategory = productCategories[i];
@@ -85,7 +90,8 @@ public class BuyCompPageAction implements Action{
 			CPID = "";
 			for (int j = 0; j < CPIDs.length; j++) {
 				CPID = CPIDs[j];
-				discount = Integer.parseInt(discounts[j]);
+				System.out.println("[BuyCompPage] CPID : " + CPID);
+				discount = Integer.parseInt(discounts[j].trim());
 				couponCategory = couponCategories[j];
 				
 				if (productCategory.equals(couponCategory)) {
