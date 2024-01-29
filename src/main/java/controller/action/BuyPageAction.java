@@ -43,7 +43,7 @@ public class BuyPageAction implements Action{
 
 		//쿠폰목록 가져오기
 		cpDTO.setSearchCondition("사용가능쿠폰");
-		System.out.println("[log] mid : " + MID);
+		System.out.println("[log] MID : " + MID);
 		cpDTO.setMID(MID);
 		System.out.println("[log] cpDTO.getMID() :  " + cpDTO.getMID());
 
