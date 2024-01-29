@@ -115,7 +115,7 @@
 			    "<td>" + coupon.couponName + "</td>" +
 			  	"<td id='couponDiscount'>" + coupon.discount + "</td>" +
 			   	"<td id='couponCategory'>" + coupon.category + "</td>";
-			   	couponHTML += "<td>"+"<input type='hidden' name='hiddenCPID' value='" + coupon.CPID + "'>" + "</td>";
+			   	couponHTML += "<td>"+"<input type='hidden' id='hiddenCPID' value='" + coupon.CPID + "'>" + "</td>";
 			   	usedCouponList.append('<tbody>' + '<tr id="coupon_">' + couponHTML + '</tr>' + '</tbody>');
 			});
 			
@@ -172,7 +172,7 @@
 			var couponRows = document.querySelectorAll('tr[id^="coupon_"]');
 			couponRows.forEach(function(row) {
 			    <!-- 쿠폰 정보 수집 -->
-			    form.innerHTML += '<input type="hidden" name="CPID[]" value="' + row.querySelector('input[name="hiddenCPID"]').value + '">';
+			    form.innerHTML += '<input type="hidden" name="CPID[]" value="' + row.querySelector('#hiddenCPID').value + '">';
 			    form.innerHTML += '<input type="hidden" name="discount[]" value="' + row.querySelector('#couponDiscount').innerText.replace('%', '') + '">';
 			    form.innerHTML += '<input type="hidden" name="couponCategory[]" value="' + row.querySelector('#couponCategory').innerText + '">';
 			});
@@ -272,6 +272,9 @@
 							</thead>
 							<tbody>
 								<c:forEach var="coupon" items="${couponList}">
+									<script>
+										console.log('CPID: ' + ${coupon.CPID});
+									</script>
 									<tr>
 										<td>
 											<p class="mb-3 mt-4">
@@ -290,7 +293,7 @@
 										<td>
 											<p class="mb-0 mt-4">${coupon.category}</p>
 										</td>
-										<td><input type="hidden" id="hiddenCPID" value="${coupon.CPID}"></td>
+										<td><input type="hidden" value="${coupon.CPID}"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
