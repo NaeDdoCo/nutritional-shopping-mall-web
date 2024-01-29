@@ -32,20 +32,19 @@ public class BuyPageAction implements Action{
 		MemberDAO mDAO = new MemberDAO();
 		ProductDAO productDAO = new ProductDAO();
 
-
 		//세션의 member의 mid가져오기
-		String mid = (String)session.getAttribute("member");
+		String MID = (String)session.getAttribute("member");
 		//회원정보가져오기
-		mDTO.setMID(mid);
+		mDTO.setMID(MID);
 		mDTO.setSearchCondition("주문정보");
 		mDTO = mDAO.selectOne(mDTO);
 		request.setAttribute("memberInfo", mDTO);
 		System.out.println("[log] mDTO : " + mDTO);
 
-		//쿠폰목록가져오기
+		//쿠폰목록 가져오기
 		cpDTO.setSearchCondition("사용가능쿠폰");
-		System.out.println("[log] mid : " + mid);
-		cpDTO.setMID(mid);
+		System.out.println("[log] MID : " + MID);
+		cpDTO.setMID(MID);
 		System.out.println("[log] cpDTO.getMID() :  " + cpDTO.getMID());
 
 		ArrayList<CouponDTO> couponList = cpDAO.selectAll(cpDTO);
@@ -92,6 +91,7 @@ public class BuyPageAction implements Action{
 			productDTO = productDAO.selectOne(productDTO);
 			System.out.println("[log] productDTO category : " + productDTO);
 			//V에서 받아온 CID/imagePath/pName/cQty/sellingPrice + category selectedProductsList에 넣기
+			productDTO.setPID(PID);
 			productDTO.setAncCID(CID);
 			productDTO.setImagePath(imagePath);
 			productDTO.setpName(pName);

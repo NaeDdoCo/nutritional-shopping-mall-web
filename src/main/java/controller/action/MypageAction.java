@@ -20,15 +20,15 @@ public class MypageAction implements Action{
 		
 		ActionForward forward = new ActionForward();
 		 
-//		이름/성별/생년월일/휴대폰번호/이메일/건강상태
+//		필요정보 : 이름/성별/생년월일/휴대폰번호/이메일/건강상태
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
 		
 		HttpSession session = request.getSession();
-		String mid = (String)session.getAttribute("member");
+		String MID = (String)session.getAttribute("member");
 		
 		//DB에서 마이페이지(이름, 생년월일, 성별, 전화번호, 이메일, 주소) 정보 받아오기
-		mDTO.setMID(mid);
+		mDTO.setMID(MID);
 		mDTO.setSearchCondition("회원정보");
 		mDTO = mDAO.selectOne(mDTO);
 		
