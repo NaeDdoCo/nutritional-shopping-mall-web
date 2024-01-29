@@ -13,12 +13,6 @@ public class MemberDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 
-	/*
-	 * 기능 1) 회원목록보기? 관리자가 회원목록을 보나? 2-1) 로그인 사용자가 입력한 id와 pw가 같은 행에 일치하는지 확인 2-2)
-	 * 추천알고리즘 로그인한 회원의 mid와 일치하는 행의 건강상태 속성값을 가져와서 사용 2-3) 추천알고리즘 로그인한 회원의 mid와 일치하는
-	 * 행의 건강상태 속성값을 가져와서 사용 2-4) 회원가입 시 아이디 중복확인 기능 3) 회원가입 회원가입 4) 회원정보 변경 5) 회원탈퇴
-	 */
-
 	// (관) 회원목록
 	private static final String SELECTALL = "";
 
@@ -28,16 +22,16 @@ public class MemberDAO {
 
 	// 마이페이지(이름, 생년월일, 성별, 전화번호, 이메일, 주소)
 	private static final String SELECTONE_MYPAGE = "SELECT M_NAME, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS "
-			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
+			+ "FROM MEMBER WHERE M_ID=?";
 
 	// 아이디 중복검사
 	private static final String SELECTONE_ID_CHECK = "SELECT M_ID FROM MEMBER WHERE M_ID=?";
 
 	// 회원 건강상태
 	private static final String SELECTONE_HEALTH = "SELECT HEALTH FROM MEMBER WHERE M_ID=?";
-	
-	// 회원 주문정보
-	private static final String SELECTONE_BUYPAGE = "SELECT M_NAME, PHONE_NUMBER, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, EMAIL FROM MEMBER WHERE M_ID=?";
+
+	// 비밀번호확인(비밀번호 변경)
+	private static final String SELECTONE_PW = "SELECT M_PASSWORD FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
 
 	// 회원가입
 	private static final String INSERT = "INSERT INTO "
@@ -45,16 +39,8 @@ public class MemberDAO {
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
 
 	// 개인정보변경(이름, 생년월일, 성별, 전화번호, 이메일, 주소)
-	private static final String UPDATE_INFO = "UPDATE MEMBER "
-			+ "SET "
-			+ "M_NAME=?, "
-			+ "DOB=?, "
-			+ "GENDER=?, "
-			+ "PHONE_NUMBER=?, "
-			+ "EMAIL=?, "
-			+ "M_POSTCODE=?, "
-			+ "M_ADDRESS=?, "
-			+ "M_DETAILED_ADDRESS=? "
+	private static final String UPDATE_INFO = "UPDATE MEMBER " + "SET " + "M_NAME=?, " + "DOB=?, " + "GENDER=?, "
+			+ "PHONE_NUMBER=?, " + "EMAIL=?, " + "M_POSTCODE=?, " + "M_ADDRESS=?, " + "M_DETAILED_ADDRESS=? "
 			+ "WHERE M_ID=?";
 
 	// 비밀번호번경
@@ -66,12 +52,12 @@ public class MemberDAO {
 	public MemberDTO selectOne(MemberDTO mDTO) {
 
 		MemberDTO memberDTO = null;
-		
+
 		conn = JDBCUtil.connect();
 
 		if (mDTO.getSearchCondition().equals("아이디중복검사")) {
 
-			memberDTO = new MemberDTO();			
+			memberDTO = new MemberDTO();
 
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_ID_CHECK);
@@ -134,14 +120,13 @@ public class MemberDAO {
 				System.out.println("[로그_로그인] 성공");
 				return memberDTO;
 			}
-		}
-		else if (mDTO.getSearchCondition().equals("회원정보")) {
+		} else if (mDTO.getSearchCondition().equals("회원정보")) { // 마이페이지
 			memberDTO = new MemberDTO();
 
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_MYPAGE);
 				pstmt.setString(1, mDTO.getMID());
-				pstmt.setString(2, mDTO.getmPassword());
+				// pstmt.setString(2, mDTO.getmPassword());
 
 				ResultSet rs = pstmt.executeQuery();
 
@@ -202,53 +187,48 @@ public class MemberDAO {
 				System.out.println("[로그_건강상태] 성공");
 				return memberDTO;
 			}
-		} else if(mDTO.getSearchCondition().equals("주문정보")) {
-			
+		} else if (mDTO.getSearchCondition().equals("비밀번호확인")) {
+
 			memberDTO = new MemberDTO();
-			
+
+			conn = JDBCUtil.connect();
+
 			try {
-				pstmt = conn.prepareStatement(SELECTONE_BUYPAGE);
-				pstmt.setString(1, mDTO.getMID());
-				
+				pstmt = conn.prepareStatement(SELECTONE_PW);
+				pstmt.setNString(1, mDTO.getMID());
+				pstmt.setString(2, mDTO.getmPassword());
+
 				ResultSet rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					memberDTO.setmName(rs.getString("M_NAME"));
-					memberDTO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
-					memberDTO.setmPostCode(rs.getInt("M_POSTCODE"));
-					memberDTO.setmAddress(rs.getString("M_ADDRESS"));
-					memberDTO.setmDetailedAddress(rs.getString("M_DETAILED_ADDRESS"));
-					memberDTO.setEmail(rs.getString("EMAIL"));
+
+				if (rs.next()) {
+					memberDTO.setmPassword(rs.getString("M_PASSWORD"));
 				} else {
 					memberDTO = null;
 				}
-				
+
 				rs.close();
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
-				System.out.println("[로그_주문정보] 반환 NULL_예외처리");
 				return null;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}
-			
-			if(memberDTO != null) {
-				System.out.println("[로그_주문정보] 성공");
+			if (memberDTO != null) {
 				return memberDTO;
 			}
-			
+
 		}
 		System.out.println("[로그_SelectOne] 반환 NULL");
 		return null;
 	}
 
 	public boolean insert(MemberDTO mDTO) {
-		
+
 		conn = JDBCUtil.connect();
-		
+
 		if (mDTO.getSearchCondition().equals("회원가입")) {
-			
+
 			try {
 				pstmt = conn.prepareStatement(INSERT);
 				pstmt.setString(1, mDTO.getMID());
@@ -263,11 +243,11 @@ public class MemberDAO {
 				pstmt.setString(10, mDTO.getmDetailedAddress());
 				pstmt.setString(11, mDTO.getHealth());
 				int result = pstmt.executeUpdate();
-				
+
 				if (result > 0) {
 					return true;
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
