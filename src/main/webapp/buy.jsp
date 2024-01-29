@@ -290,6 +290,7 @@
 										<td>
 											<p class="mb-0 mt-4">${coupon.category}</p>
 										</td>
+										<td><input type="hidden" id="hiddenCPID" value="${coupon.CPID}"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
