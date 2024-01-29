@@ -20,6 +20,9 @@ public class MemberDAO {
 	private static final String SELECTONE_LOGIN = "SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
 			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
 
+	// 회원 주문정보(구매페이지 정보)
+	private static final String SELECTONE_BUYPAGE = "SELECT M_NAME, PHONE_NUMBER, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS,EMAIL FROM MEMBER WHERE M_ID=?";
+
 	// 마이페이지(이름, 생년월일, 성별, 전화번호, 이메일, 주소)
 	private static final String SELECTONE_MYPAGE = "SELECT M_NAME, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS "
 			+ "FROM MEMBER WHERE M_ID=?";
@@ -187,6 +190,42 @@ public class MemberDAO {
 				System.out.println("[로그_건강상태] 성공");
 				return memberDTO;
 			}
+		} else if (mDTO.getSearchCondition().equals("주문정보")) {
+
+			memberDTO = new MemberDTO();
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_BUYPAGE);
+				pstmt.setString(1, mDTO.getMID());
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					memberDTO.setmName(rs.getString("M_NAME"));
+					memberDTO.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+					memberDTO.setmPostCode(rs.getInt("M_POSTCODE"));
+					memberDTO.setmAddress(rs.getString("M_ADDRESS"));
+					memberDTO.setmDetailedAddress(rs.getString("M_DETAILED_ADDRESS"));
+					memberDTO.setEmail(rs.getString("EMAIL"));
+				} else {
+					memberDTO = null;
+				}
+
+				rs.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("[로그_주문정보] 반환 NULL_예외처리");
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+
+			if (memberDTO != null) {
+				System.out.println("[로그_주문정보] 성공");
+				return memberDTO;
+			}
+
 		} else if (mDTO.getSearchCondition().equals("비밀번호확인")) {
 
 			memberDTO = new MemberDTO();
