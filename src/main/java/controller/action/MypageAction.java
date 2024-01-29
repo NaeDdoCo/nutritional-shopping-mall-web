@@ -26,12 +26,9 @@ public class MypageAction implements Action{
 		
 		HttpSession session = request.getSession();
 		String mid = (String)session.getAttribute("member");
-		//입력받은 비밀번호 받아오기
-		String mPassword = request.getParameter("mPassword");
 		
 		//DB에서 마이페이지(이름, 생년월일, 성별, 전화번호, 이메일, 주소) 정보 받아오기
 		mDTO.setMID(mid);
-		mDTO.setmPassword(mPassword);
 		mDTO.setSearchCondition("회원정보");
 		mDTO = mDAO.selectOne(mDTO);
 		
@@ -39,7 +36,6 @@ public class MypageAction implements Action{
 		
 		forward.setPath("myPage.jsp");
 		forward.setRedirect(false);
-		
 		
 		return forward;
 	}
