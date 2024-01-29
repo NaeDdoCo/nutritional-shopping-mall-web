@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <head>
@@ -51,23 +51,20 @@
 		<div class="container topbar bg-primary d-none d-lg-block">
 			<div class="d-flex justify-content-between">
 				<div class="top-info ps-2">
-					<small class="me-3">
-						<i class="fas fa-map-marker-alt me-2 text-secondary"></i> 
-						<a href="#" class="text-white">123 Street, New York</a>
-					</small> 
-					<small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i>
-						<a href="#" class="text-white">Email@Example.com</a>
-					</small>
+					<small class="me-3"> <i
+						class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+						class="text-white">123 Street, New York</a>
+					</small> <small class="me-3"><i
+						class="fas fa-envelope me-2 text-secondary"></i> <a href="#"
+						class="text-white">Email@Example.com</a> </small>
 				</div>
 				<div class="top-link pe-2">
-					<a href="#" class="text-white">
-						<small class="text-white mx-2">PrivacyPolicy</small>
-					/</a> 
-					<a href="#" class="text-white">
-						<small class="text-white mx-2">Terms of Use</small>
-					/</a> 
-					<a href="#" class="text-white">
-						<small class="text-white ms-2">Sales and Refunds</small>
+					<a href="#" class="text-white"> <small class="text-white mx-2">PrivacyPolicy</small>
+						/
+					</a> <a href="#" class="text-white"> <small class="text-white mx-2">Terms
+							of Use</small> /
+					</a> <a href="#" class="text-white"> <small class="text-white ms-2">Sales
+							and Refunds</small>
 					</a>
 				</div>
 			</div>
@@ -77,20 +74,22 @@
 				<a href="main.jsp" class="navbar-brand">
 					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
 				</a>
-				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+				<button class="navbar-toggler py-2 px-3" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 					<span class="fa fa-bars text-primary"></span>
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a href="index.html" class="nav-item nav-link">개인정보수정</a>
-                       	<a href="shop.html" class="nav-item nav-link">구매내역</a>
-                      	<a href="shop-detail.html" class="nav-item nav-link">리뷰내역</a>
-                      	<a href="shop-detail.html" class="nav-item nav-link">쿠폰관리</a>
-						<div class="nav-item dropdown">
-						</div>
+						<a href="index.html" class="nav-item nav-link">개인정보수정</a> <a
+							href="shop.html" class="nav-item nav-link">구매내역</a> <a
+							href="shop-detail.html" class="nav-item nav-link">리뷰내역</a> <a
+							href="shop-detail.html" class="nav-item nav-link">쿠폰관리</a>
+						<div class="nav-item dropdown"></div>
 					</div>
 					<div class="d-flex m-3 me-0">
-						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
+						<button
+							class="btn border border-secondary text-primary rounded-pill me-4"
+							type="button">로그아웃</button>
 						<button
 							class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
 							data-bs-toggle="modal" data-bs-target="#searchModal">
@@ -145,14 +144,82 @@
 	<!-- 마이 폼 시작 -->
 	<div class="container-fluid py-5">
 		<div class="container py-5 text-left">
-			<div class="row justify-content-center">
-				<p>이름</p>
-				<p>성별</p>
-				<p>생년월일</p>
-				<p>휴대폰번호</p>
-				<p>이메일</p>
-				<p>건강상태</p>
-			</div>
+			<table class="table">
+				<tbody>
+					<tr>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">이름</p>
+							</div>
+						</td>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">${memberInfo.mName}</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">성별</p>
+							</div>
+						</td>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">${memberInfo.gender}</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">생년월일</p>
+							</div>
+						</td>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">${memberInfo.dob}</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">휴대폰번호</p>
+							</div>
+						</td>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">${memberInfo.phoneNumber}</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">이메일</p>
+							</div>
+						</td>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">${memberInfo.email}</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">건강상태</p>
+							</div>
+						</td>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">${memberInfo.health}</p>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<!-- 마이 폼 끝 -->
@@ -169,8 +236,7 @@
 							<h1 class="text-primary mb-0">NaeDdoCo Pills</h1>
 						</a>
 					</div>
-					<div class="col-lg-6">
-					</div>
+					<div class="col-lg-6"></div>
 					<div class="col-lg-3">
 						<div class="d-flex justify-content-end pt-3">
 							<a
