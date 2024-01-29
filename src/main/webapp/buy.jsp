@@ -173,7 +173,7 @@
 			couponRows.forEach(function(row) {
 			    <!-- 쿠폰 정보 수집 -->
 			    form.innerHTML += '<input type="hidden" name="CPID[]" value="' + row.querySelector('input[name="hiddenCPID"]').value + '">';
-			    form.innerHTML += '<input type="hidden" name="discount[]" value="' + row.querySelector('#couponDiscount').innerText + '">';
+			    form.innerHTML += '<input type="hidden" name="discount[]" value="' + row.querySelector('#couponDiscount').innerText.replace('%', '') + '">';
 			    form.innerHTML += '<input type="hidden" name="couponCategory[]" value="' + row.querySelector('#couponCategory').innerText + '">';
 			});
 			document.getElementById('buyForm').submit();
