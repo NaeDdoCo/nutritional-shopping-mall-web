@@ -47,10 +47,20 @@
 		<div class="container topbar bg-primary d-none d-lg-block">
 			<div class="d-flex justify-content-between">
 				<div class="top-info ps-2">
-					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small> <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
+					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> 
+						<a href="#" class="text-white">123 Street, New York</a></small> <small class="me-3">
+							<i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com
+						</a>
+					</small>
 				</div>
 				<div class="top-link pe-2">
-					<a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a> <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a> <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+					<a href="#" class="text-white">
+						<small class="text-white mx-2">Privacy Policy</small>/
+					</a> <a href="#" class="text-white">
+						<small class="text-white mx-2">Terms of Use</small>/
+					</a> <a href="#" class="text-white">
+						<small class="text-white ms-2">Sales and Refunds</small>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -62,7 +72,10 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a href="index.html" class="nav-item nav-link">개인정보수정</a> <a href="shop.html" class="nav-item nav-link">구매내역</a> <a href="shop-detail.html" class="nav-item nav-link">리뷰내역</a> <a href="shop-detail.html" class="nav-item nav-link">쿠폰관리</a>
+						<a href="#" class="nav-item nav-link">개인정보수정</a> 
+						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
+						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
+						<a href="#" class="nav-item nav-link">쿠폰관리</a>
 					</div>
 					<div class="d-flex m-3 me-0">
 						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
@@ -138,7 +151,7 @@
 								<p class="mb-0 mt-4">${buyInfo.orderNum}</p>
 							</td>
 							<td>
-								<p class="mb-0 mt-4"></p>
+								<p class="mb-0 mt-4" onclick='location.href="productDetailPage.do?PID=${buyInfo.PID}"'></p>
 							</td>
 							<td>
 								<p class="mb-0 mt-4">${buyInfo.buyTime}</p>
@@ -153,7 +166,7 @@
 								<p class="mb-0 mt-4">${buyInfo.deliState}</p>
 							</td>
 							<td>
-								<button class="btn border-secondary text-primary rounded-pill mb-0 mt-3">리뷰 작성</button>
+								<a class="btn border-secondary text-primary rounded-pill mb-0 mt-3" onclick='location.href="writeReviewPage.do?BID=${buyInfo.BID}";'>리뷰 작성</a>
 							</td>
 						</tr>
 						</c:forEach>
