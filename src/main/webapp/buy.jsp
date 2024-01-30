@@ -109,14 +109,39 @@
 			
             var usedCouponList = $("#usedCoponList");
             usedCouponList.empty();
-            usedCouponList.prepend('<thead>'+'<tr>'+'<th>'+'쿠폰명'+'</th>'+'<th>'+'할인율'+'</th>'+'<th>'+'카테고리'+'</th>'+'</tr>'+'</thead>');
+            usedCouponList.prepend('<thead>' +
+            							'<tr>' +
+            								'<th>' +
+            									'쿠폰명' +
+            								'</th>' +
+            								'<th>' +
+            									'할인율' +
+            								'</th>' +
+            								'<th>' +
+            									'카테고리' +
+            								'</th>' +
+            							'</tr>' +
+            						'</thead>');
             selectedCoupons.forEach(function(coupon) {
 			    var couponHTML = 
-			    "<td>" + coupon.couponName + "</td>" +
-			  	"<td id='couponDiscount'>" + coupon.discount + "</td>" +
-			   	"<td id='couponCategory'>" + coupon.category + "</td>";
-			   	couponHTML += "<td>"+"<input type='hidden' id='hiddenCPID' value='" + coupon.CPID + "'>" + "</td>";
-			   	usedCouponList.append('<tbody>' + '<tr id="coupon_">' + couponHTML + '</tr>' + '</tbody>');
+			    				"<td>" + 
+			    					coupon.couponName + 
+			    				"</td>" +
+			  					"<td id='couponDiscount'>" + 
+			  						coupon.discount + 
+			  					"</td>" +
+			   					"<td id='couponCategory'>" + 
+			   						coupon.category + 
+			   					"</td>";
+			   	
+			   	couponHTML += "<td>" +
+			   					"<input type='hidden' id='hiddenCPID' value='" + coupon.CPID + "'>" + 
+			   				  "</td>";
+			   	usedCouponList.append('<tbody>' + 
+			   							'<tr id="coupon_">' + 
+			   								couponHTML + 
+			   							'</tr>' + 
+			   						  '</tbody>');
 			});
 			
 			// 각 상품 행을 순회하면서 상품 정보 수집
