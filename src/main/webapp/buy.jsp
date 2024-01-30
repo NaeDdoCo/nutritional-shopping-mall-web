@@ -169,7 +169,17 @@
 	                }
 	            });
 	            index = index + 1;
-	        });	       
+	        });
+	        
+	        var total = 0;
+	        products.forEach(function(product) {
+	        	if (!isNaN(parseFloat(product.price))) {
+		        	/* console.log('product.price : ' + product.price); */
+		        	total += parseFloat(product.price);
+	        	}
+	        });
+           	$("#total").text(total);
+	        /* console.log('total: ' + total); */
  		}		
 	</script>
 	<!-- 할인 금액 계산 -->
