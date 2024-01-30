@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.dao.MemberDAO;
 import model.dto.MemberDTO;
 
-@WebServlet("/CheckId")
+@WebServlet("/checkId")
 public class CheckId extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public CheckId() {
