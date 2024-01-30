@@ -27,7 +27,7 @@ public class CartDeleteAction implements Action{
 		System.out.println("cart delete strCid: " + strCid);
 		int intCid = Integer.parseInt(strCid);
 		
-		cDTO.setSearchCondition("장바구니삭제");
+		cDTO.setSearchCondition("장바구니비우기");
 		cDTO.setCID(intCid);
 		if (cDAO.delete(cDTO)) {
 			forward.setPath("cartPage.do");
