@@ -59,12 +59,14 @@
 						class="text-white">Email@Example.com</a> </small>
 				</div>
 				<div class="top-link pe-2">
-					<a href="#" class="text-white"> <small class="text-white mx-2">PrivacyPolicy</small>
-						/
-					</a> <a href="#" class="text-white"> <small class="text-white mx-2">Terms
-							of Use</small> /
-					</a> <a href="#" class="text-white"> <small class="text-white ms-2">Sales
-							and Refunds</small>
+					<a href="#" class="text-white"> 
+						<small class="text-white mx-2">PrivacyPolicy</small>/
+					</a> 
+					<a href="#" class="text-white"> 
+						<small class="text-white mx-2">Terms of Use</small> /
+					</a> 
+					<a href="#" class="text-white"> 
+						<small class="text-white ms-2">Sales and Refunds</small>
 					</a>
 				</div>
 			</div>
@@ -80,11 +82,10 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a href="index.html" class="nav-item nav-link">개인정보수정</a> <a
-							href="shop.html" class="nav-item nav-link">구매내역</a> <a
-							href="shop-detail.html" class="nav-item nav-link">리뷰내역</a> <a
-							href="shop-detail.html" class="nav-item nav-link">쿠폰관리</a>
-						<div class="nav-item dropdown"></div>
+						<a href="#" class="nav-item nav-link">개인정보수정</a> 
+						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
+						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
+						<a href="#" class="nav-item nav-link">쿠폰관리</a>
 					</div>
 					<div class="d-flex m-3 me-0">
 						<button
