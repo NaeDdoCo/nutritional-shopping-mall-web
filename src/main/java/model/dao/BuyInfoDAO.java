@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import model.dto.BuyInfoDTO;
@@ -69,6 +70,16 @@ public class BuyInfoDAO {
 
 				while (rs.next()) {
 					buyInfoDTO = new BuyInfoDTO();
+					
+					// 해당 row의 BUY_TIME(timestamp)을 저장
+					buyInfoDTO.setBuyTime(rs.getTimestamp("BUY_TIME"));
+
+					// SimpleDateFormat 객체를 사용해서 원하는 포멧을 저장
+					SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+					// 형식 변환한 구매일을 문자열로 저장
+					String buyTime = timeFormat.format(buyInfoDTO.getBuyTime());
+
 					buyInfoDTO.setBID(rs.getInt("B_ID"));
 					buyInfoDTO.setMID(rs.getString("M_ID"));
 					buyInfoDTO.setPID(rs.getInt("P_ID"));
@@ -77,7 +88,10 @@ public class BuyInfoDAO {
 					buyInfoDTO.setDeliState(rs.getString("DELI_STATE"));
 					buyInfoDTO.setbQty(rs.getInt("B_QTY"));
 					buyInfoDTO.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
-					buyInfoDTO.setBuyTime(rs.getTimestamp("BUY_TIME"));
+					// 년,월,일,시,분 까지 나타내기 위해 String에 저장해서 반환
+					// buyInfoDTO.setBuyTime(rs.getTimestamp("BUY_TIME"));
+					// buyInfoDTO에 포맷팅한 문자열을 설정
+					buyInfoDTO.setAncBuyTime(buyTime);
 					buyInfoDTO.setbPostCode(rs.getInt("B_POSTCODE"));
 					buyInfoDTO.setbAddress(rs.getString("B_ADDRESS"));
 					buyInfoDTO.setbDetailedAddress(rs.getString("B_DETAILED_ADDRESS"));

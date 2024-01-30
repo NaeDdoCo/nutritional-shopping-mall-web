@@ -21,8 +21,7 @@ public class BuyInfoDTO {
     // 컬럼에 없는 멤버변수
     private String ancPName;
     private String ancImagePath;
-    
-    
+    private String ancBuyTime;
     
 	public int getBID() {
 		return BID;
@@ -120,12 +119,21 @@ public class BuyInfoDTO {
 	public void setAncImagePath(String ancImagePath) {
 		this.ancImagePath = ancImagePath;
 	}
+	public String getAncBuyTime() {
+		return ancBuyTime;
+	}
+	public void setAncBuyTime(String ancBuyTime) {
+		this.ancBuyTime = ancBuyTime;
+	}
 	@Override
 	public String toString() {
 		return "BuyInfoDTO [BID=" + BID + ", MID=" + MID + ", PID=" + PID + ", CPID=" + CPID + ", orderNum=" + orderNum
 				+ ", deliState=" + deliState + ", bQty=" + bQty + ", paymentPrice=" + paymentPrice + ", buyTime="
 				+ buyTime + ", bPostCode=" + bPostCode + ", bAddress=" + bAddress + ", bDetailedAddress="
 				+ bDetailedAddress + ", searchCondition=" + searchCondition + ", hasReview=" + hasReview + ", ancPName="
-				+ ancPName + ", ancImagePath=" + ancImagePath + "]";
+				+ ancPName + ", ancImagePath=" + ancImagePath + ", ancBuyTime=" + ancBuyTime + "]";
 	}
+
+    
+    
 }
