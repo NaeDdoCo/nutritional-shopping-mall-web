@@ -45,7 +45,7 @@
 	<!-- 페이지 진입 시 총금액 계산 -->
 	<c:set var="total" value="0" /> <!-- 총금액을 저장하기 위한 jstl변수 -->
 	<c:forEach var="data" items="${cartList}" varStatus="status"> <!-- 장바구니 데이터 반복 -->
-		<c:set var="total" value="${total + (data.sellingPrice * data.cQty)}" /> <!-- 가격*금액을 총금액에 가산 -->
+		<c:set var="total" value="${total + (data.ancSellingPrice * data.cQty)}" /> <!-- 가격*금액을 총금액에 가산 -->
 	</c:forEach>
 	<script>
 		var total = ${total} <!-- 총금액을 자바스크립트 전역 변수에 저장 -->
@@ -55,22 +55,22 @@
 
 	<!-- 상품 금액 계산 -->
 	<script>
-		function calculPlusPrice(sellingPrice, index) { // 수량 + 버튼을 눌렸을 때 가격을 가산 하는기능
+		function calculPlusPrice(ancSellingPrice, index) { // 수량 + 버튼을 눌렸을 때 가격을 가산 하는기능
         	var cQTY = parseInt($("#cQTY_" + index).val()) + 1; // 버튼을 눌렀을 시점에는 아직 수량 가산이 안됬기 때문에 +1
-        	var productPrice = sellingPrice * cQTY; // 가격 * 수량
+        	var productPrice = ancSellingPrice * cQTY; // 가격 * 수량
         	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원"); // 가격 * 수량 금액을 원화 단위를 적용하여 표시
         
         	cQTY = cQTY - 1; 
-        	productPrice = sellingPrice;
+        	productPrice = ancSellingPrice;
         	total = total + productPrice;
         	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원";
     	}
-    	function calculMinusPrice(sellingPrice, index) {
+    	function calculMinusPrice(ancSellingPrice, index) {
     		var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
-           	var productPrice = sellingPrice * cQTY;
+           	var productPrice = ancSellingPrice * cQTY;
            	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
             
-           	productPrice = sellingPrice;
+           	productPrice = ancSellingPrice;
            	total = total - productPrice;
            	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원"; 
     	}
@@ -212,42 +212,42 @@
 									<td scope="row">
 										<div class="d-flex align-items-center">
 											<p class="mb-3 mt-4">
-												<input type="checkbox" onclick="updateTotalPrice(this, ${data.sellingPrice}, ${status.index})" checked>
+												<input type="checkbox" onclick="updateTotalPrice(this, ${data.ancSellingPrice}, ${status.index})" checked>
 											</p>
 										</div>
 									</td>
 									<!-- 이미지 -->
 									<td scope="row">
 										<div class="d-flex align-items-center">
-											<img src="${data.imagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+											<img src="${data.ancImagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
 										</div>
 									</td>
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
-										<p class="mb-0 mt-4" id="pName">${data.pName}</p>
+										<p class="mb-0 mt-4" id="pName">${data.ancPName}</p>
 									</td>
 									<!-- 이름 -->
 									<!-- 가격 -->
 									<td>
 										<p class="mb-0 mt-4" id="sellingPrice">
-											<fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />
+											<fmt:formatNumber value="${data.ancSellingPrice}" currencyCode="KRW" />
 											원
 										</p> 
-										<input type="hidden" id="hiddenSellingPrice" value="${data.sellingPrice}" />
+										<input type="hidden" id="hiddenSellingPrice" value="${data.ancSellingPrice}" />
 									</td>
 									<!-- 가격 -->
 									<!-- 수량 -->
 									<td>
 										<div class="input-group quantity mt-4" style="width: 100px;">
 											<div class="input-group-btn">
-												<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.sellingPrice}, ${status.index})">
+												<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.ancSellingPrice}, ${status.index})">
 													<i class="fa fa-minus"></i>
 												</button>
 											</div>
 											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
 											<div class="input-group-btn">
-												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.sellingPrice}, ${status.index})">
+												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.ancSellingPrice}, ${status.index})">
 													<i class="fa fa-plus"></i>
 												</button>
 											</div>
@@ -257,7 +257,7 @@
 									<!-- 가격*수량 -->
 									<td>
 										<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">
-											<fmt:formatNumber value="${data.sellingPrice * data.cQty}" currencyCode="KRW" />
+											<fmt:formatNumber value="${data.ancSellingPrice * data.cQty}" currencyCode="KRW" />
 											원
 										</p>
 									</td>
