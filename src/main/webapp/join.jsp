@@ -110,7 +110,7 @@
 	<script>
 		function pwFormatCheck() {
 
-			var reg = new RegExp("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
+			var reg = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
 
 			if (!reg.test($('#password').val())) {
 				Swal.fire({
