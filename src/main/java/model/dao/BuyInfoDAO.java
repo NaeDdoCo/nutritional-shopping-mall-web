@@ -15,25 +15,36 @@ public class BuyInfoDAO {
 	private PreparedStatement pstmt;
 
 	// 내 구매내역(해당 회원의 구매내역을 불러온다)
-	// 선택할 컬럼 B_ID, M_ID, P_ID, CP_ID, 주문번호, 배송상태, 구매수량, 지불금액, 구매시간, 주소
+	// 선택할 컬럼 B_ID, M_ID, P_ID, CP_ID, 주문번호, 배송상태, 구매수량, 지불금액, 구매시간, 주소, 상품명, 상품주소
 	// 테이블 BUYINFO
+	// 조인 상품 테이블
 	// 조건 M_ID가 전달받은 값과 같은 행
-	private static final String SELECTALL_LIST = "SELECT B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS "
-			+ "FROM BUYINFO " + "WHERE M_ID = ?";
+	private static final String SELECTALL_LIST = "SELECT "
+			+ "B.B_ID, B.M_ID, B.P_ID, B.CP_ID, B.ORDER_NUM, B.DELI_STATE, B.B_QTY, B.PAYMENT_PRICE, B.BUY_TIME, B.B_POSTCODE, B.B_ADDRESS, B.B_DETAILED_ADDRESS, "
+			+ "P.P_NAME, P.IMAGE_PATH "
+			+ "FROM BUYINFO B "
+			+ "JOIN PRODUCT P ON B.P_ID = P.P_ID "
+			+ "WHERE B.M_ID = ? AND B.DELI_STATE NOT IN ('취소', '환불') "
+			+ "ORDER BY B.ORDER_NUM DESC";
 	
 	// 주문번호의 최대값 +1
-	private static final String SELECTALL_MAX_ORDER_NUM = "SELECT NVL(MAX(ORDER_NUM),0)+1 AS MAX_ORDER_NUM FROM BUYINFO";
+	private static final String SELECTONE_MAX_ORDER_NUM = "SELECT NVL(MAX(ORDER_NUM),0)+1 AS MAX_ORDER_NUM FROM BUYINFO";
 
-	// 판매량 반환(P_ID로 그룹화 하여 ) // 진행중
+	// 판매량 반환
+	// 전달받은 값과 P_ID가 일치하는 행의 B_Qty를 더한다
 	private static final String SELECTONE_QTY = "SELECT SUM(B_Qty) AS TOTAL_QTY FROM BUYINFO WHERE P_ID = ?";
 
 	// 구매내역 추가
+	// B_ID, M_ID, P_ID, CP_ID, 주문번호, 배송상태, 구매수량, 지불금액, 구매일, 배송지
+	// 주문번호는 구매내역 테이블에서 ORDER_NUM컬럼의 가장 큰값에서 1을 더해서 반환한다
+	// DELI_STATE는 테이블에서 DEFAULT로 결재완료를 입력함_01_30 제거
 	private static final String INSERT = "INSERT INTO BUYINFO "
-			+ "(B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS) "
-			+ "VALUES (NVL((SELECT MAX(B_ID) FROM BUYINFO), 0) + 1, " + "?, " + "?, " + "?, " + "?, " + "'결재완료', " + "?, "
+			+ "(B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS) "
+			+ "VALUES (NVL((SELECT MAX(B_ID) FROM BUYINFO), 0) + 1, " + "?, " + "?, " + "?, " + "?, " + "?, "
 			+ "?, " + "SYSTIMESTAMP, " + "?, " + "?, " + "?)";
 
 	// 구매상태변경(환불, 취소)
+	// 컨트롤러에서 환불, 취소를 줄지 환불쿼리, 취소쿼리를 따로 작성할지
 	private static final String UPDATE_STATE = "UPDATE BUYINFO SET DELI_STATE = ? WHERE B_ID = ?";
 
 	// 
@@ -70,6 +81,8 @@ public class BuyInfoDAO {
 					buyInfoDTO.setbPostCode(rs.getInt("B_POSTCODE"));
 					buyInfoDTO.setbAddress(rs.getString("B_ADDRESS"));
 					buyInfoDTO.setbDetailedAddress(rs.getString("B_DETAILED_ADDRESS"));
+					buyInfoDTO.setAncPName(rs.getString("P_NAME"));
+					buyInfoDTO.setAncImagePath(rs.getString("IMAGE_PATH"));
 					buyList.add(buyInfoDTO);
 				}
 
@@ -132,7 +145,7 @@ public class BuyInfoDAO {
 			buyInfoDTO = new BuyInfoDTO();
 			
 			try {
-				pstmt = conn.prepareStatement(SELECTALL_MAX_ORDER_NUM);
+				pstmt = conn.prepareStatement(SELECTONE_MAX_ORDER_NUM);
 				
 				ResultSet rs = pstmt.executeQuery();
 				

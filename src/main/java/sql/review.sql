@@ -16,14 +16,26 @@ CREATE TABLE REVIEW (
 );
 
 
+
+
 --------------------------------------------------리뷰 샘플 코드-------------------------------------------------------------------------------------------------------------
 INSERT INTO REVIEW 
 (R_ID, M_ID, B_ID, SCORE, CONTENTS, CREATE_TIME)
 VALUES (
     NVL((SELECT MAX(R_ID) FROM REVIEW), 0) + 1,
-    'teemo', 
+    'YUMI', 
     1, 
     5, 
     '값 싸고 맛있는 영양제3', 
     CURRENT_TIMESTAMP
 );
+
+
+SELECT * FROM REVIEW;
+
+SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME, M.M_NAME, M.EMAIL 
+FROM REVIEW R
+JOIN BUYINFO B ON B.B_ID = R.B_ID
+JOIN PRODUCT P ON B.P_ID = P.P_ID
+JOIN MEMBER M ON R.M_ID = M.M_ID
+WHERE R.R_ID = 1;

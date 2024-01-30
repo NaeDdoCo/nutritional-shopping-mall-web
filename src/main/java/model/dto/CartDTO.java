@@ -6,10 +6,12 @@ public class CartDTO {
 	private String MID;
 	private int PID;
 	private int cQty;
-	private String pName;
 	private String searchCondition;
-	private int sellingPrice;
-	private String imagePath;
+    // 컬럼에 없는 멤버변수
+	private String ancPName;
+	private int ancSellingPrice;
+	private String ancImagePath;
+	
 	
 	public int getCID() {
 		return CID;
@@ -35,37 +37,34 @@ public class CartDTO {
 	public void setcQty(int cQty) {
 		this.cQty = cQty;
 	}
-	public String getpName() {
-		return pName;
-	}
-	public void setpName(String pName) {
-		this.pName = pName;
-	}
 	public String getSearchCondition() {
 		return searchCondition;
 	}
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
-	public int getSellingPrice() {
-		return sellingPrice;
+	public String getAncPName() {
+		return ancPName;
 	}
-	public void setSellingPrice(int sellingPrice) {
-		this.sellingPrice = sellingPrice;
+	public void setAncPName(String ancPName) {
+		this.ancPName = ancPName;
 	}
-	public String getImagePath() {
-		return imagePath;
+	public int getAncSellingPrice() {
+		return ancSellingPrice;
 	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setAncSellingPrice(int ancSellingPrice) {
+		this.ancSellingPrice = ancSellingPrice;
+	}
+	public String getAncImagePath() {
+		return ancImagePath;
+	}
+	public void setAncImagePath(String ancImagePath) {
+		this.ancImagePath = ancImagePath;
 	}
 	@Override
 	public String toString() {
-		return "CartDTO [CID=" + CID + ", MID=" + MID + ", PID=" + PID + ", cQty=" + cQty + ", pName=" + pName
-				+ ", searchCondition=" + searchCondition + ", sellingPrice=" + sellingPrice + ", imagePath=" + imagePath
-				+ "]";
+		return "CartDTO [CID=" + CID + ", MID=" + MID + ", PID=" + PID + ", cQty=" + cQty + ", searchCondition="
+				+ searchCondition + ", ancPName=" + ancPName + ", ancSellingPrice=" + ancSellingPrice
+				+ ", ancImagePath=" + ancImagePath + "]";
 	}
-	 
-	
-
 }

@@ -31,7 +31,7 @@ CREATE TABLE MEMBER(
 ----------------------------------------------------회원 샘플 코드 --------------------------------------------------------------------------
 --회원가입
 INSERT INTO MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, GRADE, HEALTH) 
-VALUES ('teemoo', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), 
+VALUES ('YUMI', '티모', '1234', TO_DATE('2099-12-30', 'YYYY-MM-DD'), 
 '남', '010-2525-2525', 'teemo@gmail.com', 99999, '경기도 용인시', '군인숙소','USER', '눈');
 
 --중복검사
@@ -62,3 +62,5 @@ WHERE M_ID = 'teemo';
 
 --회원탈퇴
 DELETE FROM MEMBER WHERE M_ID = 'teemoo';
+
+DROP TABLE MEMBER;

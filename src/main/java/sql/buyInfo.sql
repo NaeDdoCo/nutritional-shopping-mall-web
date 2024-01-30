@@ -12,7 +12,8 @@ CREATE TABLE BUYINFO (
     -- 5. 주문번호
     ORDER_NUM INT NOT NULL,        
 	-- 6. 배송 상태         
-    DELI_STATE VARCHAR2(75) DEFAULT '결재 완료' NOT NULL,     
+	-- 오타수정 결재 -> 결제
+    DELI_STATE VARCHAR2(75) DEFAULT '결제완료' NOT NULL,     
     -- 7. 구매 수량
     B_QTY INT NOT NULL,
     -- 8. 결제 금액
@@ -24,20 +25,21 @@ CREATE TABLE BUYINFO (
 	--도로명주소
 	B_ADDRESS VARCHAR2(255) NOT NULL,
 	--상세주소
-	B_DETAILED_ADDRESS VARCHAR2(255) NOT NULL
+	B_DETAILED_ADDRESS VARCHAR2(255) NOT NULL,
+	--리뷰 작성여부
+	HAS_RIVIEW INT DEFAULT 0 NOT NULL
 );
 
 --------------------------------------------------구매내역 샘플 코드-------------------------------------------------------------------------------------------------------------
 -- 구매내역 추가
 INSERT INTO BUYINFO 
-(B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS)
+(B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS)
 VALUES (
     NVL((SELECT MAX(B_ID) FROM BUYINFO), 0) + 1,
-    'teemooo', 
+    'teemo', 
     1, 
     'CP001', 
     12345, 
-    '결재 완료', 
     3, 
     50000, 
     CURRENT_TIMESTAMP, -- 현재 시간을 타임스탬프로 설정
@@ -46,12 +48,19 @@ VALUES (
     '123번지 456호'
 );
 
+-- 주문번호의 최대값 +1 을 준다
+SELECT NVL(MAX(ORDER_NUM),0)+1 AS MAX_ORDER_NUM FROM BUYINFO;
+
 -- 판매량 반환
 SELECT P_ID, SUM(B_Qty) AS TOTAL_QTY
 FROM BUYINFO
 WHERE P_ID = 1
 GROUP BY P_ID;
 
-SELECT B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS 
+SELECT B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY_TIME, B_POSTCODE, B_ADDRESS, B_DETAILED_ADDRESS, HAS_RIVIEW
 FROM BUYINFO 
 WHERE M_ID = 'teemo';
+
+SELECT HAS_RIVIEW FROM BUYINFO;
+
+--DROP TABLE BUYINFO;

@@ -35,7 +35,7 @@ public class ReviewDAO {
 			+ "ORDER BY R.CREATE_TIME DESC";
 
 	// 리뷰 상세
-	private static final String SELECTONE_DETAIL = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME, M.M_NAME "
+	private static final String SELECTONE_DETAIL = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME, M.M_NAME, M.EMAIL "
 			+ "FROM REVIEW R "
 			+ "JOIN BUYINFO B ON B.B_ID = R.B_ID "
 			+ "JOIN PRODUCT P ON B.P_ID = P.P_ID "
@@ -85,8 +85,8 @@ public class ReviewDAO {
 					reviewDTO.setScore(rs.getInt("SCORE"));
 					reviewDTO.setContents(rs.getString("CONTENTS"));
 					reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
-					reviewDTO.setPID(rs.getInt("P_ID"));
-					reviewDTO.setpNAME(rs.getString("P_NAME"));
+					reviewDTO.setAncPID(rs.getInt("P_ID"));
+					reviewDTO.setAncPName(rs.getString("P_NAME"));
 					reviewList.add(reviewDTO);
 				}
 
@@ -109,7 +109,7 @@ public class ReviewDAO {
 
 			try {
 				pstmt = conn.prepareStatement(SELECTALL_P_RIVIEW);
-				pstmt.setInt(1, rDTO.getPID());
+				pstmt.setInt(1, rDTO.getAncPID());
 
 				ResultSet rs = pstmt.executeQuery();
 
@@ -121,8 +121,8 @@ public class ReviewDAO {
 					reviewDTO.setScore(rs.getInt("SCORE"));
 					reviewDTO.setContents(rs.getString("CONTENTS"));
 					reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
-					reviewDTO.setPID(rs.getInt("P_ID"));
-					reviewDTO.setpNAME(rs.getString("P_NAME"));
+					reviewDTO.setAncPID(rs.getInt("P_ID"));
+					reviewDTO.setAncPName(rs.getString("P_NAME"));
 					reviewList.add(reviewDTO);
 				}
 
@@ -165,9 +165,10 @@ public class ReviewDAO {
 	                reviewDTO.setScore(rs.getInt("SCORE"));
 	                reviewDTO.setContents(rs.getString("CONTENTS"));
 	                reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
-	                reviewDTO.setPID(rs.getInt("P_ID"));
-	                reviewDTO.setpNAME(rs.getString("P_NAME"));
-	                reviewDTO.setmName(rs.getString("M_NAME"));
+	                reviewDTO.setAncPID(rs.getInt("P_ID"));
+	                reviewDTO.setAncPName(rs.getString("P_NAME"));
+	                reviewDTO.setAncMName(rs.getString("M_NAME"));
+	                reviewDTO.setAncEmail(rs.getString("EMAIL"));
 				} else {
 					reviewDTO = null;
 				}
