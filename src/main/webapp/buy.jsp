@@ -157,7 +157,6 @@
 				products.push(product);
 			});
 			
-	        var discountApplied = false;
 			var index = 0;
 	        products.forEach(function(product) {
 	            selectedCoupons.forEach(function(coupon) {
@@ -165,7 +164,6 @@
 	                    // 해당 상품의 카테고리와 일치하는 쿠폰이 있으면 할인 적용
 	                    product.price -= (product.price * parseFloat(coupon.discount)) / 100;
 	                   	$("#productPrice_" + index).text(product.price);
-	                    discountApplied = true;
 	                }
 	            });
 	            index = index + 1;
@@ -211,7 +209,8 @@
 			    form.innerHTML += '<input type="hidden" name="discount[]" value="' + row.querySelector('#couponDiscount').innerText.replace('%', '') + '">';
 			    form.innerHTML += '<input type="hidden" name="couponCategory[]" value="' + row.querySelector('#couponCategory').innerText + '">';
 			});
-			document.getElementById('buyForm').submit();
+			
+			form.submit();
 		}
 	</script>
 	<!-- 구매 확정 -->
