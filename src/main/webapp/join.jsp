@@ -432,7 +432,7 @@
 								<p>여자</p>
 							</div>
 							<div class="col-lg-2">
-								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" id="phoneNum1" value="010" readonly>
+								<input class="form-control p-3 border-secondary" type="number" name="phoneNum1" id="phoneNum1" value="010" readonly style="background-color:white;">
 							</div>
 							<div class="col-lg-3">
 								<input class="form-control p-3 border-secondary" type="number" name="phoneNum2" id="phoneNum2" placeholder="0000" oninput="limitNumLength(this, 4)">
@@ -444,7 +444,7 @@
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkTel()">인증번호 발송</button>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" name="authNum" id="authNum" placeholder="인증번호" readonly>
+								<input class="form-control p-3 border-secondary" type="text" name="authNum" id="authNum" placeholder="인증번호" readonly style="background-color:white;">
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkAuthNum()">인증번호 확인</button>
@@ -459,19 +459,26 @@
 								<input class="form-control p-3 border-secondary" type="text" name="email2" id="email2" placeholder="이메일 주소" maxlength="60">
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" id="zipNo" placeholder="우편번호" readonly>
+								<input class="form-control p-3 border-secondary" type="number" id="zipNo" name="zipNo" id="zipNo" placeholder="우편번호" readonly style="background-color:white;">
 							</div>
 							<div class="col-lg-4">
 								<input class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onClick="goPopup()" value="우편번호 찾기">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" id="roadAddrPart1" placeholder="도로명 주소" readonly>
+								<input class="form-control p-3 border-secondary " type="text" id="roadAddrPart1" name="roadAddrPart1" id="roadAddrPart1" placeholder="도로명 주소" readonly style="background-color:white;">
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" id="addrDetail" placeholder="상세 주소" readonly>
+								<input class="form-control p-3 border-secondary" type="text" id="addrDetail" name="addrDetail" id="addrDetail" placeholder="상세 주소" readonly style="background-color:white;">
 							</div>
 							<div>
-								<input type="checkbox" name="skel" value="뼈/치아">뼈/치아 <input type="checkbox" name="liver" value="간">간 <input type="checkbox" name="eye" value="눈">눈 <input type="checkbox" name="energy" value="활력">활력 <input type="checkbox" name="immune" value="면역">면역 <input type="checkbox" name="brain" value="두뇌">두뇌 <input type="checkbox" name="skin" value="피부">피부 <input type="checkbox" name="digest" value="소화">소화
+								<input type="checkbox" name="skel" value="뼈/치아">뼈/치아 
+								<input type="checkbox" name="liver" value="간">간 
+								<input type="checkbox" name="eye" value="눈">눈 
+								<input type="checkbox" name="energy" value="활력">활력 
+								<input type="checkbox" name="immune" value="면역">면역 
+								<input type="checkbox" name="brain" value="두뇌">두뇌 
+								<input type="checkbox" name="skin" value="피부">피부 
+								<input type="checkbox" name="digest" value="소화">소화
 							</div>
 							<div class="col-lg-6">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkRequirement()">회원가입</button>
