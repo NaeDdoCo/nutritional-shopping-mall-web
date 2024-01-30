@@ -10,6 +10,10 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<!-- jquery -->
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +38,48 @@
 </head>
 
 <body>
+	
+	<c:set var="BID" value="${param.BID}" />
+	<%-- 리뷰 작성 --%>
+	<script>
+		console.log("[로그] BID :" + ${BID});
+			
+		function writeReview(){
+			var form = document.getElementById('writeReviewForm');
+			
+			var radioButtons = document.querySelectorAll('input[type=radio][name="rating"]');
+			radioButtons.forEach(function(radioButton) {
+				console.log("[로그] 라디오 반복문");
+				if (radioButton.checked) {
+					console.log("[로그] 별점 :" + radioButton.value);
+					var scoreInput = document.createElement('input');
+		            scoreInput.type = 'hidden';
+		           	scoreInput.name = 'score';
+		           	scoreInput.value = radioButton.value;
+		           	form.appendChild(scoreInput);
+				}
+			});
+			
+			var a = $("#contents").val();
+			console.log("[로그] 내용 :" + a);
+			
+			var contentsInput = document.createElement('input');
+			contentsInput.type = 'hidden';
+		   	contentsInput.name = 'contents';
+		   	contentsInput.value = $("#contents").val();
+		   	form.appendChild(contentsInput);
+
+		   	var BIDInput = document.createElement('input');
+		 	BIDInput.type = 'hidden';
+		 	BIDInput.name = 'BID';
+		 	BIDInput.value = ${BID};
+		  	form.appendChild(BIDInput);
+		  	
+		  	form.submit();
+			
+		}
+	</script>	
+
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -56,7 +102,9 @@
 		</div>
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
-				<a href="index.html" class="navbar-brand"><h1 class="text-primary display-6"></h1></a>
+				<a href="index.html" class="navbar-brand">
+					<h1 class="text-primary display-6"></h1>
+				</a>
 				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" NaeDdoCo Pillsdata-bs-target="#navbarCollapse">
 					<span class="fa fa-bars text-primary"></span>
 				</button>
@@ -112,17 +160,17 @@
 	<div class="container-fluid py-5 mt-5">
 		<div class="container py-5">
 			<div class="row g-10 mb-5">
-				<form action="#">
+				<form method="post" action="writeReview.do" id="writeReviewForm">
 					<h4 class="mb-5 fw-bold">리뷰 작성</h4>
 					<div class="row g-4">
 						<div class="col-lg-4">
 							<div class="border-bottom rounded">
-								<input type="text" class="form-control border-0 me-4" readonly style="background-color: white;">${reviewInfo.mName}
+								<input type="text" class="form-control border-0 me-4" value="${reviewInfo.mName}" readonly style="background-color: white;">
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="border-bottom rounded">
-								<input type="email" class="form-control border-0" readonly style="background-color: white;">${reviewInfo.email}
+								<input type="email" class="form-control border-0" value="${reviewInfo.email}" readonly style="background-color: white;">
 							</div>
 						</div>
 						<div class="col-lg-4">
@@ -131,27 +179,31 @@
 									<input type="radio" id="5-stars" name="rating" value="5" /> 
 									<label for="5-stars" class="star pr-4">★</label> 
 									<input type="radio" id="4-stars" name="rating" value="4" /> 
-									<label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" /> 
-									<label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" /> 
-									<label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" /> 
+									<label for="4-stars" class="star">★</label> 
+									<input type="radio" id="3-stars" name="rating" value="3" /> 
+									<label for="3-stars" class="star">★</label> 
+									<input type="radio" id="2-stars" name="rating" value="2" /> 
+									<label for="2-stars" class="star">★</label> 
+									<input type="radio" id="1-star" name="rating" value="1" /> 
 									<label for="1-star" class="star">★</label>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-12">
 							<div class="border-bottom rounded my-4">
-								<textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="내용" spellcheck="false"></textarea>
+								<textarea class="form-control border-0" id="contents" cols="30" rows="8" placeholder="내용" spellcheck="false"></textarea>
 							</div>
 						</div>
 						<div class="col-lg-12">
 							<div class="d-flex justify-content-between py-3 mb-5">
-								<a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> 작성</a>
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="writeReview()">작성</button>
 							</div>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- Single Product End -->
 
@@ -171,17 +223,10 @@
 					</div>
 					<div class="col-lg-3">
 						<div class="d-flex justify-content-end pt-3">
-							<a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> 
-								<i class="fab fa-twitter"></i>
-							</a> 
-							<a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> 
-								<i class="fab fa-facebook-f"></i>
-							</a> 
-							<a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> 
-								<i class="fab fa-youtube"></i>
-							</a> 
-							<a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""> 
-								<i class="fab fa-linkedin-in"></i>
+							<a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> <i class="fab fa-twitter"></i>
+							</a> <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> <i class="fab fa-facebook-f"></i>
+							</a> <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> <i class="fab fa-youtube"></i>
+							</a> <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""> <i class="fab fa-linkedin-in"></i>
 							</a>
 						</div>
 					</div>
