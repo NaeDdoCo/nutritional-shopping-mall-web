@@ -54,10 +54,10 @@ public class CheckTel extends HttpServlet {
         }
         
 		//sms api를 사용하여 sms 발송
-		DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSUDWN0MRTNVKOZ", "VFCCDXIBPRJJIOCEMFZAUIAUEX7YZPUJ", "https://api.coolsms.co.kr");
+		DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSB74ETIIIUKKTG", "PK6JVDBUWKBA8FVCBACP6PALG9AYPJPD", "https://api.coolsms.co.kr");
 		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
 		Message message = new Message();
-		message.setFrom("01033157366");
+		message.setFrom("01050929241");
 		message.setTo(combinedPhoneNumber);
 		message.setText("내또코 영양제 쇼핑몰 인증번호 ["+numStr+"]을 입력해주세요. (•ө•)♡");
 
