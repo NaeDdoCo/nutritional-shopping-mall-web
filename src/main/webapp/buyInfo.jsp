@@ -85,7 +85,7 @@
 						<a href="cartPage.do" class="position-relative me-4 my-auto"> 
 							<i class="fa fa-shopping-bag fa-2x"></i> 
 						</a> 
-						<a href="myPage.do" class="my-auto"> 
+						<a href="mypage.do" class="my-auto"> 
 							<i class="fas fa-user fa-2x"></i>
 						</a>
 					</div>
