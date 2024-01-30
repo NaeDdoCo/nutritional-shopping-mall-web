@@ -232,7 +232,7 @@
 				Swal.fire({
 					icon : 'error',
 					title : '필수 항목 검사',
-					text : '생년월일 연도을 입력해주세요.',
+					text : '생년월일을 입력해주세요.',
 				})
 			} else if ($("#month").val() == "") {
 				Swal.fire({
