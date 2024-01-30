@@ -57,7 +57,7 @@
 			// AJAX 요청 보내기
 			$.ajax({
 				type : "POST", // 또는 "GET"
-				url : "CheckId", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+				url : "checkId", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
 				data : {
 					'MID' : MID
 				},
@@ -146,7 +146,7 @@
 			var phoneNum3 = $("#phoneNum3").val();
 			$.ajax({
 				type : "POST",
-				url : "CheckTel",
+				url : "checkTel",
 				data : {
 					'phoneNum1' : phoneNum1,
 					'phoneNum2' : phoneNum2,
