@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 <meta charset="utf-8">
@@ -86,9 +87,13 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex align-items-center">
-					<div class="input-group w-75 mx-auto d-flex">
-						<input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-					</div>
+					<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
+					<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
+						<i class="fas fa-search text-primary"></i>
+					</button>
+					<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
+					</a> <a href="myPage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -107,42 +112,44 @@
 	<div class="container-fluid py-5 mt-5">
 		<div class="container py-5">
 			<div class="row g-10 mb-5">
-				<div class="col-lg-8 col-xl-9">
+				<form action="#">
+					<h4 class="mb-5 fw-bold">리뷰 작성</h4>
 					<div class="row g-4">
-						<form action="#">
-							<h4 class="mb-5 fw-bold">리뷰 작성</h4>
-							<div class="row g-4">
-								<div class="col-lg-4">
-									<div class="border-bottom rounded">
-										<input type="text" class="form-control border-0 me-4" placeholder="이름" readonly style="background-color:white;">
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="border-bottom rounded">
-										<input type="email" class="form-control border-0" placeholder="이메일" readonly style="background-color:white;">
-									</div>
-								</div>
-								<div class="col-lg-3 d-flex align-items-center">
-									<div class="row">
-										<div class="star-rating space-x-4 mx-auto">
-											<input type="radio" id="5-stars" name="rating" value="5" /> <label for="5-stars" class="star pr-4">★</label> <input type="radio" id="4-stars" name="rating" value="4" /> <label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" /> <label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" /> <label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" /> <label for="1-star" class="star">★</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="border-bottom rounded my-4">
-										<textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="내용" spellcheck="false"></textarea>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="d-flex justify-content-between py-3 mb-5">
-										<a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> 작성</a>
-									</div>
+						<div class="col-lg-4">
+							<div class="border-bottom rounded">
+								<input type="text" class="form-control border-0 me-4" readonly style="background-color: white;">${reviewInfo.mName}
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="border-bottom rounded">
+								<input type="email" class="form-control border-0" readonly style="background-color: white;">${reviewInfo.email}
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="row">
+								<div class="star-rating space-x-4 mx-auto">
+									<input type="radio" id="5-stars" name="rating" value="5" /> 
+									<label for="5-stars" class="star pr-4">★</label> 
+									<input type="radio" id="4-stars" name="rating" value="4" /> 
+									<label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" /> 
+									<label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" /> 
+									<label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" /> 
+									<label for="1-star" class="star">★</label>
 								</div>
 							</div>
-						</form>
+						</div>
+						<div class="col-lg-12">
+							<div class="border-bottom rounded my-4">
+								<textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="내용" spellcheck="false"></textarea>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="d-flex justify-content-between py-3 mb-5">
+								<a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> 작성</a>
+							</div>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -164,7 +171,18 @@
 					</div>
 					<div class="col-lg-3">
 						<div class="d-flex justify-content-end pt-3">
-							<a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a> <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a> <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a> <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+							<a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> 
+								<i class="fab fa-twitter"></i>
+							</a> 
+							<a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> 
+								<i class="fab fa-facebook-f"></i>
+							</a> 
+							<a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""> 
+								<i class="fab fa-youtube"></i>
+							</a> 
+							<a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""> 
+								<i class="fab fa-linkedin-in"></i>
+							</a>
 						</div>
 					</div>
 				</div>
