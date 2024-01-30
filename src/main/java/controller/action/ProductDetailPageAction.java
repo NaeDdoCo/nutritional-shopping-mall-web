@@ -36,7 +36,10 @@ public class ProductDetailPageAction implements Action{
        //pid로 해당 제품의 리뷰 정보 조회
        ArrayList<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
        
-       rDTO.setPID(Integer.parseInt(request.getParameter("PID")));
+       String strPID = request.getParameter("PID");
+       int PID = Integer.parseInt(strPID);
+       
+       rDTO.setAncPID(PID);
        rDTO.setSearchCondition("상품리뷰");
        reviewList=rDAO.selectAll(rDTO);
 
