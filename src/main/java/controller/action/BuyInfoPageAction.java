@@ -20,9 +20,9 @@ public class BuyInfoPageAction implements Action{
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
 		
+		BuyInfoDAO bDAO = new BuyInfoDAO();
 		BuyInfoDTO bDTO = new BuyInfoDTO();
 		ArrayList<BuyInfoDTO> bDTOs = new ArrayList<BuyInfoDTO>();
-		BuyInfoDAO bDAO = new BuyInfoDAO();
 		
 		HttpSession session = request.getSession();
 		String MID = (String)session.getAttribute("member");
@@ -32,6 +32,9 @@ public class BuyInfoPageAction implements Action{
 		bDTOs = bDAO.selectAll(bDTO);
 		System.out.println("[BuyInfoPageAction] bDTOs : " + bDTOs);
 		request.setAttribute("bDTOs", bDTOs);
+		
+		forward.setPath("buyInfo.jsp");
+		forward.setRedirect(false);
 		
 		return forward;
 	}
