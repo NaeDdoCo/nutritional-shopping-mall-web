@@ -40,8 +40,9 @@ public class WriteReviewAction implements Action{
 		rDTO.setScore(score);
 		rDTO.setContents(contents);
 		rDTO.setSearchCondition("리뷰작성");
+		System.out.println("[log] WriteReviewAction rDTO [" + rDTO + "]");
 		
-		//작성버튼누르면 리뷰테이블에 insert
+		//[작성버튼]누르면 리뷰DB에 insert
 		boolean result = rDAO.insert(rDTO);
 
 		if(result) {
@@ -50,7 +51,7 @@ public class WriteReviewAction implements Action{
 			forward.setRedirect(false);
 		}else {
 			//실패시 에러페이지
-			forward.setPath("error.jsp");
+			forward.setPath("error.do");
 			forward.setRedirect(true);
 		}
 

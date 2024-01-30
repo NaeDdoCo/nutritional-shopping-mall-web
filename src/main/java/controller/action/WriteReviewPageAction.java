@@ -11,7 +11,6 @@ import controller.common.Action;
 import controller.common.ActionForward;
 import model.dao.MemberDAO;
 import model.dto.MemberDTO;
-import model.dto.ReviewDTO;
 
 public class WriteReviewPageAction implements Action{
 
@@ -29,6 +28,7 @@ public class WriteReviewPageAction implements Action{
 		mDTO.setSearchCondition("회원정보");
 		mDTO.setMID(MID);
 		mDTO = mDAO.selectOne(mDTO);
+		System.out.println("[log] WriteReviewPageAction mDTO [" + mDTO + "]");
 		
 		//mid, email정보 보내주기
 		request.setAttribute("reviewInfo", mDTO);
