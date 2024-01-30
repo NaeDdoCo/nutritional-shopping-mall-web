@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,25 +41,8 @@
 
 </head>
 <body>
-
-	<%-- 로그아웃 성공 모달 --%>
-	<c:if test="${loginResult != null}"> 
-		<c:if test="${loginResult == true}">
-			<script type="text/javascript">
-				window.onload = function() {
-					logoutSuccess();
-				};
-				function logoutSuccess() {
-					Swal.fire({
-						icon : 'success',
-						title : '로그아웃 성공',
-						text : '로그아웃이 처리되었습니다.',
-					})
-				}
-			</script>
-		</c:if>
-	</c:if>
-
+	
+	<custom:loginResult logoutResult='${logoutResult}' />
 
 	<!-- 장바구니 추가 비동기처리 -->
 	<script>
