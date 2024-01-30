@@ -130,7 +130,8 @@ public class BuyCompPageAction implements Action{
 			cpDAO.update(cpDTO);
 		}
 
-		request.setAttribute("bDTOs", bDTOs);
+//		request.setAttribute("bDTOs", bDTOs);
+		request.setAttribute("orderNum", bDTO.getOrderNum());
 		
 		forward.setPath("buyComp.jsp");
 		forward.setRedirect(false);

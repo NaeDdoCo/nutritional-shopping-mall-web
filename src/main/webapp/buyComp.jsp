@@ -138,9 +138,13 @@
 
 	<!-- 마이 폼 시작 -->
 	<div class="container-fluid py-5">
-		<div class="container py-5 text-left">
+		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
-				<p>구매완료</p>
+				<div class="col-lg-6">
+					<h1 class="mb-4">구매가 완료되었습니다</h1> <hr>
+					<h2>주문번호 | ${orderNum}</h2>
+					<a class="btn border-secondary rounded-pill py-3 px-5" href="mainPage.do">쇼핑 계속하기</a>
+				</div>
 			</div>
 		</div>
 	</div>
