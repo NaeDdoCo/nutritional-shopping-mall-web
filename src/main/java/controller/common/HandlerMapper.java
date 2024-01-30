@@ -8,6 +8,7 @@ import controller.action.BuyInfoPageAction;
 import controller.action.BuyPageAction;
 import controller.action.CartDeleteAction;
 import controller.action.CartPageAction;
+import controller.action.CouponInfoPageAction;
 import controller.action.DeleteReviewAction;
 import controller.action.ErrorAction;
 import controller.action.JoinAction;
@@ -16,6 +17,7 @@ import controller.action.LoginAction;
 import controller.action.LoginPageAction;
 import controller.action.LogoutAction;
 import controller.action.MainPageAction;
+import controller.action.ModifyUserInfoPageAction;
 import controller.action.MypageAction;
 import controller.action.ProductAllPageAction;
 import controller.action.ProductDetailPageAction;
@@ -40,6 +42,7 @@ public class HandlerMapper {
 		this.mappings.put("/logout.do", new LogoutAction());// 로그아웃
 		this.mappings.put("/termsPage.do", new TermsPageAction());// 약관페이지
 		this.mappings.put("/mypage.do", new MypageAction());// 마이페이지
+		this.mappings.put("/modifyUserInfoPage.do", new ModifyUserInfoPageAction());// 마이페이지
 		this.mappings.put("/login.do", new LoginAction()); // 로그인페이지
 		this.mappings.put("/productAllPage.do", new ProductAllPageAction());// 상품전페목록
 		this.mappings.put("/productDetailPage.do", new ProductDetailPageAction());// 상품상세페이지
@@ -48,6 +51,7 @@ public class HandlerMapper {
 		this.mappings.put("/buyPage.do", new BuyPageAction());// 구매페이지
 		this.mappings.put("/buyCompPage.do", new BuyCompPageAction());// 결제완료페이지
 		this.mappings.put("/buyInfoPage.do", new BuyInfoPageAction());// 마이페이지-구매내역
+		this.mappings.put("/couponInfoPage.do", new CouponInfoPageAction());// 마이페이지-구매내역
 		this.mappings.put("/writeReviewPage.do", new WriteReviewPageAction());// 리뷰작성페이지
 		this.mappings.put("/writeReview.do", new WriteReviewAction());// 리뷰작성페이지
 		this.mappings.put("/reviewDetailPage.do", new ReviewDetailPageAction());// 리뷰상세
