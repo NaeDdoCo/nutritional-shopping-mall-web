@@ -27,6 +27,7 @@ public class BuyInfoPageAction implements Action{
 		HttpSession session = request.getSession();
 		String MID = (String)session.getAttribute("member");
 		
+		bDTO.setSearchCondition("구매내역");
 		bDTO.setMID(MID);
 		bDTOs = bDAO.selectAll(bDTO);
 		System.out.println("[BuyInfoPageAction] bDTOs : " + bDTOs);
