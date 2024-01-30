@@ -26,6 +26,7 @@ public class WriteReviewPageAction implements Action{
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
 		
+		mDTO.setSearchCondition("회원정보");
 		mDTO.setMID(MID);
 		mDTO = mDAO.selectOne(mDTO);
 		
