@@ -30,7 +30,7 @@ public class ReviewInfoPageAction implements Action{
 		rDTO.setSearchCondition("내리뷰");
 		//RID, MID, BID, SCORE,CONTENTS,CREATE_TIME,P_ID,P_NAME 받아오기
 		ArrayList<ReviewDTO> myReviewList = rDAO.selectAll(rDTO);
-		System.out.println("[log] ReviewInfoPageAction myReviewList [" + rDTO + "]");
+		System.out.println("[log] ReviewInfoPageAction myReviewList [" + myReviewList + "]");
 		
 		request.setAttribute("myReviewList", myReviewList);
 		

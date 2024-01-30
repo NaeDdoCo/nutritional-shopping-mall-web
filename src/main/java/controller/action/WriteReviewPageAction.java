@@ -19,18 +19,21 @@ public class WriteReviewPageAction implements Action{
 			throws ServletException, IOException {
 
 		ActionForward forward = new ActionForward();
-		HttpSession session = request.getSession();
-		String MID = (String)session.getAttribute("member");
 		
+		HttpSession session = request.getSession();
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
 		
-		mDTO.setSearchCondition("회원정보");
+		//세션의 MID 가져오기
+		String MID = (String)session.getAttribute("member");
+		
+		//MID로 mName?, email 가져오기
 		mDTO.setMID(MID);
+		mDTO.setSearchCondition("회원정보");
 		mDTO = mDAO.selectOne(mDTO);
 		System.out.println("[log] WriteReviewPageAction mDTO [" + mDTO + "]");
 		
-		//mid, email정보 보내주기
+		//mName?, email 정보 보내주기
 		request.setAttribute("reviewInfo", mDTO);
 				
 		forward.setPath("writeReview.jsp");
