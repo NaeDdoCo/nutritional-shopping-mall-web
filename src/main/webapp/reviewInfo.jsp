@@ -129,7 +129,7 @@
 									<p class="mb-3 mt-4">${myReview.MID}</p>
 								</td>
 								<td>
-									<p class="mb-3 mt-4">${myReview.mName}</p>
+									<p class="mb-3 mt-4">${myReview.ancMName}</p>
 								</td>
 								<td>
 									<button class="btn text-primary mb-0 mt-3">${myReview.contents}</button>
