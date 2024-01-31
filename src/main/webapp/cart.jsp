@@ -30,6 +30,7 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/number.css" rel="stylesheet">
+<link href="css/table.css" rel="stylesheet">
 </head>
 
 <body>
@@ -99,13 +100,14 @@
         	var rows = document.querySelectorAll('tr[id^="row_"]');
         	rows.forEach(function(row) {
             	var form = document.getElementById('cartForm');
-            	// 각 행의 정보를 hidden input에 설정합니다.
-            	form.innerHTML += '<input type="hidden" name="imagePath[]" value="' + row.querySelector('img').src + '">';
-            	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('#pName').innerText + '">';
-            	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#hiddenSellingPrice').value + '">';
-            	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
-            	form.innerHTML += '<input type="hidden" name="PID[]" value="' + row.querySelector('#hiddenPID').value + '">';
-            	form.innerHTML += '<input type="hidden" name="CID[]" value="' + row.querySelector('#hiddenCID').value + '">';
+            	if(row.querySelector('#checkbox').checked){
+            		form.innerHTML += '<input type="hidden" name="imagePath[]" value="' + row.querySelector('img').src + '">';
+                	form.innerHTML += '<input type="hidden" name="pName[]" value="' + row.querySelector('#pName').innerText + '">';
+                	form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#hiddenSellingPrice').value + '">';
+                	form.innerHTML += '<input type="hidden" name="cQty[]" value="' + row.querySelector('input[id^="cQTY_"]').value + '">';
+                	form.innerHTML += '<input type="hidden" name="PID[]" value="' + row.querySelector('#hiddenPID').value + '">';
+                	form.innerHTML += '<input type="hidden" name="CID[]" value="' + row.querySelector('#hiddenCID').value + '">';
+        		}
         	});
         	// 폼을 서버로 제출합니다.
         	document.getElementById('cartForm').submit();
@@ -210,25 +212,19 @@
 						<tbody>
 							<c:forEach var="cart" items="${cartList}" varStatus="status">
 								<tr id="row_${status.index}">
-									<td>
-									</td>
 									<td scope="row">
-										<div class="d-flex align-items-center">
-											<p class="mb-3 mt-4">
-												<input type="checkbox" onclick="updateTotalPrice(this, ${cart.ancSellingPrice}, ${status.index})" checked>
-											</p>
-										</div>
+										<p class="mb-3 mt-4">
+											<input type="checkbox" id="checkbox" onclick="updateTotalPrice(this, ${cart.ancSellingPrice}, ${status.index})" checked>
+										</p>									
 									</td>
 									<!-- 이미지 -->
 									<td scope="row">
-										<div class="d-flex align-items-center">
-											<img src="${cart.ancImagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-										</div>
+										<img src="${cart.ancImagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">									
 									</td>
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
-										<p class="mb-0 mt-4" id="pName">${cart.ancPName}</p>
+										<p class="btn text-primary mb-0 mt-3 mb-0 mt-4" onclick='location.href="productDetailPage.do?PID=${cart.PID}"'>${cart.ancPName}</p>
 									</td>
 									<!-- 이름 -->
 									<!-- 가격 -->
