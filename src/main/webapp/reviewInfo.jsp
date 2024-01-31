@@ -31,6 +31,7 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/table.css" rel="stylesheet">
+<link href="css/a.css" rel="stylesheet">
 </head>
 
 <body>
@@ -136,7 +137,7 @@
 									<p class="mb-3 mt-4">${myReview.MID}</p>
 								</td>
 								<td>
-									<button class="btn text-primary mb-0 mt-3" onclick='location.href="reviewDetailPage.do?RID=${myReview.RID}";'>${myReview.contents}</button>
+									<a class="word btn text-primary mb-0 mt-3" onclick='location.href="reviewDetailPage.do?RID=${myReview.RID}";'>${myReview.contents}</a>
 								</td>
 								<td>
 									<button class="btn border-secondary text-primary rounded-pill mb-0 mt-3">리뷰 삭제</button>
