@@ -9,9 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.common.Action;
 import controller.common.ActionForward;
-import model.dao.BuyInfoDAO;
 import model.dao.ReviewDAO;
-import model.dto.BuyInfoDTO;
 import model.dto.ReviewDTO;
 
 public class WriteReviewAction implements Action{
@@ -24,8 +22,8 @@ public class WriteReviewAction implements Action{
       HttpSession session = request.getSession();
       ReviewDTO rDTO = new ReviewDTO();
       ReviewDAO rDAO = new ReviewDAO();
-      BuyInfoDTO bDTO = new BuyInfoDTO();
-      BuyInfoDAO bDAO = new BuyInfoDAO();
+//      BuyInfoDTO bDTO = new BuyInfoDTO();
+//      BuyInfoDAO bDAO = new BuyInfoDAO();
       
       //세션의 MID 가져오기
       String MID = (String)session.getAttribute("member");
@@ -49,19 +47,21 @@ public class WriteReviewAction implements Action{
       
       //리뷰작성유무확인
       //BID로 hasReview = 1로 업데이트
-      bDTO.setBID(BID);
-      bDTO.setSearchCondition("리뷰유무");
-      boolean updateHasReviewResult = bDAO.update(bDTO);
+//       24.01.31 [준현] 모델 쪽 트리거 사용으로 인한 update 불필요
+//      bDTO.setBID(BID);
+//      bDTO.setSearchCondition("리뷰유무");
+//      boolean updateHasReviewResult = bDAO.update(bDTO);
       
       //리뷰작성성공시 hasReview도 함께 업데이트하여 페이지이동
-      if(insertReviewResult && updateHasReviewResult) {
+//      if(insertReviewResult && updateHasReviewResult) {
+      if (insertReviewResult) {
          //성공시 리뷰목록으로 이동
-         System.out.println("[log] reviewInsert & hasReviewUpdate 성공! ");
+         System.out.println("[log] reviewInsert 성공! ");
          forward.setPath("reviewInfoPage.do");
          forward.setRedirect(false);
-      }else {
+      } else {
          //실패시 에러페이지
-         System.out.println("[log] reviewInsert & hasReviewUpdate 실패 ");
+         System.out.println("[log] reviewInsert 실패 ");
          forward.setPath("error.do");
          forward.setRedirect(true);
       }
