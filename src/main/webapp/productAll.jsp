@@ -47,7 +47,7 @@
 		function addItemToCart(PID) {
 			$.ajax({
 				type : "POST", // 또는 "GET"
-				url : "InsertCart", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+				url : "insertCart", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
 				data : {'PID' : PID},
 				success : function(data) {
 					console.log(data);
