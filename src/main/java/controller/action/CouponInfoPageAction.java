@@ -27,8 +27,10 @@ public class CouponInfoPageAction implements Action{
 		String MID = (String)session.getAttribute("member");
 		//MID로 쿠폰목록 가져와서 보내기
 		cDTO.setMID(MID);
+		cDTO.setSearchCondition("쿠폰목록");
 		ArrayList<CouponDTO> couponList = cDAO.selectAll(cDTO);
 		request.setAttribute("couponList", couponList);
+		System.out.println("[log] CouponInfoPageAction couponList ["+ couponList +"]");
 		
 		forward.setPath("couponInfo.jsp");
 		forward.setRedirect(false);
