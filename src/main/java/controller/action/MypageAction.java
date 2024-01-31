@@ -35,11 +35,11 @@ public class MypageAction implements Action {
 		request.setAttribute("memberInfo", mDTO);
 //		System.out.println("[MypageAction] mDTO : " + mDTO);
 
-		// "간;눈;면역;" -> "간, 눈, 면역"
 		String health = mDTO.getHealth();
 		if (health == null) {
-			health = "정보 미입력";
+			mDTO.setHealth("정보 미입력");
 		} else {
+			// "간;눈;면역;" -> "간, 눈, 면역"
 			health = mDTO.getHealth().replace(";", ", ");
 			mDTO.setHealth(health.substring(0, health.length() - 2));
 		}
