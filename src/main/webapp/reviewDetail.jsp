@@ -23,7 +23,6 @@
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -140,10 +139,6 @@
 									<label for="1-star" class="star">★</label>
 								</div>
 							</div>
-							<script>
-								var radioButton = document.getElementById("${ReviewDetail.score}-stars");
-								radioButton.checked = true;
-							</script>
 						</div>
 						<div class="col-lg-12">
 							<div class="border-bottom rounded my-4">
@@ -236,8 +231,7 @@
 		</div>
 	</div>
 	<!-- Copyright End -->
-
-
+	
 
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
@@ -251,8 +245,17 @@
 	<script src="lib/lightbox/js/lightbox.min.js"></script>
 	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	
+	
+	<!-- 별점 표시 -->
+	<script>
+		var radioButton = document.getElementById("${ReviewDetail.score}-stars");
+		radioButton.checked = true;
+	</script>
+	
 </body>
 
 </html>

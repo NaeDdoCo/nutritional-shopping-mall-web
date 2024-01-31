@@ -37,6 +37,7 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 </head>
 
 <body>
@@ -280,7 +281,19 @@
 												</div>
 												<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${data.category}</div>
 												<div>
-													<h4>${data.pName}</h4>
+													<h4 style="text-align:center;">${data.pName}</h4>
+													<div class="star-rating space-x-4 mx-auto">
+														<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
+														<label for="5-stars" class="star">★</label> 
+														<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
+														<label for="4-stars" class="star">★</label> 
+														<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
+														<label for="3-stars" class="star">★</label> 
+														<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
+														<label for="2-stars" class="star">★</label> 
+														<input type="radio" id="1-star" name="rating" value="1" disabled/> 
+														<label for="1-star" class="star">★</label>
+													</div>						
 													<div class="line-clamp my-2" style="height: 150px;">
 														<p>${data.pDetail}</p>
 													</div>
@@ -403,8 +416,17 @@
 	<script src="lib/lightbox/js/lightbox.min.js"></script>
 	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	
+	
+	<!-- 별점 표시 -->
+	<script>
+		var radioButton = document.getElementById("${ReviewDetail.score}-stars");
+		radioButton.checked = true;
+	</script>
+	
 </body>
 
 </html>

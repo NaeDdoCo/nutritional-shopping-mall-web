@@ -33,7 +33,6 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/starability-minified/starability-all.min.css" />
 <link rel="stylesheet" type="text/css" href="css/star-rating.css" />
 </head>
 
