@@ -63,7 +63,9 @@ public class MainPageAction implements Action {
 	}
 
 	/**
-	 * @return 추천 상품 목록 0이면 추천 상품 없음 null이면 에러
+	 * @return 
+	 * 1. 추천 상품 목록 0이면, 추천 상품 없음
+	 * 2. null이면, 에러
 	 */
 	private ArrayList<ProductDTO> recommendProduct(HttpServletRequest request, ArrayList<ProductDTO> allDTOs) {
 		System.out.println("recommendProduct: allDTOs: " + allDTOs);
@@ -71,20 +73,22 @@ public class MainPageAction implements Action {
 		ArrayList<ProductDTO> rcmDTOs = new ArrayList<ProductDTO>();
 		String health = "";
 		// 상품 추천 알고리즘
-		// 로그인: HEALTH
-		// 비로그인: 판매량
+		// 로그인: HEALTH 기반 추천
+		// 비로그인: 판매량순 추천
 		HttpSession session = request.getSession();
 		String mid = (String) session.getAttribute("member");
 
 		MemberDAO mDAO = new MemberDAO();
 		MemberDTO mDTO = new MemberDTO();
 
-		if (mid != null) { // 로그인 : HEALTH
+		if (mid != null) { // 로그인 : HEALTH 기반 추천
 			System.out.println("recommendProduct: 로그인");
-			mDTO.setSearchCondition("건강상태");
 //			System.out.println("recommendProduct: mid: " + mid);
+			
+			mDTO.setSearchCondition("건강상태");
 			mDTO.setMID(mid);
 			mDTO = mDAO.selectOne(mDTO);
+			
 			if (mDTO != null) {
 				health = mDTO.getHealth();
 			} else {
@@ -96,7 +100,6 @@ public class MainPageAction implements Action {
 			}
 
 			String[] healths = health.split(";");
-
 			ArrayList<ProductDTO> tmpDTOs = new ArrayList<ProductDTO>();
 			for (ProductDTO pDTO : allDTOs) {
 				for (int i = 0; i < healths.length; i++) {
@@ -107,7 +110,7 @@ public class MainPageAction implements Action {
 				}
 			}
 
-			// 8개 뽑기
+			// 8개 선정
 			int cnt = 0;
 			for (ProductDTO data : tmpDTOs) {
 				rcmDTOs.add(data);
@@ -117,7 +120,7 @@ public class MainPageAction implements Action {
 				}
 			}
 
-		} else { // 비로그인 : 판매량순
+		} else { // 비로그인 : 판매량순 추천
 			System.out.println("recommendProduct: 비로그인");
 			// allDTOs 판매량순 정렬
 

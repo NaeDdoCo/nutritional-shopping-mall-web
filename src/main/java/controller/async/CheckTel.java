@@ -29,14 +29,13 @@ public class CheckTel extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-		/* Servlet CheckTel
-        * 
-        * 번호가 3개 합치기
-        * 인증번호 만들어서 문자 쏘고 세션에 저장
+		/*
+        * 전화번호 3개 연결
+        * 인증번호 만들어서 문자 발송 후 세션 저장
         * 
         * 번호 인증 버튼 눌렀어
-        * 뷰 -- 전화번호 3개로 --> 컨트롤러
-        * 컨트롤러 -- 인증번호(요청 파라미터) --> 뷰 (인증번호 확인은 뷰가)
+        * 뷰 -- 전화번호(01012345678) --> 컨트롤러
+        * 컨트롤러 -- 인증번호(요청 파라미터) --> 뷰 (인증번호 확인)
 		*/
 		
 		String phoneNumber1=(String)request.getParameter("phoneNum1");
@@ -55,7 +54,6 @@ public class CheckTel extends HttpServlet {
         
 		//sms api를 사용하여 sms 발송
 		DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSB74ETIIIUKKTG", "PK6JVDBUWKBA8FVCBACP6PALG9AYPJPD", "https://api.coolsms.co.kr");
-		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
 		Message message = new Message();
 		message.setFrom("01050929241");
 		message.setTo(combinedPhoneNumber);
@@ -64,7 +62,7 @@ public class CheckTel extends HttpServlet {
 		try {
 		  messageService.send(message);
 		} catch (NurigoMessageNotReceivedException exception) {
-		  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
+		  // 발송에 실패한 메시지 목록을 확인 가능!
 		  System.out.println(exception.getFailedMessageList());
 		  System.out.println(exception.getMessage());
 		} catch (Exception exception) {
