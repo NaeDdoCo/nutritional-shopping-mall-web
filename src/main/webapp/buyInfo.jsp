@@ -65,7 +65,11 @@
 		</div>
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
-				<a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">NaeDdoCo Pills</h1></a>
+				<!-- 로고 버튼 -->
+				<a href="mainPage.do" class="navbar-brand">
+					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
+				</a>
+				<!-- 로고 버튼 -->
 				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 					<span class="fa fa-bars text-primary"></span>
 				</button>
@@ -77,7 +81,7 @@
 						<a href="#" class="nav-item nav-link">쿠폰관리</a>
 					</div>
 					<div class="d-flex m-3 me-0">
-						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
+						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
@@ -163,7 +167,7 @@
 								<p class="mb-0 mt-4">${buyInfo.deliState}</p>
 							</td>
 							<td>
-								<c:if test="${buyInfo.hasReview eq '0'}">
+								<c:if test="${buyInfo.hasReview eq 0}">
 									<a class="btn border-secondary text-primary rounded-pill mb-0 mt-3" onclick='location.href="writeReviewPage.do?BID=${buyInfo.BID}";'>리뷰 작성</a>
 								</c:if>
 							</td>

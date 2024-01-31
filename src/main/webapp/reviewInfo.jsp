@@ -69,7 +69,7 @@
 						<a href="#" class="nav-item nav-link">개인정보수정</a> <a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> <a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> <a href="#" class="nav-item nav-link">쿠폰관리</a>
 					</div>
 					<div class="d-flex m-3 me-0">
-						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
+						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
