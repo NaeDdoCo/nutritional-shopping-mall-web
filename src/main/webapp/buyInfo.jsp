@@ -134,7 +134,7 @@
 						<tr>
 							<th scope="col">상품</th>
 							<th scope="col">주문번호</th>
-							<th scope="col">이름</th>
+							<th scope="col">상품명</th>
 							<th scope="col">구매일시</th>
 							<th scope="col">구매수량</th>
 							<th scope="col">구매가격</th>
