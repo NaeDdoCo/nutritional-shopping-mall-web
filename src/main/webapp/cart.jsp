@@ -202,7 +202,7 @@
 							<tr>
 								<th scope="col">선택</th>
 								<th scope="col">상품</th>
-								<th scope="col">이름</th>
+								<th scope="col">상품명</th>
 								<th scope="col">가격</th>
 								<th scope="col">수량</th>
 								<th scope="col">상품금액</th>
@@ -224,7 +224,7 @@
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
-										<p class="btn text-primary mb-0 mt-3 mb-0 mt-4" onclick='location.href="productDetailPage.do?PID=${cart.PID}"'>${cart.ancPName}</p>
+										<p class="btn text-primary mb-0 mt-3 mb-0 mt-4" id="pName" onclick='location.href="productDetailPage.do?PID=${cart.PID}"'>${cart.ancPName}</p>
 									</td>
 									<!-- 이름 -->
 									<!-- 가격 -->
