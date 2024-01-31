@@ -136,7 +136,7 @@
 									<p class="mb-3 mt-4">${myReview.MID}</p>
 								</td>
 								<td>
-									<button class="btn text-primary mb-0 mt-3">${myReview.contents}</button>
+									<button class="btn text-primary mb-0 mt-3" onclick='location.href="reviewDetailPage.do?RID=${myReview.RID}";'>${myReview.contents}</button>
 								</td>
 								<td>
 									<button class="btn border-secondary text-primary rounded-pill mb-0 mt-3">리뷰 삭제</button>
