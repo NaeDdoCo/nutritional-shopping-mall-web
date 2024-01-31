@@ -79,7 +79,7 @@
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
 						<a href="modifyUserInfoPage.do" class="nav-item nav-link">개인정보수정</a> 
-						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
+						<a class="btn text-primary mb-0 mt-1" href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
 						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
 						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a>
 					</div>
