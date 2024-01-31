@@ -353,7 +353,7 @@
 	<div class="container-fluid py-5">
 		<div class="container py-5">
 			<h1 class="mb-4">Billing details</h1>
-			<form action="buyCompPage.do" name="buyForm" method="POST">
+			<form action="buyCompPage.do" name="buyForm" id="buyForm" method="POST">
 				<div class="row g-5">
 					<div class="col-md-12 col-lg-6 col-xl-7">
 						<c:set var="memberInfo" value="${requestScope.memberInfo}" />
