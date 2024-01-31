@@ -27,13 +27,15 @@ public class WriteReviewPageAction implements Action{
 		//세션의 MID 가져오기
 		String MID = (String)session.getAttribute("member");
 		
-		//MID로 mName?, email 가져오기
+		//MID로 email 가져오기
 		mDTO.setMID(MID);
 		mDTO.setSearchCondition("회원정보");
 		mDTO = mDAO.selectOne(mDTO);
+		//MID 추가
+		mDTO.setMID(MID);
 		System.out.println("[log] WriteReviewPageAction mDTO [" + mDTO + "]");
 		
-		//mName?, email 정보 보내주기
+		//MID, email 정보 보내주기
 		request.setAttribute("reviewInfo", mDTO);
 				
 		forward.setPath("writeReview.jsp");
