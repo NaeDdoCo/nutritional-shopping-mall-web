@@ -117,7 +117,7 @@
 					<div class="row g-4">
 						<div class="col-lg-4">
 							<div class="border-bottom rounded">
-								<input type="text" class="form-control border-0 me-4" value="${ReviewDetail.ancMName}" readonly style="background-color: white;">
+								<input type="text" class="form-control border-0 me-4" value="${ReviewDetail.MID}" readonly style="background-color: white;">
 							</div>
 						</div>
 						<div class="col-lg-4">
