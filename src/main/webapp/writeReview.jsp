@@ -38,6 +38,14 @@
 </head>
 
 <body>
+
+	<%-- 뒤로가기 --%>
+	<script>
+		function goBack() {
+  			window.history.back();
+		}
+	</script>
+	
 	
 	<c:set var="BID" value="${param.BID}" />
 	<%-- 리뷰 작성 --%>
@@ -102,9 +110,11 @@
 		</div>
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
-				<a href="index.html" class="navbar-brand">
-					<h1 class="text-primary display-6"></h1>
+				<!-- 로고 버튼 -->
+				<a href="mainPage.do" class="navbar-brand">
+					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
 				</a>
+				<!-- 로고 버튼 -->
 				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" NaeDdoCo Pillsdata-bs-target="#navbarCollapse">
 					<span class="fa fa-bars text-primary"></span>
 				</button>
@@ -165,7 +175,7 @@
 					<div class="row g-4">
 						<div class="col-lg-4">
 							<div class="border-bottom rounded">
-								<input type="text" class="form-control border-0 me-4" value="${reviewInfo.mName}" readonly style="background-color: white;">
+								<input type="text" class="form-control border-0 me-4" value="${reviewInfo.MID}" readonly style="background-color: white;">
 							</div>
 						</div>
 						<div class="col-lg-4">
@@ -194,9 +204,10 @@
 								<textarea class="form-control border-0" id="contents" cols="30" rows="8" placeholder="내용" spellcheck="false"></textarea>
 							</div>
 						</div>
-						<div class="col-lg-12">
+						<div class="col-lg-2">
 							<div class="d-flex justify-content-between py-3 mb-5">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="writeReview()">작성</button>
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="goBack()">취소</button>
 							</div>
 						</div>
 					</div>
