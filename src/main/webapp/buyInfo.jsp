@@ -30,7 +30,6 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/table.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -143,15 +142,13 @@
 						<c:forEach var="buyInfo" items="${bDTOs}">
 						<tr>
 							<th scope="row">
-								<div class="d-flex align-items-center">
-									<img src="img/vegetable-item-3.png" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-								</div>
+								<img src="${buyInfo.ancImagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
 							</th>
 							<td>
 								<p class="mb-0 mt-4">${buyInfo.orderNum}</p>
 							</td>
 							<td>
-								<p class="mb-0 mt-4" onclick='location.href="productDetailPage.do?PID=${buyInfo.PID}"'></p>
+								<p class="btn text-primary mb-0 mt-3 mb-0 mt-4" onclick='location.href="productDetailPage.do?PID=${buyInfo.PID}"'>${buyInfo.ancPName}</p>
 							</td>
 							<td>
 								<p class="mb-0 mt-4">${buyInfo.buyTime}</p>
@@ -166,7 +163,9 @@
 								<p class="mb-0 mt-4">${buyInfo.deliState}</p>
 							</td>
 							<td>
-								<a class="btn border-secondary text-primary rounded-pill mb-0 mt-3" onclick='location.href="writeReviewPage.do?BID=${buyInfo.BID}";'>리뷰 작성</a>
+								<c:if test="${buyInfo.hasReview eq '0'}">
+									<a class="btn border-secondary text-primary rounded-pill mb-0 mt-3" onclick='location.href="writeReviewPage.do?BID=${buyInfo.BID}";'>리뷰 작성</a>
+								</c:if>
 							</td>
 						</tr>
 						</c:forEach>
