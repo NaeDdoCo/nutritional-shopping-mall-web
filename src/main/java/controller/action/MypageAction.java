@@ -40,7 +40,11 @@ public class MypageAction implements Action {
 			mDTO.setHealth("정보 미입력");
 		} else {
 			// "간;눈;면역;" -> "간, 눈, 면역"
-			health = mDTO.getHealth().replace(";", ", ");
+			if (!health.endsWith(";")) {
+//				System.out.println("[MypageAction] health += ;");
+				health += ";";
+			}
+			health = health.replace(";", ", ");
 			mDTO.setHealth(health.substring(0, health.length() - 2));
 		}
 
