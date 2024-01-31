@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <title>상품 전체 출력</title>
@@ -31,7 +30,6 @@
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -39,7 +37,6 @@
 <link href="css/style.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 </head>
-
 <body>
 
 

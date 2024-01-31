@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 <meta charset="utf-8">
 <title>장바구니</title>
@@ -32,15 +32,10 @@
 <link href="css/number.css" rel="stylesheet">
 <link href="css/table.css" rel="stylesheet">
 </head>
-
 <body>
-
-	<c:choose>
-		<c:when test="${empty sessionScope.member}"> <!-- 비로그인 접근 방지 -->
-			<c:redirect url="mainPage.do" /> <!-- 세션 정보가 없으면 메인 페이지로 리다이렉트 -->
-		</c:when>
-	</c:choose>
-	<!-- 비로그인 접근 방지 -->
+	
+	<%-- 세션 확인 후 없으면 메인으로 --%>
+	<custom:emthySessionAndGoToMain/>
 
 
 	<!-- 페이지 진입 시 총금액 계산 -->

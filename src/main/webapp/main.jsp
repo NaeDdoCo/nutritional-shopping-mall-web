@@ -38,6 +38,7 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/div.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 
 </head>
 <body>
@@ -187,11 +188,23 @@
 						<c:forEach var="data" items="${rcmDTOs}">
 							<div class="border border-primary rounded position-relative vesitable-item">
 								<div class="vesitable-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
-									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top" alt="">
+									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top">
 								</div>
 								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
 								<div class="p-4 rounded-bottom">
-									<h4>${data.pName}</h4>
+									<h4 style="text-align:center;">${data.pName}</h4>
+									<div class="star-rating space-x-4 mx-auto">
+										<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
+										<label for="5-stars" class="star">★</label> 
+										<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
+										<label for="4-stars" class="star">★</label> 
+										<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
+										<label for="3-stars" class="star">★</label> 
+										<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
+										<label for="2-stars" class="star">★</label> 
+										<input type="radio" id="1-star" name="rating" value="1" disabled/> 
+										<label for="1-star" class="star">★</label>
+									</div>
 									<div class="line-clamp my-2">
 										<p>${data.pDetail}</p>
 									</div>
@@ -249,6 +262,18 @@
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
 																<h4 onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.pName}</h4>
+																<div class="star-rating space-x-4 mx-auto">
+																	<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
+																	<label for="5-stars" class="star">★</label> 
+																	<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
+																	<label for="4-stars" class="star">★</label> 
+																	<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
+																	<label for="3-stars" class="star">★</label> 
+																	<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
+																	<label for="2-stars" class="star">★</label> 
+																	<input type="radio" id="1-star" name="rating" value="1" disabled/> 
+																	<label for="1-star" class="star">★</label>
+																</div>
 																<div class="line-clamp my-2" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 																	<p>${data.pDetail}</p>
 																</div>
@@ -355,7 +380,8 @@
 
 
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"> <i class="fa fa-arrow-up"></i>
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"> 
+		<i class="fa fa-arrow-up"></i>
 	</a>
 
 
@@ -370,11 +396,14 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-
-
-	<!-- sweetalert2 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+	
+	
+	<!-- 별점 표시 -->
+	<script>
+		var radioButton = document.getElementById("${ReviewDetail.score}-stars");
+		radioButton.checked = true;
+	</script>
+	
 </body>
 
 </html>

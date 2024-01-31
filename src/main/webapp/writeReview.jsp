@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <title>리뷰 작성</title>
@@ -27,7 +27,6 @@
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -37,6 +36,10 @@
 </head>
 
 <body>
+
+	<%-- 세션 확인 후 없으면 메인으로 --%>
+	<custom:emthySessionAndGoToMain/>
+	
 
 	<%-- 뒤로가기 --%>
 	<script>
