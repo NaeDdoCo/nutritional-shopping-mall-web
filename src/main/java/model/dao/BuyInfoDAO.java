@@ -48,8 +48,9 @@ public class BuyInfoDAO {
 	// 컨트롤러에서 환불, 취소를 줄지 환불쿼리, 취소쿼리를 따로 작성할지
 	private static final String UPDATE_STATE = "UPDATE BUYINFO SET DELI_STATE = ? WHERE B_ID = ?";
 
-	// 컨트롤러에서 환불, 취소를 줄지 환불쿼리, 취소쿼리를 따로 작성할지
-	private static final String UPDATE__BUYINFO_HAS_RIVIEW = "UPDATE BUYINFO SET HAS_RIVIEW = 1 WHERE B_ID = ?";
+	// 리뷰 작성여부
+	// 트리거(INSERT_RIVIEW_TRIGGER)를 사용해 리뷰테이블에서 INSERT가 일어나면 실행
+	// private static final String UPDATE__BUYINFO_HAS_RIVIEW = "UPDATE BUYINFO SET HAS_RIVIEW = 1 WHERE B_ID = ?";
 	
 	// 
 	private static final String DELETE = "";
