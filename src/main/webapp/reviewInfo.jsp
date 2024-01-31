@@ -30,6 +30,7 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+<link href="css/table.css" rel="stylesheet">
 </head>
 
 <body>
@@ -114,7 +115,6 @@
 						<tr>
 							<th scope="col">작성일</th>
 							<th scope="col">작성자</th>
-							<th scope="col">이름</th>
 							<th scope="col">리뷰제목</th>
 							<th scope="col">리뷰 삭제</th>
 						</tr>
@@ -127,9 +127,6 @@
 								</td>
 								<td>
 									<p class="mb-3 mt-4">${myReview.MID}</p>
-								</td>
-								<td>
-									<p class="mb-3 mt-4">${myReview.ancMName}</p>
 								</td>
 								<td>
 									<button class="btn text-primary mb-0 mt-3">${myReview.contents}</button>
