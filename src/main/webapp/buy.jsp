@@ -97,7 +97,8 @@
 					var discount = $(this).closest("tr").find("td:eq(2)").text();
 					var period = $(this).closest("tr").find("td:eq(3)").text();
 					var category = $(this).closest("tr").find("td:eq(4)").text();
-					var CPID = $(this).closest("tr").find("td:eq(5)").text();
+					var CPID = $(this).closest("tr").find("#hiddenCPID").val();
+					console.log("[로그] CPID:" + CPID);
 					selectedCoupons.push({
 						couponName : couponName, 
 						discount : discount, 
@@ -133,9 +134,8 @@
 			   					"<td id='couponCategory'>" + 
 			   						coupon.category + 
 			   					"</td>";
-			   	
 			   	couponHTML += "<td>" +
-			   					"<input type='hidden' id='hiddenCPID' value='" + coupon.CPID + "'>" + 
+			   					"<input type='hidden' id='selectedHiddenCPID' value='" + coupon.CPID + "'>" + 
 			   				  "</td>";
 			   	usedCouponList.append('<tbody>' + 
 			   							'<tr id="coupon_">' + 
@@ -205,7 +205,7 @@
 			var couponRows = document.querySelectorAll('tr[id^="coupon_"]');
 			couponRows.forEach(function(row) {
 			    <!-- 쿠폰 정보 수집 -->
-			    form.innerHTML += '<input type="hidden" name="CPID[]" value="' + row.querySelector('#hiddenCPID').value + '">';
+			    form.innerHTML += '<input type="hidden" name="CPID[]" value="' + row.querySelector('#selectedHiddenCPID').value + '">';
 			    form.innerHTML += '<input type="hidden" name="discount[]" value="' + row.querySelector('#couponDiscount').innerText.replace('%', '') + '">';
 			    form.innerHTML += '<input type="hidden" name="couponCategory[]" value="' + row.querySelector('#couponCategory').innerText + '">';
 			});
@@ -306,29 +306,28 @@
 							</thead>
 							<tbody>
 								<c:forEach var="coupon" items="${couponList}">
-									<script>
-										console.log('CPID: ' + ${coupon.CPID});
-									</script>
-									<tr>
-										<td>
-											<p class="mb-3 mt-4">
-												<input type="checkbox">
-											</p>
-										</td>
-										<td>
-											<p class="mb-0 mt-4">${coupon.cpName}</p>
-										</td>
-										<td>
-											<p class="mb-0 mt-4">${coupon.discount}%</p>
-										</td>
-										<td>
-											<p class="mb-0 mt-4">${coupon.period}</p>
-										</td>
-										<td>
-											<p class="mb-0 mt-4">${coupon.category}</p>
-										</td>
-										<td><input type="hidden" value="${coupon.CPID}"></td>
-									</tr>
+									<c:forEach var="product" items="${selectedProductsList}">
+										<c:if test="${coupon.category eq product.category}">
+											<tr>
+												<td>
+													<p class="mb-3 mt-4"><input type="checkbox"></p>
+												</td>
+												<td>
+													<p class="mb-0 mt-4">${coupon.cpName}</p>
+												</td>
+												<td>
+													<p class="mb-0 mt-4">${coupon.discount}%</p>
+												</td>
+												<td>
+													<p class="mb-0 mt-4">${coupon.period}</p>
+												</td>
+												<td>
+													<p class="mb-0 mt-4">${coupon.category}</p>
+												</td>
+												<td><input type="hidden" id="hiddenCPID" value="${coupon.CPID}"></td>
+											</tr>
+										</c:if>
+									</c:forEach>
 								</c:forEach>
 							</tbody>
 						</table>
