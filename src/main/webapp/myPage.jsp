@@ -69,10 +69,10 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a href="couponInfoPage.do" class="nav-item nav-link">개인정보수정</a> 
+						<a href="modifyUserInfoPage.do" class="nav-item nav-link">개인정보수정</a> 
 						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
 						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
-						<a href="#" class="nav-item nav-link">쿠폰관리</a>
+						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a>
 					</div>
 					<div class="d-flex m-3 me-0">
 						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
