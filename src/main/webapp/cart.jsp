@@ -44,8 +44,8 @@
 
 	<!-- 페이지 진입 시 총금액 계산 -->
 	<c:set var="total" value="0" /> <!-- 총금액을 저장하기 위한 jstl변수 -->
-	<c:forEach var="data" items="${cartList}" varStatus="status"> <!-- 장바구니 데이터 반복 -->
-		<c:set var="total" value="${total + (data.ancSellingPrice * data.cQty)}" /> <!-- 가격*금액을 총금액에 가산 -->
+	<c:forEach var="cart" items="${cartList}" varStatus="status"> <!-- 장바구니 데이터 반복 -->
+		<c:set var="total" value="${total + (cart.ancSellingPrice * cart.cQty)}" /> <!-- 가격*금액을 총금액에 가산 -->
 	</c:forEach>
 	<script>
 		var total = ${total} <!-- 총금액을 자바스크립트 전역 변수에 저장 -->
@@ -208,47 +208,46 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="data" items="${cartList}" varStatus="status">
+							<c:forEach var="cart" items="${cartList}" varStatus="status">
 								<tr id="row_${status.index}">
+									<td>
+									</td>
 									<td scope="row">
 										<div class="d-flex align-items-center">
 											<p class="mb-3 mt-4">
-												<input type="checkbox" onclick="updateTotalPrice(this, ${data.ancSellingPrice}, ${status.index})" checked>
+												<input type="checkbox" onclick="updateTotalPrice(this, ${cart.ancSellingPrice}, ${status.index})" checked>
 											</p>
 										</div>
 									</td>
 									<!-- 이미지 -->
 									<td scope="row">
 										<div class="d-flex align-items-center">
-											<img src="${data.ancImagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+											<img src="${cart.ancImagePath}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
 										</div>
 									</td>
 									<!-- 이미지 -->
 									<!-- 이름 -->
 									<td>
-										<p class="mb-0 mt-4" id="pName">${data.ancPName}</p>
+										<p class="mb-0 mt-4" id="pName">${cart.ancPName}</p>
 									</td>
 									<!-- 이름 -->
 									<!-- 가격 -->
 									<td>
-										<p class="mb-0 mt-4" id="sellingPrice">
-											<fmt:formatNumber value="${data.ancSellingPrice}" currencyCode="KRW" />
-											원
-										</p> 
-										<input type="hidden" id="hiddenSellingPrice" value="${data.ancSellingPrice}" />
+										<p class="mb-0 mt-4" id="sellingPrice"><fmt:formatNumber value="${cart.ancSellingPrice}" currencyCode="KRW" />원</p> 
+										<input type="hidden" id="hiddenSellingPrice" value="${cart.ancSellingPrice}" />
 									</td>
 									<!-- 가격 -->
 									<!-- 수량 -->
 									<td>
 										<div class="input-group quantity mt-4" style="width: 100px;">
 											<div class="input-group-btn">
-												<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${data.ancSellingPrice}, ${status.index})">
+												<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="calculMinusPrice(${cart.ancSellingPrice}, ${status.index})">
 													<i class="fa fa-minus"></i>
 												</button>
 											</div>
-											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${data.cQty}">
+											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${cart.cQty}">
 											<div class="input-group-btn">
-												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${data.ancSellingPrice}, ${status.index})">
+												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${cart.ancSellingPrice}, ${status.index})">
 													<i class="fa fa-plus"></i>
 												</button>
 											</div>
@@ -258,20 +257,20 @@
 									<!-- 가격*수량 -->
 									<td>
 										<p class="text-center mb-0 mt-4" id="productPrice_${status.index}">
-											<fmt:formatNumber value="${data.ancSellingPrice * data.cQty}" currencyCode="KRW" />
+											<fmt:formatNumber value="${cart.ancSellingPrice * cart.cQty}" currencyCode="KRW" />
 											원
 										</p>
 									</td>
 									<!-- 취소 버튼 -->
 									<td>
-										<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?CID=${data.CID}";'>
+										<button class="btn btn-md rounded-circle bg-light border mt-4" type="button" onclick='location.href="cartDelete.do?CID=${cart.CID}";'>
 											<i class="fa fa-times text-danger"></i>
 										</button>
-										<input type="hidden" id="hiddenCID" value="${data.CID}" />
+										<input type="hidden" id="hiddenCID" value="${cart.CID}" />
 									</td>
 									<!-- 취소 버튼 -->
 									<td>
-										<input type="hidden" id="hiddenPID" value="${data.PID}" />
+										<input type="hidden" id="hiddenPID" value="${cart.PID}" />
 									</td>
 								</tr>
 							</c:forEach>
@@ -279,6 +278,10 @@
 					</table>
 				</form>
 			</div>
+			<c:if test="${empty cartList}">
+				<c:set var="message" value="장바구니에 상품이 존재하지 않습니다." />
+					<p style="text-align:center;"><c:out value="${message}" /></p>
+			</c:if>
 			<div class="mt-5"></div>
 			<div class="row g-4 justify-content-end">
 				<div class="col-8"></div>
