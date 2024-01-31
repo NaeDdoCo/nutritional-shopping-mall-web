@@ -69,7 +69,8 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<div class="nav-item dropdown"></div>
+						<a class="btn text-primary mb-0 mt-1" href="modifyUserInfoPage.do" class="nav-item nav-link">개인정보수정</a> 
+						<a href="#" class="nav-item nav-link">비밀번호 변경</a> 
 					</div>
 					<div class="d-flex m-3 me-0">
 						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
@@ -120,12 +121,6 @@
 				<div class="col-lg-6">
 					<form action="login.jsp" method="POST" name="joinForm" onsubmit="return checkField()">
 						<div class="row g-4">
-							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword" placeholder="비밀번호" required>
-							</div>
-							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" placeholder="재입력" required>
-							</div>
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
 							</div>
@@ -162,13 +157,13 @@
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 확인</button>
 							</div>
-							<div class="col-lg-5">
+							<div class="col-lg-4">
 								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디" required>
 							</div>
-							<div class="col-lg-2">
-								<P>@</P>
+							<div class="col-lg-1">
+								<P class="mt-3">@</P>
 							</div>
-							<div class="col-lg-5">
+							<div class="col-lg-6">
 								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
 							</div>
 							<div class="col-lg-8">
