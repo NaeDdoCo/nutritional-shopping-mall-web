@@ -29,17 +29,10 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 </head>
 
 <body>
-
-	<%-- 뒤로가기 --%>
-	<script>
-		function goBack() {
-  			window.history.back();
-		}
-	</script>
-
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -132,10 +125,25 @@
 								<input type="email" class="form-control border-0" value="${ReviewDetail.ancEmail}" readonly style="background-color: white;">
 							</div>
 						</div>
-						<div class="col-lg-3 d-flex align-items-center">
-							<div class="star-rating space-x-4 mx-auto">
-								<input type="radio" id="5-stars" name="rating" value="${ReviewDetail.score}" />
+						<div class="col-lg-4">
+							<div class="row">
+								<div class="star-rating space-x-4 mx-auto">
+									<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
+									<label for="5-stars" class="star">★</label> 
+									<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
+									<label for="4-stars" class="star">★</label> 
+									<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
+									<label for="3-stars" class="star">★</label> 
+									<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
+									<label for="2-stars" class="star">★</label> 
+									<input type="radio" id="1-star" name="rating" value="1" disabled/> 
+									<label for="1-star" class="star">★</label>
+								</div>
 							</div>
+							<script>
+								var radioButton = document.getElementById("${ReviewDetail.score}-stars");
+								radioButton.checked = true;
+							</script>
 						</div>
 						<div class="col-lg-12">
 							<div class="border-bottom rounded my-4">
