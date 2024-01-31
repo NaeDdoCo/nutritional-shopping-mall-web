@@ -170,6 +170,9 @@
 								<c:if test="${buyInfo.hasReview eq 0}">
 									<a class="btn border-secondary text-primary rounded-pill mb-0 mt-3" onclick='location.href="writeReviewPage.do?BID=${buyInfo.BID}";'>리뷰 작성</a>
 								</c:if>
+								<c:if test="${buyInfo.hasReview eq 1}">
+									<p class="text-primary mb-0 mt-3 mb-0 mt-4">작성 완료</p>
+								</c:if>
 							</td>
 						</tr>
 						</c:forEach>
