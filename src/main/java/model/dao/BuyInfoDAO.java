@@ -21,7 +21,7 @@ public class BuyInfoDAO {
 	// 조인 상품 테이블
 	// 조건 M_ID가 전달받은 값과 같은 행
 	private static final String SELECTALL_LIST = "SELECT "
-			+ "B.B_ID, B.M_ID, B.P_ID, B.CP_ID, B.ORDER_NUM, B.DELI_STATE, B.B_QTY, B.PAYMENT_PRICE, B.BUY_TIME, B.B_POSTCODE, B.B_ADDRESS, B.B_DETAILED_ADDRESS, "
+			+ "B.B_ID, B.M_ID, B.P_ID, B.CP_ID, B.ORDER_NUM, B.DELI_STATE, B.B_QTY, B.PAYMENT_PRICE, B.BUY_TIME, B.B_POSTCODE, B.B_ADDRESS, B.B_DETAILED_ADDRESS, HAS_RIVIEW, "
 			+ "P.P_NAME, P.IMAGE_PATH "
 			+ "FROM BUYINFO B "
 			+ "JOIN PRODUCT P ON B.P_ID = P.P_ID "
@@ -99,6 +99,7 @@ public class BuyInfoDAO {
 					buyInfoDTO.setbPostCode(rs.getInt("B_POSTCODE"));
 					buyInfoDTO.setbAddress(rs.getString("B_ADDRESS"));
 					buyInfoDTO.setbDetailedAddress(rs.getString("B_DETAILED_ADDRESS"));
+					buyInfoDTO.setHasReview(rs.getInt("HAS_RIVIEW"));
 					buyInfoDTO.setAncPName(rs.getString("P_NAME"));
 					buyInfoDTO.setAncImagePath(rs.getString("IMAGE_PATH"));
 					buyList.add(buyInfoDTO);
@@ -257,31 +258,9 @@ public class BuyInfoDAO {
 			if(result > 0) {
 				System.out.println("[로그_구매상태변경] rs > 0 true 반환");
 				return true;
-			}
-			
-		} else if(bDTO.getSearchCondition().equals("리뷰유무")) {
-			
-			try {
-				pstmt = conn.prepareStatement(UPDATE__BUYINFO_HAS_RIVIEW);
-				pstmt.setInt(1, bDTO.getBID());
-				
-				result = pstmt.executeUpdate();
-				
-				
-			} catch (SQLException e) {
-				System.out.println("[로그_리뷰유무] 예외처리 false 반환");
-				e.printStackTrace();
-				return false;
-			} finally {
-				JDBCUtil.disconnect(pstmt, conn);
-			}
-			
-			if(result > 0) {
-				System.out.println("[로그_리뷰유무] rs > 0 true 반환");
-				return true;
-			}
-			
-		}
+			}		
+		} 
+
 		System.out.println("[로그_구매상태변경] 구매상태변경 실패 false 반환");
 		return false;
 	}
