@@ -99,9 +99,11 @@
 		</div>
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
-				<a href="main.jsp" class="navbar-brand">
+				<!-- 로고 버튼 -->
+				<a href="mainPage.do" class="navbar-brand">
 					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
 				</a>
+				<!-- 로고 버튼 -->
 				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 					<span class="fa fa-bars text-primary"></span>
 				</button>
