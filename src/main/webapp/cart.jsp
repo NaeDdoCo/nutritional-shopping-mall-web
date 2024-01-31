@@ -67,13 +67,16 @@
         	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원";
     	}
     	function calculMinusPrice(ancSellingPrice, index) {
-    		var cQTY = parseInt($("#cQTY_" + index).val()) - 1;
-           	var productPrice = ancSellingPrice * cQTY;
-           	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
-            
-           	productPrice = ancSellingPrice;
-           	total = total - productPrice;
-           	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원"; 
+    		var cQTY = parseInt($("#cQTY_" + index).val());
+    		if (cQTY > 0) {
+    			cQTY -= 1;
+	           	var productPrice = ancSellingPrice * cQTY;
+	           	$("#productPrice_" + index).text(productPrice.toLocaleString('ko-KR') + "" + "원");
+	            
+	           	productPrice = ancSellingPrice;
+	           	total = total - productPrice;
+	           	document.getElementById("totalPrice").textContent = total.toLocaleString('ko-KR') + "" + "원"; 
+    		}
     	}
 	</script>
 	<!-- 상품 금액 계산 -->
@@ -241,7 +244,7 @@
 													<i class="fa fa-minus"></i>
 												</button>
 											</div>
-											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${cart.cQty}">
+											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${cart.cQty}" readonly min="1" >
 											<div class="input-group-btn">
 												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${cart.ancSellingPrice}, ${status.index})">
 													<i class="fa fa-plus"></i>
