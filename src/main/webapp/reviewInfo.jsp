@@ -123,7 +123,7 @@
 						<tr>
 							<th scope="col">작성일</th>
 							<th scope="col">작성자</th>
-							<th scope="col">리뷰제목</th>
+							<th scope="col">리뷰 내용</th>
 							<th scope="col">리뷰 삭제</th>
 						</tr>
 					</thead>
@@ -140,7 +140,7 @@
 									<a class="word btn text-primary mb-0 mt-3" onclick='location.href="reviewDetailPage.do?RID=${myReview.RID}";'>${myReview.contents}</a>
 								</td>
 								<td>
-									<button class="btn border-secondary text-primary rounded-pill mb-0 mt-3">리뷰 삭제</button>
+									<button class="btn border-secondary text-primary rounded-pill mb-0 mt-3" onclick='location.href="deleteReview.do?RID=${myReview.RID}";'>리뷰 삭제</button>
 								</td>
 							</tr>
 						</c:forEach>
