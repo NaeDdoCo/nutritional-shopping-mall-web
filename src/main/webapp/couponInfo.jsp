@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <!DOCTYPE html>
 <html>
@@ -55,7 +56,11 @@
 		</div>
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
-				<a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">NaeDdoCo Pills</h1></a>
+				<!-- 로고 버튼 -->
+				<a href="mainPage.do" class="navbar-brand">
+					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
+				</a>
+				<!-- 로고 버튼 -->
 				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 					<span class="fa fa-bars text-primary"></span>
 				</button>
@@ -64,12 +69,12 @@
 						<a href="index.html" class="nav-item nav-link">개인정보수정</a> <a href="shop.html" class="nav-item nav-link">구매내역</a> <a href="shop-detail.html" class="nav-item nav-link">리뷰내역</a> <a href="shop-detail.html" class="nav-item nav-link">쿠폰관리</a>
 					</div>
 					<div class="d-flex m-3 me-0">
-						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
+						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
-						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-						</a> <a href="#" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+						<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
+						</a> <a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 						</a>
 					</div>
 				</div>
@@ -120,24 +125,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								<p class="mb-0 mt-4">쿠폰이름</p>
-							</td>
-							<td>
-								<p class="mb-0 mt-4">할인율</p>
-							</td>
-							<td>
-								<p class="mb-0 mt-4">만료일</p>
-							</td>
-							<td>
-								<p class="mb-0 mt-4">카테고리</p>
-							</td>
-							<td>
-								<p class="mb-0 mt-4">사용여부</p>
-							</td>
-
-						</tr>
+						<c:forEach var="coupon" items="${couponList}">
+							<tr>
+								<td>
+									<p class="mb-0 mt-4">${coupon.cpName}</p>
+								</td>
+								<td>
+									<p class="mb-0 mt-4">${coupon.discount}</p>
+								</td>
+								<td>
+									<p class="mb-0 mt-4">${coupon.period}</p>
+								</td>
+								<td>
+									<p class="mb-0 mt-4">${coupon.category}</p>
+								</td>
+								<td>
+									<p class="mb-0 mt-4">${coupon.used}</p>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

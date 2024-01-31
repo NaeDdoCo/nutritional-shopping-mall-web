@@ -140,7 +140,8 @@
 						<!-- 장바구니 버튼 -->
 						<!-- 프로필 버튼 -->
 						<c:if test="${member != null}">
-							<a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+							<a href="mypage.do" class="my-auto"> 
+								<i class="fas fa-user fa-2x"></i>
 							</a>
 						</c:if>
 						<!-- 프로필 버튼 -->
