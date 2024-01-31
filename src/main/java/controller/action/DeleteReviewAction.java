@@ -18,16 +18,16 @@ public class DeleteReviewAction implements Action{
 			throws ServletException, IOException {
 
 		ActionForward forward = new ActionForward();
-		//RID 받아와서 리뷰삭제
-		String strRID = request.getParameter("RID");
-
-		int RID = Integer.parseInt(strRID);
 		ReviewDTO rDTO = new ReviewDTO();
 		ReviewDAO rDAO = new ReviewDAO();
+		//reviewInfo.jsp-> RID 받아와서 리뷰삭제
+		String strRID = request.getParameter("RID");
+		int RID = Integer.parseInt(strRID);
 		rDTO.setRID(RID);
 		rDTO.setSearchCondition("리뷰삭제");
 		System.out.println("[log] DeleteReviewAction rDTO [" + rDTO + "]");
 		
+		//RID로 리뷰삭제
 		boolean result = rDAO.delete(rDTO);
 
 		if(result) {
@@ -35,11 +35,10 @@ public class DeleteReviewAction implements Action{
 			forward.setPath("reviewInfoPage.do");
 			forward.setRedirect(false);
 		}else {
-			//실패시 에러페이지
+			//실패시 에러페이지로 이동
 			forward.setPath("error.do");
 			forward.setRedirect(true);
 		}
-		
 		return forward;
 	}
 
