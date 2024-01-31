@@ -397,7 +397,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="join.do" name="joinForm" id="joinForm" method="POST">
+					<form action="join.do" name="joinForm" method="POST">
 						<div class="row g-4">
 							<div class="col-lg-8">
 								<input class="form-control p-3  border-secondary" type="text" name="MID" id="MID" placeholder="아이디" maxlength="15" onblur="checkMinLength(this, 2)">
