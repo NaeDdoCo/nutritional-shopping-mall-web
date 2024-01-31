@@ -11,6 +11,10 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +37,39 @@
 </head>
 
 <body>
+
+	<!-- 장바구니 추가 비동기처리 -->
+	<script>
+		function addItemToCart(PID) {
+			var cQty = document.getElementById('cQty').value;
+			console.log(cQty);
+			
+			$.ajax({
+				type : "POST", // 또는 "GET"
+				url : "insertCart", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+				data : {'PID' : PID,
+						'cQty' : cQty},
+				success : function(data) {
+					console.log(data);
+					if (data === "true") {
+						Swal.fire({
+							icon : 'success',
+							title : '장바구니 추가',
+							text : '추가되었습니다.',
+						})
+					} else {
+						Swal.fire({
+							icon : 'error',
+							title : '장바구니 추가',
+							text : '실패하였습니다.',
+						})
+					}
+				}
+			});
+		}
+	</script>
+	<!-- 장바구니 추가 비동기처리 -->
+
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -146,23 +183,25 @@
 									<i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
 								</div>
 								<p class="mb-4">${productDetail.pDetail}</p>
-								<c:if test="${member != null}">
-									<div class="input-group quantity mb-5" style="width: 100px;">
-										<div class="input-group-btn">
-											<button class="btn btn-sm btn-minus rounded-circle bg-light border">
-												<i class="fa fa-minus"></i>
-											</button>
-										</div>
-										<input type="text" class="form-control form-control-sm text-center border-0" value="1">
-										<div class="input-group-btn">
-											<button class="btn btn-sm btn-plus rounded-circle bg-light border">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
+								<div class="input-group quantity mb-5" style="width: 100px;">
+									<div class="input-group-btn">
+										<button class="btn btn-sm btn-minus rounded-circle bg-light border">
+											<i class="fa fa-minus"></i>
+										</button>
 									</div>
-								</c:if>
+										<input type="text" id="cQty" class="form-control form-control-sm text-center border-0" value="1">
+									<div class="input-group-btn">
+										<button class="btn btn-sm btn-plus rounded-circle bg-light border">
+											<i class="fa fa-plus"></i>
+										</button>
+									</div>
+								</div>
 								<c:if test="${member != null}">
-									<a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+									<script>console.log(${productDetail.PID});</script>
+									<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${productDetail.PID})">장바구니 추가</button>
+								</c:if>
+								<c:if test="${member == null}">
+									<a href="loginPage.do" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> 장바구니 추가</a>
 								</c:if>
 							</div>
 

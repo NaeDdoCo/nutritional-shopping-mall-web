@@ -53,9 +53,11 @@ public class InsertCart extends HttpServlet {
 		// 장바구니에 담는 수량 받아오기 (선택)
 		// 디폴트는 1
 		int intQty = 1;
-		if (request.getAttribute("cQty") != null) {
+		if (request.getParameter("cQty") != null) {
 			String strQty = (String)request.getParameter("cQty");
 			intQty = Integer.parseInt(strQty);
+		} else {
+			System.out.println("[InsertCart] cQty is null");
 		}
 		System.out.println("cQty: " + intQty);
 		
