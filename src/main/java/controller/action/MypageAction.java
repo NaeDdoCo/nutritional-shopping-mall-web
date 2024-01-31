@@ -33,6 +33,11 @@ public class MypageAction implements Action{
 		mDTO = mDAO.selectOne(mDTO);
 		
 		request.setAttribute("memberInfo", mDTO);
+//		System.out.println("[MypageAction] mDTO : " + mDTO);
+		
+		// "간;눈;면역;" -> "간, 눈, 면역"
+		String health = mDTO.getHealth().replace(";", ", ");
+		mDTO.setHealth(health.substring(0, health.length() - 2));
 		
 		forward.setPath("myPage.jsp");
 		forward.setRedirect(false);
