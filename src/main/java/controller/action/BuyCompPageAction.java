@@ -18,6 +18,7 @@ import model.dto.CartDTO;
 import model.dto.CouponDTO;
 
 public class BuyCompPageAction implements Action{
+	//JHGGG
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
@@ -90,7 +91,7 @@ public class BuyCompPageAction implements Action{
 			CPID = "";
 			for (int j = 0; j < CPIDs.length; j++) {
 				CPID = CPIDs[j];
-				System.out.println("[BuyCompPage] CPID : " + CPID);
+				System.out.println("[BuyCompPage] CPID [" + CPID + "]");
 				discount = Integer.parseInt(discounts[j].trim());
 				couponCategory = couponCategories[j];
 				
@@ -115,8 +116,9 @@ public class BuyCompPageAction implements Action{
 			CartDTO cDTO = new CartDTO();
 			CartDAO cDAO = new CartDAO();
 			
-			cDTO.setSearchCondition("장바구니삭제");
+			cDTO.setSearchCondition("장바구니비우기");
 			cDTO.setCID(CID);
+			System.out.println("[log]BuyCompPageAction_CID [" + CID + "]");
 			cDAO.delete(cDTO);
 		}
 		
@@ -125,9 +127,16 @@ public class BuyCompPageAction implements Action{
 		CouponDAO cpDAO = new CouponDAO();
 		
 		cpDTO.setSearchCondition("쿠폰사용");
+		for (int i = 0; i < CPIDs.length; i++) {
+			System.out.println("[log] CPIDs ["+ CPIDs[i] + "]");
+			
+		}
 		for (String data : CPIDs) {
+			System.out.println("[log] CPIDs [" + data + "");
 			cpDTO.setCPID(data);
 			cpDAO.update(cpDTO);
+			System.out.println("[log] 쿠폰상태변경 [" + cpDAO.update(cpDTO) + "]");
+		
 		}
 
 //		request.setAttribute("bDTOs", bDTOs);
