@@ -24,7 +24,7 @@ public class MemberDAO {
 	private static final String SELECTONE_BUYPAGE = "SELECT M_NAME, PHONE_NUMBER, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS,EMAIL FROM MEMBER WHERE M_ID=?";
 
 	// 마이페이지(이름, 생년월일, 성별, 전화번호, 이메일, 주소)
-	private static final String SELECTONE_MYPAGE = "SELECT M_NAME, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS "
+	private static final String SELECTONE_MYPAGE = "SELECT M_NAME, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, HEALTH "
 			+ "FROM MEMBER WHERE M_ID=?";
 
 	// 아이디 중복검사
@@ -142,6 +142,7 @@ public class MemberDAO {
 					memberDTO.setmPostCode(rs.getInt("M_POSTCODE"));
 					memberDTO.setmAddress(rs.getString("M_ADDRESS"));
 					memberDTO.setmDetailedAddress(rs.getString("M_DETAILED_ADDRESS"));
+					memberDTO.setHealth(rs.getString("HEALTH"));
 				} else {
 					memberDTO = null;
 				}
