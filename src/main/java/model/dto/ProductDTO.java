@@ -17,14 +17,14 @@ public class ProductDTO {
     private String category;
     private Timestamp regTime;
     private String sellingState;
-    private String searchCondition;
-    // 사진경로
     private String imagePath;
+    private String searchCondition;
+    // 컬럼에 없는 멤버변수
     private int ancSelectMin;
     private int ancSelectMax;
-    // 조인에 사용하는 멤버변수
     private int ancTotalQty;
-    private int ancCID;
+    private String ancRegTime;
+    
 	public int getPID() {
 		return PID;
 	}
@@ -133,22 +133,22 @@ public class ProductDTO {
 	public void setAncTotalQty(int ancTotalQty) {
 		this.ancTotalQty = ancTotalQty;
 	}
-	public int getAncCID() {
-		return ancCID;
+	
+	public String getAncRegTime() {
+		return ancRegTime;
 	}
-	public void setAncCID(int ancCID) {
-		this.ancCID = ancCID;
+	public void setAncRegTime(String ancRegTime) {
+		this.ancRegTime = ancRegTime;
 	}
 	@Override
 	public String toString() {
 		return "ProductDTO [PID=" + PID + ", pName=" + pName + ", pDetail=" + pDetail + ", costPrice=" + costPrice
 				+ ", regularPrice=" + regularPrice + ", sellingPrice=" + sellingPrice + ", pQty=" + pQty
 				+ ", ingredient=" + ingredient + ", usage=" + usage + ", exp=" + exp + ", category=" + category
-				+ ", regTime=" + regTime + ", sellingState=" + sellingState + ", searchCondition=" + searchCondition
-				+ ", imagePath=" + imagePath + ", ancSelectMin=" + ancSelectMin + ", ancSelectMax=" + ancSelectMax
-				+ ", ancTotalQty=" + ancTotalQty + ", ancCID=" + ancCID + "]";
+				+ ", regTime=" + regTime + ", sellingState=" + sellingState + ", imagePath=" + imagePath
+				+ ", searchCondition=" + searchCondition + ", ancSelectMin=" + ancSelectMin + ", ancSelectMax="
+				+ ancSelectMax + ", ancTotalQty=" + ancTotalQty + ", ancRegTime=" + ancRegTime + "]";
 	}
-    
 
 
 }

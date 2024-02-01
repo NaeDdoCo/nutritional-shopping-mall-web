@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import model.dto.ReviewDTO;
@@ -78,13 +79,21 @@ public class ReviewDAO {
 				ResultSet rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					reviewDTO = new ReviewDTO();
+					reviewDTO = new ReviewDTO();		
+					
+					reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+
+					SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+					String createTime = timeFormat.format(reviewDTO.getCreateTime());
+					
 					reviewDTO.setRID(rs.getInt("R_ID"));
 					reviewDTO.setMID(rs.getString("M_ID"));
 					reviewDTO.setBID(rs.getInt("B_ID"));
 					reviewDTO.setScore(rs.getInt("SCORE"));
 					reviewDTO.setContents(rs.getString("CONTENTS"));
 					reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+					reviewDTO.setAncCreateTime(createTime);
 					reviewDTO.setAncPID(rs.getInt("P_ID"));
 					reviewDTO.setAncPName(rs.getString("P_NAME"));
 					reviewList.add(reviewDTO);
@@ -115,12 +124,20 @@ public class ReviewDAO {
 
 				while (rs.next()) {
 					reviewDTO = new ReviewDTO();
+					
+					reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+
+					SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+					String createTime = timeFormat.format(reviewDTO.getCreateTime());
+					
 					reviewDTO.setRID(rs.getInt("R_ID"));
 					reviewDTO.setMID(rs.getString("M_ID"));
 					reviewDTO.setBID(rs.getInt("B_ID"));
 					reviewDTO.setScore(rs.getInt("SCORE"));
 					reviewDTO.setContents(rs.getString("CONTENTS"));
 					reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+					reviewDTO.setAncCreateTime(createTime);
 					reviewDTO.setAncPID(rs.getInt("P_ID"));
 					reviewDTO.setAncPName(rs.getString("P_NAME"));
 					reviewList.add(reviewDTO);
@@ -159,12 +176,20 @@ public class ReviewDAO {
 				reviewDTO = new ReviewDTO();
 
 				if(rs.next()) {
+					
+					reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+
+					SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+					String createTime = timeFormat.format(reviewDTO.getCreateTime());
+					
 	                reviewDTO.setRID(rs.getInt("R_ID"));
 	                reviewDTO.setMID(rs.getString("M_ID"));
 	                reviewDTO.setBID(rs.getInt("B_ID"));
 	                reviewDTO.setScore(rs.getInt("SCORE"));
 	                reviewDTO.setContents(rs.getString("CONTENTS"));
 	                reviewDTO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+	                reviewDTO.setAncCreateTime(createTime);
 	                reviewDTO.setAncPID(rs.getInt("P_ID"));
 	                reviewDTO.setAncPName(rs.getString("P_NAME"));
 	                reviewDTO.setAncMName(rs.getString("M_NAME"));

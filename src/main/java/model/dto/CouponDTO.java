@@ -11,9 +11,7 @@ public class CouponDTO {
     private String used;
     private String category;
     private String searchCondition;
-    
-    
-    
+    private String ancPeriod;
 	public String getCPID() {
 		return CPID;
 	}
@@ -62,10 +60,20 @@ public class CouponDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public String getAncPeriod() {
+		return ancPeriod;
+	}
+	public void setAncPeriod(String ancPeriod) {
+		this.ancPeriod = ancPeriod;
+	}
 	@Override
 	public String toString() {
 		return "CouponDTO [CPID=" + CPID + ", MID=" + MID + ", cpName=" + cpName + ", period=" + period + ", discount="
-				+ discount + ", used=" + used + ", category=" + category + ", searchCondition=" + searchCondition + "]";
-	}    
+				+ discount + ", used=" + used + ", category=" + category + ", searchCondition=" + searchCondition
+				+ ", ancPeriod=" + ancPeriod + "]";
+	}
+    
+    
+   
 	
 }

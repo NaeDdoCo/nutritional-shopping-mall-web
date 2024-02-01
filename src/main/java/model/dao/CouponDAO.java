@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -63,7 +64,7 @@ public class CouponDAO {
 
 		if (cpDTO.getSearchCondition().equals("쿠폰목록")) {
 			System.out.println("[로그_쿠폰목록] 진입");
-			couponList = new ArrayList<>();
+			couponList = new ArrayList<>();		
 
 			try {
 				pstmt = conn.prepareStatement(SELECTALL_MYCP);
@@ -72,11 +73,20 @@ public class CouponDAO {
 				ResultSet rs = pstmt.executeQuery();
 
 				while (rs.next()) {
+					
 					couponDTO = new CouponDTO();
+					
+					couponDTO.setPeriod(rs.getTimestamp("PERIOD"));
+
+					SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+					String period = timeFormat.format(couponDTO.getPeriod());
+					
 					couponDTO.setCPID(rs.getString("CP_ID"));
 					couponDTO.setMID(rs.getString("M_ID"));
 					couponDTO.setCpName(rs.getString("CP_NAME"));
 					couponDTO.setPeriod(rs.getTimestamp("PERIOD"));
+					couponDTO.setAncPeriod(period);
 					couponDTO.setDiscount(rs.getInt("DISCOUNT"));
 					couponDTO.setCategory(rs.getString("CATEGORY"));
 					couponDTO.setUsed(rs.getString("USED"));
@@ -109,11 +119,20 @@ public class CouponDAO {
 				ResultSet rs = pstmt.executeQuery();
 
 				while (rs.next()) {
+					
 					couponDTO = new CouponDTO();
+					
+					couponDTO.setPeriod(rs.getTimestamp("PERIOD"));
+
+					SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+					String period = timeFormat.format(couponDTO.getPeriod());
+					
 					couponDTO.setCPID(rs.getString("CP_ID"));
 					couponDTO.setMID(rs.getString("M_ID"));
 					couponDTO.setCpName(rs.getString("CP_NAME"));
 					couponDTO.setPeriod(rs.getTimestamp("PERIOD"));
+					couponDTO.setAncPeriod(period);
 					couponDTO.setDiscount(rs.getInt("DISCOUNT"));
 					couponDTO.setCategory(rs.getString("CATEGORY"));
 					couponDTO.setUsed(rs.getString("USED"));

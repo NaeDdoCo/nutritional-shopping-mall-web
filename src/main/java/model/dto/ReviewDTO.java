@@ -15,6 +15,9 @@ public class ReviewDTO {
     private String ancPName;
     private String ancMName;
     private String ancEmail;
+    private String ancCreateTime;
+    
+    
 	public int getRID() {
 		return RID;
 	}
@@ -81,12 +84,21 @@ public class ReviewDTO {
 	public void setAncEmail(String ancEmail) {
 		this.ancEmail = ancEmail;
 	}
+	
+	public String getAncCreateTime() {
+		return ancCreateTime;
+	}
+	public void setAncCreateTime(String ancCreateTime) {
+		this.ancCreateTime = ancCreateTime;
+	}
 	@Override
 	public String toString() {
 		return "ReviewDTO [RID=" + RID + ", MID=" + MID + ", BID=" + BID + ", score=" + score + ", contents=" + contents
 				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + ", ancPID=" + ancPID
-				+ ", ancPName=" + ancPName + ", ancMName=" + ancMName + ", ancEmail=" + ancEmail + "]";
+				+ ", ancPName=" + ancPName + ", ancMName=" + ancMName + ", ancEmail=" + ancEmail + ", ancCreateTime="
+				+ ancCreateTime + "]";
 	}
+
     
 
 }
