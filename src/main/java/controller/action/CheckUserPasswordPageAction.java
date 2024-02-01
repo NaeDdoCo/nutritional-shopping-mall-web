@@ -17,7 +17,7 @@ public class CheckUserPasswordPageAction implements Action{
 		ActionForward forward = new ActionForward();
 		//넘겨줄 값 x 페이지이동만
 		forward.setPath("checkUserPassword.jsp");
-		forward.setRedirect(true);
+		forward.setRedirect(false);
 		
 		return forward;
 	}

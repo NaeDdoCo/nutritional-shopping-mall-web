@@ -42,11 +42,11 @@ public class CheckUserPasswordAction implements Action{
 			String getPath = request.getParameter("where");
 
 			//where값에 따른 경로 설정
-			if(getPath.equals("ModifyUserInfo")) {
-				forward.setPath("modifyUserInfo.jsp");
+			if(getPath.equals("modifyUserInfo")) {
+				forward.setPath("modifyUserInfo.do");
 				forward.setRedirect(false);
-			}else if(getPath.equals("ModifyUserPassword")) {
-				forward.setPath("modifyUserPassword.jsp");
+			}else if(getPath.equals("modifyUserPassword")) {
+				forward.setPath("modifyUserPassword.do");
 				forward.setRedirect(false);
 			}else {
 				forward.setPath("error.do");
