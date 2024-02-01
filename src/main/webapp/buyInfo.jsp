@@ -78,7 +78,8 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a href="modifyUserInfoPage.do" class="nav-item nav-link">개인정보수정</a> 
+						<a href="modifyUserInfoPage.do?where=modifyUserInfo" class="nav-item nav-link">개인정보수정</a>
+						<a href="modifyUserPasswordPage.do?where=modifyUserPassword" class="nav-item nav-link">비밀번호변경</a> 
 						<a class="btn text-primary mb-0 mt-1" href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
 						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
 						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a>
@@ -158,7 +159,7 @@
 								<p class="btn text-primary mb-0 mt-3 mb-0 mt-4" onclick='location.href="productDetailPage.do?PID=${buyInfo.PID}"'>${buyInfo.ancPName}</p>
 							</td>
 							<td>
-								<p class="mb-0 mt-4">${buyInfo.buyTime}</p>
+								<p class="mb-0 mt-4">${buyInfo.ancBuyTime}</p>
 							</td>
 							<td>
 								<p class="mb-0 mt-4">${buyInfo.bQty}</p>
