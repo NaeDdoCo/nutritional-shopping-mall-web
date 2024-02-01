@@ -27,7 +27,7 @@ CREATE TABLE BUYINFO (
 	--상세주소
 	B_DETAILED_ADDRESS VARCHAR2(255) NOT NULL,
 	--리뷰 작성여부
-	HAS_RIVIEW INT DEFAULT 0 NOT NULL
+	HAS_REVIEW INT DEFAULT 0 NOT NULL
 );
 
 --------------------------------------------------구매내역 샘플 코드-------------------------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ VALUES (
     'teemo', 
     1, 
     'CP001', 
-    12345, 
+    1, 
     3, 
     50000, 
     CURRENT_TIMESTAMP, -- 현재 시간을 타임스탬프로 설정
@@ -61,6 +61,8 @@ SELECT B_ID, M_ID, P_ID, CP_ID, ORDER_NUM, DELI_STATE, B_QTY, PAYMENT_PRICE, BUY
 FROM BUYINFO 
 WHERE M_ID = 'teemo';
 
-SELECT HAS_RIVIEW FROM BUYINFO;
+SELECT * FROM BUYINFO;
+
+UPDATE BUYINFO SET HAS_RIVIEW = 0 WHERE B_ID = 1;
 
 --DROP TABLE BUYINFO;
