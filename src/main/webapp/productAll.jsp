@@ -30,11 +30,14 @@
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
+<!-- error.do 범인 -->
 <link href="css/style.css" rel="stylesheet">
+<!-- error.do 범인 -->
 <link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 </head>
 <body>

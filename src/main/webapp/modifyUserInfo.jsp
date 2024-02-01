@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
@@ -70,7 +73,10 @@
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
 						<a class="btn text-primary mb-0 mt-1" href="modifyUserInfoPage.do" class="nav-item nav-link">개인정보수정</a> 
-						<a href="#" class="nav-item nav-link">비밀번호 변경</a> 
+						<a href="modifyUserPasswordPage.do" class="nav-item nav-link">비밀번호변경</a> 
+						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
+						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
+						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a>
 					</div>
 					<div class="d-flex m-3 me-0">
 						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
@@ -122,10 +128,10 @@
 					<form action="login.jsp" method="POST" name="joinForm" onsubmit="return checkField()">
 						<div class="row g-4">
 							<div class="col-lg-12">
-								<input class="form-control p-3  border-secondary" type="text" name="mName" placeholder="이름" required>
+								<input class="form-control p-3  border-secondary" type="text" value="${memberInfo.mName}" name="mName" placeholder="이름" required>
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="text" name="year" placeholder="yyyy" required>
+								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.dob}" name="year" placeholder="yyyy" required>
 							</div>
 							<div class="col-lg-4">
 								<input class="form-control p-3 border-secondary" type="text" name="month" placeholder="mm" required>
@@ -133,12 +139,22 @@
 							<div class="col-lg-4">
 								<input class="form-control p-3 border-secondary" type="text" name="day" placeholder="dd" required>
 							</div>
-							<div class="col-lg-6">
-								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남자" checked="checked">남자
-							</div>
-							<div class="col-lg-6">
-								<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여자">여자
-							</div>
+							<c:if test="${mDTO.gender eq '남'}">
+								<div class="col-lg-6">
+									<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남자" checked="checked">남자
+								</div>
+								<div class="col-lg-6">
+									<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여자">여자
+								</div>
+							</c:if>
+							<c:if test="${mDTO.gender ne '남'}">
+								<div class="col-lg-6">
+									<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="남자">남자
+								</div>
+								<div class="col-lg-6">
+									<input class="form-check-input p-3 border-secondary" type="radio" name="gender" value="여자" checked="checked">여자
+								</div>
+							</c:if>
 							<div class="col-lg-2">
 								<input class="form-control p-3 border-secondary" type="text" name="phoneNum1" value="010" readonly required>
 							</div>
@@ -167,16 +183,16 @@
 								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" name="zipcode" placeholder="우편번호" required>
+								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.mPostCode}" name="zipcode" placeholder="우편번호" required>
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">우편번호 찾기</button>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="password" name="address1" placeholder="도로명 주소" required>
+								<input class="form-control p-3 border-secondary " type="password" value="${memberInfo.mAddress}" name="address1" placeholder="도로명 주소" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="password" name="address2" placeholder="지번 주소" required>
+								<input class="form-control p-3 border-secondary" type="password" value="${memberInfo.mDetailedAddress}" name="address2" placeholder="지번 주소" required>
 							</div>
 							<div class="col-lg-6">
 								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="수정">

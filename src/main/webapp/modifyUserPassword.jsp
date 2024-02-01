@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>마이</title>
+<title>비밀번호변경</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -28,11 +28,52 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
 
 	<%-- 세션 확인 후 없으면 메인으로 --%>
 	<custom:emthySessionAndGoToMain/>
 	
+		<!-- 비밀 중복검사 -->
+	<script type="text/javascript">
+		var pwResult = false;
+		function pwSameCheck() {
+			if ($('#password').val() == $('#confirmPassword').val()) {
+				pwResult = true
+				Swal.fire({
+					icon : 'success',
+					title : '비밀번호 검사',
+					text : '비밀번호가 일치합니다.',
+				})
+			} else {
+				Swal.fire({
+					icon : 'error',
+					title : '비밀번호 검사',
+					text : '비밀번호가 일치하지 않습니다.',
+				})
+			}
+		}
+	</script>
+	<!-- 비밀 중복검사 -->
+
+
+	<!-- 비밀번호 포맷 검사 -->
+	<script>
+		function pwFormatCheck() {
+
+			var reg = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
+
+			if (!reg.test($('#password').val())) {
+				Swal.fire({
+					icon : 'error',
+					title : '비밀번호 검사',
+					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다.',
+				})
+			}
+		}
+	</script>
+	<!-- 비밀번호 포맷 검사 -->
+
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -46,11 +87,10 @@
 		<div class="container topbar bg-primary d-none d-lg-block">
 			<div class="d-flex justify-content-between">
 				<div class="top-info ps-2">
-					<small class="me-3"> <i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a>
-					</small> <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i> <a href="#" class="text-white">Email@Example.com</a> </small>
+					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small> <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
 				</div>
 				<div class="top-link pe-2">
-					<a href="#" class="text-white"> <small class="text-white mx-2">PrivacyPolicy</small>/
+					<a href="#" class="text-white"> <small class="text-white mx-2">PrivacyPolicy</small> /
 					</a> <a href="#" class="text-white"> <small class="text-white mx-2">Terms of Use</small> /
 					</a> <a href="#" class="text-white"> <small class="text-white ms-2">Sales and Refunds</small>
 					</a>
@@ -69,8 +109,8 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a href="modifyUserInfoPage.do?where=modifyUserInfo" class="nav-item nav-link">개인정보수정</a>
-						<a href="modifyUserPasswordPage.do?where=modifyUserPassword" class="nav-item nav-link">비밀번호변경</a> 
+						<a href="modifyUserInfoPage.do?WHERE=modifyUserInfo" class="nav-item nav-link">개인정보수정</a>
+						<a class="btn text-primary mb-0 mt-1" href="modifyUserPasswordPage.do?WHERE=modifyUserPassword" class="nav-item nav-link">비밀번호변경</a> 
 						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
 						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
 						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a>
@@ -112,93 +152,37 @@
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">마이</h1>
+		<h1 class="text-center text-white display-6">비밀번호변경</h1>
 	</div>
 	<!-- Single Page Header End -->
 
 
-	<!-- 마이 폼 시작 -->
+	<!-- 404 Start -->
 	<div class="container-fluid py-5">
-		<div class="container py-5 text-left">
-			<table class="table">
-				<tbody>
-					<tr>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">이름</p>
+		<div class="container py-5 text-center">
+			<div class="row justify-content-center">
+				<div class="col-lg-6">
+					<form action="login.jsp" method="POST" name="joinForm" onsubmit="return checkField()">
+						<div class="row g-4">
+							<div class="col-lg-12">
+								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" maxlength="15" onblur="pwFormatCheck()">
 							</div>
-						</td>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">${memberInfo.mName}</p>
+							<div class="col-lg-12">
+								<input class="form-control p-3 border-secondary" type="password" name="mPassword2" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="pwSameCheck()">
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">성별</p>
+							<div class="col-lg-6">
+								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="수정">
 							</div>
-						</td>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">${memberInfo.gender}</p>
+							<div class="col-lg-6">
+								<a class="btn border border-secondary text-primary rounded-pill px-5 py-3" href="mypage.do">취소</a>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">생년월일</p>
-							</div>
-						</td>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">${memberInfo.dob}</p>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">휴대폰번호</p>
-							</div>
-						</td>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">${memberInfo.phoneNumber}</p>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">이메일</p>
-							</div>
-						</td>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">${memberInfo.email}</p>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">건강상태</p>
-							</div>
-						</td>
-						<td scope="row">
-							<div class="d-flex align-items-center">
-								<p class="mb-3 mt-4">${memberInfo.health}</p>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- 마이 폼 끝 -->
+	<!-- 404 End -->
 
 
 	<!-- Footer Start -->
@@ -207,14 +191,28 @@
 			<div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5);">
 				<div class="row g-4">
 					<div class="col-lg-3">
-						<a href="#">
-							<h1 class="text-primary mb-0">NaeDdoCo Pills</h1>
-						</a>
+						<!-- 로고 버튼 -->
+						<a href="mainPage.do" class="navbar-brand">
+						<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
+					</a>
+					<!-- 로고 버튼 -->
 					</div>
-					<div class="col-lg-6"></div>
+					<div class="col-lg-6">
+					</div>
 					<div class="col-lg-3">
 						<div class="d-flex justify-content-end pt-3">
-							<a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a> <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a> <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a> <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+							<a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href="">
+								<i class="fab fa-twitter"></i>
+							</a> 
+							<a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="">
+								<i class="fab fa-facebook-f"></i>
+							</a> 
+							<a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="">
+								<i class="fab fa-youtube"></i>
+							</a> 
+							<a class="btn btn-outline-secondary btn-md-square rounded-circle" href="">
+								<i class="fab fa-linkedin-in"></i>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -254,6 +252,7 @@
 	</div>
 	<!-- Footer End -->
 
+
 	<!-- Copyright Start -->
 	<div class="container-fluid copyright bg-dark py-4">
 		<div class="container">
@@ -274,7 +273,8 @@
 
 
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"> <i class="fa fa-arrow-up"></i>
+	</a>
 
 
 	<!-- JavaScript Libraries -->
@@ -287,7 +287,22 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-	
-</body>
 
+	<script>
+		function checkField() {
+
+			if (!document.joinForm.MID.value) {
+
+				alert("비밀번호를 입력하지 않았습니다.");
+
+				document.joinForm.focus();
+
+				return false;
+
+			}
+
+		}
+	</script>
+
+</body>
 </html>
