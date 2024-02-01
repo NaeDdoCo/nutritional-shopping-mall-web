@@ -34,7 +34,7 @@ public class CheckUserPasswordAction implements Action{
 
 		//비밀번호가 일치하면
 		//어디로 보낼지 (modifyUserInfo or modifyUserPassword)
-		if (mDTO != null && mDTO.getmPassword().equals(MPW)) {
+		if (mDTO != null) {
 			// 비밀번호 일치
 			System.out.println("[log] CheckUserPasswordAction 비밀번호 일치!");
 		
