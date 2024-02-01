@@ -16,6 +16,7 @@ public class ReviewDTO {
     private String ancMName;
     private String ancEmail;
     private String ancCreateTime;
+    private double ancAvgScore;
     
     
 	public int getRID() {
@@ -90,15 +91,19 @@ public class ReviewDTO {
 	}
 	public void setAncCreateTime(String ancCreateTime) {
 		this.ancCreateTime = ancCreateTime;
+	}	
+	public double getAncAvgScore() {
+		return ancAvgScore;
+	}
+	public void setAncAvgScore(double ancAvgScore) {
+		this.ancAvgScore = ancAvgScore;
 	}
 	@Override
 	public String toString() {
 		return "ReviewDTO [RID=" + RID + ", MID=" + MID + ", BID=" + BID + ", score=" + score + ", contents=" + contents
 				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + ", ancPID=" + ancPID
 				+ ", ancPName=" + ancPName + ", ancMName=" + ancMName + ", ancEmail=" + ancEmail + ", ancCreateTime="
-				+ ancCreateTime + "]";
+				+ ancCreateTime + ", ancAvgScore=" + ancAvgScore + "]";
 	}
-
-    
-
+  
 }

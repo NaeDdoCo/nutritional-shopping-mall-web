@@ -42,6 +42,13 @@ public class ReviewDAO {
 			+ "JOIN PRODUCT P ON B.P_ID = P.P_ID "
 			+ "JOIN MEMBER M ON R.M_ID = M.M_ID "
 			+ "WHERE R.R_ID = ? ";
+	
+	// 상품 별점
+	private static final String SELECTONE_AVG_SCORE = "SELECT AVG(R.SCORE) AS AVG_SCORE "
+			+ "	FROM REVIEW R "
+			+ "	INNER JOIN BUYINFO B ON R.B_ID = B.B_ID "
+			+ "	WHERE B.P_ID = ?";
+
 
 	// 리뷰작성
 	private static final String INSERT = "INSERT INTO REVIEW "
@@ -210,7 +217,35 @@ public class ReviewDAO {
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}		
-		}		
+		} else if(rDTO.getSearchCondition().equals("별점평균")) {
+			
+			conn = JDBCUtil.connect();
+			
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_AVG_SCORE);
+				pstmt.setInt(1, rDTO.getAncPID());
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					reviewDTO = new ReviewDTO();
+					reviewDTO.setAncAvgScore(rs.getDouble("AVG_SCORE"));					
+				}
+				
+				rs.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			
+			if(reviewDTO != null) {
+				return reviewDTO;
+			}
+			
+		}
 		return null;
 	}
 
