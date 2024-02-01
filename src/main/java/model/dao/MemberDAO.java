@@ -19,6 +19,10 @@ public class MemberDAO {
 	// 로그인
 	private static final String SELECTONE_LOGIN = "SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
 			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
+	
+	// 개인정보(정보 및 비밀번호)변경 진입 시 비밀번호 확인
+	private static final String SELECTONE_PW_CHECK = "SELECT M_ID, M_NAME "
+			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
 
 	// 회원 주문정보(구매페이지 정보)
 	private static final String SELECTONE_BUYPAGE = "SELECT M_NAME, PHONE_NUMBER, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS,EMAIL FROM MEMBER WHERE M_ID=?";
@@ -42,8 +46,8 @@ public class MemberDAO {
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
 
 	// 개인정보변경(이름, 생년월일, 성별, 전화번호, 이메일, 주소)
-	private static final String UPDATE_INFO = "UPDATE MEMBER " + "SET " + "M_NAME=?, " + "DOB=?, " + "GENDER=?, "
-			+ "PHONE_NUMBER=?, " + "EMAIL=?, " + "M_POSTCODE=?, " + "M_ADDRESS=?, " + "M_DETAILED_ADDRESS=? "
+	private static final String UPDATE_INFO = "UPDATE MEMBER"
+			+ "SET M_NAME=?, PHONE_NUMBER=?, EMAIL=?, M_POSTCODE=?, M_ADDRESS=?, M_DETAILED_ADDRESS=? "
 			+ "WHERE M_ID=?";
 
 	// 비밀번호번경
@@ -123,7 +127,39 @@ public class MemberDAO {
 				System.out.println("[로그_로그인] 성공");
 				return memberDTO;
 			}
-		} else if (mDTO.getSearchCondition().equals("회원정보")) { // 마이페이지
+		} 
+		else if (mDTO.getSearchCondition().equals("비밀번호확인")) {
+			memberDTO = new MemberDTO();
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_PW_CHECK);
+				pstmt.setString(1, mDTO.getMID());
+				pstmt.setString(2, mDTO.getmPassword());
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					memberDTO.setMID(rs.getString("M_ID"));
+					memberDTO.setmName(rs.getString("M_NAME"));
+				} else {
+					memberDTO = null;
+				}
+
+				rs.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("[로그_비밀번호확인] 반환 NULL_예외처리");
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			if (memberDTO != null) {
+				System.out.println("[로그_비밀번호확인] 성공");
+				return memberDTO;
+			}
+		}
+		else if (mDTO.getSearchCondition().equals("회원정보")) { // 마이페이지
 			memberDTO = new MemberDTO();
 
 			try {
@@ -226,39 +262,7 @@ public class MemberDAO {
 				System.out.println("[로그_주문정보] 성공");
 				return memberDTO;
 			}
-
-		} else if (mDTO.getSearchCondition().equals("비밀번호확인")) {
-
-			memberDTO = new MemberDTO();
-
-			conn = JDBCUtil.connect();
-
-			try {
-				pstmt = conn.prepareStatement(SELECTONE_PW);
-				pstmt.setNString(1, mDTO.getMID());
-				pstmt.setString(2, mDTO.getmPassword());
-
-				ResultSet rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					memberDTO.setmPassword(rs.getString("M_PASSWORD"));
-				} else {
-					memberDTO = null;
-				}
-
-				rs.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
-			} finally {
-				JDBCUtil.disconnect(pstmt, conn);
-			}
-			if (memberDTO != null) {
-				return memberDTO;
-			}
-
-		}
+		} 
 		System.out.println("[로그_SelectOne] 반환 NULL");
 		return null;
 	}
@@ -309,14 +313,12 @@ public class MemberDAO {
 			try {
 				pstmt = conn.prepareStatement(UPDATE_INFO);
 				pstmt.setString(1, mDTO.getmName());
-				pstmt.setDate(2, mDTO.getDob());
-				pstmt.setString(3, mDTO.getGender());
-				pstmt.setString(4, mDTO.getPhoneNumber());
-				pstmt.setString(5, mDTO.getEmail());
-				pstmt.setInt(6, mDTO.getmPostCode());
-				pstmt.setString(7, mDTO.getmAddress());
-				pstmt.setString(8, mDTO.getmDetailedAddress());
-				pstmt.setString(9, mDTO.getMID());
+				pstmt.setString(2, mDTO.getPhoneNumber());
+				pstmt.setString(3, mDTO.getEmail());
+				pstmt.setInt(4, mDTO.getmPostCode());
+				pstmt.setString(5, mDTO.getmAddress());
+				pstmt.setString(6, mDTO.getmDetailedAddress());
+				pstmt.setString(7, mDTO.getMID());
 
 				int result = pstmt.executeUpdate();
 				System.out.println("[로그_회원정보변경] execute완료");
@@ -350,7 +352,7 @@ public class MemberDAO {
 
 				if (result > 0) {
 					System.out.println("[로그_비밀번호변경] 변경성공");
-					return false;
+					return true;
 				}
 
 			} catch (SQLException e) {
