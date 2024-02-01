@@ -26,6 +26,5 @@ replay_pid*
 
 # custom
 *pom.xml
-*.jpg
 .classpath
 .settings/**
