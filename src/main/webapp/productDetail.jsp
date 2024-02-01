@@ -112,14 +112,22 @@
 							<i class="fas fa-search text-primary"></i>
 						</button>
 						<c:if test="${member != null}">
-							<!-- 장바구니 버튼 -->
-							<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+						<!-- 장바구니 버튼 -->
+						<c:if test="${member != null}">
+							<a href="cartPage.do" class="position-relative me-4 my-auto"> 
+								<i class="fa fa-shopping-bag fa-2x"></i> 
 							</a>
-							<!-- 장바구니 버튼 -->
-							<!-- 프로필 버튼 -->
-							<a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+						</c:if>
+						<c:if test="${member == null}">
+							<a href="loginPage.do" class="position-relative me-4 my-auto"> 
+								<i class="fa fa-shopping-bag fa-2x"></i> 
 							</a>
-							<!-- 프로필 버튼 -->
+						</c:if>
+						<!-- 장바구니 버튼 -->
+						<!-- 프로필 버튼 -->
+						<a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+						</a>
+						<!-- 프로필 버튼 -->
 						</c:if>
 						<!-- 로그인 버튼 -->
 						<c:if test="${member == null}">
