@@ -43,10 +43,10 @@ public class CheckUserPasswordAction implements Action{
 
 			//where값에 따른 경로 설정
 			if(getPath.equals("modifyUserInfo")) {
-				forward.setPath("modifyUserInfo.do");
+				forward.setPath("modifyUserInfoPage.do");
 				forward.setRedirect(false);
 			}else if(getPath.equals("modifyUserPassword")) {
-				forward.setPath("modifyUserPassword.do");
+				forward.setPath("modifyUserPasswordPage.do");
 				forward.setRedirect(false);
 			}else {
 				forward.setPath("error.do");

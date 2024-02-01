@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>비밀번호변경</title>
+<title>비밀번호확인</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -34,47 +36,6 @@
 	<%-- 세션 확인 후 없으면 메인으로 --%>
 	<custom:emthySessionAndGoToMain/>
 	
-		<!-- 비밀 중복검사 -->
-	<script type="text/javascript">
-		var pwResult = false;
-		function pwSameCheck() {
-			if ($('#password').val() == $('#confirmPassword').val()) {
-				pwResult = true
-				Swal.fire({
-					icon : 'success',
-					title : '비밀번호 검사',
-					text : '비밀번호가 일치합니다.',
-				})
-			} else {
-				Swal.fire({
-					icon : 'error',
-					title : '비밀번호 검사',
-					text : '비밀번호가 일치하지 않습니다.',
-				})
-			}
-		}
-	</script>
-	<!-- 비밀 중복검사 -->
-
-
-	<!-- 비밀번호 포맷 검사 -->
-	<script>
-		function pwFormatCheck() {
-
-			var reg = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
-
-			if (!reg.test($('#password').val())) {
-				Swal.fire({
-					icon : 'error',
-					title : '비밀번호 검사',
-					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다.',
-				})
-			}
-		}
-	</script>
-	<!-- 비밀번호 포맷 검사 -->
-
-
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-primary" role="status"></div>
@@ -109,8 +70,8 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a href="modifyUserInfoPage.do?WHERE=modifyUserInfo" class="nav-item nav-link">개인정보수정</a>
-						<a class="btn text-primary mb-0 mt-1" href="modifyUserPasswordPage.do?WHERE=modifyUserPassword" class="nav-item nav-link">비밀번호변경</a> 
+						<a href="modifyUserInfoPage.do?where=modifyUserInfo" class="nav-item nav-link">개인정보수정</a>
+						<a href="modifyUserPasswordPage.do?where=modifyUserPassword" class="nav-item nav-link">비밀번호변경</a> 
 						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
 						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
 						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a>
@@ -152,7 +113,7 @@
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">비밀번호변경</h1>
+		<h1 class="text-center text-white display-6">비밀번호확인</h1>
 	</div>
 	<!-- Single Page Header End -->
 
@@ -162,20 +123,19 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="modifyUserPassword.do" method="POST" name="joinForm" onsubmit="return checkField()">
+					<form action="checkUserPassword.do" method="GET" name="joinForm">
 						<div class="row g-4">
 							<div class="col-lg-12">
-								<input class="form-control p-3 border-secondary " type="password" name="mPassword" id="password" placeholder="비밀번호" maxlength="15" onblur="pwFormatCheck()">
-							</div>
-							<div class="col-lg-12">
-								<input class="form-control p-3 border-secondary" type="password" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="pwSameCheck()">
+								<input class="form-control p-3  border-secondary" type="password" name="mPassword" placeholder="비밀번호 확인" required>
 							</div>
 							<div class="col-lg-6">
-								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="수정">
+								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="확인">
 							</div>
 							<div class="col-lg-6">
 								<a class="btn border border-secondary text-primary rounded-pill px-5 py-3" href="mypage.do">취소</a>
 							</div>
+							<c:set var="where" value="${param.where}" />
+							<input type="hidden" id="where" name="where" value="${where}">
 						</div>
 					</form>
 				</div>
@@ -291,7 +251,7 @@
 	<script>
 		function checkField() {
 
-			if (!document.joinForm.MID.value) {
+			if (!document.joinForm.mPassword.value) {
 
 				alert("비밀번호를 입력하지 않았습니다.");
 

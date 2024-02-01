@@ -36,7 +36,7 @@ public class ModifyUserPasswordAction implements Action {
 			System.out.println("[log] 비밀번호변경 성공!");
 			//비밀번호 변경시 계정 로그아웃 후 메인화면으로 이동
 			session.removeAttribute("member");
-			forward.setPath("main.do");
+			forward.setPath("mainPage.do");
 			//로그아웃시 main에 표시할 모달정보 전달
 			request.setAttribute("logoutResult", true);
 			forward.setRedirect(false);

@@ -18,7 +18,7 @@ public class ModifyUserPasswordPageAction implements Action {
 		ActionForward forward = new ActionForward();
 		//비밀번호 업데이트 화면으로 이동
 		//넘겨줄 데이터xx
-		forward.setPath("ModifyUserPassword.jsp");
+		forward.setPath("modifyUserPassword.jsp");
 		forward.setRedirect(true);
 		
 		return forward;
