@@ -64,11 +64,15 @@
 						<div class="nav-item dropdown"></div>
 					</div>
 					<div class="d-flex m-3 me-0">
+						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>
-						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-						</a> <a href="#" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+						<a href="cartPage.do" class="position-relative me-4 my-auto"> 
+							<i class="fa fa-shopping-bag fa-2x"></i> 
+						</a> 
+						<a href="mypage.do" class="my-auto"> 
+							<i class="fas fa-user fa-2x"></i>
 						</a>
 					</div>
 				</div>
@@ -88,7 +92,10 @@
 				</div>
 				<div class="modal-body d-flex align-items-center">
 					<div class="input-group w-75 mx-auto d-flex">
-						<input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+						<input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+						<span id="search-icon-1" class="input-group-text p-3">
+							<i class="fa fa-search"></i>
+						</span>
 					</div>
 				</div>
 			</div>
