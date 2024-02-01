@@ -37,7 +37,7 @@ AFTER INSERT ON REVIEW
 FOR EACH ROW
 -- 트리거에서 작동할 쿼리
 BEGIN
-    --BUYINFO테이블에서 HAS_RIVIEW를 1로 업데이트한다
+    --BUYINFO테이블에서 HAS_REVIEW 1로 업데이트한다
     UPDATE BUYINFO
     SET HAS_REVIEW = 1
     -- :new.B_ID = INSERT(트리거가 발생하는 쿼리)가 작동했을 때 사용된 B_ID
