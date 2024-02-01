@@ -21,7 +21,7 @@ public class BuyInfoDAO {
 	// 조인 상품 테이블
 	// 조건 M_ID가 전달받은 값과 같은 행
 	private static final String SELECTALL_LIST = "SELECT "
-			+ "B.B_ID, B.M_ID, B.P_ID, B.CP_ID, B.ORDER_NUM, B.DELI_STATE, B.B_QTY, B.PAYMENT_PRICE, B.BUY_TIME, B.B_POSTCODE, B.B_ADDRESS, B.B_DETAILED_ADDRESS, HAS_RIVIEW, "
+			+ "B.B_ID, B.M_ID, B.P_ID, B.CP_ID, B.ORDER_NUM, B.DELI_STATE, B.B_QTY, B.PAYMENT_PRICE, B.BUY_TIME, B.B_POSTCODE, B.B_ADDRESS, B.B_DETAILED_ADDRESS, HAS_REVIEW, "
 			+ "P.P_NAME, P.IMAGE_PATH "
 			+ "FROM BUYINFO B "
 			+ "JOIN PRODUCT P ON B.P_ID = P.P_ID "
@@ -50,7 +50,7 @@ public class BuyInfoDAO {
 
 	// 리뷰 작성여부
 	// 트리거(INSERT_RIVIEW_TRIGGER)를 사용해 리뷰테이블에서 INSERT가 일어나면 실행
-	// private static final String UPDATE__BUYINFO_HAS_RIVIEW = "UPDATE BUYINFO SET HAS_RIVIEW = 1 WHERE B_ID = ?";
+	// private static final String UPDATE__BUYINFO_HAS_REVIEW = "UPDATE BUYINFO SET HAS_REVIEW = 1 WHERE B_ID = ?";
 	
 	// 
 	private static final String DELETE = "";
@@ -99,7 +99,7 @@ public class BuyInfoDAO {
 					buyInfoDTO.setbPostCode(rs.getInt("B_POSTCODE"));
 					buyInfoDTO.setbAddress(rs.getString("B_ADDRESS"));
 					buyInfoDTO.setbDetailedAddress(rs.getString("B_DETAILED_ADDRESS"));
-					buyInfoDTO.setHasReview(rs.getInt("HAS_RIVIEW"));
+					buyInfoDTO.setHasReview(rs.getInt("HAS_REVIEW"));
 					buyInfoDTO.setAncPName(rs.getString("P_NAME"));
 					buyInfoDTO.setAncImagePath(rs.getString("IMAGE_PATH"));
 					buyList.add(buyInfoDTO);
