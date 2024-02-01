@@ -5,30 +5,23 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.common.Action;
 import controller.common.ActionForward;
 
-public class LogoutAction implements Action {
+public class ModifyUserPasswordPageAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		ActionForward forward = new ActionForward();
 		
-		HttpSession session=request.getSession();
-		//로그아웃시 세션의 member정보 지우고 메인 화면으로 이동
-		session.removeAttribute("member");
-		forward.setPath("mainPage.do"); 
-		//로그아웃 성공시 구분할 값 : logoutResult 
-		request.setAttribute("logoutResult", true);
-		forward.setRedirect(false);
-
+		ActionForward forward = new ActionForward();
+		//비밀번호 업데이트 화면으로 이동
+		//넘겨줄 데이터xx
+		forward.setPath("ModifyUserPassword.jsp");
+		forward.setRedirect(true);
+		
 		return forward;
-	
 	}
-	
 
 }

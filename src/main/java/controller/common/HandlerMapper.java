@@ -8,6 +8,8 @@ import controller.action.BuyInfoPageAction;
 import controller.action.BuyPageAction;
 import controller.action.CartDeleteAction;
 import controller.action.CartPageAction;
+import controller.action.CheckUserPasswordAction;
+import controller.action.CheckUserPasswordPageAction;
 import controller.action.CouponInfoPageAction;
 import controller.action.DeleteReviewAction;
 import controller.action.ErrorAction;
@@ -17,7 +19,10 @@ import controller.action.LoginAction;
 import controller.action.LoginPageAction;
 import controller.action.LogoutAction;
 import controller.action.MainPageAction;
+import controller.action.ModifyUserInfoAction;
 import controller.action.ModifyUserInfoPageAction;
+import controller.action.ModifyUserPasswordAction;
+import controller.action.ModifyUserPasswordPageAction;
 import controller.action.MypageAction;
 import controller.action.ProductAllPageAction;
 import controller.action.ProductDetailPageAction;
@@ -42,14 +47,19 @@ public class HandlerMapper {
 		this.mappings.put("/logout.do", new LogoutAction());// 로그아웃
 		this.mappings.put("/termsPage.do", new TermsPageAction());// 약관페이지
 		this.mappings.put("/mypage.do", new MypageAction());// 마이페이지
-		this.mappings.put("/modifyUserInfoPage.do", new ModifyUserInfoPageAction());// 마이페이지
+		this.mappings.put("/checkUserPasswordPage.do", new CheckUserPasswordPageAction());// 마이페이지_비밀번호확인페이지
+		this.mappings.put("/checkUserPassword.do", new CheckUserPasswordAction());// 마이페이지_비밀번호확인
+		this.mappings.put("/modifyUserInfoPage.do", new ModifyUserInfoPageAction());// 마이페이지_개인정보수정페이지
+		this.mappings.put("/modifyUserInfo.do", new ModifyUserInfoAction());// 마이페이지_개인정보수정
+		this.mappings.put("/modifyUserPasswordPage.do", new ModifyUserPasswordPageAction());// 마이페이지_비밀번호변경페이지
+		this.mappings.put("/modifyUserPassword.do", new ModifyUserPasswordAction());// 마이페이지_비밀번호변경
 		this.mappings.put("/login.do", new LoginAction()); // 로그인페이지
 		this.mappings.put("/productAllPage.do", new ProductAllPageAction());// 상품전체목록
 		this.mappings.put("/productDetailPage.do", new ProductDetailPageAction());// 상품상세페이지
 		this.mappings.put("/cartPage.do", new CartPageAction());// 장바구니
 		this.mappings.put("/cartDelete.do", new CartDeleteAction());// 장바구니 상품 삭제
 		this.mappings.put("/buyPage.do", new BuyPageAction());// 구매페이지
-		this.mappings.put("/buyCompPage.do", new BuyCompPageAction());// 결제완료페이지
+		this.mappings.put("/buyCompPage.do", new BuyCompPageAction());// 결제완료페이지(구매로직)
 		this.mappings.put("/buyInfoPage.do", new BuyInfoPageAction());// 마이페이지-구매내역
 		this.mappings.put("/couponInfoPage.do", new CouponInfoPageAction());// 마이페이지-나의쿠폰목록(쿠폰관리)
 		this.mappings.put("/writeReviewPage.do", new WriteReviewPageAction());// 리뷰작성페이지
