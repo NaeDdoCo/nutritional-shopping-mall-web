@@ -17,6 +17,7 @@ public class ReviewDTO {
     private String ancEmail;
     private String ancCreateTime;
     private double ancAvgScore;
+    private String ancImagePath;
     
     
 	public int getRID() {
@@ -98,12 +99,20 @@ public class ReviewDTO {
 	public void setAncAvgScore(double ancAvgScore) {
 		this.ancAvgScore = ancAvgScore;
 	}
+	
+	public String getAncImagePath() {
+		return ancImagePath;
+	}
+	public void setAncImagePath(String ancImagePath) {
+		this.ancImagePath = ancImagePath;
+	}
 	@Override
 	public String toString() {
 		return "ReviewDTO [RID=" + RID + ", MID=" + MID + ", BID=" + BID + ", score=" + score + ", contents=" + contents
 				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + ", ancPID=" + ancPID
 				+ ", ancPName=" + ancPName + ", ancMName=" + ancMName + ", ancEmail=" + ancEmail + ", ancCreateTime="
-				+ ancCreateTime + ", ancAvgScore=" + ancAvgScore + "]";
+				+ ancCreateTime + ", ancAvgScore=" + ancAvgScore + ", ancImagePath=" + ancImagePath + "]";
 	}
+
   
 }

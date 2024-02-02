@@ -20,7 +20,7 @@ public class ReviewDAO {
 	 */
 
 	// 내 리뷰
-	private static final String SELECTALL_MY_REVIEW = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME "
+	private static final String SELECTALL_MY_REVIEW = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME, P.IMAGE_PATH "
 			+ "FROM REVIEW R "
 			+ "JOIN BUYINFO B ON R.B_ID = B.B_ID "
 			+ "JOIN PRODUCT P ON B.P_ID = P.P_ID "
@@ -103,6 +103,7 @@ public class ReviewDAO {
 					reviewDTO.setAncCreateTime(createTime);
 					reviewDTO.setAncPID(rs.getInt("P_ID"));
 					reviewDTO.setAncPName(rs.getString("P_NAME"));
+					reviewDTO.setAncImagePath(rs.getString("IMAGE_PATH"));
 					reviewList.add(reviewDTO);
 				}
 
