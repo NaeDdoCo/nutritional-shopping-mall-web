@@ -288,23 +288,32 @@ public class ReviewDAO {
 		
 		if(rDTO.getSearchCondition().equals("리뷰삭제")) {
 			
+			System.out.println("[로그_리뷰삭제] 진입성공");
+			
 			try {
 				pstmt = conn.prepareStatement(DELETE);
 				pstmt.setInt(1, rDTO.getRID());
 				
+				System.out.println("[로그_리뷰삭제] 쿼리 set(RID) : "+rDTO.getRID());
+				
 				int result = pstmt.executeUpdate();
 				
+				System.out.println("[로그_리뷰삭제] 딜리트 성공");
+				
 				if(result > 0) {
+					System.out.println("[로그_리뷰삭제] true반환");
 					return true;
 				}
 				
 			} catch (SQLException e) {
+				System.out.println("[로그_리뷰삭제] 예외처리");
 				e.printStackTrace();
 				return false;
 			} finally {
 				JDBCUtil.disconnect(pstmt, conn);
 			}	
 		}		
+		System.out.println("[로그_DELETE] 실패");
 		return false;
 	}
 }
