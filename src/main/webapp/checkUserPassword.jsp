@@ -173,8 +173,8 @@
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="password" name="mPassword" id="mPassword" placeholder="비밀번호 확인" required>
 							</div>
-							<div class="col-lg-4">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkPwDupl" type='button' onclick="checkPw()">확인</button>
+							<div class="col-lg-6">
+								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="button" value="확인" onclick="checkPw()">
 							</div>
 							<div class="col-lg-6">
 								<a class="btn border border-secondary text-primary rounded-pill px-5 py-3" href="mypage.do">취소</a>
@@ -294,6 +294,30 @@
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
 	<!-- Template Javascript -->
+	
+	
+	<script>
+		function checkField() {
+
+			if ($("#password").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호를 입력해주세요. checkField()',
+				})
+			} else if (pwSame == false) {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호가 일치하지 않습니다. checkField()',
+				})
+			} else {
+				var joinForm = document.getElementById("joinForm");
+				joinForm.submit();
+			}
+
+		}
+	</script>
 	
 </body>
 </html>

@@ -9,6 +9,13 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,20 +43,21 @@
 	
 		<!-- 비밀 중복검사 -->
 	<script type="text/javascript">
-		var pwResult = false;
+		var pwSame = false;
 		function pwSameCheck() {
 			if ($('#password').val() == $('#confirmPassword').val()) {
-				pwResult = true
+				pwSame = true
 				Swal.fire({
 					icon : 'success',
 					title : '비밀번호 검사',
-					text : '비밀번호가 일치합니다.',
+					text : '비밀번호가 일치합니다. pwSameCheck()',
 				})
 			} else {
+				pwSame = false
 				Swal.fire({
 					icon : 'error',
 					title : '비밀번호 검사',
-					text : '비밀번호가 일치하지 않습니다.',
+					text : '비밀번호가 일치하지 않습니다. pwSameCheck()',
 				})
 			}
 		}
@@ -59,21 +67,53 @@
 
 	<!-- 비밀번호 포맷 검사 -->
 	<script>
+		var pwFormat = false
 		function pwFormatCheck() {
 
 			var reg = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
 
 			if (!reg.test($('#password').val())) {
+				pwFormat = false
 				Swal.fire({
 					icon : 'error',
 					title : '비밀번호 검사',
-					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다.',
+					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다. pwFormatCheck()',
 				})
+			} else {
+				pwFormat = true
 			}
 		}
 	</script>
 	<!-- 비밀번호 포맷 검사 -->
-
+	
+	<!-- 필수 항목 누락 검사 -->
+	<script>
+		function checkRequirement() {
+			if ($("#password").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호를 입력해주세요. checkRequirement()',
+				})
+			} else if (pwSame == false) {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호가 일치하지 않습니다. checkRequirement()',
+				})
+			} else if (pwFormat == false) {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다. checkRequirement()',
+				})
+			} else {
+				var joinForm = document.getElementById("joinForm");
+				joinForm.submit();
+			}
+		}
+	</script>
+	<!-- 필수 항목 누락 검사 -->
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -162,7 +202,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="modifyUserPassword.do" method="POST" name="joinForm" onsubmit="return checkField()">
+					<form action="modifyUserPassword.do" method="POST" name="joinForm" id="joinForm">
 						<div class="row g-4">
 							<div class="col-lg-12">
 								<input class="form-control p-3 border-secondary " type="password" name="mPassword" id="password" placeholder="비밀번호" maxlength="15" onblur="pwFormatCheck()">
@@ -171,7 +211,7 @@
 								<input class="form-control p-3 border-secondary" type="password" id="confirmPassword" placeholder="재입력" maxlength="15" onblur="pwSameCheck()">
 							</div>
 							<div class="col-lg-6">
-								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="수정">
+								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="button" value="수정" onclick="checkRequirement()">
 							</div>
 							<div class="col-lg-6">
 								<a class="btn border border-secondary text-primary rounded-pill px-5 py-3" href="mypage.do">취소</a>
@@ -291,14 +331,21 @@
 	<script>
 		function checkField() {
 
-			if (!document.joinForm.MID.value) {
-
-				alert("비밀번호를 입력하지 않았습니다.");
-
-				document.joinForm.focus();
-
-				return false;
-
+			if ($("#password").val() == "") {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호를 입력해주세요. checkField()',
+				})
+			} else if (pwSame == false) {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '비밀번호가 일치하지 않습니다. checkField()',
+				})
+			} else {
+				var joinForm = document.getElementById("joinForm");
+				joinForm.submit();
 			}
 
 		}
