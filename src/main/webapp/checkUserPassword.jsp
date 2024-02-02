@@ -11,6 +11,13 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +36,7 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -36,6 +44,45 @@
 	<%-- 세션 확인 후 없으면 메인으로 --%>
 	<custom:emthySessionAndGoToMain/>
 	
+	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
+	<script type="text/javascript">
+		var MIDResult;
+		function checkMID() {
+			// 사용자가 입력한 아이디 가져오기
+			var mPassword = $("#mPassword").val();
+			if (mPassword === "") {
+				Swal.fire({
+					icon : 'error',
+					title : '비밀번호 검사',
+					text : '비밀번호를 입력해주세요.',
+				})
+				return 0;
+			}
+			// AJAX 요청 보내기
+			$.ajax({
+				type : "POST", // 또는 "GET"
+				url : "checkPw", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+				data : {
+					'mPassword' : mPassword
+				},
+				success : function(data) {
+					MIDResult = data
+					if (data === "diffPw") {
+						Swal.fire({
+							icon : 'error',
+							title : '비밀번호 검사',
+							text : '잘못된 비밀번호 입니다.',
+						})
+					} else {
+						var joinForm = document.getElementById("joinForm");
+						joinForm.submit();
+					}
+				}
+			});
+		}
+	</script>
+	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
+		
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-primary" role="status"></div>
@@ -123,13 +170,13 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="checkUserPassword.do" method="GET" name="joinForm">
+					<form action="checkUserPassword.do" method="POST" name="joinForm" id="joinForm">
 						<div class="row g-4">
 							<div class="col-lg-12">
-								<input class="form-control p-3  border-secondary" type="password" name="mPassword" placeholder="비밀번호 확인" required>
+								<input class="form-control p-3  border-secondary" type="password" name="mPassword" id="mPassword" placeholder="비밀번호 확인" required>
 							</div>
-							<div class="col-lg-6">
-								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="확인">
+							<div class="col-lg-4">
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">확인</button>
 							</div>
 							<div class="col-lg-6">
 								<a class="btn border border-secondary text-primary rounded-pill px-5 py-3" href="mypage.do">취소</a>
@@ -244,25 +291,11 @@
 	<script src="lib/waypoints/waypoints.min.js"></script>
 	<script src="lib/lightbox/js/lightbox.min.js"></script>
 	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
+	<!-- JavaScript Libraries -->
+	
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-
-	<script>
-		function checkField() {
-
-			if (!document.joinForm.mPassword.value) {
-
-				alert("비밀번호를 입력하지 않았습니다.");
-
-				document.joinForm.focus();
-
-				return false;
-
-			}
-
-		}
-	</script>
-
+	<!-- Template Javascript -->
+	
 </body>
 </html>
