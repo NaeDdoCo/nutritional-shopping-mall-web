@@ -34,12 +34,13 @@ public class CheckUserPasswordAction implements Action{
 
 		//비밀번호가 일치하면
 		//어디로 보낼지 (modifyUserInfo or modifyUserPassword)
+		
+		//where값 받아오기
+		String getPath = request.getParameter("where");
 		if (mDTO != null) {
 			// 비밀번호 일치
 			System.out.println("[log] CheckUserPasswordAction 비밀번호 일치!");
 		
-			//where값 받아오기
-			String getPath = request.getParameter("where");
 
 			//where값에 따른 경로 설정
 			if(getPath.equals("modifyUserInfo")) {
@@ -55,6 +56,9 @@ public class CheckUserPasswordAction implements Action{
 		} else {
 			// 비밀번호 불일치
 			System.out.println("[log] CheckUserPasswordAction 비밀번호 불일치");
+			request.setAttribute("checkResult", false);
+			forward.setPath("checkUserPasswordPage.do?" + getPath);
+			forward.setRedirect(false);
 		}
 
 		return forward;

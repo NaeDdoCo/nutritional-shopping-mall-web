@@ -44,6 +44,25 @@
 	<%-- 세션 확인 후 없으면 메인으로 --%>
 	<custom:emthySessionAndGoToMain/>
 	
+		<!-- 로그인 실패 모달 -->
+	<c:if test="${checkResult != null}">
+		<c:if test="${checkResult == false}">
+			<script type="text/javascript">
+				window.onload = function() {
+					checkFail();
+				};
+				function checkFail() {
+					Swal.fire({
+						icon : 'error',
+						title : '비밀번호 검사',
+						text : '잘못된 비밀번호 입니다.',
+					})
+				}
+			</script>
+		</c:if>
+	</c:if>
+	<!-- 로그인 실패 모달 -->
+	
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 	<script type="text/javascript">
 		function checkPw() {
