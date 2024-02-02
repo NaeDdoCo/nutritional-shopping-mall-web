@@ -28,6 +28,7 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+<link href="css/table.css" rel="stylesheet">
 </head>
 <body>
 
@@ -132,19 +133,19 @@
 						<c:forEach var="coupon" items="${couponList}">
 							<tr>
 								<td>
-									<p class="mb-0 mt-4">${coupon.cpName}</p>
+									<p class="mb-0 mt-0">${coupon.cpName}</p>
 								</td>
 								<td>
-									<p class="mb-0 mt-4">${coupon.discount}</p>
+									<p class="mb-0 mt-0">${coupon.discount}%</p>
 								</td>
 								<td>
-									<p class="mb-0 mt-4">${coupon.period}</p>
+									<p class="mb-0 mt-0">${coupon.period}</p>
 								</td>
 								<td>
-									<p class="mb-0 mt-4">${coupon.category}</p>
+									<p class="mb-0 mt-0">${coupon.category}</p>
 								</td>
 								<td>
-									<p class="mb-0 mt-4">${coupon.used}</p>
+									<p class="mb-0 mt-0">${coupon.used}</p>
 								</td>
 							</tr>
 						</c:forEach>
