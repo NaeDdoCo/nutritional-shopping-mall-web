@@ -25,6 +25,7 @@ public class ProductDTO {
     private int ancTotalQty;
     private int ancCID;
     private String ancRegTime;
+    private int ancAvgRating;
     
 	public int getPID() {
 		return PID;
@@ -104,17 +105,17 @@ public class ProductDTO {
 	public void setSellingState(String sellingState) {
 		this.sellingState = sellingState;
 	}
-	public String getSearchCondition() {
-		return searchCondition;
-	}
-	public void setSearchCondition(String searchCondition) {
-		this.searchCondition = searchCondition;
-	}
 	public String getImagePath() {
 		return imagePath;
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
 	}
 	public int getAncSelectMin() {
 		return ancSelectMin;
@@ -134,19 +135,23 @@ public class ProductDTO {
 	public void setAncTotalQty(int ancTotalQty) {
 		this.ancTotalQty = ancTotalQty;
 	}
-	
+	public int getAncCID() {
+		return ancCID;
+	}
+	public void setAncCID(int ancCID) {
+		this.ancCID = ancCID;
+	}
 	public String getAncRegTime() {
 		return ancRegTime;
 	}
 	public void setAncRegTime(String ancRegTime) {
 		this.ancRegTime = ancRegTime;
 	}
-	
-	public int getAncCID() {
-		return ancCID;
+	public int getAncAvgRating() {
+		return ancAvgRating;
 	}
-	public void setAncCID(int ancCID) {
-		this.ancCID = ancCID;
+	public void setAncAvgRating(int ancAvgRating) {
+		this.ancAvgRating = ancAvgRating;
 	}
 	@Override
 	public String toString() {
@@ -156,9 +161,7 @@ public class ProductDTO {
 				+ ", regTime=" + regTime + ", sellingState=" + sellingState + ", imagePath=" + imagePath
 				+ ", searchCondition=" + searchCondition + ", ancSelectMin=" + ancSelectMin + ", ancSelectMax="
 				+ ancSelectMax + ", ancTotalQty=" + ancTotalQty + ", ancCID=" + ancCID + ", ancRegTime=" + ancRegTime
-				+ "]";
+				+ ", ancAvgRating=" + ancAvgRating + "]";
 	}
-
-
-
+    
 }
