@@ -36,25 +36,27 @@ public class MainPageAction implements Action {
 		ProductDTO pDTO = new ProductDTO();
 		ProductDAO pDAO = new ProductDAO();
 
-		// 상품목록페이지
+		// 메인페이지 하단 8개 상품
 		pDTO.setSearchCondition("상품목록페이지");
 		pDTO.setAncSelectMin(1);
 		pDTO.setAncSelectMax(8);
 		pDTOs = pDAO.selectAll(pDTO);
 		
-		////
+		//
 		for (ProductDTO productDTO : pDTOs) {
 			int pid = productDTO.getPID();
 			int avgRating = getAverageRating(pid);
 			productDTO.setAncAvgRating(avgRating);
 			System.out.println("[log] PID : " + productDTO.getPID());
-			System.out.println("[log] 평균별점 " + productDTO.getAncAvgRating());
+			System.out.println("[log] pDTOs 평균별점 " + productDTO.getAncAvgRating());
 		}
 
-		// 상품출력전체
+		// 메인페이지 상단 8개 추천상품
 		pDTO.setSearchCondition("상품출력필터");
 		rcmDTOs = pDAO.selectAll(pDTO);
 		
+		rcmDTOs = recommendProduct(request, rcmDTOs);
+		System.out.println("[log] rcmDTOs : "+ rcmDTOs);
 		// 각 상품의 평균 별점 설정
 		for (ProductDTO productDTO : rcmDTOs) {
 			int pid = productDTO.getPID();
@@ -62,15 +64,12 @@ public class MainPageAction implements Action {
 			productDTO.setAncAvgRating(avgRating);
 			System.out.println("productDTO : " + productDTO);
 			System.out.println("[log] PID : " + productDTO.getPID());
-			System.out.println("[log] 평균별점 " + productDTO.getAncAvgRating());
+			System.out.println("[log] rcmDTOs 평균별점 " + productDTO.getAncAvgRating());
 		}
-
-		rcmDTOs = recommendProduct(request, rcmDTOs);
-		System.out.println("[log] rcmDTOs : "+ rcmDTOs);
 
 		// 추천 상품이 0개면 판매량순 추천
 		request.setAttribute("pDTOs", pDTOs);
-		if (rcmDTOs == null || rcmDTOs.size() == 0) {
+		if (rcmDTOs == null) {
 			request.setAttribute("rcmDTOs", pDTOs);
 		} else {
 			int i = 0;
