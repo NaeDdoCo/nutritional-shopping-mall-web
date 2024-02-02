@@ -21,9 +21,6 @@ import model.dto.ProductDTO;
 import model.dto.ReviewDTO;
 
 public class MainPageAction implements Action {
-	
-
-	
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
@@ -36,13 +33,13 @@ public class MainPageAction implements Action {
 		ProductDTO pDTO = new ProductDTO();
 		ProductDAO pDAO = new ProductDAO();
 
-		// 메인페이지 하단 8개 상품
+		// 메인페이지 하단 전체상품_8개
 		pDTO.setSearchCondition("상품목록페이지");
 		pDTO.setAncSelectMin(1);
 		pDTO.setAncSelectMax(8);
 		pDTOs = pDAO.selectAll(pDTO);
 		
-		//
+		// 각 상품의 평균 별점 설정
 		for (ProductDTO productDTO : pDTOs) {
 			int pid = productDTO.getPID();
 			int avgRating = getAverageRating(pid);
@@ -51,12 +48,13 @@ public class MainPageAction implements Action {
 			System.out.println("[log] pDTOs 평균별점 " + productDTO.getAncAvgRating());
 		}
 
-		// 메인페이지 상단 8개 추천상품
+		// 메인페이지 상단 추천상품_8개
 		pDTO.setSearchCondition("상품출력필터");
 		rcmDTOs = pDAO.selectAll(pDTO);
 		
 		rcmDTOs = recommendProduct(request, rcmDTOs);
 		System.out.println("[log] rcmDTOs : "+ rcmDTOs);
+		
 		// 각 상품의 평균 별점 설정
 		for (ProductDTO productDTO : rcmDTOs) {
 			int pid = productDTO.getPID();
@@ -78,7 +76,6 @@ public class MainPageAction implements Action {
 			}
 			request.setAttribute("rcmDTOs", rcmDTOs);
 		}
-
 
 		forward.setPath("main.jsp");
 		forward.setRedirect(false);
