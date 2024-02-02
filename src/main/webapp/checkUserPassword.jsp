@@ -46,7 +46,6 @@
 	
 	<!-- 중복 버튼을 눌렀을 때 중복검사하는 ajax -->
 	<script type="text/javascript">
-		var mPasswordResult;
 		function checkPw() {
 			// 사용자가 입력한 아이디 가져오기
 			var mPassword = $("#mPassword").val();
@@ -66,7 +65,6 @@
 					'mPassword' : mPassword
 				},
 				success : function(data) {
-					mPasswordResult = data
 					if (data === "diffPw") {
 						Swal.fire({
 							icon : 'error',
