@@ -14,11 +14,16 @@ import controller.common.ActionForward;
 import model.dao.BuyInfoDAO;
 import model.dao.MemberDAO;
 import model.dao.ProductDAO;
+import model.dao.ReviewDAO;
 import model.dto.BuyInfoDTO;
 import model.dto.MemberDTO;
 import model.dto.ProductDTO;
+import model.dto.ReviewDTO;
 
 public class MainPageAction implements Action {
+	
+
+	
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
@@ -36,11 +41,32 @@ public class MainPageAction implements Action {
 		pDTO.setAncSelectMin(1);
 		pDTO.setAncSelectMax(8);
 		pDTOs = pDAO.selectAll(pDTO);
+		
+		////
+		for (ProductDTO productDTO : pDTOs) {
+			int pid = productDTO.getPID();
+			int avgRating = getAverageRating(pid);
+			productDTO.setAncAvgRating(avgRating);
+			System.out.println("[log] PID : " + productDTO.getPID());
+			System.out.println("[log] 평균별점 " + productDTO.getAncAvgRating());
+		}
 
 		// 상품출력전체
 		pDTO.setSearchCondition("상품출력필터");
 		rcmDTOs = pDAO.selectAll(pDTO);
+		
+		// 각 상품의 평균 별점 설정
+		for (ProductDTO productDTO : rcmDTOs) {
+			int pid = productDTO.getPID();
+			int avgRating = getAverageRating(pid);
+			productDTO.setAncAvgRating(avgRating);
+			System.out.println("productDTO : " + productDTO);
+			System.out.println("[log] PID : " + productDTO.getPID());
+			System.out.println("[log] 평균별점 " + productDTO.getAncAvgRating());
+		}
+
 		rcmDTOs = recommendProduct(request, rcmDTOs);
+		System.out.println("[log] rcmDTOs : "+ rcmDTOs);
 
 		// 추천 상품이 0개면 판매량순 추천
 		request.setAttribute("pDTOs", pDTOs);
@@ -53,6 +79,7 @@ public class MainPageAction implements Action {
 			}
 			request.setAttribute("rcmDTOs", rcmDTOs);
 		}
+
 
 		forward.setPath("main.jsp");
 		forward.setRedirect(false);
@@ -167,7 +194,6 @@ public class MainPageAction implements Action {
 					break;
 				}
 			}
-
 		}
 
 		System.out.println(rcmDTOs);
@@ -176,6 +202,28 @@ public class MainPageAction implements Action {
 //		}
 
 		return rcmDTOs;
+	}
+	
+	/*
+ 	상품의 평균 별점을 가져오는 메서드
+	 */
+	private int getAverageRating(int pid) {
+		System.out.println("getAverageRating 메서드 진입");
+	    ReviewDTO rDTO = new ReviewDTO();
+	    ReviewDAO rDAO = new ReviewDAO();
+	    
+	    rDTO.setAncPID(pid);
+	    rDTO.setSearchCondition("별점평균");
+	    
+	    rDTO = rDAO.selectOne(rDTO);
+	    
+	    if (rDTO != null) {
+	        // 평균값이 있다면, int 평균 별점 값을 반환
+	        return (int) rDTO.getAncAvgScore();
+	    } else {
+	        // 평균 별점이 없을 경우 기본값 반환
+	        return 0;
+	    }
 	}
 
 }
