@@ -194,6 +194,18 @@
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">주소</p>
+							</div>
+						</td>
+						<td scope="row">
+							<div class="d-flex align-items-center">
+								<p class="mb-3 mt-4">${memberInfo.mAddress}, ${memberInfo.mDetailedAddress}</p>
+							</div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
