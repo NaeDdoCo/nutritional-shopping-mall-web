@@ -41,7 +41,7 @@
 	<%-- 세션 확인 후 없으면 메인으로 --%>
 	<custom:emthySessionAndGoToMain/>
 	
-		<!-- 비밀 중복검사 -->
+	<!-- 비밀번호 중복검사 -->
 	<script type="text/javascript">
 		var pwSame = false;
 		function pwSameCheck() {
@@ -50,19 +50,19 @@
 				Swal.fire({
 					icon : 'success',
 					title : '비밀번호 검사',
-					text : '비밀번호가 일치합니다. pwSameCheck()',
+					text : '비밀번호가 일치합니다.',
 				})
 			} else {
 				pwSame = false
 				Swal.fire({
 					icon : 'error',
 					title : '비밀번호 검사',
-					text : '비밀번호가 일치하지 않습니다. pwSameCheck()',
+					text : '비밀번호가 일치하지 않습니다.',
 				})
 			}
 		}
 	</script>
-	<!-- 비밀 중복검사 -->
+	<!-- 비밀번호 중복검사 -->
 
 
 	<!-- 비밀번호 포맷 검사 -->
@@ -77,7 +77,7 @@
 				Swal.fire({
 					icon : 'error',
 					title : '비밀번호 검사',
-					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다. pwFormatCheck()',
+					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다.',
 				})
 			} else {
 				pwFormat = true
@@ -93,23 +93,43 @@
 				Swal.fire({
 					icon : 'error',
 					title : '필수 항목 검사',
-					text : '비밀번호를 입력해주세요. checkRequirement()',
+					text : '비밀번호를 입력해주세요.',
 				})
 			} else if (pwSame == false) {
 				Swal.fire({
 					icon : 'error',
 					title : '필수 항목 검사',
-					text : '비밀번호가 일치하지 않습니다. checkRequirement()',
+					text : '비밀번호가 일치하지 않습니다.',
 				})
 			} else if (pwFormat == false) {
 				Swal.fire({
 					icon : 'error',
 					title : '필수 항목 검사',
-					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다. checkRequirement()',
+					text : '영어 대소문자, 숫자, 특수문자를 포함해야합니다.',
 				})
 			} else {
-				var joinForm = document.getElementById("joinForm");
-				joinForm.submit();
+				var mPassword = $("#password").val();
+
+				// AJAX 요청 보내기
+				$.ajax({
+					type : "POST", // 또는 "GET"
+					url : "checkPw", // 서버에서 아이디 중복 확인을 처리할 PHP 파일 경로
+					data : {
+						'mPassword' : mPassword
+					},
+					success : function(data) {
+						if (data === "samePw") {
+							Swal.fire({
+								icon : 'error',
+								title : '비밀번호 검사',
+								text : '기존 비밀번호와 동일합니다. 다른 비밀번호를 입력해주세요',
+							})
+						} else {
+							var joinForm = document.getElementById("joinForm");
+							joinForm.submit();
+						}
+					}
+				});
 			}
 		}
 	</script>
@@ -327,29 +347,6 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-
-	<script>
-		function checkField() {
-
-			if ($("#password").val() == "") {
-				Swal.fire({
-					icon : 'error',
-					title : '필수 항목 검사',
-					text : '비밀번호를 입력해주세요. checkField()',
-				})
-			} else if (pwSame == false) {
-				Swal.fire({
-					icon : 'error',
-					title : '필수 항목 검사',
-					text : '비밀번호가 일치하지 않습니다. checkField()',
-				})
-			} else {
-				var joinForm = document.getElementById("joinForm");
-				joinForm.submit();
-			}
-
-		}
-	</script>
 
 </body>
 </html>
