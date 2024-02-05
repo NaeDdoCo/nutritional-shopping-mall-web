@@ -32,8 +32,9 @@ public class BuyPageAction implements Action{
 		MemberDAO mDAO = new MemberDAO();
 		ProductDAO productDAO = new ProductDAO();
 
-		//세션의 member의 mid가져오기
+		//세션의 member의 MID가져오기
 		String MID = (String)session.getAttribute("member");
+		
 		//회원정보가져오기
 		mDTO.setMID(MID);
 		mDTO.setSearchCondition("주문정보");
@@ -41,13 +42,21 @@ public class BuyPageAction implements Action{
 		request.setAttribute("memberInfo", mDTO);
 		System.out.println("[log] mDTO : " + mDTO);
 
-		//쿠폰목록 가져오기
-		cpDTO.setSearchCondition("사용가능쿠폰");
-		System.out.println("[log] MID : " + MID);
+		//쿠폰목록 조회시 미사용_기간만료 쿠폰 삭제하고 가져오기
 		cpDTO.setMID(MID);
+		cpDTO.setSearchCondition("쿠폰삭제");
+		boolean result = cpDAO.delete(cpDTO);
+		
+		if(result) {
+			System.out.println("기간만료_미사용쿠폰 삭제 완료!");
+		}else {
+			System.out.println("기간만료_미사용쿠폰 없음");
+		}
+		//사용가능 쿠폰 조회
+		cpDTO.setSearchCondition("사용가능쿠폰");
 		System.out.println("[log] cpDTO.getMID() :  " + cpDTO.getMID());
-
 		ArrayList<CouponDTO> couponList = cpDAO.selectAll(cpDTO);
+
 		request.setAttribute("couponList", couponList);
 
 		System.out.println("[log] couponList : " + couponList);
@@ -74,7 +83,7 @@ public class BuyPageAction implements Action{
 		//    	  System.out.println("[log] sellingPrices : " + sellingPrices[i]);
 		//      }
 
-		//PID로 category 가져오기
+		//CATEGORY 가져오기
 		ArrayList<ProductDTO> selectedProductsList = new ArrayList<>();
 		for (int i = 0; i < PIDs.length; i++) {
 			ProductDTO productDTO = new ProductDTO();
@@ -85,7 +94,6 @@ public class BuyPageAction implements Action{
 			int cQty = Integer.parseInt(cQtys[i]);
 			int CID = Integer.parseInt(CIDs[i]);
 
-			//PID로 CATEGORY 가져오기
 			productDTO.setSearchCondition("카테고리");
 			productDTO.setPID(PID);
 			productDTO = productDAO.selectOne(productDTO);
@@ -105,7 +113,6 @@ public class BuyPageAction implements Action{
 		for (ProductDTO productDTOs : selectedProductsList) {
 			System.out.println("[log] productDTOs : " + productDTOs);
 		}
-
 		forward.setPath("buy.jsp");
 		forward.setRedirect(false);
 
