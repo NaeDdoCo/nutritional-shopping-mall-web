@@ -24,16 +24,27 @@ public class CheckId extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//request로 MID 받아오기
 		String MID = request.getParameter("MID");
+		
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
+		
+		//중복된 ID가 있는지 확인
 		mDTO.setSearchCondition("아이디중복검사");
 		mDTO.setMID(MID);
-		mDTO=mDAO.selectOne(mDTO);
+		mDTO = mDAO.selectOne(mDTO);
+		
 		PrintWriter out = response.getWriter();
-		if(mDTO==null) {
+		
+		//mDTO가 null이면 중복된 아이디가 없다는 의미
+		if(mDTO == null) {
+			//V에서 모달에 띄워줄 정보 보내기
+			//suc -> 성공
 			out.print("suc");
 		}else {
+			//fail -> 실패
 			out.print("fail");
 		}
 	

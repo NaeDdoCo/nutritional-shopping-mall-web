@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("*.do") // new 가 사실은 작성되어있었던것!!!!!
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private HandlerMapper handler;
-	
+
 	public FrontController() {
 		super();
-		handler=new HandlerMapper();
+		handler = new HandlerMapper();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,12 +38,12 @@ public class FrontController extends HttpServlet {
 		String commend = uri.substring(cp.length());
 		System.out.println("[FrontController] action: " + commend);
 
-		Action action=handler.getAction(commend);
+		Action action = handler.getAction(commend);
 		// 나한테 Action 객체주라~~
 		// => 팩토리 패턴 : 요청에 대해 알맞는 객체를 반환하는 패턴
 		// HM 가 가장 대표적인 팩토리 패턴을 활용하는 클래스
 		ActionForward forward = action.execute(request, response);
-		
+
 		if (forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());
 		} else {

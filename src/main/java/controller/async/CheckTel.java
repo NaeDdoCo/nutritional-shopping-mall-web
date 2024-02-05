@@ -29,27 +29,21 @@ public class CheckTel extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-		/*
-        * 전화번호 3개 연결
-        * 인증번호 만들어서 문자 발송 후 세션 저장
-        * 
-        * 번호 인증 버튼 눌렀어
-        * 뷰 -- 전화번호(01012345678) --> 컨트롤러
-        * 컨트롤러 -- 인증번호(요청 파라미터) --> 뷰 (인증번호 확인)
-		*/
-		
+		//받아온 연락처 010,XXXX,XXXX -> 010XXXXXXXX 로 합치기
 		String phoneNumber1=(String)request.getParameter("phoneNum1");
 		String phoneNumber2=(String)request.getParameter("phoneNum2");
 		String phoneNumber3=(String)request.getParameter("phoneNum3");
 		
 		String combinedPhoneNumber=phoneNumber1+phoneNumber2+phoneNumber3;
 		
-		//인증번호 랜덤으로 생성
+		//5자리의 인증번호 랜덤으로 생성
 		Random random  = new Random();
         String numStr = "";
         for(int i=0; i<5; i++) {
-            String ranNum = Integer.toString(random.nextInt(10));   // 0부터 9까지 랜덤으로 숫자생성
-            numStr += ranNum;   // 랜덤으로 나온 숫자를 누적 => 5자리
+        	// 0부터 9까지 랜덤으로 숫자생성
+            String ranNum = Integer.toString(random.nextInt(10));
+            // 랜덤으로 나온 숫자를 누적 => 5자리
+            numStr += ranNum;
         }
         
 		//sms api를 사용하여 sms 발송

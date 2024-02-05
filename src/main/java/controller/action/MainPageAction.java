@@ -60,7 +60,7 @@ public class MainPageAction implements Action {
 			int pid = productDTO.getPID();
 			int avgRating = getAverageRating(pid);
 			productDTO.setAncAvgRating(avgRating);
-			System.out.println("productDTO : " + productDTO);
+			System.out.println("[log] productDTO : " + productDTO);
 			System.out.println("[log] PID : " + productDTO.getPID());
 			System.out.println("[log] rcmDTOs 평균별점 " + productDTO.getAncAvgRating());
 		}
