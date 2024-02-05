@@ -70,6 +70,18 @@
 		}
 	</script>
 	<!-- 장바구니 추가 비동기처리 -->
+	
+	<!-- 가격 필터 -->
+    <script>
+		function updateURL() {
+	        // JavaScript를 사용하여 value를 가져와서 href를 동적으로 설정
+	        document.getElementById('filterbtn').href = document.getElementById('filterbtn').href + '&price=' + document.getElementById('amount').textContent;
+	       	console.log('textContext: '+ document.getElementById('amount').textContent);
+	       	console.log('value: '+ document.getElementById('amount').value);
+		}
+    </script>
+	<!-- 가격 필터 -->
+	
 
 
 	<!-- Spinner Start -->
@@ -251,7 +263,7 @@
 									<!-- 가격 설정 -->
 									<div class="mb-3">
 										<h4 class="mb-2">가격</h4>
-										<input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="100000" value="0" oninput="amount.value=rangeInput.value">
+										<input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="50000" value="0" oninput="amount.value=rangeInput.value">
 										<output id="amount" name="amount" for="rangeInput">0</output>
 									</div>
 									<!-- 가격 설정 -->
@@ -262,8 +274,8 @@
 								<div class="col-lg-12">
 									<!-- 필터 검색 버튼 -->
 									<div class="d-flex justify-content-center my-4">
-										<c:set var="currentURL" value="${pageContext.request.requestURL}" />
-										<a href="${currentURL}" id="filterbtn" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">필터 검색</a>
+										<c:set var="currentURL" value="${request.getRequetURL()}" />
+										<a href="${currentURL}?category=${param.category}" id="filterbtn" onclick="updateURL()" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">필터 검색</a>
 									</div>
 									<!-- 필터 검색 버튼 -->
 								</div>

@@ -22,43 +22,50 @@ public class ProductAllPageAction implements Action{
 		ProductDTO pDTO = new ProductDTO();
 		ProductDAO pDAO = new ProductDAO();
 		
-		// 전체 상품 중 최대 가격을 가져와서 price 변수를 초기화
-		pDTO.setSearchCondition("최대값");
-		pDTO = pDAO.selectOne(pDTO);
-		int price = pDTO.getSellingPrice();
+		/* 
+		 * model에서 필터 적용한 상품 가져오기
+		 */
+		
+		// [준현] 24.02.05
+		// sellingPrice 디폴트 값이 최댓값->0으로 변경
+//		// 전체 상품 중 최대 가격을 가져와서 price 변수를 초기화
+//		pDTO.setSearchCondition("최대값");
+//		pDTO = pDAO.selectOne(pDTO);
+//		int price = pDTO.getSellingPrice();
 		
 		// 필터링해서 상품들 가져오기
 		pDTO.setSearchCondition("상품출력필터");
 		pDTO.setAncSelectMin(1);
 		pDTO.setAncSelectMax(100);
 		
-		String searchName = "";
+		String searchName = null;
 		if (request.getParameter("searchName") != null) {
 			searchName = (String)request.getParameter("searchName");
 		}
 		System.out.println("searchName : " + searchName);
 		pDTO.setpName(searchName);
 		
-		String category = "";
+		String category = null;
 		if (request.getParameter("category") != null) {
 			category = (String)request.getParameter("category");
 		}
 		System.out.println("category : " + category);
 		pDTO.setCategory(category);
 		
-		// View에서 넘겨준 price가 존재하면 갱신
+		int price = 0;
+		System.out.println("[ProductAllPage] price : " + request.getParameter("price"));
 		if (request.getParameter("price") != null) {
 			price = Integer.parseInt((String)request.getParameter("price"));
 		}
 		System.out.println("price : " + price);
-		
 		pDTO.setSellingPrice(price);
 //		pDTO.setSellingPrice(0);
+		
 		pDTOs = pDAO.selectAll(pDTO);
 		
 		// 보여줄 상품이 하나도 없는 경우
-		if (pDTOs.size() == 0) {
-			request.setAttribute("pDTOs", pDTOs);
+		if (pDTOs == null) {
+//			request.setAttribute("pDTOs", pDTOs);
 			
 			forward.setPath("productAll.jsp");
 			forward.setRedirect(false);
@@ -70,7 +77,7 @@ public class ProductAllPageAction implements Action{
 		 * 전체 페이지 수 확인
 		*/
 		
-		System.out.println("pDTOs.size : " + pDTOs.size());
+		System.out.println("[ProductAllPage] pDTOs.size : " + pDTOs.size());
 		int totalPages = pDTOs.size() / 9;
 		if (pDTOs.size() % 9 != 0) {
 			totalPages++;
@@ -83,7 +90,7 @@ public class ProductAllPageAction implements Action{
 		
 		// 뷰에서 넘겨준 page
 		String strPage = request.getParameter("page");
-		System.out.println("String strPage : " + strPage);
+		System.out.println("[ProductAllPage] String strPage : " + strPage);
 		int intPage = 1;
 		
 		// strPage == null 인 상황은, (메인 페이지 -> 전체 목록 페이지) 처음 올 때! 
@@ -115,19 +122,21 @@ public class ProductAllPageAction implements Action{
 		System.out.println("endProduct index: " + endProduct);
 		for (int i = startProduct - 1; i < endProduct; i++) {
 			retDTOs.add(pDTOs.get(i));
-			System.out.println("[ProductAllPage] i: " + i);
+			System.out.println("[ProductAllPage] pDTOs[" + i + "] : " + pDTOs.get(i));
 		}
-		System.out.println("[ProductAllPage] for end");
+//		System.out.println("[ProductAllPage] for end");
 		
 		request.setAttribute("pDTOs", retDTOs);
 
 		forward.setPath("productAll.jsp");
 		forward.setRedirect(false);
-		
+		System.out.println("[ProductAllPage] forward: " + forward.toString());
 		return forward;
 	}
 
-	public static boolean isNumber(String strValue) {
-		return strValue != null && strValue.matches("[-+]?\\d*\\.?\\d+");
-	}
+	// [준현] 24.02.05
+	// 미사용 확인 후 주석 처리
+//	public static boolean isNumber(String strValue) {
+//		return strValue != null && strValue.matches("[-+]?\\d*\\.?\\d+");
+//	}
 }
