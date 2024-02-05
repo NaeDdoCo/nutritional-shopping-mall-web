@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import controller.common.Action;
 import controller.common.ActionForward;
 import model.dao.ProductDAO;
+import model.dao.ReviewDAO;
 import model.dto.ProductDTO;
+import model.dto.ReviewDTO;
 
 public class ProductAllPageAction implements Action{
 
@@ -62,6 +64,15 @@ public class ProductAllPageAction implements Action{
 //		pDTO.setSellingPrice(0);
 		
 		pDTOs = pDAO.selectAll(pDTO);
+		
+		// 각 상품의 평균 별점 설정
+		for (ProductDTO productDTO : pDTOs) {
+			int pid = productDTO.getPID();
+			int avgRating = getAverageRating(pid);
+			productDTO.setAncAvgRating(avgRating);
+//			System.out.println("[log] PID : " + productDTO.getPID());
+//			System.out.println("[log] pDTOs 평균별점 " + productDTO.getAncAvgRating());
+		}
 		
 		// 보여줄 상품이 하나도 없는 경우
 		if (pDTOs == null) {
@@ -125,7 +136,7 @@ public class ProductAllPageAction implements Action{
 			System.out.println("[ProductAllPage] pDTOs[" + i + "] : " + pDTOs.get(i));
 		}
 //		System.out.println("[ProductAllPage] for end");
-		
+		System.out.println("[log] retDTOs : " + retDTOs);
 		request.setAttribute("pDTOs", retDTOs);
 
 		forward.setPath("productAll.jsp");
@@ -139,4 +150,27 @@ public class ProductAllPageAction implements Action{
 //	public static boolean isNumber(String strValue) {
 //		return strValue != null && strValue.matches("[-+]?\\d*\\.?\\d+");
 //	}
+	
+	/*
+ 	상품의 평균 별점을 가져오는 메서드
+	 */
+	private int getAverageRating(int pid) {
+		System.out.println("getAverageRating 메서드 진입");
+		ReviewDTO rDTO = new ReviewDTO();
+		ReviewDAO rDAO = new ReviewDAO();
+
+		rDTO.setAncPID(pid);
+		rDTO.setSearchCondition("별점평균");
+
+		rDTO = rDAO.selectOne(rDTO);
+
+		if (rDTO != null) {
+			// 평균값이 있다면, int 평균 별점 값을 반환
+			return (int) rDTO.getAncAvgScore();
+		} else {
+			// 평균 별점이 없을 경우 기본값 반환
+			return 0;
+		}
+	}
+	
 }
