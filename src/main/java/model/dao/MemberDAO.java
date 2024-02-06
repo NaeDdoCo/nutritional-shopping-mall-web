@@ -41,8 +41,8 @@ public class MemberDAO {
 
 	// 회원가입
 	private static final String INSERT = "INSERT INTO "
-			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, GRADE, HEALTH) "
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?)";
+			+ "MEMBER (M_ID, M_NAME, M_PASSWORD, DOB, GENDER, PHONE_NUMBER, EMAIL, M_POSTCODE, M_ADDRESS, M_DETAILED_ADDRESS, GRADE, HEALTH, LOGIN_TYPE, KAKAO_ID) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?, ?, ?)";
 
 	// 개인정보변경(이름, 생년월일, 성별, 전화번호, 이메일, 주소)
 	private static final String UPDATE_INFO = "UPDATE MEMBER"
@@ -315,6 +315,8 @@ public class MemberDAO {
 				pstmt.setString(9, mDTO.getmAddress());
 				pstmt.setString(10, mDTO.getmDetailedAddress());
 				pstmt.setString(11, mDTO.getHealth());
+				pstmt.setString(12, mDTO.getLoginType());
+				pstmt.setString(13, mDTO.getKakaoId());
 				int result = pstmt.executeUpdate();
 
 				if (result > 0) {
