@@ -254,9 +254,7 @@
 								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
 								<div class="p-4 rounded-bottom">
 									<h4 style="text-align: center;">${data.pName}</h4>
-									<div class="star-rating space-x-4 mx-auto">
-										<input type="radio" id="5-stars" name="rating" value="5" disabled /> <label for="5-stars" class="star">★</label> <input type="radio" id="4-stars" name="rating" value="4" disabled /> <label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" disabled /> <label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" disabled /> <label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" disabled /> <label for="1-star" class="star">★</label>
-									</div>
+									<custom:starRate1 score='${data.ancAvgRating}'/>
 									<div class="line-clamp my-2">
 										<p>${data.pDetail}</p>
 									</div>
@@ -319,9 +317,7 @@
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
 																<h4 onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.pName}</h4>
-																<div class="star-rating space-x-4 mx-auto">
-																	<input type="radio" id="5-stars" name="rating" value="5" disabled /> <label for="5-stars" class="star">★</label> <input type="radio" id="4-stars" name="rating" value="4" disabled /> <label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" disabled /> <label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" disabled /> <label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" disabled /> <label for="1-star" class="star">★</label>
-																</div>
+																<custom:starRate2 score='${data.ancAvgRating}'/>
 																<div class="line-clamp my-2" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 																	<p>${data.pDetail}</p>
 																</div>
