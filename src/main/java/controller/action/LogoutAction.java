@@ -18,7 +18,7 @@ public class LogoutAction implements Action {
 
 		ActionForward forward = new ActionForward();
 		
-		HttpSession session=request.getSession();
+		HttpSession session = request.getSession();
 		//로그아웃시 세션의 member정보 지우고 메인 화면으로 이동
 		session.removeAttribute("member");
 		forward.setPath("mainPage.do"); 

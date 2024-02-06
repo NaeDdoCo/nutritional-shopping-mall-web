@@ -27,6 +27,9 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+
+<!-- kakao -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 
@@ -75,8 +78,29 @@
 						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
 						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a>
 					</div>
-					<div class="d-flex m-3 me-0">
-						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
+				<div class="d-flex m-3 me-0">
+				
+				<!-- 로그아웃 버튼-->
+					<button class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" onclick="unlinkApp()">로그아웃</button>
+					<div id="result"></div>
+					<script type="text/javascript">
+					Kakao.init('8a69ee438b3b0270acfb88808676567f'); // 사용하려는 앱의 JavaScript 키 입력
+					console.log(Kakao.isInitialized()); // 초기화 판단여부
+						function unlinkApp() {
+							Kakao.API.request({
+								url: '/v1/user/unlink',
+								success: function(res) {
+									location.replace("logout.do");
+									console.log('success');
+								},
+								fail: function(err) {
+									location.replace("logout.do");
+									console.log('fail');
+								},
+							})
+						}
+					</script>
+				<!-- 로그아웃 버튼 -->
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-primary"></i>
 						</button>

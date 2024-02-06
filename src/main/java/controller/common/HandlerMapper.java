@@ -31,6 +31,7 @@ import controller.action.ReviewInfoPageAction;
 import controller.action.TermsPageAction;
 import controller.action.WriteReviewAction;
 import controller.action.WriteReviewPageAction;
+import kakaoLogin.KakaoLoginAction;
 
 public class HandlerMapper {
 	private Map<String,Action> mappings;
@@ -67,6 +68,7 @@ public class HandlerMapper {
 		this.mappings.put("/cartDelete.do", new CartDeleteAction());// 장바구니상품삭제
 		this.mappings.put("/buyPage.do", new BuyPageAction());// 결제페이지
 		this.mappings.put("/buyCompPage.do", new BuyCompPageAction());// 결제완료페이지(구매로직)
+		this.mappings.put("/kakaoLogin.do", new KakaoLoginAction());// 카카오계정로그인
 		this.mappings.put("/error.do", new ErrorAction());//에러페이지
 		
 	}
