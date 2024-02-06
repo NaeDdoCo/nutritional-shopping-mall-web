@@ -246,7 +246,7 @@
 				<h1 class="mb-0">Today's Recommendation</h1>
 				<div class="owl-carousel vegetable-carousel owl-theme">
 					<c:if test="${fn:length(rcmDTOs) > 0}">
-						<c:forEach var="data" items="${rcmDTOs}">
+						<c:forEach var="data" items="${rcmDTOs}" varStatus="loop">
 							<div class="border border-primary rounded position-relative vesitable-item">
 								<div class="vesitable-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top">
@@ -254,7 +254,7 @@
 								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
 								<div class="p-4 rounded-bottom">
 									<h4 style="text-align: center;">${data.pName}</h4>
-									<custom:starRate1 score='${data.ancAvgRating}'/>
+									<custom:starRate1 score='${data.ancAvgRating}' index='${loop.index}'/>
 									<div class="line-clamp my-2">
 										<p>${data.pDetail}</p>
 									</div>
@@ -308,7 +308,7 @@
 									<div class="col-lg-12">
 										<div class="row g-4">
 											<c:if test="${fn:length(pDTOs) > 0}">
-												<c:forEach var="data" items="${pDTOs}">
+												<c:forEach var="data" items="${pDTOs}" varStatus="loop">
 													<div class="col-md-6 col-lg-4 col-xl-3">
 														<div class="p-4 border border-secondary rounded position-relative fruite-item">
 															<div class="fruite-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
@@ -317,7 +317,7 @@
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
 																<h4 onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.pName}</h4>
-																<custom:starRate2 score='${data.ancAvgRating}'/>
+																<custom:starRate2 score='${data.ancAvgRating}' index='${loop.index}'/>
 																<div class="line-clamp my-2" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 																	<p>${data.pDetail}</p>
 																</div>

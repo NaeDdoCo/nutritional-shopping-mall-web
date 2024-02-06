@@ -189,7 +189,7 @@
 								<p class="mb-3">카테고리: ${productDetail.category}</p>
 								<h5 class="fw-bold mb-3">${productDetail.sellingPrice}원</h5>
 								<div class="d-flex mb-4">
-									<custom:starRate1 score='${productDetail.ancAvgRating}'/>
+									<custom:starRate1 score='${productDetail.ancAvgRating}' index='0'/>
 								</div>
 								<p class="mb-4">${productDetail.pDetail}</p>
 								<div class="input-group quantity mb-5" style="width: 100px;">
@@ -253,14 +253,14 @@
 
 									</div>
 									<div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-										<c:forEach var="review" items="${reviewList}">
+										<c:forEach var="review" items="${reviewList}" varStatus="loop">
 											<div class="d-flex">
 												<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
 												<div class="">
 													<p class="mb-2" style="font-size: 14px;">${review.createTime}</p>
 													<div class="d-flex justify-content-between">
 														<h5 class="mt-2">${review.MID}</h5>
-														<custom:starRate2 score='${review.score}'/>
+														<custom:starRate2 score='${review.score}' index='${loop.index}'/>
 													</div>
 													<p>${review.contents}</p>
 												</div>
