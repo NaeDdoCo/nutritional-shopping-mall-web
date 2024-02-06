@@ -104,6 +104,8 @@ public class JoinAction implements Action {
 		if (health != null) {
 			healths += health + ";";
 		}
+		
+		String kakaoId = request.getParameter("kakaoId");
 
 
 		MemberDTO mDTO = new MemberDTO();
@@ -123,6 +125,14 @@ public class JoinAction implements Action {
 		mDTO.setmDetailedAddress(addrDetail);
 		//		System.out.println("JoinAction: health: " + healths);
 		mDTO.setHealth(healths);
+		
+		if (kakaoId == null) {
+			mDTO.setLoginType("내또코필즈");
+			mDTO.setKakaoId(null);
+		} else {
+			mDTO.setLoginType("카카오");
+			mDTO.setKakaoId(kakaoId);
+		}
 
 		if(mDAO.insert(mDTO)) {
 			forward.setPath("mainPage.do");

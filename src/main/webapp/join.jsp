@@ -404,6 +404,7 @@
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" id="checkIdDupl" type='button' onclick="checkMID()">중복 검사</button>
+								
 							</div>
 							<div class="col-lg-6">
 								<input class="form-control p-3 border-secondary " type="password" name="mPassword1" id="password" placeholder="비밀번호" maxlength="15" onblur="pwFormatCheck()">
@@ -479,6 +480,9 @@
 								<input type="checkbox" name="brain" value="두뇌">두뇌 
 								<input type="checkbox" name="skin" value="피부">피부 
 								<input type="checkbox" name="digest" value="소화">소화
+							</div>
+							<div class="col-lg-6">
+								<input type="hidden" name="kakaoId" id="kakaoId" value="${kakaoId}">
 							</div>
 							<div class="col-lg-6">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkRequirement()">회원가입</button>
