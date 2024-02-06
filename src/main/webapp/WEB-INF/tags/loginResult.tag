@@ -5,9 +5,7 @@
 
 <c:if test="${logoutResult eq 'true'}">
 	<script type="text/javascript">
-		window.onload = function() {
-			logoutSuccess();
-		};
+		
 		function logoutSuccess() {
 			Swal.fire({
 				icon : 'success',
@@ -15,5 +13,7 @@
 				text : '로그아웃이 처리되었습니다.',
 			})
 		}
+		logoutSuccess();
+		
 	</script>
 </c:if>
