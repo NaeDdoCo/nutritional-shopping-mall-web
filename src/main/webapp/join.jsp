@@ -481,9 +481,7 @@
 								<input type="checkbox" name="skin" value="피부">피부 
 								<input type="checkbox" name="digest" value="소화">소화
 							</div>
-							<div class="col-lg-6">
-								<input type="hidden" name="kakaoId" id="kakaoId" value="${kakaoId}">
-							</div>
+							<input type="hidden" name="kakaoId" id="kakaoId" value="${kakaoId}">
 							<div class="col-lg-6">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkRequirement()">회원가입</button>
 							</div>
