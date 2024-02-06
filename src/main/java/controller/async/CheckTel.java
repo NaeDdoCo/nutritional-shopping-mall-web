@@ -30,11 +30,11 @@ public class CheckTel extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
 		//받아온 연락처 010,XXXX,XXXX -> 010XXXXXXXX 로 합치기
-		String phoneNumber1=(String)request.getParameter("phoneNum1");
-		String phoneNumber2=(String)request.getParameter("phoneNum2");
-		String phoneNumber3=(String)request.getParameter("phoneNum3");
+		String phoneNumber1 = (String)request.getParameter("phoneNum1");
+		String phoneNumber2 = (String)request.getParameter("phoneNum2");
+		String phoneNumber3 = (String)request.getParameter("phoneNum3");
 		
-		String combinedPhoneNumber=phoneNumber1+phoneNumber2+phoneNumber3;
+		String combinedPhoneNumber = phoneNumber1 + phoneNumber2 + phoneNumber3;
 		
 		//5자리의 인증번호 랜덤으로 생성
 		Random random  = new Random();
@@ -51,7 +51,7 @@ public class CheckTel extends HttpServlet {
 		Message message = new Message();
 		message.setFrom("01050929241");
 		message.setTo(combinedPhoneNumber);
-		message.setText("내또코 영양제 쇼핑몰 인증번호 ["+numStr+"]을 입력해주세요. (•ө•)♡");
+		message.setText("내또코 영양제 쇼핑몰 인증번호 [" + numStr + "]을 입력해주세요.       (*´ω`*)~♡'");
 
 		try {
 		  messageService.send(message);
