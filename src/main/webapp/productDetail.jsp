@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <!DOCTYPE html>
 <html>
 
@@ -42,7 +43,7 @@
 	<script>
 		function addItemToCart(PID) {
 			var cQty = document.getElementById('cQty').value;
-			console.log(cQty);
+			//console.log("[로그] 수량:"+cQty);
 			
 			$.ajax({
 				type : "POST", // 또는 "GET"
@@ -50,7 +51,7 @@
 				data : {'PID' : PID,
 						'cQty' : cQty},
 				success : function(data) {
-					console.log(data);
+					//console.log(data);
 					if (data === "true") {
 						Swal.fire({
 							icon : 'success',
@@ -188,7 +189,7 @@
 								<p class="mb-3">카테고리: ${productDetail.category}</p>
 								<h5 class="fw-bold mb-3">${productDetail.sellingPrice}원</h5>
 								<div class="d-flex mb-4">
-									<i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
+									<custom:starRate1 score='${productDetail.ancAvgRating}'/>
 								</div>
 								<p class="mb-4">${productDetail.pDetail}</p>
 								<div class="input-group quantity mb-5" style="width: 100px;">
@@ -205,7 +206,6 @@
 									</div>
 								</div>
 								<c:if test="${member != null}">
-									<script>console.log(${productDetail.PID});</script>
 									<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${productDetail.PID})">장바구니 추가</button>
 								</c:if>
 								<c:if test="${member == null}">
@@ -253,32 +253,19 @@
 
 									</div>
 									<div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-										<div class="d-flex">
-											<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-											<div class="">
-												<p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-												<div class="d-flex justify-content-between">
-													<h5>Jason Smith</h5>
-													<div class="d-flex mb-3">
-														<i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
+										<c:forEach var="review" items="${reviewList}">
+											<div class="d-flex">
+												<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+												<div class="">
+													<p class="mb-2" style="font-size: 14px;">${review.createTime}</p>
+													<div class="d-flex justify-content-between">
+														<h5 class="mt-2">${review.MID}</h5>
+														<custom:starRate2 score='${review.score}'/>
 													</div>
+													<p>${review.contents}</p>
 												</div>
-												<p>The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc. Susp endisse ultricies nisi vel quam suscipit</p>
 											</div>
-										</div>
-										<div class="d-flex">
-											<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-											<div class="">
-												<p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-												<div class="d-flex justify-content-between">
-													<h5>Sam Peters</h5>
-													<div class="d-flex mb-3">
-														<i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-													</div>
-												</div>
-												<p class="text-dark">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc. Susp endisse ultricies nisi vel quam suscipit</p>
-											</div>
-										</div>
+										</c:forEach>
 									</div>
 									<div class="tab-pane" id="nav-vision" role="tabpanel">
 										<p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. 3</p>
@@ -383,6 +370,7 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	
 </body>
 
 </html>

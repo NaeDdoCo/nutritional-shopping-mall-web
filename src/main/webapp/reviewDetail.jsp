@@ -29,7 +29,6 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 </head>
 
 <body>
@@ -130,21 +129,8 @@
 							</div>
 						</div>
 						<div class="col-lg-4">
-							<div class="row">
-								<div class="star-rating space-x-4 mx-auto">
-									<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
-									<label for="5-stars" class="star">★</label> 
-									<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
-									<label for="4-stars" class="star">★</label> 
-									<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
-									<label for="3-stars" class="star">★</label> 
-									<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
-									<label for="2-stars" class="star">★</label> 
-									<input type="radio" id="1-star" name="rating" value="1" disabled/> 
-									<label for="1-star" class="star">★</label>
-								</div>
-							</div>
-						</div>
+							<custom:starRate1 score='${ReviewDetail.score}'/>
+						</div> 
 						<div class="col-lg-12">
 							<div class="border-bottom rounded my-4">
 								<textarea name="" id="" class="form-control border-0" cols="30" rows="8" spellcheck="false" readonly style="background-color: white;">${ReviewDetail.contents}</textarea>
@@ -253,13 +239,6 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-	
-	
-	<!-- 별점 표시 -->
-	<script>
-		var radioButton = document.getElementById("${ReviewDetail.score}-stars");
-		radioButton.checked = true;
-	</script>
 	
 </body>
 

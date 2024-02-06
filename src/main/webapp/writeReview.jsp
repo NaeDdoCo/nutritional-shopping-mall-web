@@ -32,7 +32,7 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/star-rating.css" />
+<link rel="stylesheet" type="text/css" href="css/starRating.css" />
 </head>
 
 <body>
@@ -302,7 +302,6 @@
 	<!-- Copyright End -->
 
 
-
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
@@ -317,6 +316,7 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	
 </body>
 
 </html>

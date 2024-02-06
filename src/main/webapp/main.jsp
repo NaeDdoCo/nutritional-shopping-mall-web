@@ -38,8 +38,6 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/div.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
-
 </head>
 <body>
 	
@@ -186,38 +184,27 @@
 				<h1 class="mb-0">Today's Recommendation</h1>
 				<div class="owl-carousel vegetable-carousel owl-theme">
 					<c:if test="${fn:length(rcmDTOs) > 0}">
-						<c:forEach var="data" items="${rcmDTOs}">
+						<c:forEach var="rcm" items="${rcmDTOs}">
 							<div class="border border-primary rounded position-relative vesitable-item">
-								<div class="vesitable-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
-									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top">
+								<div class="vesitable-img" onclick='location.href="productDetailPage.do?PID=${rcm.PID}";'>
+									<img src="${rcm.imagePath}" class="img-fluid w-100 rounded-top">
 								</div>
-								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
+								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${rcm.category}</div>
 								<div class="p-4 rounded-bottom">
-									<h4 style="text-align:center;">${data.pName}</h4>
-									<div class="star-rating space-x-4 mx-auto">
-										<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
-										<label for="5-stars" class="star">★</label> 
-										<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
-										<label for="4-stars" class="star">★</label> 
-										<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
-										<label for="3-stars" class="star">★</label> 
-										<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
-										<label for="2-stars" class="star">★</label> 
-										<input type="radio" id="1-star" name="rating" value="1" disabled/> 
-										<label for="1-star" class="star">★</label>
-									</div>
+									<h4 style="text-align:center;">${rcm.pName}</h4>
+									<custom:starRate1 score='${rcm.ancAvgRating}'/>
 									<div class="line-clamp my-2">
-										<p>${data.pDetail}</p>
+										<p>${rcm.pDetail}</p>
 									</div>
 									<div class="d-flex justify-content-between flex-lg-wrap">
 										<div class="row">
 											<div class="col">
-												<p class="text-dark fs-5 fw-bold mb-0 my-2"><fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />원</p>
+												<p class="text-dark fs-5 fw-bold mb-0 my-2"><fmt:formatNumber value="${rcm.sellingPrice}" currencyCode="KRW" />원</p>
 											</div>
 										</div>
 										<c:if test="${member != null}">
 											<div class="row">
-												<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
+												<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${rcm.PID})">장바구니 추가</button>
 											</div>
 										</c:if>
 										<c:if test="${member == null}">
@@ -263,19 +250,8 @@
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
 																<h4 onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.pName}</h4>
-																<div class="star-rating space-x-4 mx-auto">
-																	<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
-																	<label for="5-stars" class="star">★</label> 
-																	<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
-																	<label for="4-stars" class="star">★</label> 
-																	<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
-																	<label for="3-stars" class="star">★</label> 
-																	<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
-																	<label for="2-stars" class="star">★</label> 
-																	<input type="radio" id="1-star" name="rating" value="1" disabled/> 
-																	<label for="1-star" class="star">★</label>
-																</div>
-																<div class="line-clamp my-2" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
+																<custom:starRate2 score='${data.ancAvgRating}'/>
+																<div class="line-clamp my-2">
 																	<p>${data.pDetail}</p>
 																</div>
 																<div class="d-flex justify-content-between flex-lg-wrap">
@@ -397,13 +373,6 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-	
-	
-	<!-- 별점 표시 -->
-	<script>
-		var radioButton = document.getElementById("${ReviewDetail.score}-stars");
-		radioButton.checked = true;
-	</script>
 	
 </body>
 
