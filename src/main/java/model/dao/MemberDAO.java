@@ -16,9 +16,13 @@ public class MemberDAO {
 	// (관) 회원목록
 	private static final String SELECTALL = "";
 
-	// 로그인
-	private static final String SELECTONE_LOGIN = "SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
+	// 로그인(내또코 회원)
+	private static final String SELECTONE_SITE_MEMBER_LOGIN = "SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
 			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
+	
+	// 로그인(KAKAO 회원)
+	private static final String SELECTONE_KAKAO_LOGIN = "SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
+			+ "FROM MEMBER WHERE KAKAO_ID = ?";
 	
 	// 개인정보(정보 및 비밀번호)변경 진입 시 비밀번호 확인
 	private static final String SELECTONE_PW_CHECK = "SELECT M_ID, M_NAME "
@@ -94,10 +98,11 @@ public class MemberDAO {
 		}
 
 		else if (mDTO.getSearchCondition().equals("로그인")) {
+			
 			memberDTO = new MemberDTO();
 
 			try {
-				pstmt = conn.prepareStatement(SELECTONE_LOGIN);
+				pstmt = conn.prepareStatement(SELECTONE_SITE_MEMBER_LOGIN);
 				pstmt.setString(1, mDTO.getMID());
 				pstmt.setString(2, mDTO.getmPassword());
 
@@ -105,11 +110,11 @@ public class MemberDAO {
 
 				if (rs.next()) {
 					memberDTO.setMID(rs.getString("M_ID"));
-					memberDTO.setmName(rs.getString("M_NAME"));
-					memberDTO.setDob(rs.getDate("DOB"));
-					memberDTO.setGender(rs.getString("GENDER"));
-					memberDTO.setGrade(rs.getString("GRADE"));
-					memberDTO.setHealth(rs.getString("HEALTH"));
+//					memberDTO.setmName(rs.getString("M_NAME"));
+//					memberDTO.setDob(rs.getDate("DOB"));
+//					memberDTO.setGender(rs.getString("GENDER"));
+//					memberDTO.setGrade(rs.getString("GRADE"));
+//					memberDTO.setHealth(rs.getString("HEALTH"));
 				} else {
 					memberDTO = null;
 				}
@@ -125,6 +130,42 @@ public class MemberDAO {
 			}
 			if (memberDTO != null) {
 				System.out.println("[로그_로그인] 성공");
+				return memberDTO;
+			}
+		} 
+		
+		else if (mDTO.getSearchCondition().equals("카카오로그인")) {
+			
+			memberDTO = new MemberDTO();
+
+			try {
+				pstmt = conn.prepareStatement(SELECTONE_SITE_MEMBER_LOGIN);
+				pstmt.setInt(1, mDTO.getKakaoId());
+
+				ResultSet rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					memberDTO.setMID(rs.getString("M_ID"));
+//					memberDTO.setmName(rs.getString("M_NAME"));
+//					memberDTO.setDob(rs.getDate("DOB"));
+//					memberDTO.setGender(rs.getString("GENDER"));
+//					memberDTO.setGrade(rs.getString("GRADE"));
+//					memberDTO.setHealth(rs.getString("HEALTH"));
+				} else {
+					memberDTO = null;
+				}
+
+				rs.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("[로그_카카오로그인] 반환 NULL_예외처리");
+				return null;
+			} finally {
+				JDBCUtil.disconnect(pstmt, conn);
+			}
+			if (memberDTO != null) {
+				System.out.println("[로그_카카오로그인] 성공");
 				return memberDTO;
 			}
 		} 

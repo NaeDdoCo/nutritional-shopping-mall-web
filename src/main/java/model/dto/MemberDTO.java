@@ -17,6 +17,8 @@ public class MemberDTO {
 	private String grade;
 	private String health;
 	private String searchCondition;
+	private String loginType;
+	private int kakaoId;
 
 	
 	public String getMID() {
@@ -97,15 +99,25 @@ public class MemberDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
-	@Override
-	public String toString() {
-		return "MemberDTO [mid=" + MID + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
-				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", mPostCode=" + mPostCode
-				+ ", mAddress=" + mAddress + ", mDetailedAddress=" + mDetailedAddress + ", grade=" + grade + ", health="
-				+ health + ", searchCondition=" + searchCondition + "]";
+	public String getLoginType() {
+		return loginType;
+	}
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+	public int getKakaoId() {
+		return kakaoId;
+	}
+	public void setKakaoId(int kakaoId) {
+		this.kakaoId = kakaoId;
 	}
 	
-	
-
-
+	@Override
+	public String toString() {
+		return "MemberDTO [MID=" + MID + ", mName=" + mName + ", mPassword=" + mPassword + ", dob=" + dob + ", gender="
+				+ gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", mPostCode=" + mPostCode
+				+ ", mAddress=" + mAddress + ", mDetailedAddress=" + mDetailedAddress + ", grade=" + grade + ", health="
+				+ health + ", searchCondition=" + searchCondition + ", loginType=" + loginType + ", kakaoId=" + kakaoId
+				+ "]";
+	}
 }
