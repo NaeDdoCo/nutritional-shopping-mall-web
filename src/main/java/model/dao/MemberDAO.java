@@ -14,15 +14,13 @@ public class MemberDAO {
 	private PreparedStatement pstmt;
 
 	// (관) 회원목록
-	private static final String SELECTALL = "";
+	// private static final String SELECTALL = "";
 
-	// 로그인(내또코 회원)
-	private static final String SELECTONE_SITE_MEMBER_LOGIN = "SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
-			+ "FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
+	// 로그인(내또코 회원) + 마이페이지PW확인
+	private static final String SELECTONE_SITE_MEMBER_LOGIN = "SELECT M_ID FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
 	
 	// 로그인(KAKAO 회원)
-	private static final String SELECTONE_KAKAO_LOGIN = "SELECT M_ID, M_NAME, DOB, GENDER, GRADE, HEALTH "
-			+ "FROM MEMBER WHERE KAKAO_ID = ?";
+	private static final String SELECTONE_KAKAO_LOGIN = "SELECT M_ID FROM MEMBER WHERE KAKAO_ID = ?";
 	
 	// 개인정보(정보 및 비밀번호)변경 진입 시 비밀번호 확인
 	private static final String SELECTONE_PW_CHECK = "SELECT M_ID, M_NAME "
@@ -40,9 +38,6 @@ public class MemberDAO {
 
 	// 회원 건강상태
 	private static final String SELECTONE_HEALTH = "SELECT HEALTH FROM MEMBER WHERE M_ID=?";
-
-	// 비밀번호확인(비밀번호 변경)
-	private static final String SELECTONE_PW = "SELECT M_PASSWORD FROM MEMBER WHERE M_ID=? AND M_PASSWORD = ?";
 
 	// 회원가입
 	private static final String INSERT = "INSERT INTO "
@@ -96,7 +91,6 @@ public class MemberDAO {
 				return memberDTO;
 			}
 		}
-
 		else if (mDTO.getSearchCondition().equals("로그인")) {
 			
 			memberDTO = new MemberDTO();
@@ -139,18 +133,13 @@ public class MemberDAO {
 			memberDTO = new MemberDTO();
 
 			try {
-				pstmt = conn.prepareStatement(SELECTONE_SITE_MEMBER_LOGIN);
-				pstmt.setInt(1, mDTO.getKakaoId());
+				pstmt = conn.prepareStatement(SELECTONE_KAKAO_LOGIN);
+				pstmt.setString(1, mDTO.getKakaoId());
 
 				ResultSet rs = pstmt.executeQuery();
 
 				if (rs.next()) {
 					memberDTO.setMID(rs.getString("M_ID"));
-//					memberDTO.setmName(rs.getString("M_NAME"));
-//					memberDTO.setDob(rs.getDate("DOB"));
-//					memberDTO.setGender(rs.getString("GENDER"));
-//					memberDTO.setGrade(rs.getString("GRADE"));
-//					memberDTO.setHealth(rs.getString("HEALTH"));
 				} else {
 					memberDTO = null;
 				}
@@ -206,7 +195,6 @@ public class MemberDAO {
 			try {
 				pstmt = conn.prepareStatement(SELECTONE_MYPAGE);
 				pstmt.setString(1, mDTO.getMID());
-				// pstmt.setString(2, mDTO.getmPassword());
 
 				ResultSet rs = pstmt.executeQuery();
 

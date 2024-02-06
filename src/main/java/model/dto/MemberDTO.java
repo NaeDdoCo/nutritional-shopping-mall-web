@@ -18,8 +18,7 @@ public class MemberDTO {
 	private String health;
 	private String searchCondition;
 	private String loginType;
-	private int kakaoId;
-
+	private String kakaoId;
 	
 	public String getMID() {
 		return MID;
@@ -105,10 +104,10 @@ public class MemberDTO {
 	public void setLoginType(String loginType) {
 		this.loginType = loginType;
 	}
-	public int getKakaoId() {
+	public String getKakaoId() {
 		return kakaoId;
 	}
-	public void setKakaoId(int kakaoId) {
+	public void setKakaoId(String kakaoId) {
 		this.kakaoId = kakaoId;
 	}
 	
