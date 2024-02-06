@@ -35,6 +35,10 @@
 <!-- 카카오 SDK 로드 -->
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8" crossorigin="anonymous"></script>
 
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 </head>
 <body>
 
@@ -57,29 +61,11 @@
 	</c:if>
 	<!-- 로그인 실패 모달 -->
 
-
-	<!-- 카카오 로그인 -->
-	<script>
-		//카카오 초기화
-		Kakao.init('2a9a8d09bd8fea39b7ca6172e2a2beb1'); // 사용하려는 앱의 JavaScript 키 입력
-		console.log(Kakao.isInitialized()); // 초기화 판단여부
-
-		function loginWithKakao() {
-			Kakao.Auth
-					.authorize({
-						redirectUri : 'http://localhost:8088/nutritional-shopping-mall2/main.jsp',
-					});
-		}
-	</script>
-	<!-- 카카오 로그인 -->
-
-
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-primary" role="status"></div>
 	</div>
 	<!-- Spinner End -->
-
 
 	<!-- Navbar start -->
 	<div class="container-fluid fixed-top">
@@ -170,7 +156,7 @@
 			</div>
 			<hr>
 			<!-- 카카오 로그인 -->
-			<a class="btn border-secondary text-primary rounded-pill py-3 px-5" id="kakao-login-btn" href="javascript:loginWithKakao()">카카오 로그인</a>
+			<a id="kakao-login-btn"></a>
 			<!-- 카카오 로그인 -->
 		</div>
 	</div>
@@ -268,6 +254,41 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
+	
+	<!-- 카카오 로그인 -->
+	<script>
+	//카카오 초기화
+	Kakao.init('8a69ee438b3b0270acfb88808676567f'); // 사용하려는 앱의 JavaScript 키 입력
+	console.log(Kakao.isInitialized()); // 초기화 판단여부
+	
+	Kakao.Auth.createLoginButton({
+		container: '#kakao-login-btn',
+		success: function(authObj) {
+			Kakao.API.request({
+				url: '/v2/user/me',
+				success: function(result) {
+					location.replace("/nutritional-shopping-mall2/kakaoLogin.do?kakaoId=" + result.id);
+				},
+	            fail: function(error) {
+					Swal.fire({
+						icon : 'error',
+						title : '로그인 실패',
+						text : '로그인이 실패하였습니다.',
+					})
+				},
+			})
+		},
+		fail: function(err) {
+			Swal.fire({
+				icon : 'error',
+				title : '로그인 실패',
+				text : '로그인이 실패하였습니다.',
+			})
+		},
+	})
+	</script>
+	<!-- 카카오 로그인 -->
+	
 
 </body>
 </html>
