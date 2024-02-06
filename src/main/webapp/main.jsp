@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,10 +38,75 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/div.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
+
 </head>
 <body>
-	
+
 	<custom:loginResult logoutResult='${logoutResult}' />
+	
+
+	<!--  -->
+	<script>
+        // 페이지 로드 시 실행할 함수
+        window.onload = function () {
+        	
+        	// 쿠키의 Value값을 저장
+            var cookieValue = getCookieValue("popupShown");
+            
+        	// 저장된 값이 false가 아니라면(null or true)
+            if (cookieValue != "false") {
+            	// 팝업창 실챙
+                openPopup();
+            }
+            
+        };
+
+        // 인자로 쿠키이름을 받아 쿠키값을 반환하는 함수
+        function getCookieValue(cookieName) {
+        	// 쿠키 이름과 =을 합친 변수 정의
+            var nameEQ = cookieName + "=";
+            // 현재 페이지의 모든 쿠키를 가져온다
+            // 쿠키는 이름1 = 값1; 이름2 = 값2;... 로 저장되기 때문에 ;를 기준으로 잘라서 변수(배열)에 저장한다 
+            var cookies = document.cookie.split(';');
+            // 쿠키배열의 사이즈만큼 반복
+            for (var i = 0; i < cookies.length; i++) {
+            	// 해당 인덱스의 쿠키값을 꺼내 앞, 뒤 공백을 제거한 후 저장
+                var cookie = cookies[i].trim();
+
+                // cookie가 주어진 쿠키 이름과 같은지 확인
+                // cookie에 nameEQ가 처음 나오는 위치를 반환
+                // 공백을 제외했기 때문에 같다면0
+                if (cookie.indexOf(nameEQ) === 0) {
+                	// 주어진 쿠키 이름과 일치하는 쿠키를 찾으면 해당 쿠키의 값을 반환합니다.
+                    return cookie.substring(nameEQ.length, cookie.length);
+                }
+            }
+         // 해당하는 쿠키가 없을 경우 null을 반환합니다.
+            return null;
+        }
+
+        function openPopup() {
+        	// 팝업창이 작성되어 있는 JSP파일 주소
+            var popupURL = "popupTest.jsp"; 
+        	// 팝업창 이름
+            var popupName = "popupPage";
+        	// 팝업창 너비
+            var popupWidth = 458;
+        	// 팝업창 높이
+            var popupHeight = 678;	
+       		// 왼쪽 여백
+            var leftPosition = 150; 
+   		    // 상단 여백
+			var topPosition = 150; 
+			
+            // 팝업창 열기
+            // 팝업창을 닫을 때 동작을 위해 변수에 저장해두기
+            var popupWindow = window.open(popupURL, popupName, "width=" + popupWidth + ",height=" + popupHeight + ",left=" + leftPosition + ",top=" + topPosition + ",resizable=no");
+        }
+	</script>
+	<!--  -->
+
 
 	<!-- 장바구니 추가 비동기처리 -->
 	<script>
@@ -70,8 +135,8 @@
 		}
 	</script>
 	<!-- 장바구니 추가 비동기처리 -->
-	
-	
+
+
 	<script>
     	function updatePriceRange(value) {
        	 document.getElementById('amount').value = value;
@@ -126,20 +191,17 @@
 						</button>
 						<!-- 장바구니 버튼 -->
 						<c:if test="${member != null}">
-							<a href="cartPage.do" class="position-relative me-4 my-auto"> 
-								<i class="fa fa-shopping-bag fa-2x"></i> 
+							<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
 							</a>
 						</c:if>
 						<c:if test="${member == null}">
-							<a href="loginPage.do" class="position-relative me-4 my-auto"> 
-								<i class="fa fa-shopping-bag fa-2x"></i> 
+							<a href="loginPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
 							</a>
 						</c:if>
 						<!-- 장바구니 버튼 -->
 						<!-- 프로필 버튼 -->
 						<c:if test="${member != null}">
-							<a href="mypage.do" class="my-auto"> 
-								<i class="fas fa-user fa-2x"></i>
+							<a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 							</a>
 						</c:if>
 						<!-- 프로필 버튼 -->
@@ -184,31 +246,34 @@
 				<h1 class="mb-0">Today's Recommendation</h1>
 				<div class="owl-carousel vegetable-carousel owl-theme">
 					<c:if test="${fn:length(rcmDTOs) > 0}">
-						<c:forEach var="rcm" items="${rcmDTOs}">
+						<c:forEach var="data" items="${rcmDTOs}">
 							<div class="border border-primary rounded position-relative vesitable-item">
-								<div class="vesitable-img" onclick='location.href="productDetailPage.do?PID=${rcm.PID}";'>
-									<img src="${rcm.imagePath}" class="img-fluid w-100 rounded-top">
+								<div class="vesitable-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
+									<img src="${data.imagePath}" class="img-fluid w-100 rounded-top">
 								</div>
-								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${rcm.category}</div>
+								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
 								<div class="p-4 rounded-bottom">
-									<h4 style="text-align:center;">${rcm.pName}</h4>
-									<custom:starRate1 score='${rcm.ancAvgRating}'/>
+									<h4 style="text-align: center;">${data.pName}</h4>
+									<div class="star-rating space-x-4 mx-auto">
+										<input type="radio" id="5-stars" name="rating" value="5" disabled /> <label for="5-stars" class="star">★</label> <input type="radio" id="4-stars" name="rating" value="4" disabled /> <label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" disabled /> <label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" disabled /> <label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" disabled /> <label for="1-star" class="star">★</label>
+									</div>
 									<div class="line-clamp my-2">
-										<p>${rcm.pDetail}</p>
+										<p>${data.pDetail}</p>
 									</div>
 									<div class="d-flex justify-content-between flex-lg-wrap">
 										<div class="row">
 											<div class="col">
-												<p class="text-dark fs-5 fw-bold mb-0 my-2"><fmt:formatNumber value="${rcm.sellingPrice}" currencyCode="KRW" />원</p>
+												<p class="text-dark fs-5 fw-bold mb-0 my-2"><fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />원</p>
 											</div>
 										</div>
 										<c:if test="${member != null}">
 											<div class="row">
-												<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${rcm.PID})">장바구니 추가</button>
+												<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
 											</div>
 										</c:if>
 										<c:if test="${member == null}">
-											<a href="loginPage.do" class="btn border border-secondary rounded-pill px-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+											<a href="loginPage.do" class="btn border border-secondary rounded-pill px-3 text-primary"> 
+												<i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
 											</a>
 										</c:if>
 									</div>
@@ -220,6 +285,7 @@
 			</div>
 			<!-- 제품 추천 끝 -->
 
+
 			<!-- 일반 리스트 시작 -->
 			<div class="container-fluid fruite py-5">
 				<div class="container py-5">
@@ -230,8 +296,11 @@
 							</div>
 							<div class="col-lg-8 text-end">
 								<ul class="nav nav-pills d-inline-flex text-center mb-5">
-									<li class="nav-item"><a class="d-flex m-2 py-2 bg-light rounded-pill active" href="productAllPage.do"> <span class="text-dark" style="width: 130px;">All Products</span>
-									</a></li>
+									<li class="nav-item">
+										<a class="d-flex m-2 py-2 bg-light rounded-pill active" href="productAllPage.do"> 
+											<span class="text-dark" style="width: 130px;">All Products</span>
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -250,8 +319,10 @@
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
 																<h4 onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.pName}</h4>
-																<custom:starRate2 score='${data.ancAvgRating}'/>
-																<div class="line-clamp my-2">
+																<div class="star-rating space-x-4 mx-auto">
+																	<input type="radio" id="5-stars" name="rating" value="5" disabled /> <label for="5-stars" class="star">★</label> <input type="radio" id="4-stars" name="rating" value="4" disabled /> <label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" disabled /> <label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" disabled /> <label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" disabled /> <label for="1-star" class="star">★</label>
+																</div>
+																<div class="line-clamp my-2" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
 																	<p>${data.pDetail}</p>
 																</div>
 																<div class="d-flex justify-content-between flex-lg-wrap">
@@ -357,8 +428,7 @@
 
 
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"> 
-		<i class="fa fa-arrow-up"></i>
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"> <i class="fa fa-arrow-up"></i>
 	</a>
 
 
@@ -373,7 +443,7 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-	
+
 </body>
 
 </html>
