@@ -251,7 +251,7 @@
 				<!-- 상품 정보 수집 -->
 				form.innerHTML += '<input type="hidden" name="PID[]" value="' + row.querySelector('#hiddenPID').value + '">';
 				form.innerHTML += '<input type="hidden" name="CID[]" value="' + row.querySelector('#hiddenCID').value + '">';
-				form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('td[id^="productPrice_"]').innerText + '">';
+				form.innerHTML += '<input type="hidden" name="sellingPrice[]" value="' + row.querySelector('#hiddenPrice').value + '">';
             	form.innerHTML += '<input type="hidden" name="productCategory[]" value="' + row.querySelector('#hiddenCategory').value + '">';
             	form.innerHTML += '<input type="hidden" name="qty[]" value="' + row.querySelector('#pQty').innerText + '">';
 			});
