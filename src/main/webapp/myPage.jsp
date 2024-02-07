@@ -30,6 +30,9 @@
 
 <!-- kakao -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<!-- 파비콘 -->
+<custom:favicon/>
 </head>
 <body>
 

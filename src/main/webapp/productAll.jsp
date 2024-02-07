@@ -40,6 +40,9 @@
 <link href="css/style.css" rel="stylesheet">
 <!-- error.do 범인 -->
 <link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
+
+<!-- 파비콘 -->
+<custom:favicon/>
 </head>
 <body>
 

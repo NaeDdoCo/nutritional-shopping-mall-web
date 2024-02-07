@@ -29,6 +29,9 @@
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
+
+<!-- 파비콘 -->
+<custom:favicon />
 </head>
 
 <body>
@@ -42,8 +45,8 @@
 
 	<!-- 로고가 포홤된 헤더 시작 -->
 	<div class="container-fluid fixed-top">
-		<custom:commonHeader/>
-		<custom:commonHeaderWithLogo/>
+		<custom:commonHeader />
+		<custom:commonHeaderWithLogo />
 	</div>
 	<!-- 로고가 포홤된 헤더 끝 -->
 
@@ -87,7 +90,7 @@
 						</div>
 					</div>
 					<div class="col-lg-12">
-						<custom:kakaoMap/>
+						<custom:kakaoMap />
 					</div>
 				</div>
 			</div>

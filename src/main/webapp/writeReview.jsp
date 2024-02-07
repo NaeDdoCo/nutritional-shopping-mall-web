@@ -33,6 +33,9 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/starRating.css" />
+
+<!-- 파비콘 -->
+<custom:favicon/>
 </head>
 
 <body>

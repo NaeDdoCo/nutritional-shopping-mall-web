@@ -40,6 +40,8 @@
 <link href="css/div.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 
+<!-- 파비콘 -->
+<custom:favicon/>
 </head>
 <body>
 

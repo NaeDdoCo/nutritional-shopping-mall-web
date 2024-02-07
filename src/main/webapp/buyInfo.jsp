@@ -30,6 +30,9 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/table.css" rel="stylesheet">
+
+<!-- 파비콘 -->
+<custom:favicon/>
 </head>
 <body>
 
