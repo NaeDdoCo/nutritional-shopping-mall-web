@@ -1,55 +1,170 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Áöµµ APIÀû¿ë</title>
+<meta charset="utf-8">
+<title>ì•ˆë‚´</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
 
-	<div id="map" style="width: 500px; height: 400px;">
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1fbb9e9595211a29e649370beccf5a78"></script>
+	<!-- Spinner Start -->
+	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+		<div class="spinner-grow text-primary" role="status"></div>
 	</div>
-
-	<script type="text/javascript">
-		//Áöµµ¸¦ ´ãÀ» ¿µ¿ªÀÇ DOM ·¹ÆÛ·±½º
-		// Áöµµ¸¦ Ç¥½ÃÇÒ div
-		var mapContainer = document.getElementById('map'),
-		//Áöµµ¸¦ »ı¼ºÇÒ ¶§ ÇÊ¿äÇÑ ±âº» ¿É¼Ç
-		mapOption = {
-			// ÁöµµÀÇ Áß½ÉÁÂÇ¥
-			center : new kakao.maps.LatLng(37.499456, 127.035832),
-			// ÁöµµÀÇ È®´ë ·¹º§
-			level : 3
-		};
-
-		// Áöµµ¸¦ »ı¼ºÇÕ´Ï´Ù
-		var map = new kakao.maps.Map(mapContainer, mapOption);
-
-		// ¸¶Ä¿°¡ Ç¥½ÃµÉ À§Ä¡ÀÔ´Ï´Ù 
-		var markerPosition = new kakao.maps.LatLng(37.49944608755652,
-				127.03584631733999);
-
-		// ¸¶Ä¿¸¦ »ı¼ºÇÕ´Ï´Ù
-		var marker = new kakao.maps.Marker({
-			position : markerPosition
-		});
-
-		// ÀÎÆ÷À©µµ¿ì·Î Àå¼Ò¿¡ ´ëÇÑ ¼³¸íÀ» Ç¥½ÃÇÕ´Ï´Ù
-		//var infowindow = new kakao.maps.InfoWindow({
-		//    content: '<div style="width: auto; text-align: center; padding: 10px;">13Ãş</div>'
-		//});
-		//infowindow.open(map, marker);
-
-		// ¸¶Ä¿°¡ Áöµµ À§¿¡ Ç¥½ÃµÇµµ·Ï ¼³Á¤ÇÕ´Ï´Ù
-		marker.setMap(map);
-
-		// ¾Æ·¡ ÄÚµå´Â Áöµµ À§ÀÇ ¸¶Ä¿¸¦ Á¦°ÅÇÏ´Â ÄÚµåÀÔ´Ï´Ù
-		// marker.setMap(null);
-	</script>
-
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+	<!-- Spinner End -->
 
 
+	<!-- Navbar start -->
+	<div class="container-fluid fixed-top">
+		<custom:commonHeader />
+		<div class="container px-0">
+			<nav class="navbar navbar-light bg-white navbar-expand-xl">
+				<!-- ë¡œê³  ë²„íŠ¼ -->
+				<a href="mainPage.do" class="navbar-brand">
+					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
+				</a>
+				<!-- ë¡œê³  ë²„íŠ¼ -->
+				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+					<span class="fa fa-bars text-primary"></span>
+				</button>
+				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+					<div class="navbar-nav mx-auto"></div>
+					<div class="d-flex m-3 me-0">
+						<!-- ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ -->
+						<c:if test="${member != null}">
+							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">ë¡œê·¸ì•„ì›ƒ</a>
+						</c:if>
+						<!-- ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ -->
+						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
+							<i class="fas fa-search text-primary"></i>
+						</button>
+						<!-- ì¥ë°”êµ¬ë‹ˆ ë²„íŠ¼ -->
+						<c:if test="${member != null}">
+							<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
+							</a>
+						</c:if>
+						<c:if test="${member == null}">
+							<a href="loginPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
+							</a>
+						</c:if>
+						<!-- ì¥ë°”êµ¬ë‹ˆ ë²„íŠ¼ -->
+						<!-- í”„ë¡œí•„ ë²„íŠ¼ -->
+						<c:if test="${member != null}">
+							<a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+							</a>
+						</c:if>
+						<!-- í”„ë¡œí•„ ë²„íŠ¼ -->
+						<!-- ë¡œê·¸ì¸ ë²„íŠ¼ -->
+						<c:if test="${member == null}">
+							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">ë¡œê·¸ì¸</a>
+						</c:if>
+						<!-- ë¡œê·¸ì¸ ë²„íŠ¼ -->
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<!-- Navbar End -->
+
+
+	<!-- Modal Search Start -->
+	<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-fullscreen">
+			<div class="modal-content rounded-0">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex align-items-center">
+					<div class="input-group w-75 mx-auto d-flex">
+						<input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Search End -->
+
+
+	<!-- Single Page Header start -->
+	<div class="container-fluid page-header py-5">
+		<h1 class="text-center text-white display-6">ì•ˆë‚´</h1>
+		<ol class="breadcrumb justify-content-center mb-0">
+		</ol>
+	</div>
+	<!-- Single Page Header End -->
+
+
+	<!-- Contact Start -->
+	<div class="container-fluid contact py-5">
+		<div class="container py-5">
+			<div class="p-5 bg-light rounded">
+				<div class="row g-4">
+					<div class="col-12">
+						<div class="text-center mx-auto" style="max-width: 700px;">
+							<h1 class="text-primary">ì°¾ì•„ì˜¤ì‹œëŠ” ê¸¸</h1>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<custom:kakaoMap/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Contact End -->
+
+
+	<!-- í’‹í„° ì‹œì‘ -->
+	<custom:commonFooter />
+	<!-- í’‹í„° ë -->
+
+
+	<!-- ì¹´í”¼ë¼ì´íŠ¸ ì‹œì‘ -->
+	<custom:commonCopyright />
+	<!-- ì¹´í”¼ë¼ì´íŠ¸ ë -->
+
+
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+	<!-- JavaScript Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="lib/easing/easing.min.js"></script>
+	<script src="lib/waypoints/waypoints.min.js"></script>
+	<script src="lib/lightbox/js/lightbox.min.js"></script>
+	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="js/main.js"></script>
 </body>
+
 </html>
