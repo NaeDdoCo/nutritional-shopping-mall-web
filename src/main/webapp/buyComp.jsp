@@ -45,28 +45,7 @@
 	<!-- Navbar start -->
 	<div class="container-fluid fixed-top">
 		<custom:commonHeader/>
-		<div class="container px-0">
-			<nav class="navbar navbar-light bg-white navbar-expand-xl">
-				<a href="main.jsp" class="navbar-brand">
-					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
-				</a>
-				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-					<span class="fa fa-bars text-primary"></span>
-				</button>
-				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-					<div class="navbar-nav mx-auto"></div>
-					<div class="d-flex m-3 me-0">
-						<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
-						<a href="cartPage.do" class="position-relative me-4 my-auto"> 
-							<i class="fa fa-shopping-bag fa-2x"></i> 
-						</a> 
-						<a href="mypage.do" class="my-auto"> 
-							<i class="fas fa-user fa-2x"></i>
-						</a>
-					</div>
-				</div>
-			</nav>
-		</div>
+		<custom:commonHeaderWithLogo/>
 	</div>
 	<!-- Navbar End -->
 

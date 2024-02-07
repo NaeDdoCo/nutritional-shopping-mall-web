@@ -320,37 +320,7 @@
 	<!-- Navbar start -->
 	<div class="container-fluid fixed-top">
 		<custom:commonHeader/>
-		<div class="container px-0">
-			<nav class="navbar navbar-light bg-white navbar-expand-xl">
-				<!-- 로고 버튼 -->
-				<a href="mainPage.do" class="navbar-brand">
-					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
-				</a>
-				<!-- 로고 버튼 -->
-				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-					<span class="fa fa-bars text-primary"></span>
-				</button>
-				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-					<div class="navbar-nav mx-auto">
-						<div class="nav-item dropdown">
-							<div class="dropdown-menu m-0 bg-secondary rounded-0">
-								<a href="cart.html" class="dropdown-item">Cart</a> <a href="chackout.html" class="dropdown-item">Chackout</a> <a href="testimonial.html" class="dropdown-item">Testimonial</a> <a href="404.html" class="dropdown-item active">404 Page</a>
-							</div>
-						</div>
-					</div>
-					<div class="d-flex m-3 me-0">
-						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="fas fa-search text-primary"></i>
-						</button>
-						<!-- 로그인 버튼 -->
-						<c:if test="${member == null}">
-							<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="loginPage.do">로그인</a>
-						</c:if>
-						<!-- 로그인 버튼 -->
-					</div>
-				</div>
-			</nav>
-		</div>
+		<custom:commonHeaderWithLogo/>
 	</div>
 	<!-- Navbar End -->
 
