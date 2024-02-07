@@ -6,7 +6,7 @@
 	
 		<!-- 로고 버튼 -->
 		<a href="mainPage.do" class="navbar-brand">
-			<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
+  			<img src="img/logo.png" alt="대체 텍스트">
 		</a>
 		<!-- 로고 버튼 -->
 		

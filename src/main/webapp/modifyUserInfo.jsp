@@ -52,7 +52,7 @@
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
 				<!-- 로고 버튼 -->
 				<a href="mainPage.do" class="navbar-brand">
-					<h1 class="text-primary display-6">NaeDdoCo Pills</h1>
+  					<img src="img/logo.png" alt="대체 텍스트">
 				</a>
 				<!-- 로고 버튼 -->
 				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -60,7 +60,7 @@
 				</button>
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
-						<a class="btn text-primary mb-0 mt-1" href="checkUserPasswordPage.do?where=modifyUserInfo" class="nav-item nav-link">개인정보수정</a>
+						<a class="btn text-primary mb-0 mt-1" class="btn text-primary mb-0 mt-1" href="checkUserPasswordPage.do?where=modifyUserInfo" class="nav-item nav-link">개인정보수정</a>
 						<a href="checkUserPasswordPage.do?where=modifyUserPassword" class="nav-item nav-link">비밀번호변경</a> 
 						<a href="buyInfoPage.do" class="nav-item nav-link">구매내역</a> 
 						<a href="reviewInfoPage.do" class="nav-item nav-link">리뷰내역</a> 
