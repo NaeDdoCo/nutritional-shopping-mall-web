@@ -28,6 +28,10 @@
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Customized Bootstrap Stylesheet -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -187,6 +191,49 @@
 	</script>
 	<!-- 할인 금액 계산 -->
 
+
+	<!-- 구매 버튼 -->
+	<script>
+		function checkQty() {
+			var PID = [];
+			var qty = [];
+			
+			var productRows = document.querySelectorAll('tr[id^="product_"]');
+			productRows.forEach(function(row) {
+				<!-- 상품 정보 수집 -->
+				PID.push(row.querySelector('#hiddenPID').value);
+            	qty.push(row.querySelector('#pQty').innerText);
+			});
+			console.log('PID[] : ' + PID);
+			console.log('qty[] : ' + qty);
+			
+			$.ajax({
+				type : "POST", // 또는 "GET"
+				url : "checkQty",
+				data : {
+					'PID[]' : PID,
+					'qty[]' : qty,
+				},
+				success : function(data) {
+					MIDResult = data
+					if (data === "suc") {
+						goToPurchase();
+					} else {
+						Swal.fire({
+							icon : 'error',
+							title : '재고 부족',
+							text : '상품의 재고가 부족합니다',
+						}).then(result => {
+						   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+							   location.replace("cartPage.do");
+						   }
+						});
+					}
+				}
+			});
+		}
+	</script>
+	<!-- 구매 버튼 -->
 
 	<!-- 구매 확정 -->
 	<script>
@@ -415,7 +462,7 @@
 							</table>
 						</div>
 						<div class="row g-4 text-center align-items-center justify-content-center pt-4">
-							<button class="btn border-secondary py-3 px-4 text-uppercase w-50 text-primary" type="button" onclick="goToPurchase()">구매</button>
+							<button class="btn border-secondary py-3 px-4 text-uppercase w-50 text-primary" type="button" onclick="checkQty()">구매</button>
 						</div>
 					</div>
 				</div>
