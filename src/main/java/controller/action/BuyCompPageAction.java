@@ -25,11 +25,14 @@ public class BuyCompPageAction implements Action{
 		ActionForward forward = new ActionForward();
 
 		/*
-		 * View -> Ctrl : 
-		 * Ctrl : BuyInfo insert, Coupon update
+		 * Ctrl : BuyInfo insert(구매내역 추가), Coupon update(쿠폰 사용 처리), Cart delete(구매한 상품 장바구니 제거)
 		 * Ctrl -> View : buyComp.jsp
 		 * */
+		
 
+		/*
+		 * 구매 로직 시작
+		 */
 		BuyInfoDTO bDTO = new BuyInfoDTO();
 		BuyInfoDAO bDAO = new BuyInfoDAO();
 		ArrayList<BuyInfoDTO> bDTOs = new ArrayList<BuyInfoDTO>();
