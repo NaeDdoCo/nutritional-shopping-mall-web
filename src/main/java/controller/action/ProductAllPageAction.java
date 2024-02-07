@@ -65,15 +65,6 @@ public class ProductAllPageAction implements Action{
 		
 		pDTOs = pDAO.selectAll(pDTO);
 		
-		// 각 상품의 평균 별점 설정
-		for (ProductDTO productDTO : pDTOs) {
-			int pid = productDTO.getPID();
-			int avgRating = getAverageRating(pid);
-			productDTO.setAncAvgRating(avgRating);
-//			System.out.println("[log] PID : " + productDTO.getPID());
-//			System.out.println("[log] pDTOs 평균별점 " + productDTO.getAncAvgRating());
-		}
-		
 		// 보여줄 상품이 하나도 없는 경우
 		if (pDTOs == null) {
 //			request.setAttribute("pDTOs", pDTOs);
@@ -82,6 +73,15 @@ public class ProductAllPageAction implements Action{
 			forward.setRedirect(false);
 			
 			return forward;
+		}
+		
+		// 각 상품의 평균 별점 설정
+		for (ProductDTO productDTO : pDTOs) {
+			int pid = productDTO.getPID();
+			int avgRating = getAverageRating(pid);
+			productDTO.setAncAvgRating(avgRating);
+//			System.out.println("[log] PID : " + productDTO.getPID());
+//			System.out.println("[log] pDTOs 평균별점 " + productDTO.getAncAvgRating());
 		}
 		
 		/* 
