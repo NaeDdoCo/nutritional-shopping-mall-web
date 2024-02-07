@@ -32,9 +32,9 @@ public class ModifyUserInfoAction implements Action {
 		String phoneNumber = request.getParameter("phoneNum1") + "-" + request.getParameter("phoneNum2") + "-" + request.getParameter("phoneNum3");
 		String email = request.getParameter("email1") + "@" + request.getParameter("email2");
 
-		String zipNo = request.getParameter("zipNo");
-		String roadAddrPart1 = request.getParameter("roadAddrPart1");
-		String addrDetail = request.getParameter("addrDetail");
+		String zipNo = request.getParameter("zipcode");
+		String roadAddrPart1 = request.getParameter("address1");
+		String addrDetail = request.getParameter("address2");
 		
 		mDTO.setSearchCondition("회원정보변경");
 		mDTO.setMID(MID);
@@ -44,6 +44,7 @@ public class ModifyUserInfoAction implements Action {
 		mDTO.setmAddress(roadAddrPart1);
 		mDTO.setmDetailedAddress(addrDetail);
 		mDTO.setmPostCode(Integer.parseInt(zipNo));
+		System.out.println("update memberDTO: " + mDTO);
 		boolean result = mDAO.update(mDTO);
 		
 		if(result) {

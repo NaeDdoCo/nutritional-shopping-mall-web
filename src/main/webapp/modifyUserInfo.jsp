@@ -116,7 +116,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="login.jsp" method="POST" name="joinForm" onsubmit="return checkField()">
+					<form action="modifyUserInfo.do" method="POST" name="joinForm" onsubmit="return checkField()">
 						<div class="row g-4">
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" value="${memberInfo.mName}" name="mName" placeholder="이름" required>
@@ -151,16 +151,16 @@
 								<input class="form-control p-3 border-secondary" type="text" id="email2" name="email2" placeholder="이메일 주소" required>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.mPostCode}" name="zipcode" placeholder="우편번호" required>
+								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.mPostCode}" name="zipcode" placeholder="우편번호" readonly required>
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">우편번호 찾기</button>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary " type="text" value="${memberInfo.mAddress}" name="address1" placeholder="도로명 주소" required>
+								<input class="form-control p-3 border-secondary " type="text" value="${memberInfo.mAddress}" name="address1" placeholder="도로명 주소" readonly required>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.mDetailedAddress}" name="address2" placeholder="지번 주소" required>
+								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.mDetailedAddress}" name="address2" placeholder="지번 주소" readonly required>
 							</div>
 							<div class="col-lg-6">
 								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="수정">
