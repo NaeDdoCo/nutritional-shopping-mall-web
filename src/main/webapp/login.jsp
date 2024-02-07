@@ -160,11 +160,11 @@
 	
 	Kakao.Auth.createLoginButton({
 		container: '#kakao-login-btn',
-		success: function(authObj) {
+		success: function() {
 			Kakao.API.request({
 				url: '/v2/user/me',
 				success: function(result) {
-					location.replace("/nutritional-shopping-mall2/kakaoLogin.do?kakaoId=" + result.id);
+					location.replace("kakaoLogin.do?kakaoId=" + result.id);
 				},
 	            fail: function(error) {
 					Swal.fire({
