@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
@@ -156,7 +157,7 @@
 			// 각 상품 행을 순회하면서 상품 정보 수집
 			$(".productTable tbody tr").each(function() {
 				// 상품 이름과 가격을 각각 변수에 저장
-				var productPrice = $(this).find("td:eq(2)").text();
+				var productPrice = $(this).find("#hiddenPrice").val();
 				var productCategory = $(this).find("#hiddenCategory").val();
 				// 수집된 상품 정보를 객체로 생성하여 배열에 추가
 				var product = {
@@ -172,7 +173,7 @@
 	                if (product.category == coupon.category.trim()) {
 	                    // 해당 상품의 카테고리와 일치하는 쿠폰이 있으면 할인 적용
 	                    product.price -= (product.price * parseFloat(coupon.discount)) / 100;
-	                   	$("#productPrice_" + index).text(product.price);
+	                   	$("#productPrice_" + index).text(product.price.toLocaleString('ko-KR') + "" + "원");
 	                }
 	            });
 	            index = index + 1;
@@ -185,7 +186,7 @@
 		        	total += parseFloat(product.price);
 	        	}
 	        });
-           	$("#total").text(total);
+           	$("#total").text(total.toLocaleString('ko-KR') + "" + "원");
 	        /* console.log('total: ' + total); */
  		}		
 	</script>
@@ -433,8 +434,9 @@
 											</th>
 											<td class="py-5">${product.pName}</td>
 											<td class="py-5" id="pQty">${product.pQty}</td>
-											<td class="py-5">${product.sellingPrice*product.pQty}</td>
-											<td class="py-5" id="productPrice_${status.index}">${product.sellingPrice*product.pQty}</td>
+											<td class="py-5"><fmt:formatNumber value="${product.sellingPrice*product.pQty}" currencyCode="KRW" />원</td>
+											<td class="py-5" id="productPrice_${status.index}"><fmt:formatNumber value="${product.sellingPrice*product.pQty}" currencyCode="KRW" />원</td>
+											<td><input type="hidden" id="hiddenPrice" value="${product.sellingPrice*product.pQty}"></td>
 											<td><input type="hidden" id="hiddenCategory" value="${product.category}"></td>
 											<td><input type="hidden" id="hiddenPID" value="${product.PID}"></td>
 											<td><input type="hidden" id="hiddenCID" value="${product.ancCID}"></td>
@@ -450,7 +452,7 @@
 										</td>
 										<td class="py-5">
 											<div class="py-2">
-												<p class="mb-0 text-dark" id="total">${total}원</p>
+												<p class="mb-0 text-dark" id="total"><fmt:formatNumber value="${total}" currencyCode="KRW" />원</p>
 											</div>
 										</td>
 									</tr>
