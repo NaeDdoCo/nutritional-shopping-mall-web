@@ -34,7 +34,7 @@
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/number.css" rel="stylesheet">
-
+<link href="css/table.css" rel="stylesheet">
 </head>
 
 <body>
@@ -323,7 +323,7 @@
 			<h1 class="mb-4">Billing details</h1>
 			<form action="buyCompPage.do" name="buyForm" id="buyForm" method="POST">
 				<div class="row g-5">
-					<div class="col-md-12 col-lg-6 col-xl-7">
+					<div class="col-md-12 col-lg-6 col-xl-5">
 						<c:set var="memberInfo" value="${requestScope.memberInfo}" />
 						<div class="row">
 							<div class="col-md-12 col-lg-12">
@@ -360,12 +360,12 @@
 							<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" data-bs-toggle="modal" data-bs-target="#couponModal" value="쿠폰 적용">쿠폰적용</button>
 						</div>
 					</div>
-					<div class="col-md-12 col-lg-6 col-xl-5">
+					<div class="col-md-12 col-lg-6 col-xl-7">
 						<div class="table-responsive">
 							<table class="productTable">
 								<thead>
-									<tr>
-										<th scope="col">상품</th>
+									<tr class="border-bottom">
+										<th class="col-md-1" scope="col">상품</th>
 										<th scope="col">이름</th>
 										<th scope="col">수량</th>
 										<th scope="col">판매 금액</th>
@@ -375,7 +375,7 @@
 								<tbody>
 									<c:set var="total" value="0" />
 									<c:forEach var="product" items="${selectedProductsList}" varStatus="status">
-										<tr id="product_${status.index}">
+										<tr class="border-bottom" id="product_${status.index}">
 											<th scope="row">
 												<div class="d-flex align-items-center mt-2">
 													<img src="${product.imagePath}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
@@ -392,14 +392,14 @@
 										</tr>
 									</c:forEach>
 									<tr>
-										<th scope="row"></th>
+										<td></td>
+										<td></td>
+										<td></td>
 										<td class="py-5">
 											<p class="mb-0 text-dark text-uppercase py-3">TOTAL</p>
 										</td>
-										<td class="py-5"></td>
-										<td class="py-5"></td>
 										<td class="py-5">
-											<div class="py-3 border-bottom border-top">
+											<div class="py-2">
 												<p class="mb-0 text-dark" id="total">${total}원</p>
 											</div>
 										</td>
@@ -412,7 +412,7 @@
 							</table>
 						</div>
 						<div class="row g-4 text-center align-items-center justify-content-center pt-4">
-							<button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" type="button" onclick="goToPurchase()">구매</button>
+							<button class="btn border-secondary py-3 px-4 text-uppercase w-50 text-primary" type="button" onclick="goToPurchase()">구매</button>
 						</div>
 					</div>
 				</div>
