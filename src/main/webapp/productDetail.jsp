@@ -192,7 +192,7 @@
 											<i class="fa fa-minus"></i>
 										</button>
 									</div>
-										<input type="text" id="cQty" class="form-control form-control-sm text-center border-0" value="1">
+										<input type="text" id="cQty" class="form-control form-control-sm text-center border-0" value="1" readonly>
 									<div class="input-group-btn">
 										<button class="btn btn-sm btn-plus rounded-circle bg-light border">
 											<i class="fa fa-plus"></i>
