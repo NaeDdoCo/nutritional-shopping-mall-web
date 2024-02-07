@@ -38,8 +38,8 @@
 <body>
 
 	<%-- 세션 확인 후 없으면 메인으로 --%>
-	<custom:emthySessionAndGoToMain/>
-	
+	<custom:emthySessionAndGoToMain />
+
 
 	<%-- 뒤로가기 --%>
 	<script>
@@ -47,8 +47,8 @@
   			window.history.back();
 		}
 	</script>
-	
-	
+
+
 	<c:set var="BID" value="${param.BID}" />
 	<%-- 리뷰 작성 --%>
 	<script>
@@ -88,7 +88,7 @@
 		  	form.submit();
 			
 		}
-	</script>	
+	</script>
 
 
 	<!-- Spinner Start -->
@@ -100,16 +100,7 @@
 
 	<!-- Navbar start -->
 	<div class="container-fluid fixed-top">
-		<div class="container topbar bg-primary d-none d-lg-block">
-			<div class="d-flex justify-content-between">
-				<div class="top-info ps-2">
-					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small> <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
-				</div>
-				<div class="top-link pe-2">
-					<a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a> <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a> <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
-				</div>
-			</div>
-		</div>
+		<custom:commonHeader />
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
 				<!-- 로고 버튼 -->
@@ -151,11 +142,8 @@
 					<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 						<i class="fas fa-search text-primary"></i>
 					</button>
-					<a href="cartPage.do" class="position-relative me-4 my-auto"> 
-						<i class="fa fa-shopping-bag fa-2x"></i> 
-					</a> 
-					<a href="mypage.do" class="my-auto"> 
-						<i class="fas fa-user fa-2x"></i>
+					<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
+					</a> <a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 					</a>
 				</div>
 			</div>
@@ -191,16 +179,7 @@
 						<div class="col-lg-4">
 							<div class="row">
 								<div class="star-rating space-x-4 mx-auto">
-									<input type="radio" id="5-stars" name="rating" value="5" /> 
-									<label for="5-stars" class="star pr-4">★</label> 
-									<input type="radio" id="4-stars" name="rating" value="4" /> 
-									<label for="4-stars" class="star">★</label> 
-									<input type="radio" id="3-stars" name="rating" value="3" /> 
-									<label for="3-stars" class="star">★</label> 
-									<input type="radio" id="2-stars" name="rating" value="2" /> 
-									<label for="2-stars" class="star">★</label> 
-									<input type="radio" id="1-star" name="rating" value="1" /> 
-									<label for="1-star" class="star">★</label>
+									<input type="radio" id="5-stars" name="rating" value="5" /> <label for="5-stars" class="star pr-4">★</label> <input type="radio" id="4-stars" name="rating" value="4" /> <label for="4-stars" class="star">★</label> <input type="radio" id="3-stars" name="rating" value="3" /> <label for="3-stars" class="star">★</label> <input type="radio" id="2-stars" name="rating" value="2" /> <label for="2-stars" class="star">★</label> <input type="radio" id="1-star" name="rating" value="1" /> <label for="1-star" class="star">★</label>
 								</div>
 							</div>
 						</div>
@@ -316,7 +295,7 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-	
+
 </body>
 
 </html>

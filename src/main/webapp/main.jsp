@@ -153,21 +153,7 @@
 
 	<!-- 로고가 포홤된 헤더 시작 -->
 	<div class="container-fluid fixed-top">
-		<div class="container topbar bg-primary d-none d-lg-block">
-			<div class="d-flex justify-content-between">
-				<div class="top-info ps-2">
-					<small class="me-3"> <i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a>
-					</small> <small class="me-3"> <i class="fas fa-envelope me-2 text-secondary"></i> <a href="#" class="text-white">Email@Example.com</a>
-					</small>
-				</div>
-				<div class="top-link pe-2">
-					<a href="#" class="text-white"> <small class="text-white mx-2">PrivacyPolicy</small>/
-					</a> <a href="#" class="text-white"> <small class="text-white mx-2">Terms of Use</small> /
-					</a> <a href="#" class="text-white"> <small class="text-white ms-2">Sales and Refunds</small>
-					</a>
-				</div>
-			</div>
-		</div>
+		<custom:commonHeader/>
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
 				<!-- 로고 버튼 -->
@@ -316,13 +302,15 @@
 															</div>
 															<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.category}</div>
 															<div>
-																<h4 onclick='location.href="productDetailPage.do?PID=${data.PID}";'>${data.pName}</h4>
-																<custom:starRate2 score='${data.ancAvgRating}' index='${loop.index}'/>
-																<div class="line-clamp my-2" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
+																<h4>${data.pName}</h4>
+																<div>
+																	<custom:starRate2 score='${data.ancAvgRating}' index='${loop.index}'/>
+																</div>
+																<div class="line-clamp my-2">
 																	<p>${data.pDetail}</p>
 																</div>
 																<div class="d-flex justify-content-between flex-lg-wrap">
-																	<p class="text-dark fs-5 fw-bold mb-0" onclick='location.href="productDetailPage.do?PID=${data.PID}";'><fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />원</p>
+																	<p class="text-dark fs-5 fw-bold mb-0"><fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />원</p>
 																	<c:if test="${member != null}">
 																		<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
 																	</c:if>

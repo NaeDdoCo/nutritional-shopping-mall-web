@@ -113,7 +113,6 @@
 	</script>
 	<!-- 구매 진행 -->
 
-
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-primary" role="status"></div>
@@ -123,16 +122,7 @@
 
 	<!-- Navbar start -->
 	<div class="container-fluid fixed-top">
-		<div class="container topbar bg-primary d-none d-lg-block">
-			<div class="d-flex justify-content-between">
-				<div class="top-info ps-2">
-					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small> <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
-				</div>
-				<div class="top-link pe-2">
-					<a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a> <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a> <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
-				</div>
-			</div>
-		</div>
+		<custom:commonHeader/>
 		<div class="container px-0">
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
 				<!-- 로고 버튼 -->
@@ -239,7 +229,7 @@
 													<i class="fa fa-minus"></i>
 												</button>
 											</div>
-											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${cart.cQty}" readonly min="1" >
+											<input id="cQTY_${status.index}" type="number" class="form-control form-control-sm text-center border-0" value="${cart.cQty}" onchange="noQtyZero(this, 1)" readonly>
 											<div class="input-group-btn">
 												<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="calculPlusPrice(${cart.ancSellingPrice}, ${status.index})">
 													<i class="fa fa-plus"></i>

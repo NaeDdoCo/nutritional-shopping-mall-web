@@ -14,8 +14,8 @@ public class CrawlingListner implements ServletContextListener {
     }
 
     public void contextInitialized(ServletContextEvent sce)  { 
-    	Crawling crawling = new Crawling();
-    	crawling.crawling();
+//    	Crawling crawling = new Crawling();
+//    	crawling.crawling();
     }
 	
 }
