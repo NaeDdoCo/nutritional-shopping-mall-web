@@ -45,9 +45,15 @@ public class MemberDAO {
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'USER', ?, ?, ?)";
 
 	// 개인정보변경(이름, 생년월일, 성별, 전화번호, 이메일, 주소)
-	private static final String UPDATE_INFO = "UPDATE MEMBER"
-			+ "SET M_NAME=?, PHONE_NUMBER=?, EMAIL=?, M_POSTCODE=?, M_ADDRESS=?, M_DETAILED_ADDRESS=? "
-			+ "WHERE M_ID=?";
+	private static final String UPDATE_INFO = "UPDATE MEMBER "
+			+ "SET "
+			+ "M_NAME = ?, "
+			+ "PHONE_NUMBER = ?, "
+			+ "EMAIL = ?, "
+			+ "M_POSTCODE = ?, "
+			+ "M_ADDRESS = ?, "
+			+ "M_DETAILED_ADDRESS = ? "
+			+ "WHERE M_ID = ?";
 
 	// 비밀번호번경
 	private static final String UPDATE_PW = "UPDATE MEMBER SET M_PASSWORD=? WHERE M_ID=?";
@@ -339,6 +345,7 @@ public class MemberDAO {
 		conn = JDBCUtil.connect();
 
 		if (mDTO.getSearchCondition().equals("회원정보변경")) {
+			
 			System.out.println("[로그_회원정보변경] 진입");
 
 			try {
