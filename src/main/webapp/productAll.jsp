@@ -232,7 +232,7 @@
 							</div>
 						</div>
 						<div class="col-lg-9">
-							<div class="row g-4 justify-content-center">
+							<div class="row g-4 justify-content-start">
 								<!-- 전체 제품 표시 -->
 								<c:if test="${fn:length(pDTOs) > 0}">
 									<c:forEach var="data" items="${pDTOs}">
