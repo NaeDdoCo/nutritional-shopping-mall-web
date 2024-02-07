@@ -121,14 +121,15 @@
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" value="${memberInfo.mName}" name="mName" placeholder="이름" required>
 							</div>
+							<input class="form-control p-3 border-secondary" type="hidden" id="originPhoneNum" value="${memberInfo.phoneNumber}" readonly required>
 							<div class="col-lg-2">
-								<input class="form-control p-3 border-secondary" type="text" name="phoneNum1" value="010" readonly required>
+								<input class="form-control p-3 border-secondary" type="text" id="phoneNum1" name="phoneNum1" value="010" readonly required>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="text" name="phoneNum2" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="text" id="phoneNum2" name="phoneNum2" placeholder="0000" required>
 							</div>
 							<div class="col-lg-3">
-								<input class="form-control p-3 border-secondary" type="text" name="phoneNum3" placeholder="0000" required>
+								<input class="form-control p-3 border-secondary" type="text" id="phoneNum3" name="phoneNum3" placeholder="0000" required>
 							</div>
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 발송</button>
@@ -139,14 +140,15 @@
 							<div class="col-lg-4">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 확인</button>
 							</div>
+							<input class="form-control p-3 border-secondary" type="hidden" id="email" placeholder="이메일 아이디"  value="${memberInfo.email}" required>
 							<div class="col-lg-4">
-								<input class="form-control p-3 border-secondary" type="text" name="email1" placeholder="이메일 아이디" required>
+								<input class="form-control p-3 border-secondary" type="text" id="email1" name="email1" placeholder="이메일 아이디" required>
 							</div>
 							<div class="col-lg-1">
 								<P class="mt-3">@</P>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control p-3 border-secondary" type="text" name="email2" placeholder="이메일 주소" required>
+								<input class="form-control p-3 border-secondary" type="text" id="email2" name="email2" placeholder="이메일 주소" required>
 							</div>
 							<div class="col-lg-8">
 								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.mPostCode}" name="zipcode" placeholder="우편번호" required>
@@ -216,6 +218,28 @@
 
 		}
 	</script>
+
+	<!-- phoneNumber 파싱 -->
+	<script type="text/javascript">
+	    var originPhoneNum = $("#originPhoneNum").val();
+	    console.log('originPhoneNum : ' + originPhoneNum);
+	    var phoneNums = originPhoneNum.split('-');
+	    console.log('phoneNums : ' + phoneNums);
+	    document.getElementById("phoneNum1").value = phoneNums[0];
+	    document.getElementById("phoneNum2").value = phoneNums[1];
+	    document.getElementById("phoneNum3").value = phoneNums[2];
+	</script>
+	
+	<!-- email 파싱 -->
+	<script type="text/javascript">
+	    var originEmail = $("#email").val();
+	    console.log('originEmail : ' + originEmail);
+	    var emails = originEmail.split('@');
+	    console.log('emails : ' + emails);
+	    document.getElementById("email1").value = emails[0];
+	    document.getElementById("email2").value = emails[1];
+	</script>
+
 
 </body>
 </html>
