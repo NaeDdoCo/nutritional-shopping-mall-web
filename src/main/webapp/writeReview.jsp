@@ -42,6 +42,7 @@
 
 	<%-- 세션 확인 후 없으면 메인으로 --%>
 	<custom:emthySessionAndGoToMain />
+	<%-- 세션 확인 후 없으면 메인으로 --%>
 
 
 	<%-- 뒤로가기 --%>
@@ -50,6 +51,7 @@
   			window.history.back();
 		}
 	</script>
+	<%-- 뒤로가기 --%>
 
 
 	<c:set var="BID" value="${param.BID}" />
@@ -92,6 +94,7 @@
 			
 		}
 	</script>
+	<%-- 리뷰 작성 --%>
 
 
 	<!-- Spinner Start -->
@@ -143,7 +146,7 @@
 	<div class="container-fluid py-5 mt-5">
 		<div class="container py-5">
 			<div class="row g-10 mb-5">
-				<form method="post" action="writeReview.do" id="writeReviewForm">
+				<form method="post" action="writeReview.do" id="writeReviewForm" enctype="multipart/form-data">
 					<h4 class="mb-5 fw-bold">리뷰 작성</h4>
 					<div class="row g-4">
 						<div class="col-lg-4">
@@ -169,6 +172,7 @@
 							</div>
 						</div>
 						<div class="col-lg-2">
+							<custom:uploadFile/>
 							<div class="d-flex justify-content-between py-3 mb-5">
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="writeReview()">작성</button>
 								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="goBack()">취소</button>
