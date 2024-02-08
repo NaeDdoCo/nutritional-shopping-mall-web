@@ -129,7 +129,7 @@
 								<p class="mb-0 mt-4">${buyInfo.bQty}</p>
 							</td>
 							<td>
-								<p class="mb-0 mt-4">${buyInfo.paymentPrice}</p>
+								<p class="mb-0 mt-4"><fmt:formatNumber value="${buyInfo.paymentPrice}" currencyCode="KRW" />원</p>
 							</td>
 							<td>
 								<p class="mb-0 mt-4">${buyInfo.deliState}</p>

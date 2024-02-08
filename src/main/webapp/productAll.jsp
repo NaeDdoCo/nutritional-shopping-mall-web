@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <!DOCTYPE html>
 <html>
@@ -220,7 +221,7 @@
 														<p>${data.pDetail}</p>
 													</div>
 													<div class="d-flex justify-content-between flex-lg-wrap">
-														<p class="text-dark fs-5 fw-bold mb-0">${data.sellingPrice}원</p>
+														<p class="text-dark fs-5 fw-bold mb-0"><fmt:formatNumber value="${data.sellingPrice}" currencyCode="KRW" />원</p>
 														<div class="row">
 															<button class="btn border border-secondary rounded-pill px-3 text-primary" onclick="addItemToCart(${data.PID})">장바구니 추가</button>
 														</div>

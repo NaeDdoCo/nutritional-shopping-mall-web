@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <!DOCTYPE html>
 <html>
@@ -117,7 +118,7 @@
 							<div class="col-lg-6">
 								<h4 class="fw-bold mb-3">${productDetail.pName}</h4>
 								<p class="mb-3">카테고리: ${productDetail.category}</p>
-								<h5 class="fw-bold mb-3">${productDetail.sellingPrice}원</h5>
+								<h5 class="fw-bold mb-3"><fmt:formatNumber value="${productDetail.sellingPrice}" currencyCode="KRW" />원</h5>
 								<div class="d-flex mb-4">
 									<custom:starRatePD1 score='${productDetail.ancAvgRating}' index='0'/>
 								</div>
