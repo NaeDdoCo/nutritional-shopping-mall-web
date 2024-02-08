@@ -36,7 +36,7 @@ public class ReviewDAO {
 			+ "ORDER BY R.CREATE_TIME DESC";
 
 	// 리뷰 상세
-	private static final String SELECTONE_DETAIL = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME, M.M_NAME, M.EMAIL "
+	private static final String SELECTONE_DETAIL = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME, M.M_NAME, M.EMAIL, R.IMAGENAME "
 			+ "FROM REVIEW R "
 			+ "JOIN BUYINFO B ON B.B_ID = R.B_ID "
 			+ "JOIN PRODUCT P ON B.P_ID = P.P_ID "
@@ -52,14 +52,15 @@ public class ReviewDAO {
 
 	// 리뷰작성
 	private static final String INSERT = "INSERT INTO REVIEW "
-			+ "(R_ID, M_ID, B_ID, SCORE, CONTENTS, CREATE_TIME) "
+			+ "(R_ID, M_ID, B_ID, SCORE, CONTENTS, CREATE_TIME, IMAGENAME) "
 			+ "VALUES( "
 			+ "    NVL((SELECT MAX(R_ID) FROM REVIEW), 0) + 1, "
 			+ "    ?, "
 			+ "    ?, "
 			+ "    ?, "
 			+ "    ?, "
-			+ "    CURRENT_TIMESTAMP"
+			+ "    CURRENT_TIMESTAMP, "
+			+ "    ?"
 			+ ")";
 
 	//수정불가
@@ -202,6 +203,7 @@ public class ReviewDAO {
 	                reviewDTO.setAncPName(rs.getString("P_NAME"));
 	                reviewDTO.setAncMName(rs.getString("M_NAME"));
 	                reviewDTO.setAncEmail(rs.getString("EMAIL"));
+	                reviewDTO.setImageName(rs.getString("IMAGENAME"));
 				} else {
 					reviewDTO = null;
 				}
@@ -209,6 +211,7 @@ public class ReviewDAO {
 				rs.close();
 				
 				if(reviewDTO != null) {
+					System.out.println(reviewDTO.getImageName());
 					return reviewDTO;
 				}
 				
@@ -262,6 +265,7 @@ public class ReviewDAO {
 	            pstmt.setInt(2, rDTO.getBID());      
 	            pstmt.setInt(3, rDTO.getScore());   
 	            pstmt.setString(4, rDTO.getContents());
+	            pstmt.setString(5, rDTO.getImageName());
 	            
 	            int result = pstmt.executeUpdate();
 	            

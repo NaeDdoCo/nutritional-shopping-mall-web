@@ -10,6 +10,8 @@ public class ReviewDTO {
     private String contents;
     private Timestamp createTime;
     private String searchCondition;
+    // 리뷰 상세에 사용하는 리뷰 이름
+    private String imageName;
     // 컬럼에 없는 멤버변수
     private int ancPID;
     private String ancPName;
@@ -17,6 +19,7 @@ public class ReviewDTO {
     private String ancEmail;
     private String ancCreateTime;
     private double ancAvgScore;
+    // 리뷰목록에 사용하는 JOIN으로 상품테이블의 이미지 경로를 받아오는 변수
     private String ancImagePath;
     
     
@@ -62,6 +65,12 @@ public class ReviewDTO {
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
+	public String getImageName() {
+		return imageName;
+	}
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
 	public int getAncPID() {
 		return ancPID;
 	}
@@ -86,20 +95,18 @@ public class ReviewDTO {
 	public void setAncEmail(String ancEmail) {
 		this.ancEmail = ancEmail;
 	}
-	
 	public String getAncCreateTime() {
 		return ancCreateTime;
 	}
 	public void setAncCreateTime(String ancCreateTime) {
 		this.ancCreateTime = ancCreateTime;
-	}	
+	}
 	public double getAncAvgScore() {
 		return ancAvgScore;
 	}
 	public void setAncAvgScore(double ancAvgScore) {
 		this.ancAvgScore = ancAvgScore;
 	}
-	
 	public String getAncImagePath() {
 		return ancImagePath;
 	}
@@ -109,10 +116,9 @@ public class ReviewDTO {
 	@Override
 	public String toString() {
 		return "ReviewDTO [RID=" + RID + ", MID=" + MID + ", BID=" + BID + ", score=" + score + ", contents=" + contents
-				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + ", ancPID=" + ancPID
-				+ ", ancPName=" + ancPName + ", ancMName=" + ancMName + ", ancEmail=" + ancEmail + ", ancCreateTime="
-				+ ancCreateTime + ", ancAvgScore=" + ancAvgScore + ", ancImagePath=" + ancImagePath + "]";
-	}
-
-  
+				+ ", createTime=" + createTime + ", searchCondition=" + searchCondition + ", imageName=" + imageName
+				+ ", ancPID=" + ancPID + ", ancPName=" + ancPName + ", ancMName=" + ancMName + ", ancEmail=" + ancEmail
+				+ ", ancCreateTime=" + ancCreateTime + ", ancAvgScore=" + ancAvgScore + ", ancImagePath=" + ancImagePath
+				+ "]";
+	}  
 }
