@@ -37,7 +37,7 @@ public class FrontController extends HttpServlet {
 		String cp = request.getContextPath();
 		String commend = uri.substring(cp.length());
 		
-		if (commend == "error.do") {
+		if (!commend.equals("/error.do")) {
 			System.out.println("[FrontController] action: " + commend);
 		}
 
