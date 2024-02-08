@@ -4,18 +4,18 @@
 		<div class="top-info ps-2">
 			<small class="me-3"> 
 				<i class="fas fa-map-marker-alt me-2 text-secondary"></i> 
-				<a href="map.jsp" class="text-white">123 Street, New York</a>
+				<a href="map.jsp" class="text-white">회사 위치</a>
 			</small> 
 		</div>
 		<div class="top-link pe-2">
 			<a href="#" class="text-white"> 
-				<small class="text-white mx-2">PrivacyPolicy</small>/
+				<small class="text-white mx-2">개인 정보 정책</small>/
 			</a> 
 			<a href="#" class="text-white"> 
-				<small class="text-white mx-2">Terms of Use</small> /
+				<small class="text-white mx-2">이용약관</small> /
 			</a> 
 			<a href="#" class="text-white"> 
-				<small class="text-white ms-2">Sales and Refunds</small>
+				<small class="text-white ms-2">판매 및 환불</small>
 			</a>
 		</div>
 	</div>
