@@ -3,7 +3,6 @@ package controller.action;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.common.Action;
 import controller.common.ActionForward;
+import model.dao.CouponDAO;
 import model.dao.MemberDAO;
+import model.dto.CouponDTO;
 import model.dto.MemberDTO;
 
 public class JoinAction implements Action {
@@ -135,6 +136,24 @@ public class JoinAction implements Action {
 		}
 
 		if(mDAO.insert(mDTO)) {
+			// 신규 가입자 쿠폰 지급
+			CouponDTO cpDTO = new CouponDTO();
+			CouponDAO cpDAO = new CouponDAO();
+			
+			cpDTO.setSearchCondition("쿠폰추가");
+			cpDTO.setMID(MID);
+			cpDTO.setCpName("신규 가입자 쿠폰");
+			
+			// 간 50% 쿠폰
+			cpDTO.setDiscount(50);
+			cpDTO.setCategory("간");
+			cpDAO.insert(cpDTO);
+			
+			// 눈 30% 쿠폰
+			cpDTO.setDiscount(30);
+			cpDTO.setCategory("눈");
+			cpDAO.insert(cpDTO);
+			
 			forward.setPath("mainPage.do");
 			forward.setRedirect(false);
 		}else {
