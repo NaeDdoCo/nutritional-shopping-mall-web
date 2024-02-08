@@ -137,17 +137,6 @@
 					<div class="row g-4">
 						<div class="col-xl-3"></div>
 						<div class="col-6"></div>
-						<div class="col-xl-3">
-							<div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-								<label for="fruits">Default Sorting:</label>
-								<select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-									<option value="volvo">Nothing</option>
-									<option value="saab">Popularity</option>
-									<option value="opel">Organic</option>
-									<option value="audi">Fantastic</option>
-								</select>
-							</div>
-						</div>
 					</div>
 					<div class="row g-4">
 						<div class="col-lg-3">
@@ -235,7 +224,7 @@
 							<div class="row g-4 justify-content-start">
 								<!-- 전체 제품 표시 -->
 								<c:if test="${fn:length(pDTOs) > 0}">
-									<c:forEach var="data" items="${pDTOs}">
+									<c:forEach var="data" items="${pDTOs}" varStatus="loop">
 										<div class="col-md-6 col-lg-6 col-xl-4">
 											<div class="p-4 border border-secondary rounded position-relative fruite-item">
 												<div class="fruite-img" onclick='location.href="productDetailPage.do?PID=${data.PID}";'>
@@ -245,17 +234,8 @@
 												<div>
 													<h4 style="text-align:center;">${data.pName}</h4>
 													<div class="star-rating space-x-4 mx-auto">
-														<input type="radio" id="5-stars" name="rating" value="5" disabled/> 
-														<label for="5-stars" class="star">★</label> 
-														<input type="radio" id="4-stars" name="rating" value="4" disabled/> 
-														<label for="4-stars" class="star">★</label> 
-														<input type="radio" id="3-stars" name="rating" value="3" disabled/> 
-														<label for="3-stars" class="star">★</label> 
-														<input type="radio" id="2-stars" name="rating" value="2" disabled/> 
-														<label for="2-stars" class="star">★</label> 
-														<input type="radio" id="1-star" name="rating" value="1" disabled/> 
-														<label for="1-star" class="star">★</label>
-													</div>						
+														<custom:starRate1 score='${data.ancAvgRating}' index='${loop.index}'/>
+													</div>
 													<div class="line-clamp my-2" style="height: 150px;">
 														<p>${data.pDetail}</p>
 													</div>
