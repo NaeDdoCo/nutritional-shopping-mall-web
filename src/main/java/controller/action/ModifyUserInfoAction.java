@@ -50,7 +50,7 @@ public class ModifyUserInfoAction implements Action {
 		if(result) {
 			//개인정보수정 성공
 			System.out.println("[log] ModifyUserInfoAction 개인정보 수정 성공!");
-			forward.setPath("myPage.do");
+			forward.setPath("mypage.do");
 			forward.setRedirect(false);
 		}else {
 			//개인정보수정 실패

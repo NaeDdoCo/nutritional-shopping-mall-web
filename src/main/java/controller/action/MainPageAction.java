@@ -55,21 +55,21 @@ public class MainPageAction implements Action {
 		rcmDTOs = recommendProduct(request, rcmDTOs);
 		System.out.println("[log] rcmDTOs : "+ rcmDTOs);
 		
-		// 각 상품의 평균 별점 설정
-		for (ProductDTO productDTO : rcmDTOs) {
-			int pid = productDTO.getPID();
-			int avgRating = getAverageRating(pid);
-			productDTO.setAncAvgRating(avgRating);
-			System.out.println("[log] productDTO : " + productDTO);
-			System.out.println("[log] PID : " + productDTO.getPID());
-			System.out.println("[log] rcmDTOs 평균별점 " + productDTO.getAncAvgRating());
-		}
-
 		// 추천 상품이 0개면 판매량순 추천
 		request.setAttribute("pDTOs", pDTOs);
 		if (rcmDTOs == null) {
 			request.setAttribute("rcmDTOs", pDTOs);
 		} else {
+			// 각 상품의 평균 별점 설정
+			for (ProductDTO productDTO : rcmDTOs) {
+				int pid = productDTO.getPID();
+				int avgRating = getAverageRating(pid);
+				productDTO.setAncAvgRating(avgRating);
+				System.out.println("[log] productDTO : " + productDTO);
+				System.out.println("[log] PID : " + productDTO.getPID());
+				System.out.println("[log] rcmDTOs 평균별점 " + productDTO.getAncAvgRating());
+			}
+			
 			int i = 0;
 			while (rcmDTOs.size() < 8) {
 				rcmDTOs.add(pDTOs.get(i++));
@@ -85,8 +85,11 @@ public class MainPageAction implements Action {
 		return forward;
 	}
 
-	/**
-	 * @return 
+	/*
+	 * 비로그인 -> 판매량순 추천
+	 * 로그인 -> HEALTH 기반 추천
+	 *  
+	 * return
 	 * 1. 추천 상품 목록 0이면, 추천 상품 없음
 	 * 2. null이면, 에러
 	 */

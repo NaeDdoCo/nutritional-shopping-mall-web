@@ -12,6 +12,13 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<!-- sweetalert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +47,55 @@
 	<%-- 세션 확인 후 없으면 메인으로 --%>
 	<custom:emthySessionAndGoToMain/>
 
+	<!-- 휴대폰 인증 요청 -->
+	<script type="text/javascript">
+		var telResult;
+		function checkTel() {
+			var phoneNum1 = $("#phoneNum1").val();
+			var phoneNum2 = $("#phoneNum2").val();
+			var phoneNum3 = $("#phoneNum3").val();
+			$.ajax({
+				type : "POST",
+				url : "checkTel",
+				data : {
+					'phoneNum1' : phoneNum1,
+					'phoneNum2' : phoneNum2,
+					'phoneNum3' : phoneNum3
+				},
+				success : function(data) {
+					telResult = data;
+					var authNum = document.getElementById("authNum");
+					authNum.readOnly = false
+				}
+			});
+		}
+	</script>
+	<!-- 휴대폰 인증 요청 -->
+	
+	<!-- 휴대폰 인증번호 확인 -->
+	<script type="text/javascript">
+		var authNumResult = false;
+		function checkAuthNum() {
+			var authNum = $("#authNum").val();
+			if (telResult === authNum) {
+				Swal.fire({
+					icon : 'success',
+					title : '휴대폰 인증',
+					text : '인증이 완료되었습니다.',
+				})
+				authNumResult = true;
+				var authNum = document.getElementById("authNum");
+				authNum.readOnly = true
+			} else {
+				Swal.fire({
+					icon : 'error',
+					title : '휴대폰 인증',
+					text : '인증이 실패하였습니다.',
+				})
+			}
+		}
+	</script>
+	<!-- 휴대폰 인증번호 확인 -->
 
 	<!-- Spinner Start -->
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -76,6 +132,7 @@
 						</button>
 						<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
 						</a> <a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+						
 						</a>
 					</div>
 				</div>
@@ -116,7 +173,7 @@
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<form action="modifyUserInfo.do" method="POST" name="joinForm" onsubmit="return checkField()">
+					<form action="modifyUserInfo.do" method="POST" name="joinForm" id="joinForm" onsubmit="return checkField()">
 						<div class="row g-4">
 							<div class="col-lg-12">
 								<input class="form-control p-3  border-secondary" type="text" value="${memberInfo.mName}" name="mName" placeholder="이름" required>
@@ -132,13 +189,13 @@
 								<input class="form-control p-3 border-secondary" type="text" id="phoneNum3" name="phoneNum3" placeholder="0000" required>
 							</div>
 							<div class="col-lg-4">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 발송</button>
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkTel()">인증번호 발송</button>
 							</div>
 							<div class="col-lg-8">
-								<input class="form-control p-3 border-secondary" type="text" name="authNum" placeholder="인증번호" required>
+								<input class="form-control p-3 border-secondary" type="text" name="authNum" placeholder="인증번호">
 							</div>
 							<div class="col-lg-4">
-								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="">인증번호 확인</button>
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkAuthNum()">인증번호 확인</button>
 							</div>
 							<input class="form-control p-3 border-secondary" type="hidden" id="email" placeholder="이메일 아이디"  value="${memberInfo.email}" required>
 							<div class="col-lg-4">
@@ -163,7 +220,7 @@
 								<input class="form-control p-3 border-secondary" type="text" value="${memberInfo.mDetailedAddress}" name="address2" placeholder="지번 주소" readonly required>
 							</div>
 							<div class="col-lg-6">
-								<input class="btn border-secondary text-primary rounded-pill py-3 px-5" type="submit" value="수정">
+								<button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="button" onclick="checkRequirement()">수정</button>
 							</div>
 							<div class="col-lg-6">
 								<a class="btn border border-secondary text-primary rounded-pill px-5 py-3" href="mypage.do">취소</a>
@@ -218,6 +275,30 @@
 
 		}
 	</script>
+	
+		<!-- 필수 항목 누락 검사 -->
+	<script>
+		function checkRequirement() {
+			var joinForm = document.getElementById("joinForm");
+			console.log('phoneNum1 : ' + phoneNum1);
+			console.log('phoneNum2 : ' + phoneNum2);
+			console.log('#phoneNum1 : ' + document.getElementById("phoneNum2").value);
+			console.log('#phoneNum2 : ' + document.getElementById("phoneNum3").value);
+			if (phoneNum1 == document.getElementById("phoneNum2").value && phoneNum2 == document.getElementById("phoneNum3").value) {
+				joinForm.submit();
+			} else if ((phoneNum1 != document.getElementById("phoneNum2").value || phoneNum2 != document.getElementById("phoneNum3").value) && authNumResult == true) {
+				joinForm.submit();
+			} else {
+				Swal.fire({
+					icon : 'error',
+					title : '필수 항목 검사',
+					text : '번호 인증을 진행해주세요.',
+				})
+			}
+		}
+	</script>
+	<!-- 필수 항목 누락 검사 -->
+	
 
 	<!-- phoneNumber 파싱 -->
 	<script type="text/javascript">
@@ -225,9 +306,12 @@
 	    console.log('originPhoneNum : ' + originPhoneNum);
 	    var phoneNums = originPhoneNum.split('-');
 	    console.log('phoneNums : ' + phoneNums);
-	    document.getElementById("phoneNum1").value = phoneNums[0];
-	    document.getElementById("phoneNum2").value = phoneNums[1];
-	    document.getElementById("phoneNum3").value = phoneNums[2];
+	    var phoneNum0 = phoneNums[0];
+	    var phoneNum1 = phoneNums[1];
+	    var phoneNum2 = phoneNums[2];
+	    document.getElementById("phoneNum1").value = phoneNum0;
+	    document.getElementById("phoneNum2").value = phoneNum1;
+	    document.getElementById("phoneNum3").value = phoneNum2;
 	</script>
 	
 	<!-- email 파싱 -->
