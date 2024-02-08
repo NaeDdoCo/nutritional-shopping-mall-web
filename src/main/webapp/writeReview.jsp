@@ -112,29 +112,6 @@
 	<!-- Navbar End -->
 
 
-	<!-- Modal Search Start -->
-	<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-fullscreen">
-			<div class="modal-content rounded-0">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body d-flex align-items-center">
-					<button class="btn border border-secondary text-primary rounded-pill me-4" type="button">로그아웃</button>
-					<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-						<i class="fas fa-search text-primary"></i>
-					</button>
-					<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
-					</a> <a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Search End -->
-
-
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">리뷰 작성</h1>

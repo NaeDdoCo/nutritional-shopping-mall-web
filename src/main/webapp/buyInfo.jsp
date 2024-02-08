@@ -72,9 +72,6 @@
 						<a href="couponInfoPage.do" class="nav-item nav-link">쿠폰관리</a></div>
 					<div class="d-flex m-3 me-0">
 						<a class="btn border border-secondary text-primary rounded-pill position-relative my-auto me-4" href="logout.do">로그아웃</a>
-						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="fas fa-search text-primary"></i>
-						</button>
 						<a href="cartPage.do" class="position-relative me-4 my-auto"> 
 							<i class="fa fa-shopping-bag fa-2x"></i> 
 						</a> 
@@ -87,25 +84,6 @@
 		</div>
 	</div>
 	<!-- Navbar End -->
-
-
-	<!-- Modal Search Start -->
-	<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-fullscreen">
-			<div class="modal-content rounded-0">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body d-flex align-items-center">
-					<div class="input-group w-75 mx-auto d-flex">
-						<input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Search End -->
 
 
 	<!-- Single Page Header start -->

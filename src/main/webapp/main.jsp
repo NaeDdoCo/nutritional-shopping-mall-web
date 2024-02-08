@@ -12,43 +12,44 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
-<!-- jquery -->
+<%-- jquery --%>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-<!-- sweetalert2 -->
+<%-- sweetalert2 --%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
-<!-- Google Web Fonts -->
+<%-- Google Web Fonts --%>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
-<!-- Icon Font Stylesheet -->
+<%-- Icon Font Stylesheet --%>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<!-- Libraries Stylesheet -->
+<%-- Libraries Stylesheet --%>
 <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-<!-- Customized Bootstrap Stylesheet -->
+<%-- Customized Bootstrap Stylesheet --%>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Template Stylesheet -->
+<%-- Template Stylesheet --%>
 <link href="css/style.css" rel="stylesheet">
 <link href="css/div.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/star-rating+.css" />
 
-<!-- 파비콘 -->
+<%-- 파비콘 --%>
 <custom:favicon/>
 </head>
 <body>
 
+	<%--로그아웃 확인 후 모달을 띄우는 커스텀 태그 --%>
 	<custom:loginResult logoutResult='${logoutResult}' />
 	
-
-	<!--  -->
+	
+	<%-- 팝업 쿠키 관련  --%>
 	<script>
         // 페이지 로드 시 실행할 함수
         window.onload = function () {
@@ -107,10 +108,10 @@
             var popupWindow = window.open(popupURL, popupName, "width=" + popupWidth + ",height=" + popupHeight + ",left=" + leftPosition + ",top=" + topPosition + ",resizable=no");
         }
 	</script>
-	<!--  -->
+	<%-- 팝업 쿠키 관련  --%>
 
 
-	<!-- 장바구니 추가 비동기처리 -->
+	<%-- 장바구니 추가 비동기처리 --%>
 	<script>
 		function addItemToCart(PID) {
 			$.ajax({
@@ -136,29 +137,24 @@
 			});
 		}
 	</script>
-	<!-- 장바구니 추가 비동기처리 -->
+	<%-- 장바구니 추가 비동기처리 --%>
 
 
-	<script>
-    	function updatePriceRange(value) {
-       	 document.getElementById('amount').value = value;
-    	}
-	</script>
-
-
-	<!-- Spinner Start -->
+	<%-- Spinner Start --%>
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-primary" role="status"></div>
 	</div>
-	<!-- Spinner End -->
+	<%-- Spinner End --%>
 
 
-	<!-- 로고가 포홤된 헤더 시작 -->
+	<%-- 로고가 포홤된 헤더 시작 --%>
 	<div class="container-fluid fixed-top">
+		<%-- 지도 헤더 --%>
 		<custom:commonHeader/>
+		<%-- 로고 헤더 --%>
 		<custom:commonHeaderWithLogo/>
 	</div>
-	<!-- 로고가 포홤된 헤더 끝 -->
+	<%-- 로고가 포홤된 헤더 끝 --%>
 
 
 	<!-- 검색 버튼 시작 -->
