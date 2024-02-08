@@ -14,6 +14,10 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <!-- jquery -->
 
+<%-- sweetalert2 --%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,26 +61,22 @@
 	<c:set var="BID" value="${param.BID}" />
 	<%-- 리뷰 작성 --%>
 	<script>
-		console.log("[로그] BID :" + ${BID});
 			
 		function writeReview(){
-			var form = document.getElementById('writeReviewForm');
 			
+			var form = document.getElementById('writeReviewForm');
 			var radioButtons = document.querySelectorAll('input[type=radio][name="rating"]');
+			var checked = false;
 			radioButtons.forEach(function(radioButton) {
-				console.log("[로그] 라디오 반복문");
 				if (radioButton.checked) {
-					console.log("[로그] 별점 :" + radioButton.value);
 					var scoreInput = document.createElement('input');
 		            scoreInput.type = 'hidden';
 		           	scoreInput.name = 'score';
 		           	scoreInput.value = radioButton.value;
 		           	form.appendChild(scoreInput);
+		           	checked = true;
 				}
 			});
-			
-			var a = $("#contents").val();
-			console.log("[로그] 내용 :" + a);
 			
 			var contentsInput = document.createElement('input');
 			contentsInput.type = 'hidden';
@@ -90,8 +90,21 @@
 		 	BIDInput.value = ${BID};
 		  	form.appendChild(BIDInput);
 		  	
-		  	form.submit();
-			
+		  	if(checked == false){
+		  		Swal.fire({
+					icon : 'error',
+					title : '양식 확인',
+					text : '별점을 매겨주세요.',
+				})
+		  	} else if(contentsInput.value == ""){
+		  		Swal.fire({
+					icon : 'error',
+					title : '양식 확인',
+					text : '내용을 기재해주세요.',
+				})
+		  	} else{
+		  		form.submit();
+		  	}
 		}
 	</script>
 	<%-- 리뷰 작성 --%>
@@ -138,7 +151,7 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="row">
-								<div class="star-rating space-x-4 mx-auto">
+								<div class="star-rating space-x-4 mx-auto" required>
 									<input type="radio" id="5-stars" name="rating" value="5"/>
 									<label for="5-stars" class="star pr-4">★</label>
 									<input type="radio" id="4-stars" name="rating" value="4"/>
@@ -168,7 +181,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
 	</div>
 	<!-- Single Product End -->
 
