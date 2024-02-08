@@ -89,9 +89,11 @@
 							</div>
 						</div>
 						<div class="col-lg-12">
-							<div class="col-lg-12">
-								<img src="img/${ReviewDetail.imageName}" alt="리뷰 이미지" style="max-width: 200px;max-height: 200px;margin: 5px;">
-							</div>
+							<c:if test="${not empty ReviewDetail.imageName}">
+								<div class="col-lg-12">
+									<img src="img/${ReviewDetail.imageName}" alt="리뷰 이미지" style="max-width: 200px;max-height: 200px;margin: 5px;">
+								</div>
+							</c:if>
 							<div class="d-flex justify-content-between py-3 mb-5">
 								<a class="btn border border-secondary text-primary rounded-pill px-4 py-3" href="reviewInfoPage.do"> 돌아가기</a>
 							</div>
