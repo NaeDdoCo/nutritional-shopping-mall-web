@@ -4,7 +4,7 @@
 		<div class="top-info ps-2">
 			<small class="me-3"> 
 				<i class="fas fa-map-marker-alt me-2 text-secondary"></i> 
-				<a href="Map.jsp" class="text-white">123 Street, New York</a>
+				<a href="map.jsp" class="text-white">123 Street, New York</a>
 			</small> 
 		</div>
 		<div class="top-link pe-2">
