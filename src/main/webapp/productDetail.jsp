@@ -119,7 +119,7 @@
 								<p class="mb-3">카테고리: ${productDetail.category}</p>
 								<h5 class="fw-bold mb-3">${productDetail.sellingPrice}원</h5>
 								<div class="d-flex mb-4">
-									<custom:starRate1 score='${productDetail.ancAvgRating}' index='0'/>
+									<custom:starRatePD1 score='${productDetail.ancAvgRating}' index='0'/>
 								</div>
 								<p class="mb-4">${productDetail.pDetail}</p>
 								<div class="input-group quantity mb-5" style="width: 100px;">
@@ -190,7 +190,7 @@
 													<p class="mb-2" style="font-size: 14px;">${review.createTime}</p>
 													<div class="d-flex justify-content-between">
 														<h5 class="mt-2">${review.MID}</h5>
-														<custom:starRate2 score='${review.score}' index='${loop.index}'/>
+														<custom:starRatePD2 score='${review.score}' index='${loop.index}'/>
 													</div>
 													<p>${review.contents}</p>
 												</div>

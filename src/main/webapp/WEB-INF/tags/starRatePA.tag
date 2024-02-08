@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/starRating+.css" />
 
-<div class="star-rating">
+<div class="star-rating mx-auto">
 	<input type="radio" id="5-stars1-${index}" name="stars1-${index}" value="5"/> 
 	<label class="star">★</label> 
 	<input type="radio" id="4-stars1-${index}" name="stars1-${index}" value="4"/> 

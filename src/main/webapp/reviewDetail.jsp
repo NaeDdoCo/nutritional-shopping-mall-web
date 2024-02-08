@@ -81,7 +81,7 @@
 							</div>
 						</div>
 						<div class="col-lg-4">
-							<custom:starRate1 score='${ReviewDetail.score}' index='${loop.index}'/>
+							<custom:starRateRD score='${ReviewDetail.score}' index='${loop.index}'/>
 						</div> 
 						<div class="col-lg-12">
 							<div class="border-bottom rounded my-4">

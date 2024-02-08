@@ -193,7 +193,7 @@
 								<div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${data.category}</div>
 								<div class="p-4 rounded-bottom">
 									<h4 style="text-align: center;">${data.pName}</h4>
-									<custom:starRate1 score='${data.ancAvgRating}' index='${loop.index}'/>
+									<custom:starRateMain1 score='${data.ancAvgRating}' index='${loop.index}'/>
 									<div class="line-clamp my-2">
 										<p>${data.pDetail}</p>
 									</div>
@@ -257,7 +257,7 @@
 															<div>
 																<h4>${data.pName}</h4>
 																<div>
-																	<custom:starRate2 score='${data.ancAvgRating}' index='${loop.index}'/>
+																	<custom:starRateMain2 score='${data.ancAvgRating}' index='${loop.index}'/>
 																</div>
 																<div class="line-clamp my-2">
 																	<p>${data.pDetail}</p>
