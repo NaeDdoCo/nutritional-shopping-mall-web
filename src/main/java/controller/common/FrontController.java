@@ -36,7 +36,10 @@ public class FrontController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String cp = request.getContextPath();
 		String commend = uri.substring(cp.length());
-		System.out.println("[FrontController] action: " + commend);
+		
+		if (commend == "error.do") {
+			System.out.println("[FrontController] action: " + commend);
+		}
 
 		Action action = handler.getAction(commend);
 		// 나한테 Action 객체주라~~

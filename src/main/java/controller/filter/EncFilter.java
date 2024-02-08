@@ -27,7 +27,7 @@ public class EncFilter extends HttpFilter implements Filter {
 			
 			request.setCharacterEncoding(encoding);
 		}
-		System.out.println("[로그] 필터 서블릿 클래스에서 작성한 로그");
+//		System.out.println("[로그] 필터 서블릿 클래스에서 작성한 로그");
 		
 		chain.doFilter(request, response);
 	}
