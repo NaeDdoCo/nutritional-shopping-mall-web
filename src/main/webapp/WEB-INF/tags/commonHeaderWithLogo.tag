@@ -29,13 +29,6 @@
 				<!-- 로그아웃 버튼 -->
 				
 				
-				<!-- 검색 버튼 -->
-				<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-					<i class="fas fa-search text-primary"></i>
-				</button>
-				<!-- 검색 버튼 -->
-				
-				
 				<!-- 장바구니 버튼 -->
 				<c:if test="${not empty member}">
 					<a href="cartPage.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i>
