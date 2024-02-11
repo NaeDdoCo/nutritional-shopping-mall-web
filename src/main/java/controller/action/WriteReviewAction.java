@@ -20,7 +20,9 @@ public class WriteReviewAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		/*
+		 * 구매내역-리뷰 작성 로직 
+		 */
 		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();
 		ReviewDTO rDTO = new ReviewDTO();
@@ -30,6 +32,11 @@ public class WriteReviewAction implements Action {
 		
 		//업로드된 파일이 저장될 디렉토리 위치(사용하는 워크스페이스의 img폴더 주소)
 		String directory = ".\\src\\main\\webapp\\img";
+        String currentDirectory = System.getProperty("user.dir");
+
+        // 출력
+        System.out.println("현재 작업 디렉토리: " + currentDirectory);
+
 		
 		// 파일크기 제한 10MB(단위 byte)
 		int sizeLimit = 10 * 1024 * 1024; 
@@ -62,7 +69,7 @@ public class WriteReviewAction implements Action {
 		// 이미지 이름을 DTO에 저장
 		rDTO.setImageName(imageFileName);
 		rDTO.setSearchCondition("리뷰작성");
-		System.out.println("[log] WriteReviewAction rDTO [" + rDTO + "]");
+//		System.out.println("[log] /WriteReviewAction rDTO [" + rDTO + "]");
 		boolean insertReviewResult = rDAO.insert(rDTO);
 
 		// 리뷰작성유무확인
@@ -76,12 +83,12 @@ public class WriteReviewAction implements Action {
 //      if(insertReviewResult && updateHasReviewResult) {
 		if (insertReviewResult) {
 			// 성공시 리뷰목록으로 이동
-			System.out.println("[log] reviewInsert 성공! ");
+//			System.out.println("[log] reviewInsert 성공! ");
 			forward.setPath("reviewInfoPage.do");
 			forward.setRedirect(false);
 		} else {
 			// 실패시 에러페이지
-			System.out.println("[log] reviewInsert 실패 ");
+//			System.out.println("[log] reviewInsert 실패 ");
 			forward.setPath("error.do");
 			forward.setRedirect(true);
 		}

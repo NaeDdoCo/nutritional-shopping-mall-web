@@ -38,9 +38,7 @@ public class HandlerMapper {
 	
 	public HandlerMapper() {
 		this.mappings = new HashMap<String,Action>();
-		
-		System.out.println("[log] HandlerMapper ");
-		
+//		System.out.println("[log] HandlerMapper ");
 		this.mappings.put("/mainPage.do", new MainPageAction()); // 메인페이지
 		this.mappings.put("/joinPage.do", new JoinPageAction());// 회원가입페이지
 		this.mappings.put("/termsPage.do", new TermsPageAction());// 약관페이지
@@ -55,8 +53,8 @@ public class HandlerMapper {
 		this.mappings.put("/modifyUserInfo.do", new ModifyUserInfoAction());// 마이페이지_개인정보수정
 		this.mappings.put("/modifyUserPasswordPage.do", new ModifyUserPasswordPageAction());// 마이페이지_비밀번호변경페이지
 		this.mappings.put("/modifyUserPassword.do", new ModifyUserPasswordAction());// 마이페이지_비밀번호변경
-		this.mappings.put("/buyInfoPage.do", new BuyInfoPageAction());// 마이페이지-구매내역
-		this.mappings.put("/couponInfoPage.do", new CouponInfoPageAction());// 마이페이지-나의쿠폰목록(쿠폰관리)
+		this.mappings.put("/buyInfoPage.do", new BuyInfoPageAction());// 마이페이지_구매내역
+		this.mappings.put("/couponInfoPage.do", new CouponInfoPageAction());// 마이페이지_쿠폰목록(쿠폰관리)
 		this.mappings.put("/writeReviewPage.do", new WriteReviewPageAction());// 리뷰작성페이지
 		this.mappings.put("/writeReview.do", new WriteReviewAction());// 리뷰작성
 		this.mappings.put("/reviewInfoPage.do", new ReviewInfoPageAction());// 리뷰목록페이지

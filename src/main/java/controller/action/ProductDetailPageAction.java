@@ -19,17 +19,21 @@ public class ProductDetailPageAction implements Action{
    @Override
    public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-      
+		/* 
+		 * 상품상세조회페이지
+		 */
       ActionForward forward = new ActionForward();
-      
       ProductDAO pDAO = new ProductDAO();
       ProductDTO pDTO = new ProductDTO();
       ReviewDAO rDAO=new ReviewDAO();
       ReviewDTO rDTO=new ReviewDTO();
       
+      //V로부터 넘겨받은 정보 : PID
       String strPID = request.getParameter("PID");
+      //int로 형변환
       int PID = Integer.parseInt(strPID);
       
+      //DB에서 상품상세정보 가져오기
       pDTO.setPID(Integer.parseInt(request.getParameter("PID")));
       pDTO.setSearchCondition("상품상세정보");
       pDTO = pDAO.selectOne(pDTO);
@@ -37,19 +41,17 @@ public class ProductDetailPageAction implements Action{
       //해당 PID의 평균 별점 가져오기
       int avgRating = getAverageRating(PID);
       pDTO.setAncAvgRating(avgRating);
-      System.out.println("[log] ProductDetailPageAction rDTO PID : " + pDTO.getPID());
-      System.out.println("[log] ProductDetailPageAction rDTO 평균별점 : " + pDTO.getAncAvgRating());
+//      System.out.println("[log] ProductDetailPageAction rDTO PID : " + pDTO.getPID());
+//      System.out.println("[log] ProductDetailPageAction rDTO 평균별점 : " + pDTO.getAncAvgRating());
       
-      //PID로 해당 제품의 리뷰 정보 조회
-      ArrayList<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
-      
+      //PID로 해당 상품의 리뷰내역 조회
       rDTO.setAncPID(PID);
       rDTO.setSearchCondition("상품리뷰");
-      reviewList = rDAO.selectAll(rDTO);
-     
+      ArrayList<ReviewDTO> reviewList = rDAO.selectAll(rDTO);
+//    System.out.println("[log]reviewList :"+reviewList);
       rDTO.setAncPID(PID);
        
-      // 조회된 상품 정보와 리뷰 정보를 JSP에 전달
+      //조회된 상품 정보와 리뷰 내역을 V에 전달
       request.setAttribute("productDetail", pDTO);
       request.setAttribute("reviewList", reviewList);
         
@@ -59,9 +61,9 @@ public class ProductDetailPageAction implements Action{
       return forward;
    }
    
-   //평균별점 계산 후 가져오기_소수점자리 절삭
+   //평균별점 계산 메서드(소수점자리 절삭)
 	private int getAverageRating(int PID) {
-		System.out.println("getAverageRating 메서드 진입");
+//		System.out.println("getAverageRating 메서드 진입");
 	    ReviewDTO rDTO = new ReviewDTO();
 	    ReviewDAO rDAO = new ReviewDAO();
 	    

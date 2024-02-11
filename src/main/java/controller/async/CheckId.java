@@ -25,13 +25,12 @@ public class CheckId extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//request로 MID 받아오기
+		//V로부터 MID 가져오기
 		String MID = request.getParameter("MID");
-		
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
 		
-		//중복된 ID가 있는지 확인
+		//DB에서 중복된 ID가 있는지 확인
 		mDTO.setSearchCondition("아이디중복검사");
 		mDTO.setMID(MID);
 		mDTO = mDAO.selectOne(mDTO);

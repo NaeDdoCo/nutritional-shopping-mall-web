@@ -44,8 +44,8 @@ public class MainPageAction implements Action {
 			int pid = productDTO.getPID();
 			int avgRating = getAverageRating(pid);
 			productDTO.setAncAvgRating(avgRating);
-			System.out.println("[log] PID : " + productDTO.getPID());
-			System.out.println("[log] pDTOs 평균별점 " + productDTO.getAncAvgRating());
+//			System.out.println("[log] PID : " + productDTO.getPID());
+//			System.out.println("[log] pDTOs 평균별점 " + productDTO.getAncAvgRating());
 		}
 
 		// 메인페이지 상단 추천상품_8개
@@ -53,7 +53,7 @@ public class MainPageAction implements Action {
 		rcmDTOs = pDAO.selectAll(pDTO);
 		
 		rcmDTOs = recommendProduct(request, rcmDTOs);
-		System.out.println("[log] rcmDTOs : "+ rcmDTOs);
+//		System.out.println("[log] rcmDTOs : "+ rcmDTOs);
 		
 		// 추천 상품이 0개면 판매량순 추천
 		request.setAttribute("pDTOs", pDTOs);
@@ -65,9 +65,9 @@ public class MainPageAction implements Action {
 				int pid = productDTO.getPID();
 				int avgRating = getAverageRating(pid);
 				productDTO.setAncAvgRating(avgRating);
-				System.out.println("[log] productDTO : " + productDTO);
-				System.out.println("[log] PID : " + productDTO.getPID());
-				System.out.println("[log] rcmDTOs 평균별점 " + productDTO.getAncAvgRating());
+//				System.out.println("[log] productDTO : " + productDTO);
+//				System.out.println("[log] PID : " + productDTO.getPID());
+//				System.out.println("[log] rcmDTOs 평균별점 " + productDTO.getAncAvgRating());
 			}
 			
 			int i = 0;
@@ -80,8 +80,8 @@ public class MainPageAction implements Action {
 		forward.setPath("main.jsp");
 		forward.setRedirect(false);
 
-		System.out.println("ctrl rcmDTOs: " + rcmDTOs);
-		System.out.println("ctrl pDTOs: " + pDTOs);
+//		System.out.println("ctrl rcmDTOs: " + rcmDTOs);
+//		System.out.println("ctrl pDTOs: " + pDTOs);
 		return forward;
 	}
 
@@ -108,7 +108,7 @@ public class MainPageAction implements Action {
 		MemberDTO mDTO = new MemberDTO();
 
 		if (mid != null) { // 로그인 : HEALTH 기반 추천
-			System.out.println("recommendProduct: 로그인");
+//			System.out.println("recommendProduct: 로그인");
 //			System.out.println("recommendProduct: mid: " + mid);
 			
 			mDTO.setSearchCondition("건강상태");
@@ -194,12 +194,10 @@ public class MainPageAction implements Action {
 				}
 			}
 		}
-
-		System.out.println(rcmDTOs);
+//		System.out.println(rcmDTOs);
 //		for (ProductDTO data : rcmDTOs) {
 //			retDTOs.add(data);
 //		}
-
 		return rcmDTOs;
 	}
 	

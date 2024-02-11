@@ -28,30 +28,33 @@ public class CheckTel extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        /*
+         * 연락처 받아와서 인증번호 생성 후 sms 발송하는 로직
+         */
+		
 		//받아온 연락처 010,XXXX,XXXX -> 010XXXXXXXX 로 합치기
 		String phoneNumber1 = (String)request.getParameter("phoneNum1");
 		String phoneNumber2 = (String)request.getParameter("phoneNum2");
 		String phoneNumber3 = (String)request.getParameter("phoneNum3");
-		
 		String combinedPhoneNumber = phoneNumber1 + phoneNumber2 + phoneNumber3;
 		
 		//5자리의 인증번호 랜덤으로 생성
 		Random random  = new Random();
-        String numStr = "";
+        String authNum = "";
+        //5회 반복
         for(int i=0; i<5; i++) {
         	// 0부터 9까지 랜덤으로 숫자생성
             String ranNum = Integer.toString(random.nextInt(10));
             // 랜덤으로 나온 숫자를 누적 => 5자리
-            numStr += ranNum;
+            authNum += ranNum;
         }
         
-		//sms api를 사용하여 sms 발송
+        //coolsms API를 사용하여 sms 발송
 		DefaultMessageService messageService =  NurigoApp.INSTANCE.initialize("NCSIRGLICTR0VZBW", "KPT4Q2B8FIEZWSXLR4PRD3NTXDUKEQMM", "https://api.coolsms.co.kr");
 		Message message = new Message();
 		message.setFrom("01093193710");
 		message.setTo(combinedPhoneNumber);
-		message.setText("내또코 영양제 쇼핑몰 인증번호 [" + numStr + "]을 입력해주세요.       (*´ω`*)~♡'");
+		message.setText("내또코 영양제 쇼핑몰 인증번호 [" + authNum + "]을 입력해주세요.(*´ω`*)~♡'");
 
 		try {
 		  messageService.send(message);
@@ -63,9 +66,9 @@ public class CheckTel extends HttpServlet {
 		  System.out.println(exception.getMessage());
 		}
 		
-		//V에 인증번호 전달
+		//생성된 인증번호 전달
 		PrintWriter out = response.getWriter();
-		out.print(numStr);	
+		out.print(authNum);	
 	}
 
 }

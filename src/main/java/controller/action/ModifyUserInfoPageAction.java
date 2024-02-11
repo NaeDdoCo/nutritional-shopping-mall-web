@@ -17,27 +17,26 @@ public class ModifyUserInfoPageAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		/*
+		 * 마이페이지-회원정보변경페이지-로그인한 회원정보 출력 로직
+		 */
 		ActionForward forward = new ActionForward();
-		//C -> V에 전달해줄 정보
-		//이름,생년월일,성별,핸드폰번호,이메일,주소
-		
-		//입력되어있던 핸드폰 번호와 일치할 경우 인증번호x
-		//입력되어있던 핸드폰 번호와 일치하지 경우 인증번호 필수
-		
+		//세션의 MID 가져오기
 		HttpSession session = request.getSession();
 		String MID = (String)session.getAttribute("member");
 		
 		MemberDTO mDTO = new MemberDTO();
 		MemberDAO mDAO = new MemberDAO();
-		
+		//로그인된 회원정보 DB에서 조회
 		mDTO.setMID(MID);
 		mDTO.setSearchCondition("회원정보");
 		mDTO = mDAO.selectOne(mDTO);
-		System.out.println("[log]ModifyUserInfoPageAction mDTO [" + mDTO + "]");
+//		System.out.println("[log]ModifyUserInfoPageAction mDTO [" + mDTO + "]");
 		
-		//DB에 저장되어있던 회원정보 보내주기
+		//조회된 회원정보 보내주기
 		request.setAttribute("memberInfo", mDTO);
-		
+		//정보를 보낼 경로와 redirect방식 설정
+		//개인정보수정 화면으로 이동
 		forward.setPath("modifyUserInfo.jsp");
 		forward.setRedirect(false);
 		
