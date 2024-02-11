@@ -127,15 +127,12 @@ public class ProductDAO {
 				// 쿼리문 실행 및 결과 저장
 				ResultSet rs = pstmt.executeQuery();
 				System.out.println("[MODEL_로그_상품목록페이지] 쿼리문 실행");
+				
+				// 여러 상품의 정보를 저장할 리스트 객체 생성
+				productList = new ArrayList<ProductDTO>();
 
 				// 쿼리문 결과가 있다면 실행
-				while (rs.next()) {
-					
-					// 상품리스트가 null일 때 객체를 생성함
-					if (productList == null) {
-						// 여러 상품의 정보를 저장할 리스트 객체 생성
-						productList = new ArrayList<ProductDTO>();					
-					}
+				while (rs.next()) {					
 					
 					// 상품 하나의 정보를 저장할 객체
 					productDTO = new ProductDTO();
@@ -239,14 +236,12 @@ public class ProductDAO {
 				// 쿼리문 실행 및 결과 저장
 				ResultSet rs = pstmt.executeQuery();
 				System.out.println("[MODEL_로그_상품출력필터] 실행");
+				
+				// 여러 상품데이터를 저장해서 반환될 객체 생성
+				productList = new ArrayList<ProductDTO>();
 
 				// 쿼리문 실행 결과가 있을 경우 실행
 				while (rs.next()) {
-
-					// 상품리스트가 없을 때만 새로 생성
-					if (productList == null) {
-						productList = new ArrayList<ProductDTO>();
-					}
 
 					// 상품 하나의 데이터만 저장하기위한 객체 생성
 					productDTO = new ProductDTO();

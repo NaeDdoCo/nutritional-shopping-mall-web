@@ -95,7 +95,6 @@ public class BuyInfoDAO {
 				// 행을 확인해서 데이터가 있다면 실행하고 바디가 종료되면 다음 행으로 넘어감
 				while (rs.next()) {
 
-					//
 					buyInfoDTO = new BuyInfoDTO();
 
 					// rs에 저장된 데이터를 JAVA에서 사용가능하게 리스트에 넣기위해 DTO객체에 값을 set하는 코드
