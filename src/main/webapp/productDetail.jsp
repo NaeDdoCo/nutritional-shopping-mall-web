@@ -194,6 +194,11 @@
 														<custom:starRatePD2 score='${review.score}' index='${loop.index}'/>
 													</div>
 													<p>${review.contents}</p>
+													<c:if test="${not empty ReviewDetail.imageName}">
+														<div class="col-lg-12">
+															<img src="img/${ReviewDetail.imageName}" alt="리뷰 이미지" style="max-width: 200px;max-height: 200px;margin: 5px;">
+														</div>
+													</c:if>
 												</div>
 											</div>
 										</c:forEach>
