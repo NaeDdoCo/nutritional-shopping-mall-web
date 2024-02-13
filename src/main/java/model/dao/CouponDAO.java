@@ -33,7 +33,7 @@ public class CouponDAO {
 	// (관) 사용자에게 쿠폰을 지급하는 관리자 기능
 	// 유효기간을 지정해서 부여한다
 	private static final String INSERT_COUPON = "INSERT INTO COUPON (CP_ID, M_ID, CP_NAME, PERIOD, DISCOUNT, CATEGORY) "
-			+ "VALUES "
+			+ "VALUES ("
 			+ "?, "
 			+ "?, "
 			+ "?, "
