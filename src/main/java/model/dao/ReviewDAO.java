@@ -27,7 +27,7 @@ public class ReviewDAO {
 	// 상품 리뷰
 	// 상품 세부정보페이지의 하단에 해당 상품에 대한 리뷰를 출력
 	// 최근 리뷰 순으로 정렬
-	private static final String SELECTALL_REVIEW_PRODUCT = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME "
+	private static final String SELECTALL_REVIEW_PRODUCT = "SELECT R.R_ID, R.M_ID, R.B_ID, R.SCORE, R.CONTENTS, R.CREATE_TIME, B.P_ID, P.P_NAME, P.IMAGE_PATH "
 			+ "FROM REVIEW R " + "JOIN BUYINFO B ON B.B_ID = R.B_ID " + "JOIN PRODUCT P ON B.P_ID = P.P_ID "
 			+ "WHERE B.P_ID =? " + "ORDER BY R.CREATE_TIME DESC";
 
@@ -168,6 +168,7 @@ public class ReviewDAO {
 					reviewDTO.setAncCreateTime(createTime);
 					reviewDTO.setAncPID(rs.getInt("P_ID"));
 					reviewDTO.setAncPName(rs.getString("P_NAME"));
+					reviewDTO.setAncImagePath(rs.getString("IMAGE_PATH"));
 					// 하나의 리뷰 데이터가 저장된 객체를 리스트에 저장
 					reviewList.add(reviewDTO);
 				}
