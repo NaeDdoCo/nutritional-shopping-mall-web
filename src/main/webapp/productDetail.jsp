@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom"%>
 <!DOCTYPE html>
 <html>
 
@@ -38,7 +38,7 @@
 <link href="css/style.css" rel="stylesheet">
 
 <!-- 파비콘 -->
-<custom:favicon/>
+<custom:favicon />
 </head>
 
 <body>
@@ -85,9 +85,9 @@
 	<%-- 로고가 포홤된 헤더 시작 --%>
 	<div class="container-fluid fixed-top">
 		<%-- 지도 헤더 --%>
-		<custom:commonHeader/>
+		<custom:commonHeader />
 		<%-- 로고 헤더 --%>
-		<custom:commonHeaderWithLogo/>
+		<custom:commonHeaderWithLogo />
 	</div>
 	<%-- 로고가 포홤된 헤더 끝 --%>
 
@@ -117,9 +117,12 @@
 							<div class="col-lg-6">
 								<h4 class="fw-bold mb-3">${productDetail.pName}</h4>
 								<p class="mb-3">카테고리: ${productDetail.category}</p>
-								<h5 class="fw-bold mb-3"><fmt:formatNumber value="${productDetail.sellingPrice}" currencyCode="KRW" />원</h5>
+								<h5 class="fw-bold mb-3">
+									<fmt:formatNumber value="${productDetail.sellingPrice}" currencyCode="KRW" />
+									원
+								</h5>
 								<div class="d-flex mb-4">
-									<custom:starRatePD1 score='${productDetail.ancAvgRating}' index='0'/>
+									<custom:starRatePD1 score='${productDetail.ancAvgRating}' index='0' />
 								</div>
 								<p class="mb-4">${productDetail.pDetail}</p>
 								<div class="input-group quantity mb-5" style="width: 100px;">
@@ -128,7 +131,7 @@
 											<i class="fa fa-minus"></i>
 										</button>
 									</div>
-										<input type="text" id="cQty" class="form-control form-control-sm text-center border-0" value="1" readonly>
+									<input type="text" id="cQty" class="form-control form-control-sm text-center border-0" value="1" readonly>
 									<div class="input-group-btn">
 										<button class="btn btn-sm btn-plus rounded-circle bg-light border">
 											<i class="fa fa-plus"></i>
@@ -183,6 +186,12 @@
 
 									</div>
 									<div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+										<c:if test="${empty reviewList}">
+											<c:set var="message" value="리뷰가 존재하지 않습니다." />
+											<p style="text-align: center;">
+												<c:out value="${message}" />
+											</p>
+										</c:if>
 										<c:forEach var="review" items="${reviewList}" varStatus="loop">
 											<div class="d-flex">
 												<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
@@ -190,12 +199,12 @@
 													<p class="mb-2" style="font-size: 14px;">${review.createTime}</p>
 													<div class="d-flex justify-content-between">
 														<h5 class="mt-2">${review.MID}</h5>
-														<custom:starRatePD2 score='${review.score}' index='${loop.index}'/>
+														<custom:starRatePD2 score='${review.score}' index='${loop.index}' />
 													</div>
 													<p>${review.contents}</p>
 													<c:if test="${not empty review.imageName}">
 														<div class="col-lg-12">
-															<img src="img/${review.imageName}" alt="리뷰 이미지" style="max-width: 200px;max-height: 200px;margin: 5px;">
+															<img src="img/${review.imageName}" alt="리뷰 이미지" style="max-width: 200px; max-height: 200px; margin: 5px;">
 														</div>
 													</c:if>
 												</div>
@@ -218,12 +227,12 @@
 
 
 	<!-- 풋터 시작 -->
-	<custom:commonFooter/>
+	<custom:commonFooter />
 	<!-- 풋터 끝 -->
-	
+
 
 	<!-- 카피라이트 시작 -->
-	<custom:commonCopyright/>
+	<custom:commonCopyright />
 	<!-- 카피라이트 끝 -->
 
 
@@ -241,7 +250,7 @@
 
 	<!-- Template Javascript -->
 	<script src="js/main.js"></script>
-	
+
 </body>
 
 </html>
