@@ -55,7 +55,6 @@
 				data : {'PID' : PID,
 						'cQty' : cQty},
 				success : function(data) {
-					//console.log(data);
 					if (data === "true") {
 						Swal.fire({
 							icon : 'success',
@@ -194,9 +193,9 @@
 														<custom:starRatePD2 score='${review.score}' index='${loop.index}'/>
 													</div>
 													<p>${review.contents}</p>
-													<c:if test="${not empty ReviewDetail.imageName}">
+													<c:if test="${not empty review.imageName}">
 														<div class="col-lg-12">
-															<img src="img/${ReviewDetail.imageName}" alt="리뷰 이미지" style="max-width: 200px;max-height: 200px;margin: 5px;">
+															<img src="img/${review.imageName}" alt="리뷰 이미지" style="max-width: 200px;max-height: 200px;margin: 5px;">
 														</div>
 													</c:if>
 												</div>
