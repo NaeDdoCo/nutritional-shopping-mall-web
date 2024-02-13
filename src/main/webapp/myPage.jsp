@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>마이</title>
+<title>마이페이지</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -107,7 +107,7 @@
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">마이</h1>
+		<h1 class="text-center text-white display-6">마이페이지</h1>
 	</div>
 	<!-- Single Page Header End -->
 
