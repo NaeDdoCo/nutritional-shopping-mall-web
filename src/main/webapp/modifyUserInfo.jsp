@@ -111,7 +111,10 @@
 			<nav class="navbar navbar-light bg-white navbar-expand-xl">
 				<!-- 로고 버튼 -->
 				<a href="mainPage.do" class="navbar-brand">
-  					<img src="img/logo.png" alt="대체 텍스트">
+  					<img src="img/favicon.png" width="70" alt="대체 텍스트">
+				</a>
+				<a href="mainPage.do" class="navbar-brand">
+  					<img src="img/logo.png" width="250" alt="대체 텍스트">
 				</a>
 				<!-- 로고 버튼 -->
 				<button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
