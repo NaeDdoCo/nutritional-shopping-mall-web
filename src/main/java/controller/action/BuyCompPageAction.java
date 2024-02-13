@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ch.qos.logback.core.util.SystemInfo;
 import controller.common.Action;
 import controller.common.ActionForward;
 import model.dao.BuyInfoDAO;
@@ -94,11 +95,12 @@ public class BuyCompPageAction implements Action{
 				CPID = "";
 				for (int j = 0; j < CPIDs.length; j++) {
 					CPID = CPIDs[j];
-					System.out.println("[BuyCompPage] CPID [" + CPID + "]");
+//					System.out.println("[BuyCompPage] CPID [" + CPID + "]");
 					discount = Integer.parseInt(discounts[j].trim());
 					couponCategory = couponCategories[j];
 
-					if (productCategory.equals(couponCategory)) {
+//					System.out.println("[BuyCompPage] productCategory[" + productCategory + "] couponCategory[" + couponCategory.trim() + "]");
+					if (productCategory.equals(couponCategory.trim())) {
 						sellingPrice = sellingPrice * (100 - discount) / 100;
 						break;
 					}
@@ -106,8 +108,11 @@ public class BuyCompPageAction implements Action{
 				if (!CPID.equals("")) {
 					bDTO.setCPID(CPID);
 				}
+			} else {
+				System.out.println("CPIDs == null");
 			}
 
+			// 구매 내역 추가
 			bDTO.setPID(PID);
 			bDTO.setbQty(qty);
 			bDTO.setPaymentPrice(sellingPrice);
