@@ -1,6 +1,10 @@
-# 내또코 영양제 쇼핑몰
+<div align=center>
+  
+# 💊내또코 영양제 쇼핑몰💊
 
-웹 기반의 멋진 쇼핑몰 프로젝트입니다.
+</div>
+
+웹 기반의 멋진 쇼핑몰 프로젝트입니다.<br>
 사용자들에게 편리한 쇼핑 경험을 제공하며, 다양한 상품을 쉽게 탐색하고 구매할 수 있습니다.
 
 
@@ -19,11 +23,11 @@
 
 | 임시1       | 도구          |
 | ---------- | ------------- |
-| 개발도구 | JDK Development Kit 17 & Eclipse IDE |
-| 운영체제 | Window10 & macOS Big Sur |
-| 데이터베이스 | Oracle 11g Express Edition |
-| 서버 | Apache Tomcat 9 |
-| 임시2 | Github & Sourcetree |
+| 개발도구 | <img src="https://img.shields.io/badge/JDK%20Development%20Kit%2017-000000?style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/eclipse%20ide-2C2255?style=for-the-badge&logo=eclipse&logoColor=white"> |
+| 운영체제 | <img src="https://img.shields.io/badge/windows10-0078D6?style=for-the-badge&logo=windows10&logoColor=white"> <img src="https://img.shields.io/badge/macos%20bigsur-000000?style=for-the-badge&logo=macos&logoColor=white"> |
+| 데이터베이스 | <img src="https://img.shields.io/badge/Oracle%2011g%20Express%20Edition-F80000?style=for-the-badge&logo=oracle&logoColor=white">  |
+| 웹서버 | <img src="https://img.shields.io/badge/Apache%20Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black"> |
+| 버전관리 | <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/sourcetree-0052CC?style=for-the-badge&logo=sourcetree&logoColor=white"> |
 
 ## 사용한 디자인 패턴
 
@@ -31,4 +35,11 @@
 2. 싱글톤 패턴
 3. 팩토리 패턴
 
-## 이후 이어서 작성
+## 팀원
+
+<div>
+🙋‍♂️강준현 nawaddaing@gmail.com<br>
+🙋‍♂️이지훈 leesstudymail0204@gmail.com<br>
+🙋‍♂️정훈석 wjdgnstjr93@gmail.com<br>
+🙋‍♀️하정희 hajeonghui@gmail.com<br>
+</div>
