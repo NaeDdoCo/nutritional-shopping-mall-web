@@ -50,7 +50,7 @@ public class CheckUserPasswordAction implements Action{
 				forward.setRedirect(false);
 			}else if(getPath.equals("modifyUserPassword")) {
 				forward.setPath("modifyUserPasswordPage.do");
-				forward.setRedirect(false);
+				forward.setRedirect(true);
 			}else {
 				forward.setPath("error.do");
 				forward.setRedirect(true);
